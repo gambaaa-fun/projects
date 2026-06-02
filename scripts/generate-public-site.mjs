@@ -38,6 +38,8 @@ try {
       renderedSites.push({
         originalUrl,
         repoName: repoNameFromUrl(originalUrl),
+        repoUrl: repoUrlFromSiteUrl(originalUrl),
+        readme: await readmeInfoFromSiteUrl(originalUrl),
         finalUrl: result.finalUrl,
         isGambaaa: isGambaaaHost(result.finalUrl),
         screenshot: result.gallery[0]?.screenshot || null,
@@ -425,8 +427,7 @@ async function crawlSite(browser, originalUrl) {
       const screenshotName = screenshotNameForUrl(finalUrl);
       const screenshotPath = path.join(screenshotsDir, screenshotName);
       const screenshotUrl = `screenshots/${screenshotName}`;
-      const galleryKey = `${finalUrl}::${screenshotUrl}`;
-
+      const galleryKey = canonicalUrl(finalUrl);
       const screenshotExists = await fileExists(screenshotPath);
 
       if (galleryKeys.has(galleryKey)) {
@@ -714,13 +715,25 @@ function siteScopeFromUrl(rawUrl) {
 }
 
 function normalizeUrl(rawUrl) {
+  return canonicalUrl(rawUrl);
+}
+
+function canonicalUrl(rawUrl) {
   const url = new URL(rawUrl);
+  url.hostname = url.hostname.toLowerCase();
   url.hash = "";
+
+  const lastSegment = url.pathname.split("/").filter(Boolean).at(-1) || "";
+  const isFile = /\.[a-z0-9]+$/i.test(lastSegment);
+  if (!isFile && url.pathname !== "/" && url.pathname.endsWith("/")) {
+    url.pathname = url.pathname.slice(0, -1);
+  }
+
   return url.href;
 }
 
 function screenshotNameForUrl(rawUrl) {
-  return `${hashUrl(normalizeUrl(rawUrl))}.png`;
+  return `${hashUrl(canonicalUrl(rawUrl))}.png`;
 }
 
 function hashUrl(rawUrl) {
@@ -765,6 +778,107 @@ function repoNameFromUrl(rawUrl) {
   const parsed = new URL(rawUrl);
   const parts = parsed.pathname.split("/").filter(Boolean);
   return parts.at(-1) || parsed.hostname;
+}
+
+function repoUrlFromSiteUrl(rawUrl) {
+  return `https://github.com/pslib-cz/${repoNameFromUrl(rawUrl)}`;
+}
+
+async function readmeInfoFromSiteUrl(rawUrl) {
+  const repoName = repoNameFromUrl(rawUrl);
+  const readmeUrl = `https://raw.githubusercontent.com/pslib-cz/${repoName}/main/README.md`;
+
+  try {
+    const response = await fetch(readmeUrl, {
+      redirect: "follow",
+      signal: AbortSignal.timeout(10000),
+    });
+
+    if (!response.ok) {
+      return { url: null, links: [] };
+    }
+
+    const content = await response.text();
+    const links = extractUsefulReadmeLinks(content, repoName);
+
+    return {
+      url: repoUrlFromSiteUrl(rawUrl),
+      links,
+    };
+  } catch {
+    return { url: null, links: [] };
+  }
+}
+
+function extractUsefulReadmeLinks(content, repoName) {
+  const rawUrls = [...content.matchAll(/https?:\/\/[^\s<>"')\]]+/gi)].map(
+    (match) => cleanReadmeUrl(match[0]),
+  );
+
+  const assetHints = [
+    ...content.matchAll(
+      /(?:^|[\s[(])((?:\.\/|\/)?public\/assets\/images\/?[^\s<>"')\]]*)/gim,
+    ),
+  ].map(
+    (match) =>
+      `https://github.com/pslib-cz/${repoName}/tree/main/${match[1].replace(/^\.?\//, "")}`,
+  );
+
+  return unique([...rawUrls, ...assetHints])
+    .map((url) => normalizeReadmeLink(url, repoName))
+    .filter(Boolean)
+    .filter((url) => !isDiscardedReadmeUrl(url))
+    .map((url) => ({
+      url,
+      label: readmeLinkLabel(url),
+    }));
+}
+
+function cleanReadmeUrl(url) {
+  return url.replace(/[),.;\]]+$/g, "");
+}
+
+function normalizeReadmeLink(rawUrl, repoName) {
+  try {
+    if (rawUrl.startsWith("/public/assets/images")) {
+      return `https://github.com/pslib-cz/${repoName}/tree/main${rawUrl}`;
+    }
+
+    return new URL(rawUrl).href;
+  } catch {
+    return null;
+  }
+}
+
+function isDiscardedReadmeUrl(rawUrl) {
+  try {
+    const host = new URL(rawUrl).hostname.toLowerCase();
+    return (
+      host === "pslib-cz.github.io" ||
+      host === targetDomain ||
+      host.endsWith(`.${targetDomain}`)
+    );
+  } catch {
+    return true;
+  }
+}
+
+function readmeLinkLabel(rawUrl) {
+  const host = new URL(rawUrl).hostname.toLowerCase();
+
+  if (host.includes("figma")) {
+    return "Figma";
+  }
+
+  if (host.includes("canva")) {
+    return "Canva";
+  }
+
+  if (rawUrl.includes("/public/assets/images")) {
+    return "Images";
+  }
+
+  return host.replace(/^www\./, "");
 }
 
 function escapeHtml(value) {
@@ -1064,6 +1178,30 @@ function renderHtml(groups) {
         overflow-wrap: anywhere;
         font-size: 0.82rem;
         line-height: 1.4;
+      }
+
+      .links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .resource-link {
+        display: inline-flex;
+        align-items: center;
+        min-height: 30px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #151922;
+        color: var(--muted);
+        font-size: 0.82rem;
+        font-weight: 800;
+        padding: 5px 9px;
+      }
+
+      .resource-link:hover {
+        border-color: #566176;
+        color: var(--accent);
       }
 
       .badges {
@@ -1442,19 +1580,24 @@ function renderHtml(groups) {
 function renderSiteCard(site, index) {
   const escapedRepo = escapeHtml(site.repoName);
   const escapedOriginal = escapeHtml(site.originalUrl);
+  const escapedRepoUrl = escapeHtml(site.repoUrl);
   const escapedGallery = escapeHtml(JSON.stringify(site.gallery));
   const metadata = site.metadata || emptyMetadata();
-  const loadLabel = metadata.loadMs ? `${metadata.loadMs} ms` : "Load unknown";
+  const statusCode = site.gallery[0]?.status || null;
+  const statusLabel = statusCode ? `HTTP ${statusCode}` : "HTTP unknown";
   const searchText = [
     site.repoName,
     site.originalUrl,
     site.finalUrl,
+    site.repoUrl,
+    site.readme?.url,
+    ...(site.readme?.links || []).flatMap((link) => [link.label, link.url]),
     site.isGambaaa ? "gambaaa" : "original domain",
     metadata.robots ? "robots" : "no robots",
     metadata.sitemap ? "sitemap" : "no sitemap",
     metadata.seo ? "seo" : "seo missing",
     metadata.accessibility ? "accessibility" : "accessibility missing",
-    loadLabel,
+    statusLabel,
     ...site.gallery.flatMap((item) => [item.title, item.url]),
   ]
     .filter(Boolean)
@@ -1472,13 +1615,18 @@ function renderSiteCard(site, index) {
             <div class="site-content">
               <a class="repo repo-link" href="${escapedOriginal}" target="_blank" rel="noopener noreferrer">${escapedRepo}</a>
               <a class="url" href="${escapedOriginal}" target="_blank" rel="noopener noreferrer">${escapedOriginal}</a>
+              <div class="links" aria-label="Repository resources">
+                <a class="resource-link" href="${escapedRepoUrl}" target="_blank" rel="noopener noreferrer">GitHub</a>
+                ${site.readme?.url ? `<a class="resource-link" href="${escapeHtml(site.readme.url)}" target="_blank" rel="noopener noreferrer">README</a>` : ""}
+                ${(site.readme?.links || []).map((link) => `<a class="resource-link" href="${escapeHtml(link.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(link.label)}</a>`).join("")}
+              </div>
               <div class="badges" aria-label="Site badges">
                 ${site.isGambaaa ? `<span class="badge gambaaa">On ${targetDomain}</span>` : `<span class="badge original">Original domain</span>`}
                 ${renderBooleanBadge("robots.txt", metadata.robots)}
                 ${renderBooleanBadge("sitemap", metadata.sitemap)}
                 ${renderBooleanBadge("SEO", metadata.seo)}
                 ${renderBooleanBadge("A11y", metadata.accessibility)}
-                <span class="badge original">Load ${escapeHtml(loadLabel)}</span>
+                <span class="badge ${statusCode && statusCode >= 400 ? "error" : "original"}">${escapeHtml(statusLabel)}</span>
                 ${site.error ? `<span class="badge error" title="${escapeHtml(site.error)}">Needs check</span>` : ""}
               </div>
             </div>
