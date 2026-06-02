@@ -1,0 +1,12 @@
+{
+  "name": "gambaaa-projects",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "generate": "bun scripts/generate-public-site.mjs"
+  },
+  "dependencies": {
+    "playwright": "^1.52.0"
+  }
+}
