@@ -10,6 +10,7 @@ const sitesPath = path.join(root, "sites.txt");
 const publicDir = path.join(root, "public");
 const screenshotsDir = path.join(publicDir, "screenshots");
 const targetDomain = "gambaaa.fun";
+const crawlLimit = positiveInteger(process.env.CRAWL_LIMIT) || 40;
 
 const generatedAt = new Date();
 
@@ -22,27 +23,28 @@ const browser = await launchBrowser(browserTools);
 const renderedGroups = [];
 
 try {
-  for (const [groupIndex, sites] of groups.entries()) {
+  for (const [groupIndex, group] of groups.entries()) {
     const renderedSites = [];
 
-    for (const [siteIndex, originalUrl] of sites.entries()) {
-      const slug = stableSlug(originalUrl, groupIndex, siteIndex);
-      const screenshotName = `${slug}.png`;
-      const screenshotPath = path.join(screenshotsDir, screenshotName);
-      const result = await inspectSite(browser, originalUrl, screenshotPath);
+    for (const [siteIndex, originalUrl] of group.sites.entries()) {
+      const result = await inspectSite(browser, originalUrl);
 
       renderedSites.push({
         originalUrl,
         repoName: repoNameFromUrl(originalUrl),
         finalUrl: result.finalUrl,
         isGambaaa: isGambaaaHost(result.finalUrl),
-        screenshot: result.hasScreenshot ? `screenshots/${screenshotName}` : null,
+        screenshot: result.gallery[0]?.screenshot || null,
+        gallery: result.gallery,
         status: result.status,
         error: result.error
       });
     }
 
-    renderedGroups.push(renderedSites);
+    renderedGroups.push({
+      name: group.name,
+      sites: renderedSites
+    });
   }
 } finally {
   if (browser) {
@@ -53,15 +55,41 @@ try {
 await writeFile(path.join(publicDir, "index.html"), renderHtml(renderedGroups), "utf8");
 
 function parseGroups(content) {
-  return content
-    .split(/\n\s*\n/g)
-    .map((group) =>
-      group
-        .split(/\r?\n/g)
-        .map((line) => line.trim())
-        .filter(Boolean)
-    )
-    .filter((group) => group.length > 0);
+  const groups = [];
+  let current = { name: null, sites: [] };
+
+  const pushCurrent = () => {
+    if (current.sites.length === 0) {
+      current = { name: null, sites: [] };
+      return;
+    }
+
+    groups.push({
+      name: current.name || `Group ${groups.length + 1}`,
+      sites: current.sites
+    });
+    current = { name: null, sites: [] };
+  };
+
+  for (const rawLine of content.split(/\r?\n/g)) {
+    const line = rawLine.trim();
+
+    if (!line) {
+      pushCurrent();
+      continue;
+    }
+
+    if (line.startsWith("#")) {
+      pushCurrent();
+      current.name = line.replace(/^#+\s*/, "").trim() || null;
+      continue;
+    }
+
+    current.sites.push(line);
+  }
+
+  pushCurrent();
+  return groups;
 }
 
 async function loadBrowserTools() {
@@ -271,48 +299,173 @@ function systemChromiumArgs() {
   ];
 }
 
-async function inspectSite(browser, originalUrl, screenshotPath) {
+async function inspectSite(browser, originalUrl) {
   if (!browser) {
     return {
       finalUrl: await fetchFinalUrl(originalUrl),
-      hasScreenshot: false,
+      gallery: [],
       status: "Preview pending",
       error: "Install dependencies and rerun the generator to capture screenshots."
     };
   }
 
-  const page = await browser.newPage({
-    viewport: { width: 1366, height: 900 },
-    deviceScaleFactor: 1
-  });
-
   try {
-    const response = await page.goto(originalUrl, {
-      waitUntil: "networkidle",
-      timeout: 30000
-    });
-
-    await page.screenshot({
-      path: screenshotPath,
-      fullPage: false
-    });
+    const gallery = await crawlSite(browser, originalUrl);
 
     return {
-      finalUrl: page.url(),
-      hasScreenshot: true,
-      status: response ? `${response.status()} ${response.statusText()}`.trim() : "Loaded",
-      error: null
+      finalUrl: gallery[0]?.url || originalUrl,
+      gallery,
+      status: gallery.length > 0 ? "Loaded" : "Load failed",
+      error: gallery.length > 0 ? null : "No screenshots were captured."
     };
   } catch (error) {
     return {
-      finalUrl: page.url() === "about:blank" ? originalUrl : page.url(),
-      hasScreenshot: false,
+      finalUrl: originalUrl,
+      gallery: [],
       status: "Load failed",
       error: error instanceof Error ? error.message : String(error)
     };
-  } finally {
-    await page.close();
   }
+}
+
+async function crawlSite(browser, originalUrl) {
+  const queue = [normalizeUrl(originalUrl)];
+  const queued = new Set(queue);
+  const captured = new Set();
+  const gallery = [];
+  let scope = null;
+
+  while (queue.length > 0 && gallery.length < crawlLimit) {
+    const url = queue.shift();
+    if (!url || captured.has(url)) {
+      continue;
+    }
+
+    const page = await browser.newPage({
+      viewport: { width: 1366, height: 900 },
+      deviceScaleFactor: 1
+    });
+
+    try {
+      const response = await page.goto(url, {
+        waitUntil: "domcontentloaded",
+        timeout: 30000
+      });
+
+      await page.waitForLoadState("networkidle", { timeout: 5000 }).catch(() => {});
+
+      const finalUrl = normalizeUrl(page.url());
+      captured.add(finalUrl);
+      captured.add(url);
+
+      if (!scope) {
+        scope = siteScopeFromUrl(finalUrl);
+      }
+
+      const title = await page.title().catch(() => "");
+      const screenshotName = screenshotNameForUrl(finalUrl);
+      const screenshotPath = path.join(screenshotsDir, screenshotName);
+
+      await page.screenshot({
+        path: screenshotPath,
+        fullPage: false
+      });
+
+      gallery.push({
+        url: finalUrl,
+        title: title || pageLabelFromUrl(finalUrl),
+        screenshot: `screenshots/${screenshotName}`,
+        status: response ? response.status() : null
+      });
+
+      const links = await page
+        .locator("a[href]")
+        .evaluateAll((anchors) => anchors.map((anchor) => anchor.href))
+        .catch(() => []);
+
+      for (const link of links) {
+        const normalized = normalizeCrawlLink(link, scope);
+        if (!normalized || queued.has(normalized) || captured.has(normalized)) {
+          continue;
+        }
+
+        queued.add(normalized);
+        queue.push(normalized);
+      }
+    } catch (error) {
+      captured.add(url);
+      console.warn(
+        `Could not crawl ${url}: ${error instanceof Error ? error.message.split("\n")[0] : String(error)}`
+      );
+    } finally {
+      await page.close();
+    }
+  }
+
+  return gallery;
+}
+
+function normalizeCrawlLink(rawUrl, scope) {
+  if (!scope) {
+    return null;
+  }
+
+  try {
+    const url = new URL(rawUrl);
+
+    if (!["http:", "https:"].includes(url.protocol)) {
+      return null;
+    }
+
+    if (url.origin !== scope.origin || !url.pathname.startsWith(scope.basePath)) {
+      return null;
+    }
+
+    if (/\.(avif|gif|jpe?g|pdf|png|svg|webp|zip)$/i.test(url.pathname)) {
+      return null;
+    }
+
+    return normalizeUrl(url.href);
+  } catch {
+    return null;
+  }
+}
+
+function siteScopeFromUrl(rawUrl) {
+  const url = new URL(rawUrl);
+  const basePath = url.pathname.endsWith("/")
+    ? url.pathname
+    : url.pathname.slice(0, url.pathname.lastIndexOf("/") + 1) || "/";
+
+  return {
+    origin: url.origin,
+    basePath
+  };
+}
+
+function normalizeUrl(rawUrl) {
+  const url = new URL(rawUrl);
+  url.hash = "";
+  return url.href;
+}
+
+function screenshotNameForUrl(rawUrl) {
+  return `${hashUrl(normalizeUrl(rawUrl))}.png`;
+}
+
+function hashUrl(rawUrl) {
+  return createHash("sha1").update(rawUrl).digest("hex").slice(0, 16);
+}
+
+function pageLabelFromUrl(rawUrl) {
+  const url = new URL(rawUrl);
+  const parts = url.pathname.split("/").filter(Boolean);
+  return parts.at(-1) || url.hostname;
+}
+
+function positiveInteger(value) {
+  const parsed = Number.parseInt(value, 10);
+  return Number.isFinite(parsed) && parsed > 0 ? parsed : null;
 }
 
 async function fetchFinalUrl(originalUrl) {
@@ -344,11 +497,6 @@ function repoNameFromUrl(rawUrl) {
   return parts.at(-1) || parsed.hostname;
 }
 
-function stableSlug(url, groupIndex, siteIndex) {
-  const hash = createHash("sha1").update(url).digest("hex").slice(0, 10);
-  return `group-${groupIndex + 1}-${String(siteIndex + 1).padStart(2, "0")}-${hash}`;
-}
-
 function escapeHtml(value) {
   return String(value)
     .replaceAll("&", "&amp;")
@@ -359,8 +507,8 @@ function escapeHtml(value) {
 }
 
 function renderHtml(groups) {
-  const totalSites = groups.reduce((sum, group) => sum + group.length, 0);
-  const gambaaaSites = groups.flat().filter((site) => site.isGambaaa).length;
+  const totalSites = groups.reduce((sum, group) => sum + group.sites.length, 0);
+  const gambaaaSites = groups.flatMap((group) => group.sites).filter((site) => site.isGambaaa).length;
 
   return `<!doctype html>
 <html lang="en">
@@ -398,6 +546,11 @@ function renderHtml(groups) {
       a {
         color: inherit;
         text-decoration: none;
+      }
+
+      button,
+      select {
+        font: inherit;
       }
 
       .page {
@@ -439,6 +592,35 @@ function renderHtml(groups) {
         flex-wrap: wrap;
         gap: 10px;
         color: var(--muted);
+      }
+
+      .tools {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .field {
+        display: grid;
+        gap: 6px;
+      }
+
+      label {
+        color: var(--muted);
+        font-size: 0.78rem;
+        font-weight: 800;
+      }
+
+      select {
+        min-height: 38px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #151922;
+        color: var(--text);
+        font-size: 0.92rem;
+        font-weight: 700;
+        padding: 0 34px 0 12px;
       }
 
       .summary span,
@@ -501,10 +683,20 @@ function renderHtml(groups) {
       .preview {
         display: grid;
         place-items: center;
+        width: 100%;
         aspect-ratio: 16 / 10;
         overflow: hidden;
+        border: 0;
         border-bottom: 1px solid var(--line);
         background: #0f1218;
+        color: inherit;
+        cursor: pointer;
+        padding: 0;
+        text-align: inherit;
+      }
+
+      .preview:disabled {
+        cursor: default;
       }
 
       .preview img {
@@ -548,6 +740,11 @@ function renderHtml(groups) {
         line-height: 1.25;
       }
 
+      .repo-link:hover,
+      .url:hover {
+        color: var(--accent);
+      }
+
       .url {
         color: var(--muted);
         overflow-wrap: anywhere;
@@ -582,6 +779,93 @@ function renderHtml(groups) {
         font-size: 0.86rem;
       }
 
+      .gallery-modal {
+        position: fixed;
+        inset: 0;
+        z-index: 20;
+        display: grid;
+        place-items: center;
+        padding: 20px;
+        background: rgb(8 10 14 / 82%);
+      }
+
+      .gallery-modal[hidden] {
+        display: none;
+      }
+
+      .gallery-dialog {
+        display: grid;
+        grid-template-rows: auto minmax(0, 1fr) auto;
+        gap: 14px;
+        width: min(1100px, 100%);
+        max-height: min(780px, calc(100vh - 40px));
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+        padding: 14px;
+      }
+
+      .gallery-head,
+      .gallery-foot {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      .gallery-title {
+        overflow-wrap: anywhere;
+        font-size: 1rem;
+        font-weight: 800;
+      }
+
+      .icon-button {
+        min-width: 38px;
+        min-height: 38px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #151922;
+        color: var(--text);
+        cursor: pointer;
+      }
+
+      .gallery-stage {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr) auto;
+        align-items: center;
+        gap: 10px;
+        min-height: 0;
+      }
+
+      .gallery-image-wrap {
+        display: grid;
+        place-items: center;
+        min-height: 0;
+        height: 100%;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        overflow: hidden;
+        background: #0f1218;
+      }
+
+      .gallery-image {
+        display: block;
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+      }
+
+      .gallery-link,
+      .gallery-count {
+        color: var(--muted);
+        overflow-wrap: anywhere;
+        font-size: 0.86rem;
+      }
+
+      .gallery-link:hover {
+        color: var(--accent);
+      }
+
       @media (max-width: 640px) {
         .page {
           width: min(100% - 20px, 1180px);
@@ -601,6 +885,19 @@ function renderHtml(groups) {
         .grid {
           grid-template-columns: 1fr;
         }
+
+        .gallery-stage {
+          grid-template-columns: 1fr;
+        }
+
+        .gallery-stage .icon-button {
+          width: 100%;
+        }
+
+        .gallery-foot {
+          align-items: start;
+          flex-direction: column;
+        }
       }
     </style>
   </head>
@@ -615,52 +912,205 @@ function renderHtml(groups) {
           <span>${gambaaaSites} on ${targetDomain}</span>
           <span>Updated ${escapeHtml(generatedAt.toLocaleString("en-US", { timeZone: "Europe/Prague" }))}</span>
         </div>
+        <div class="tools" aria-label="Site controls">
+          <div class="field">
+            <label for="sort-sites">Sort</label>
+            <select id="sort-sites">
+              <option value="original">Original order</option>
+              <option value="name-asc">Name A-Z</option>
+              <option value="name-desc">Name Z-A</option>
+              <option value="gambaaa-first">Gambaaa first</option>
+              <option value="original-first">Original domain first</option>
+            </select>
+          </div>
+        </div>
       </section>
       ${groups
         .map(
           (group, index) => `<section class="group" aria-labelledby="group-${index + 1}">
         <div class="group-head">
-          <h2 id="group-${index + 1}">Group ${index + 1}</h2>
-          <p class="group-count">${group.length} sites</p>
+          <h2 id="group-${index + 1}">${escapeHtml(group.name)}</h2>
+          <p class="group-count">${group.sites.length} sites</p>
         </div>
-        <div class="grid">
-          ${group.map(renderSiteCard).join("\n          ")}
+        <div class="grid" data-site-grid>
+          ${group.sites.map(renderSiteCard).join("\n          ")}
         </div>
       </section>`
         )
         .join("\n      ")}
       <footer>
-        Generated from sites.txt. Cards always open the original URL, even when the site redirects elsewhere.
+        Generated from sites.txt. Repo links open the original URL, even when the site redirects elsewhere.
       </footer>
     </main>
+    <div class="gallery-modal" id="gallery-modal" hidden>
+      <div class="gallery-dialog" role="dialog" aria-modal="true" aria-labelledby="gallery-title">
+        <div class="gallery-head">
+          <p class="gallery-title" id="gallery-title"></p>
+          <button class="icon-button" type="button" data-gallery-close aria-label="Close gallery">Close</button>
+        </div>
+        <div class="gallery-stage">
+          <button class="icon-button" type="button" data-gallery-prev aria-label="Previous screenshot">Prev</button>
+          <div class="gallery-image-wrap">
+            <img class="gallery-image" alt="" data-gallery-image>
+          </div>
+          <button class="icon-button" type="button" data-gallery-next aria-label="Next screenshot">Next</button>
+        </div>
+        <div class="gallery-foot">
+          <a class="gallery-link" href="#" target="_blank" rel="noopener noreferrer" data-gallery-link></a>
+          <p class="gallery-count" data-gallery-count></p>
+        </div>
+      </div>
+    </div>
+    <script>
+      const sortSelect = document.querySelector("#sort-sites");
+      const collator = new Intl.Collator(undefined, { numeric: true, sensitivity: "base" });
+      const modal = document.querySelector("#gallery-modal");
+      const modalTitle = document.querySelector("#gallery-title");
+      const modalImage = document.querySelector("[data-gallery-image]");
+      const modalLink = document.querySelector("[data-gallery-link]");
+      const modalCount = document.querySelector("[data-gallery-count]");
+      const prevButton = document.querySelector("[data-gallery-prev]");
+      const nextButton = document.querySelector("[data-gallery-next]");
+      const closeButton = document.querySelector("[data-gallery-close]");
+      let activeGallery = [];
+      let activeIndex = 0;
+
+      sortSelect?.addEventListener("change", () => {
+        for (const grid of document.querySelectorAll("[data-site-grid]")) {
+          const cards = [...grid.querySelectorAll("[data-site-card]")];
+          cards.sort((a, b) => compareCards(a, b, sortSelect.value));
+          for (const card of cards) {
+            grid.append(card);
+          }
+        }
+      });
+
+      function compareCards(a, b, mode) {
+        if (mode === "name-asc") {
+          return byName(a, b);
+        }
+
+        if (mode === "name-desc") {
+          return byName(b, a);
+        }
+
+        if (mode === "gambaaa-first") {
+          return byDomain(b, a) || byName(a, b);
+        }
+
+        if (mode === "original-first") {
+          return byDomain(a, b) || byName(a, b);
+        }
+
+        return Number(a.dataset.index) - Number(b.dataset.index);
+      }
+
+      function byName(a, b) {
+        return collator.compare(a.dataset.name || "", b.dataset.name || "");
+      }
+
+      function byDomain(a, b) {
+        return Number(a.dataset.gambaaa) - Number(b.dataset.gambaaa);
+      }
+
+      for (const button of document.querySelectorAll("[data-gallery]")) {
+        button.addEventListener("click", () => {
+          const gallery = JSON.parse(button.dataset.gallery || "[]");
+          if (gallery.length === 0) {
+            return;
+          }
+
+          activeGallery = gallery;
+          activeIndex = 0;
+          modalTitle.textContent = button.dataset.galleryTitle || "";
+          modal.hidden = false;
+          document.body.style.overflow = "hidden";
+          renderGallery();
+        });
+      }
+
+      prevButton?.addEventListener("click", () => {
+        activeIndex = (activeIndex - 1 + activeGallery.length) % activeGallery.length;
+        renderGallery();
+      });
+
+      nextButton?.addEventListener("click", () => {
+        activeIndex = (activeIndex + 1) % activeGallery.length;
+        renderGallery();
+      });
+
+      closeButton?.addEventListener("click", closeGallery);
+
+      modal?.addEventListener("click", (event) => {
+        if (event.target === modal) {
+          closeGallery();
+        }
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (modal?.hidden) {
+          return;
+        }
+
+        if (event.key === "Escape") {
+          closeGallery();
+        }
+
+        if (event.key === "ArrowLeft") {
+          prevButton?.click();
+        }
+
+        if (event.key === "ArrowRight") {
+          nextButton?.click();
+        }
+      });
+
+      function renderGallery() {
+        const item = activeGallery[activeIndex];
+        if (!item) {
+          return;
+        }
+
+        modalImage.src = item.screenshot;
+        modalImage.alt = item.title || item.url;
+        modalLink.href = item.url;
+        modalLink.textContent = item.title || item.url;
+        modalCount.textContent = String(activeIndex + 1) + " / " + String(activeGallery.length);
+        prevButton.disabled = activeGallery.length < 2;
+        nextButton.disabled = activeGallery.length < 2;
+      }
+
+      function closeGallery() {
+        modal.hidden = true;
+        document.body.style.overflow = "";
+        modalImage.removeAttribute("src");
+      }
+    </script>
   </body>
 </html>
 `;
 }
 
-function renderSiteCard(site) {
+function renderSiteCard(site, index) {
   const escapedRepo = escapeHtml(site.repoName);
   const escapedOriginal = escapeHtml(site.originalUrl);
-  const escapedFinal = escapeHtml(site.finalUrl);
-  const status = site.error ? "Load failed" : site.status;
+  const escapedGallery = escapeHtml(JSON.stringify(site.gallery));
 
-  return `<a class="site-card" href="${escapedOriginal}" target="_blank" rel="noopener noreferrer" aria-label="Open ${escapedRepo}">
-            <div class="preview">
+  return `<article class="site-card" data-site-card data-index="${index}" data-name="${escapedRepo}" data-gambaaa="${site.isGambaaa ? "1" : "0"}">
+            <button class="preview" type="button" data-gallery="${escapedGallery}" data-gallery-title="${escapedRepo}" ${site.gallery.length === 0 ? "disabled" : ""} aria-label="Open screenshot gallery for ${escapedRepo}">
               ${
                 site.screenshot
                   ? `<img src="${escapeHtml(site.screenshot)}" alt="Screenshot preview of ${escapedRepo}" loading="lazy">`
                   : `<div class="placeholder" aria-hidden="true"><span class="placeholder-mark"></span><span>Preview pending</span></div>`
               }
-            </div>
+            </button>
             <div class="site-content">
-              <p class="repo">${escapedRepo}</p>
-              <p class="url">${escapedOriginal}</p>
+              <a class="repo repo-link" href="${escapedOriginal}" target="_blank" rel="noopener noreferrer">${escapedRepo}</a>
+              <a class="url" href="${escapedOriginal}" target="_blank" rel="noopener noreferrer">${escapedOriginal}</a>
               <div class="badges" aria-label="Site badges">
                 ${site.isGambaaa ? `<span class="badge gambaaa">On ${targetDomain}</span>` : `<span class="badge original">Original domain</span>`}
-                <span class="badge original">${escapeHtml(status)}</span>
-                ${site.finalUrl !== site.originalUrl ? `<span class="badge original" title="${escapedFinal}">Redirects</span>` : ""}
                 ${site.error ? `<span class="badge error" title="${escapeHtml(site.error)}">Needs check</span>` : ""}
               </div>
             </div>
-          </a>`;
+          </article>`;
 }

@@ -77,6 +77,36 @@
         color: var(--muted);
       }
 
+      .tools {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .field {
+        display: grid;
+        gap: 6px;
+      }
+
+      label {
+        color: var(--muted);
+        font-size: 0.78rem;
+        font-weight: 800;
+      }
+
+      select {
+        min-height: 38px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #151922;
+        color: var(--text);
+        font: inherit;
+        font-size: 0.92rem;
+        font-weight: 700;
+        padding: 0 34px 0 12px;
+      }
+
       .summary span,
       .badge {
         display: inline-flex;
@@ -249,16 +279,28 @@
           <span>31 sites</span>
           <span>2 groups</span>
           <span>3 on gambaaa.fun</span>
-          <span>Updated 6/2/2026, 2:47:46 PM</span>
+          <span>Updated 6/2/2026, 2:57:31 PM</span>
+        </div>
+        <div class="tools" aria-label="Site controls">
+          <div class="field">
+            <label for="sort-sites">Sort</label>
+            <select id="sort-sites">
+              <option value="original">Original order</option>
+              <option value="name-asc">Name A-Z</option>
+              <option value="name-desc">Name Z-A</option>
+              <option value="gambaaa-first">Gambaaa first</option>
+              <option value="original-first">Original domain first</option>
+            </select>
+          </div>
         </div>
       </section>
       <section class="group" aria-labelledby="group-1">
         <div class="group-head">
-          <h2 id="group-1">Group 1</h2>
-          <p class="group-count">16 sites</p>
+          <h2 id="group-1">Gambaaa</h2>
+          <p class="group-count">18 sites</p>
         </div>
-        <div class="grid">
-          <a class="site-card" href="https://pslib-cz.github.io/2025-p2a-web-volny-projekt-jan-wiener/" target="_blank" rel="noopener noreferrer" aria-label="Open 2025-p2a-web-volny-projekt-jan-wiener">
+        <div class="grid" data-site-grid>
+          <a class="site-card" href="https://pslib-cz.github.io/2025-p2a-web-volny-projekt-jan-wiener/" target="_blank" rel="noopener noreferrer" aria-label="Open 2025-p2a-web-volny-projekt-jan-wiener" data-site-card data-index="0" data-name="2025-p2a-web-volny-projekt-jan-wiener" data-gambaaa="0">
             <div class="preview">
               <img src="screenshots/group-1-01-3df6534664.png" alt="Screenshot preview of 2025-p2a-web-volny-projekt-jan-wiener" loading="lazy">
             </div>
@@ -267,13 +309,11 @@
               <p class="url">https://pslib-cz.github.io/2025-p2a-web-volny-projekt-jan-wiener/</p>
               <div class="badges" aria-label="Site badges">
                 <span class="badge original">Original domain</span>
-                <span class="badge original">200</span>
-                
                 
               </div>
             </div>
           </a>
-          <a class="site-card" href="https://pslib-cz.github.io/2025-p2a-web-volny-projekt-DavidHavrda/" target="_blank" rel="noopener noreferrer" aria-label="Open 2025-p2a-web-volny-projekt-DavidHavrda">
+          <a class="site-card" href="https://pslib-cz.github.io/2025-p2a-web-volny-projekt-DavidHavrda/" target="_blank" rel="noopener noreferrer" aria-label="Open 2025-p2a-web-volny-projekt-DavidHavrda" data-site-card data-index="1" data-name="2025-p2a-web-volny-projekt-DavidHavrda" data-gambaaa="0">
             <div class="preview">
               <img src="screenshots/group-1-02-95a05e5ab3.png" alt="Screenshot preview of 2025-p2a-web-volny-projekt-DavidHavrda" loading="lazy">
             </div>
@@ -282,13 +322,11 @@
               <p class="url">https://pslib-cz.github.io/2025-p2a-web-volny-projekt-DavidHavrda/</p>
               <div class="badges" aria-label="Site badges">
                 <span class="badge original">Original domain</span>
-                <span class="badge original">200</span>
-                
                 
               </div>
             </div>
           </a>
-          <a class="site-card" href="https://pslib-cz.github.io/2025-p2a-web-volny-projekt-AdamNeuber/" target="_blank" rel="noopener noreferrer" aria-label="Open 2025-p2a-web-volny-projekt-AdamNeuber">
+          <a class="site-card" href="https://pslib-cz.github.io/2025-p2a-web-volny-projekt-AdamNeuber/" target="_blank" rel="noopener noreferrer" aria-label="Open 2025-p2a-web-volny-projekt-AdamNeuber" data-site-card data-index="2" data-name="2025-p2a-web-volny-projekt-AdamNeuber" data-gambaaa="1">
             <div class="preview">
               <img src="screenshots/group-1-03-8330d7ca01.png" alt="Screenshot preview of 2025-p2a-web-volny-projekt-AdamNeuber" loading="lazy">
             </div>
@@ -297,13 +335,11 @@
               <p class="url">https://pslib-cz.github.io/2025-p2a-web-volny-projekt-AdamNeuber/</p>
               <div class="badges" aria-label="Site badges">
                 <span class="badge gambaaa">On gambaaa.fun</span>
-                <span class="badge original">200</span>
-                <span class="badge original" title="https://c-plus-plus-masochista.gambaaa.fun/">Redirects</span>
                 
               </div>
             </div>
           </a>
-          <a class="site-card" href="https://pslib-cz.github.io/2025-p2a-web-volny-projekt-misalibaytb/" target="_blank" rel="noopener noreferrer" aria-label="Open 2025-p2a-web-volny-projekt-misalibaytb">
+          <a class="site-card" href="https://pslib-cz.github.io/2025-p2a-web-volny-projekt-misalibaytb/" target="_blank" rel="noopener noreferrer" aria-label="Open 2025-p2a-web-volny-projekt-misalibaytb" data-site-card data-index="3" data-name="2025-p2a-web-volny-projekt-misalibaytb" data-gambaaa="1">
             <div class="preview">
               <img src="screenshots/group-1-04-a9ed33165b.png" alt="Screenshot preview of 2025-p2a-web-volny-projekt-misalibaytb" loading="lazy">
             </div>
@@ -312,188 +348,188 @@
               <p class="url">https://pslib-cz.github.io/2025-p2a-web-volny-projekt-misalibaytb/</p>
               <div class="badges" aria-label="Site badges">
                 <span class="badge gambaaa">On gambaaa.fun</span>
-                <span class="badge original">200</span>
-                <span class="badge original" title="https://misaliba.gambaaa.fun/">Redirects</span>
                 
               </div>
             </div>
           </a>
-          <a class="site-card" href="https://pslib-cz.github.io/2025-p2a-web-volny-projekt-MinhDangPham/" target="_blank" rel="noopener noreferrer" aria-label="Open 2025-p2a-web-volny-projekt-MinhDangPham">
+          <a class="site-card" href="https://pslib-cz.github.io/2025-p2a-web-volny-projekt-RadovanLahoda-2/" target="_blank" rel="noopener noreferrer" aria-label="Open 2025-p2a-web-volny-projekt-RadovanLahoda-2" data-site-card data-index="4" data-name="2025-p2a-web-volny-projekt-RadovanLahoda-2" data-gambaaa="0">
             <div class="preview">
-              <img src="screenshots/group-1-05-792e6490f8.png" alt="Screenshot preview of 2025-p2a-web-volny-projekt-MinhDangPham" loading="lazy">
-            </div>
-            <div class="site-content">
-              <p class="repo">2025-p2a-web-volny-projekt-MinhDangPham</p>
-              <p class="url">https://pslib-cz.github.io/2025-p2a-web-volny-projekt-MinhDangPham/</p>
-              <div class="badges" aria-label="Site badges">
-                <span class="badge original">Original domain</span>
-                <span class="badge original">200</span>
-                
-                
-              </div>
-            </div>
-          </a>
-          <a class="site-card" href="https://pslib-cz.github.io/2025-p2a-web-volny-projekt-MarekKnobloch/" target="_blank" rel="noopener noreferrer" aria-label="Open 2025-p2a-web-volny-projekt-MarekKnobloch">
-            <div class="preview">
-              <img src="screenshots/group-1-06-68b91411b1.png" alt="Screenshot preview of 2025-p2a-web-volny-projekt-MarekKnobloch" loading="lazy">
-            </div>
-            <div class="site-content">
-              <p class="repo">2025-p2a-web-volny-projekt-MarekKnobloch</p>
-              <p class="url">https://pslib-cz.github.io/2025-p2a-web-volny-projekt-MarekKnobloch/</p>
-              <div class="badges" aria-label="Site badges">
-                <span class="badge original">Original domain</span>
-                <span class="badge original">200</span>
-                
-                
-              </div>
-            </div>
-          </a>
-          <a class="site-card" href="https://pslib-cz.github.io/2025-p2a-web-volny-projekt-Jakub-Kreisinger/" target="_blank" rel="noopener noreferrer" aria-label="Open 2025-p2a-web-volny-projekt-Jakub-Kreisinger">
-            <div class="preview">
-              <img src="screenshots/group-1-07-d84be31d8e.png" alt="Screenshot preview of 2025-p2a-web-volny-projekt-Jakub-Kreisinger" loading="lazy">
-            </div>
-            <div class="site-content">
-              <p class="repo">2025-p2a-web-volny-projekt-Jakub-Kreisinger</p>
-              <p class="url">https://pslib-cz.github.io/2025-p2a-web-volny-projekt-Jakub-Kreisinger/</p>
-              <div class="badges" aria-label="Site badges">
-                <span class="badge original">Original domain</span>
-                <span class="badge original">200</span>
-                
-                
-              </div>
-            </div>
-          </a>
-          <a class="site-card" href="https://pslib-cz.github.io/2025-p2a-web-volny-projekt-jarin163#" target="_blank" rel="noopener noreferrer" aria-label="Open 2025-p2a-web-volny-projekt-jarin163">
-            <div class="preview">
-              <img src="screenshots/group-1-08-521db81c82.png" alt="Screenshot preview of 2025-p2a-web-volny-projekt-jarin163" loading="lazy">
-            </div>
-            <div class="site-content">
-              <p class="repo">2025-p2a-web-volny-projekt-jarin163</p>
-              <p class="url">https://pslib-cz.github.io/2025-p2a-web-volny-projekt-jarin163#</p>
-              <div class="badges" aria-label="Site badges">
-                <span class="badge original">Original domain</span>
-                <span class="badge original">200</span>
-                <span class="badge original" title="https://pslib-cz.github.io/2025-p2a-web-volny-projekt-jarin163/">Redirects</span>
-                
-              </div>
-            </div>
-          </a>
-          <a class="site-card" href="https://pslib-cz.github.io/2025-p2a-web-volny-projekt-RadovanLahoda-2/" target="_blank" rel="noopener noreferrer" aria-label="Open 2025-p2a-web-volny-projekt-RadovanLahoda-2">
-            <div class="preview">
-              <img src="screenshots/group-1-09-9dfdcea773.png" alt="Screenshot preview of 2025-p2a-web-volny-projekt-RadovanLahoda-2" loading="lazy">
+              <img src="screenshots/group-1-05-9dfdcea773.png" alt="Screenshot preview of 2025-p2a-web-volny-projekt-RadovanLahoda-2" loading="lazy">
             </div>
             <div class="site-content">
               <p class="repo">2025-p2a-web-volny-projekt-RadovanLahoda-2</p>
               <p class="url">https://pslib-cz.github.io/2025-p2a-web-volny-projekt-RadovanLahoda-2/</p>
               <div class="badges" aria-label="Site badges">
                 <span class="badge original">Original domain</span>
-                <span class="badge original">200</span>
-                
                 
               </div>
             </div>
           </a>
-          <a class="site-card" href="https://pslib-cz.github.io/2025-p2a-web-volny-projekt-viktoravec" target="_blank" rel="noopener noreferrer" aria-label="Open 2025-p2a-web-volny-projekt-viktoravec">
+          <a class="site-card" href="https://pslib-cz.github.io/2025-p2a-web-volny-projekt-RomanSedlo/" target="_blank" rel="noopener noreferrer" aria-label="Open 2025-p2a-web-volny-projekt-RomanSedlo" data-site-card data-index="5" data-name="2025-p2a-web-volny-projekt-RomanSedlo" data-gambaaa="0">
             <div class="preview">
-              <img src="screenshots/group-1-10-e55dbcb814.png" alt="Screenshot preview of 2025-p2a-web-volny-projekt-viktoravec" loading="lazy">
-            </div>
-            <div class="site-content">
-              <p class="repo">2025-p2a-web-volny-projekt-viktoravec</p>
-              <p class="url">https://pslib-cz.github.io/2025-p2a-web-volny-projekt-viktoravec</p>
-              <div class="badges" aria-label="Site badges">
-                <span class="badge original">Original domain</span>
-                <span class="badge original">200</span>
-                <span class="badge original" title="https://pslib-cz.github.io/2025-p2a-web-volny-projekt-viktoravec/">Redirects</span>
-                
-              </div>
-            </div>
-          </a>
-          <a class="site-card" href="https://pslib-cz.github.io/2025-p2a-web-volny-projekt-RomanSedlo/" target="_blank" rel="noopener noreferrer" aria-label="Open 2025-p2a-web-volny-projekt-RomanSedlo">
-            <div class="preview">
-              <img src="screenshots/group-1-11-a55aa36a73.png" alt="Screenshot preview of 2025-p2a-web-volny-projekt-RomanSedlo" loading="lazy">
+              <img src="screenshots/group-1-06-a55aa36a73.png" alt="Screenshot preview of 2025-p2a-web-volny-projekt-RomanSedlo" loading="lazy">
             </div>
             <div class="site-content">
               <p class="repo">2025-p2a-web-volny-projekt-RomanSedlo</p>
               <p class="url">https://pslib-cz.github.io/2025-p2a-web-volny-projekt-RomanSedlo/</p>
               <div class="badges" aria-label="Site badges">
                 <span class="badge original">Original domain</span>
-                <span class="badge original">200</span>
-                
                 
               </div>
             </div>
           </a>
-          <a class="site-card" href="https://pslib-cz.github.io/2025-p2a-web-volny-projekt-Antonin-Nosek#" target="_blank" rel="noopener noreferrer" aria-label="Open 2025-p2a-web-volny-projekt-Antonin-Nosek">
+          <a class="site-card" href="https://pslib-cz.github.io/2025-p2a-web-volny-projekt-BaraPospisilova/" target="_blank" rel="noopener noreferrer" aria-label="Open 2025-p2a-web-volny-projekt-BaraPospisilova" data-site-card data-index="6" data-name="2025-p2a-web-volny-projekt-BaraPospisilova" data-gambaaa="0">
             <div class="preview">
-              <img src="screenshots/group-1-12-637db66756.png" alt="Screenshot preview of 2025-p2a-web-volny-projekt-Antonin-Nosek" loading="lazy">
-            </div>
-            <div class="site-content">
-              <p class="repo">2025-p2a-web-volny-projekt-Antonin-Nosek</p>
-              <p class="url">https://pslib-cz.github.io/2025-p2a-web-volny-projekt-Antonin-Nosek#</p>
-              <div class="badges" aria-label="Site badges">
-                <span class="badge original">Original domain</span>
-                <span class="badge original">200</span>
-                <span class="badge original" title="https://pslib-cz.github.io/2025-p2a-web-volny-projekt-Antonin-Nosek/">Redirects</span>
-                
-              </div>
-            </div>
-          </a>
-          <a class="site-card" href="https://pslib-cz.github.io/2025-p2a-web-volny-projekt-martinvrzan/" target="_blank" rel="noopener noreferrer" aria-label="Open 2025-p2a-web-volny-projekt-martinvrzan">
-            <div class="preview">
-              <img src="screenshots/group-1-13-896df726cb.png" alt="Screenshot preview of 2025-p2a-web-volny-projekt-martinvrzan" loading="lazy">
-            </div>
-            <div class="site-content">
-              <p class="repo">2025-p2a-web-volny-projekt-martinvrzan</p>
-              <p class="url">https://pslib-cz.github.io/2025-p2a-web-volny-projekt-martinvrzan/</p>
-              <div class="badges" aria-label="Site badges">
-                <span class="badge original">Original domain</span>
-                <span class="badge original">200</span>
-                
-                
-              </div>
-            </div>
-          </a>
-          <a class="site-card" href="https://pslib-cz.github.io/2025-p2a-web-volny-projekt-MikolasValousek09/" target="_blank" rel="noopener noreferrer" aria-label="Open 2025-p2a-web-volny-projekt-MikolasValousek09">
-            <div class="preview">
-              <img src="screenshots/group-1-14-64547ec7d7.png" alt="Screenshot preview of 2025-p2a-web-volny-projekt-MikolasValousek09" loading="lazy">
-            </div>
-            <div class="site-content">
-              <p class="repo">2025-p2a-web-volny-projekt-MikolasValousek09</p>
-              <p class="url">https://pslib-cz.github.io/2025-p2a-web-volny-projekt-MikolasValousek09/</p>
-              <div class="badges" aria-label="Site badges">
-                <span class="badge original">Original domain</span>
-                <span class="badge original">404</span>
-                
-                
-              </div>
-            </div>
-          </a>
-          <a class="site-card" href="https://pslib-cz.github.io/2025-p2a-web-volny-projekt-BaraPospisilova/" target="_blank" rel="noopener noreferrer" aria-label="Open 2025-p2a-web-volny-projekt-BaraPospisilova">
-            <div class="preview">
-              <img src="screenshots/group-1-15-80815b5dd0.png" alt="Screenshot preview of 2025-p2a-web-volny-projekt-BaraPospisilova" loading="lazy">
+              <img src="screenshots/group-1-07-80815b5dd0.png" alt="Screenshot preview of 2025-p2a-web-volny-projekt-BaraPospisilova" loading="lazy">
             </div>
             <div class="site-content">
               <p class="repo">2025-p2a-web-volny-projekt-BaraPospisilova</p>
               <p class="url">https://pslib-cz.github.io/2025-p2a-web-volny-projekt-BaraPospisilova/</p>
               <div class="badges" aria-label="Site badges">
                 <span class="badge original">Original domain</span>
-                <span class="badge original">200</span>
-                
                 
               </div>
             </div>
           </a>
-          <a class="site-card" href="https://pslib-cz.github.io/2025-p2a-web-volny-projekt-FichtnerTobias/" target="_blank" rel="noopener noreferrer" aria-label="Open 2025-p2a-web-volny-projekt-FichtnerTobias">
+          <a class="site-card" href="https://pslib-cz.github.io/2025-p2a-web-volny-projekt-FichtnerTobias/" target="_blank" rel="noopener noreferrer" aria-label="Open 2025-p2a-web-volny-projekt-FichtnerTobias" data-site-card data-index="7" data-name="2025-p2a-web-volny-projekt-FichtnerTobias" data-gambaaa="0">
             <div class="preview">
-              <img src="screenshots/group-1-16-8754e88f13.png" alt="Screenshot preview of 2025-p2a-web-volny-projekt-FichtnerTobias" loading="lazy">
+              <img src="screenshots/group-1-08-8754e88f13.png" alt="Screenshot preview of 2025-p2a-web-volny-projekt-FichtnerTobias" loading="lazy">
             </div>
             <div class="site-content">
               <p class="repo">2025-p2a-web-volny-projekt-FichtnerTobias</p>
               <p class="url">https://pslib-cz.github.io/2025-p2a-web-volny-projekt-FichtnerTobias/</p>
               <div class="badges" aria-label="Site badges">
                 <span class="badge original">Original domain</span>
-                <span class="badge original">200</span>
                 
+              </div>
+            </div>
+          </a>
+          <a class="site-card" href="https://pslib-cz.github.io/2025-p2a-web-volny-projekt-Jakub-Tuma/" target="_blank" rel="noopener noreferrer" aria-label="Open 2025-p2a-web-volny-projekt-Jakub-Tuma" data-site-card data-index="8" data-name="2025-p2a-web-volny-projekt-Jakub-Tuma" data-gambaaa="1">
+            <div class="preview">
+              <img src="screenshots/group-1-09-98136b458c.png" alt="Screenshot preview of 2025-p2a-web-volny-projekt-Jakub-Tuma" loading="lazy">
+            </div>
+            <div class="site-content">
+              <p class="repo">2025-p2a-web-volny-projekt-Jakub-Tuma</p>
+              <p class="url">https://pslib-cz.github.io/2025-p2a-web-volny-projekt-Jakub-Tuma/</p>
+              <div class="badges" aria-label="Site badges">
+                <span class="badge gambaaa">On gambaaa.fun</span>
+                
+              </div>
+            </div>
+          </a>
+          <a class="site-card" href="https://pslib-cz.github.io/2025-p2a-web-volny-projekt-Petrik-Petr/" target="_blank" rel="noopener noreferrer" aria-label="Open 2025-p2a-web-volny-projekt-Petrik-Petr" data-site-card data-index="9" data-name="2025-p2a-web-volny-projekt-Petrik-Petr" data-gambaaa="0">
+            <div class="preview">
+              <img src="screenshots/group-1-10-747086d611.png" alt="Screenshot preview of 2025-p2a-web-volny-projekt-Petrik-Petr" loading="lazy">
+            </div>
+            <div class="site-content">
+              <p class="repo">2025-p2a-web-volny-projekt-Petrik-Petr</p>
+              <p class="url">https://pslib-cz.github.io/2025-p2a-web-volny-projekt-Petrik-Petr/</p>
+              <div class="badges" aria-label="Site badges">
+                <span class="badge original">Original domain</span>
+                
+              </div>
+            </div>
+          </a>
+          <a class="site-card" href="https://pslib-cz.github.io/2025-p2a-web-volny-projekt-OndrejTuma0/" target="_blank" rel="noopener noreferrer" aria-label="Open 2025-p2a-web-volny-projekt-OndrejTuma0" data-site-card data-index="10" data-name="2025-p2a-web-volny-projekt-OndrejTuma0" data-gambaaa="0">
+            <div class="preview">
+              <img src="screenshots/group-1-11-1ea9f056e7.png" alt="Screenshot preview of 2025-p2a-web-volny-projekt-OndrejTuma0" loading="lazy">
+            </div>
+            <div class="site-content">
+              <p class="repo">2025-p2a-web-volny-projekt-OndrejTuma0</p>
+              <p class="url">https://pslib-cz.github.io/2025-p2a-web-volny-projekt-OndrejTuma0/</p>
+              <div class="badges" aria-label="Site badges">
+                <span class="badge original">Original domain</span>
+                
+              </div>
+            </div>
+          </a>
+          <a class="site-card" href="https://pslib-cz.github.io/2025-p2a-web-volny-projekt-Tomas-Rada#" target="_blank" rel="noopener noreferrer" aria-label="Open 2025-p2a-web-volny-projekt-Tomas-Rada" data-site-card data-index="11" data-name="2025-p2a-web-volny-projekt-Tomas-Rada" data-gambaaa="0">
+            <div class="preview">
+              <img src="screenshots/group-1-12-d3ab5e32ff.png" alt="Screenshot preview of 2025-p2a-web-volny-projekt-Tomas-Rada" loading="lazy">
+            </div>
+            <div class="site-content">
+              <p class="repo">2025-p2a-web-volny-projekt-Tomas-Rada</p>
+              <p class="url">https://pslib-cz.github.io/2025-p2a-web-volny-projekt-Tomas-Rada#</p>
+              <div class="badges" aria-label="Site badges">
+                <span class="badge original">Original domain</span>
+                
+              </div>
+            </div>
+          </a>
+          <a class="site-card" href="https://pslib-cz.github.io/2025-p2a-web-volny-projekt-konashkov-oleksii/" target="_blank" rel="noopener noreferrer" aria-label="Open 2025-p2a-web-volny-projekt-konashkov-oleksii" data-site-card data-index="12" data-name="2025-p2a-web-volny-projekt-konashkov-oleksii" data-gambaaa="0">
+            <div class="preview">
+              <img src="screenshots/group-1-13-4edb5c6bdc.png" alt="Screenshot preview of 2025-p2a-web-volny-projekt-konashkov-oleksii" loading="lazy">
+            </div>
+            <div class="site-content">
+              <p class="repo">2025-p2a-web-volny-projekt-konashkov-oleksii</p>
+              <p class="url">https://pslib-cz.github.io/2025-p2a-web-volny-projekt-konashkov-oleksii/</p>
+              <div class="badges" aria-label="Site badges">
+                <span class="badge original">Original domain</span>
+                
+              </div>
+            </div>
+          </a>
+          <a class="site-card" href="https://pslib-cz.github.io/2025-p2a-web-volny-projekt-PetrHIousek/" target="_blank" rel="noopener noreferrer" aria-label="Open 2025-p2a-web-volny-projekt-PetrHIousek" data-site-card data-index="13" data-name="2025-p2a-web-volny-projekt-PetrHIousek" data-gambaaa="0">
+            <div class="preview">
+              <img src="screenshots/group-1-14-5d3fefa20a.png" alt="Screenshot preview of 2025-p2a-web-volny-projekt-PetrHIousek" loading="lazy">
+            </div>
+            <div class="site-content">
+              <p class="repo">2025-p2a-web-volny-projekt-PetrHIousek</p>
+              <p class="url">https://pslib-cz.github.io/2025-p2a-web-volny-projekt-PetrHIousek/</p>
+              <div class="badges" aria-label="Site badges">
+                <span class="badge original">Original domain</span>
+                
+              </div>
+            </div>
+          </a>
+          <a class="site-card" href="https://pslib-cz.github.io/2025-p2a-web-volny-projekt-Dominik-3#" target="_blank" rel="noopener noreferrer" aria-label="Open 2025-p2a-web-volny-projekt-Dominik-3" data-site-card data-index="14" data-name="2025-p2a-web-volny-projekt-Dominik-3" data-gambaaa="0">
+            <div class="preview">
+              <img src="screenshots/group-1-15-19d85c8257.png" alt="Screenshot preview of 2025-p2a-web-volny-projekt-Dominik-3" loading="lazy">
+            </div>
+            <div class="site-content">
+              <p class="repo">2025-p2a-web-volny-projekt-Dominik-3</p>
+              <p class="url">https://pslib-cz.github.io/2025-p2a-web-volny-projekt-Dominik-3#</p>
+              <div class="badges" aria-label="Site badges">
+                <span class="badge original">Original domain</span>
+                
+              </div>
+            </div>
+          </a>
+          <a class="site-card" href="https://pslib-cz.github.io/2025-p2a-web-volny-projekt-MatousFalta/" target="_blank" rel="noopener noreferrer" aria-label="Open 2025-p2a-web-volny-projekt-MatousFalta" data-site-card data-index="15" data-name="2025-p2a-web-volny-projekt-MatousFalta" data-gambaaa="0">
+            <div class="preview">
+              <img src="screenshots/group-1-16-09c7c486e5.png" alt="Screenshot preview of 2025-p2a-web-volny-projekt-MatousFalta" loading="lazy">
+            </div>
+            <div class="site-content">
+              <p class="repo">2025-p2a-web-volny-projekt-MatousFalta</p>
+              <p class="url">https://pslib-cz.github.io/2025-p2a-web-volny-projekt-MatousFalta/</p>
+              <div class="badges" aria-label="Site badges">
+                <span class="badge original">Original domain</span>
+                
+              </div>
+            </div>
+          </a>
+          <a class="site-card" href="https://pslib-cz.github.io/2025-p2a-web-volny-projekt-Dansraitr22#" target="_blank" rel="noopener noreferrer" aria-label="Open 2025-p2a-web-volny-projekt-Dansraitr22" data-site-card data-index="16" data-name="2025-p2a-web-volny-projekt-Dansraitr22" data-gambaaa="0">
+            <div class="preview">
+              <img src="screenshots/group-1-17-b5882f442e.png" alt="Screenshot preview of 2025-p2a-web-volny-projekt-Dansraitr22" loading="lazy">
+            </div>
+            <div class="site-content">
+              <p class="repo">2025-p2a-web-volny-projekt-Dansraitr22</p>
+              <p class="url">https://pslib-cz.github.io/2025-p2a-web-volny-projekt-Dansraitr22#</p>
+              <div class="badges" aria-label="Site badges">
+                <span class="badge original">Original domain</span>
+                
+              </div>
+            </div>
+          </a>
+          <a class="site-card" href="https://pslib-cz.github.io/2025-p2a-web-volny-projekt-JakubKolinger/" target="_blank" rel="noopener noreferrer" aria-label="Open 2025-p2a-web-volny-projekt-JakubKolinger" data-site-card data-index="17" data-name="2025-p2a-web-volny-projekt-JakubKolinger" data-gambaaa="0">
+            <div class="preview">
+              <img src="screenshots/group-1-18-f2cc84dacf.png" alt="Screenshot preview of 2025-p2a-web-volny-projekt-JakubKolinger" loading="lazy">
+            </div>
+            <div class="site-content">
+              <p class="repo">2025-p2a-web-volny-projekt-JakubKolinger</p>
+              <p class="url">https://pslib-cz.github.io/2025-p2a-web-volny-projekt-JakubKolinger/</p>
+              <div class="badges" aria-label="Site badges">
+                <span class="badge original">Original domain</span>
                 
               </div>
             </div>
@@ -502,231 +538,175 @@
       </section>
       <section class="group" aria-labelledby="group-2">
         <div class="group-head">
-          <h2 id="group-2">Group 2</h2>
-          <p class="group-count">15 sites</p>
+          <h2 id="group-2">Non-Gambaaa</h2>
+          <p class="group-count">13 sites</p>
         </div>
-        <div class="grid">
-          <a class="site-card" href="https://pslib-cz.github.io/2025-p2a-web-volny-projekt-Jakub-Tuma/" target="_blank" rel="noopener noreferrer" aria-label="Open 2025-p2a-web-volny-projekt-Jakub-Tuma">
+        <div class="grid" data-site-grid>
+          <a class="site-card" href="https://pslib-cz.github.io/2025-p2a-web-volny-projekt-MinhDangPham/" target="_blank" rel="noopener noreferrer" aria-label="Open 2025-p2a-web-volny-projekt-MinhDangPham" data-site-card data-index="0" data-name="2025-p2a-web-volny-projekt-MinhDangPham" data-gambaaa="0">
             <div class="preview">
-              <img src="screenshots/group-2-01-98136b458c.png" alt="Screenshot preview of 2025-p2a-web-volny-projekt-Jakub-Tuma" loading="lazy">
+              <img src="screenshots/group-2-01-792e6490f8.png" alt="Screenshot preview of 2025-p2a-web-volny-projekt-MinhDangPham" loading="lazy">
             </div>
             <div class="site-content">
-              <p class="repo">2025-p2a-web-volny-projekt-Jakub-Tuma</p>
-              <p class="url">https://pslib-cz.github.io/2025-p2a-web-volny-projekt-Jakub-Tuma/</p>
+              <p class="repo">2025-p2a-web-volny-projekt-MinhDangPham</p>
+              <p class="url">https://pslib-cz.github.io/2025-p2a-web-volny-projekt-MinhDangPham/</p>
               <div class="badges" aria-label="Site badges">
-                <span class="badge gambaaa">On gambaaa.fun</span>
-                <span class="badge original">200</span>
-                <span class="badge original" title="https://vape-master.gambaaa.fun/">Redirects</span>
+                <span class="badge original">Original domain</span>
                 
               </div>
             </div>
           </a>
-          <a class="site-card" href="https://pslib-cz.github.io/2025-p2a-web-volny-projekt-Vitek-Dolansky#" target="_blank" rel="noopener noreferrer" aria-label="Open 2025-p2a-web-volny-projekt-Vitek-Dolansky">
+          <a class="site-card" href="https://pslib-cz.github.io/2025-p2a-web-volny-projekt-MarekKnobloch/" target="_blank" rel="noopener noreferrer" aria-label="Open 2025-p2a-web-volny-projekt-MarekKnobloch" data-site-card data-index="1" data-name="2025-p2a-web-volny-projekt-MarekKnobloch" data-gambaaa="0">
             <div class="preview">
-              <img src="screenshots/group-2-02-c816de3c81.png" alt="Screenshot preview of 2025-p2a-web-volny-projekt-Vitek-Dolansky" loading="lazy">
+              <img src="screenshots/group-2-02-68b91411b1.png" alt="Screenshot preview of 2025-p2a-web-volny-projekt-MarekKnobloch" loading="lazy">
+            </div>
+            <div class="site-content">
+              <p class="repo">2025-p2a-web-volny-projekt-MarekKnobloch</p>
+              <p class="url">https://pslib-cz.github.io/2025-p2a-web-volny-projekt-MarekKnobloch/</p>
+              <div class="badges" aria-label="Site badges">
+                <span class="badge original">Original domain</span>
+                
+              </div>
+            </div>
+          </a>
+          <a class="site-card" href="https://pslib-cz.github.io/2025-p2a-web-volny-projekt-jarin163#" target="_blank" rel="noopener noreferrer" aria-label="Open 2025-p2a-web-volny-projekt-jarin163" data-site-card data-index="2" data-name="2025-p2a-web-volny-projekt-jarin163" data-gambaaa="0">
+            <div class="preview">
+              <img src="screenshots/group-2-03-521db81c82.png" alt="Screenshot preview of 2025-p2a-web-volny-projekt-jarin163" loading="lazy">
+            </div>
+            <div class="site-content">
+              <p class="repo">2025-p2a-web-volny-projekt-jarin163</p>
+              <p class="url">https://pslib-cz.github.io/2025-p2a-web-volny-projekt-jarin163#</p>
+              <div class="badges" aria-label="Site badges">
+                <span class="badge original">Original domain</span>
+                
+              </div>
+            </div>
+          </a>
+          <a class="site-card" href="https://pslib-cz.github.io/2025-p2a-web-volny-projekt-viktoravec" target="_blank" rel="noopener noreferrer" aria-label="Open 2025-p2a-web-volny-projekt-viktoravec" data-site-card data-index="3" data-name="2025-p2a-web-volny-projekt-viktoravec" data-gambaaa="0">
+            <div class="preview">
+              <img src="screenshots/group-2-04-e55dbcb814.png" alt="Screenshot preview of 2025-p2a-web-volny-projekt-viktoravec" loading="lazy">
+            </div>
+            <div class="site-content">
+              <p class="repo">2025-p2a-web-volny-projekt-viktoravec</p>
+              <p class="url">https://pslib-cz.github.io/2025-p2a-web-volny-projekt-viktoravec</p>
+              <div class="badges" aria-label="Site badges">
+                <span class="badge original">Original domain</span>
+                
+              </div>
+            </div>
+          </a>
+          <a class="site-card" href="https://pslib-cz.github.io/2025-p2a-web-volny-projekt-Antonin-Nosek#" target="_blank" rel="noopener noreferrer" aria-label="Open 2025-p2a-web-volny-projekt-Antonin-Nosek" data-site-card data-index="4" data-name="2025-p2a-web-volny-projekt-Antonin-Nosek" data-gambaaa="0">
+            <div class="preview">
+              <img src="screenshots/group-2-05-637db66756.png" alt="Screenshot preview of 2025-p2a-web-volny-projekt-Antonin-Nosek" loading="lazy">
+            </div>
+            <div class="site-content">
+              <p class="repo">2025-p2a-web-volny-projekt-Antonin-Nosek</p>
+              <p class="url">https://pslib-cz.github.io/2025-p2a-web-volny-projekt-Antonin-Nosek#</p>
+              <div class="badges" aria-label="Site badges">
+                <span class="badge original">Original domain</span>
+                
+              </div>
+            </div>
+          </a>
+          <a class="site-card" href="https://pslib-cz.github.io/2025-p2a-web-volny-projekt-martinvrzan/" target="_blank" rel="noopener noreferrer" aria-label="Open 2025-p2a-web-volny-projekt-martinvrzan" data-site-card data-index="5" data-name="2025-p2a-web-volny-projekt-martinvrzan" data-gambaaa="0">
+            <div class="preview">
+              <img src="screenshots/group-2-06-896df726cb.png" alt="Screenshot preview of 2025-p2a-web-volny-projekt-martinvrzan" loading="lazy">
+            </div>
+            <div class="site-content">
+              <p class="repo">2025-p2a-web-volny-projekt-martinvrzan</p>
+              <p class="url">https://pslib-cz.github.io/2025-p2a-web-volny-projekt-martinvrzan/</p>
+              <div class="badges" aria-label="Site badges">
+                <span class="badge original">Original domain</span>
+                
+              </div>
+            </div>
+          </a>
+          <a class="site-card" href="https://pslib-cz.github.io/2025-p2a-web-volny-projekt-MikolasValousek09/" target="_blank" rel="noopener noreferrer" aria-label="Open 2025-p2a-web-volny-projekt-MikolasValousek09" data-site-card data-index="6" data-name="2025-p2a-web-volny-projekt-MikolasValousek09" data-gambaaa="0">
+            <div class="preview">
+              <img src="screenshots/group-2-07-64547ec7d7.png" alt="Screenshot preview of 2025-p2a-web-volny-projekt-MikolasValousek09" loading="lazy">
+            </div>
+            <div class="site-content">
+              <p class="repo">2025-p2a-web-volny-projekt-MikolasValousek09</p>
+              <p class="url">https://pslib-cz.github.io/2025-p2a-web-volny-projekt-MikolasValousek09/</p>
+              <div class="badges" aria-label="Site badges">
+                <span class="badge original">Original domain</span>
+                
+              </div>
+            </div>
+          </a>
+          <a class="site-card" href="https://pslib-cz.github.io/2025-p2a-web-volny-projekt-Vitek-Dolansky#" target="_blank" rel="noopener noreferrer" aria-label="Open 2025-p2a-web-volny-projekt-Vitek-Dolansky" data-site-card data-index="7" data-name="2025-p2a-web-volny-projekt-Vitek-Dolansky" data-gambaaa="0">
+            <div class="preview">
+              <img src="screenshots/group-2-08-c816de3c81.png" alt="Screenshot preview of 2025-p2a-web-volny-projekt-Vitek-Dolansky" loading="lazy">
             </div>
             <div class="site-content">
               <p class="repo">2025-p2a-web-volny-projekt-Vitek-Dolansky</p>
               <p class="url">https://pslib-cz.github.io/2025-p2a-web-volny-projekt-Vitek-Dolansky#</p>
               <div class="badges" aria-label="Site badges">
                 <span class="badge original">Original domain</span>
-                <span class="badge original">200</span>
-                <span class="badge original" title="https://pslib-cz.github.io/2025-p2a-web-volny-projekt-Vitek-Dolansky/">Redirects</span>
                 
               </div>
             </div>
           </a>
-          <a class="site-card" href="https://pslib-cz.github.io/2025-p2a-web-volny-projekt-Petrik-Petr/" target="_blank" rel="noopener noreferrer" aria-label="Open 2025-p2a-web-volny-projekt-Petrik-Petr">
+          <a class="site-card" href="https://pslib-cz.github.io/2025-p2a-web-volny-projekt-KaterinaKramarova272/" target="_blank" rel="noopener noreferrer" aria-label="Open 2025-p2a-web-volny-projekt-KaterinaKramarova272" data-site-card data-index="8" data-name="2025-p2a-web-volny-projekt-KaterinaKramarova272" data-gambaaa="0">
             <div class="preview">
-              <img src="screenshots/group-2-03-747086d611.png" alt="Screenshot preview of 2025-p2a-web-volny-projekt-Petrik-Petr" loading="lazy">
-            </div>
-            <div class="site-content">
-              <p class="repo">2025-p2a-web-volny-projekt-Petrik-Petr</p>
-              <p class="url">https://pslib-cz.github.io/2025-p2a-web-volny-projekt-Petrik-Petr/</p>
-              <div class="badges" aria-label="Site badges">
-                <span class="badge original">Original domain</span>
-                <span class="badge original">200</span>
-                
-                
-              </div>
-            </div>
-          </a>
-          <a class="site-card" href="https://pslib-cz.github.io/2025-p2a-web-volny-projekt-KaterinaKramarova272/" target="_blank" rel="noopener noreferrer" aria-label="Open 2025-p2a-web-volny-projekt-KaterinaKramarova272">
-            <div class="preview">
-              <img src="screenshots/group-2-04-2d79c671c1.png" alt="Screenshot preview of 2025-p2a-web-volny-projekt-KaterinaKramarova272" loading="lazy">
+              <img src="screenshots/group-2-09-2d79c671c1.png" alt="Screenshot preview of 2025-p2a-web-volny-projekt-KaterinaKramarova272" loading="lazy">
             </div>
             <div class="site-content">
               <p class="repo">2025-p2a-web-volny-projekt-KaterinaKramarova272</p>
               <p class="url">https://pslib-cz.github.io/2025-p2a-web-volny-projekt-KaterinaKramarova272/</p>
               <div class="badges" aria-label="Site badges">
                 <span class="badge original">Original domain</span>
-                <span class="badge original">200</span>
-                
                 
               </div>
             </div>
           </a>
-          <a class="site-card" href="https://pslib-cz.github.io/2025-p2a-web-volny-projekt-OndrejTuma0/" target="_blank" rel="noopener noreferrer" aria-label="Open 2025-p2a-web-volny-projekt-OndrejTuma0">
+          <a class="site-card" href="https://pslib-cz.github.io/2025-p2a-web-volny-projekt-MarekDvorak09#" target="_blank" rel="noopener noreferrer" aria-label="Open 2025-p2a-web-volny-projekt-MarekDvorak09" data-site-card data-index="9" data-name="2025-p2a-web-volny-projekt-MarekDvorak09" data-gambaaa="0">
             <div class="preview">
-              <img src="screenshots/group-2-05-1ea9f056e7.png" alt="Screenshot preview of 2025-p2a-web-volny-projekt-OndrejTuma0" loading="lazy">
-            </div>
-            <div class="site-content">
-              <p class="repo">2025-p2a-web-volny-projekt-OndrejTuma0</p>
-              <p class="url">https://pslib-cz.github.io/2025-p2a-web-volny-projekt-OndrejTuma0/</p>
-              <div class="badges" aria-label="Site badges">
-                <span class="badge original">Original domain</span>
-                <span class="badge original">200</span>
-                
-                
-              </div>
-            </div>
-          </a>
-          <a class="site-card" href="https://pslib-cz.github.io/2025-p2a-web-volny-projekt-Tomas-Rada#" target="_blank" rel="noopener noreferrer" aria-label="Open 2025-p2a-web-volny-projekt-Tomas-Rada">
-            <div class="preview">
-              <img src="screenshots/group-2-06-d3ab5e32ff.png" alt="Screenshot preview of 2025-p2a-web-volny-projekt-Tomas-Rada" loading="lazy">
-            </div>
-            <div class="site-content">
-              <p class="repo">2025-p2a-web-volny-projekt-Tomas-Rada</p>
-              <p class="url">https://pslib-cz.github.io/2025-p2a-web-volny-projekt-Tomas-Rada#</p>
-              <div class="badges" aria-label="Site badges">
-                <span class="badge original">Original domain</span>
-                <span class="badge original">404</span>
-                
-                
-              </div>
-            </div>
-          </a>
-          <a class="site-card" href="https://pslib-cz.github.io/2025-p2a-web-volny-projekt-konashkov-oleksii/" target="_blank" rel="noopener noreferrer" aria-label="Open 2025-p2a-web-volny-projekt-konashkov-oleksii">
-            <div class="preview">
-              <img src="screenshots/group-2-07-4edb5c6bdc.png" alt="Screenshot preview of 2025-p2a-web-volny-projekt-konashkov-oleksii" loading="lazy">
-            </div>
-            <div class="site-content">
-              <p class="repo">2025-p2a-web-volny-projekt-konashkov-oleksii</p>
-              <p class="url">https://pslib-cz.github.io/2025-p2a-web-volny-projekt-konashkov-oleksii/</p>
-              <div class="badges" aria-label="Site badges">
-                <span class="badge original">Original domain</span>
-                <span class="badge original">200</span>
-                
-                
-              </div>
-            </div>
-          </a>
-          <a class="site-card" href="https://pslib-cz.github.io/2025-p2a-web-volny-projekt-MarekDvorak09#" target="_blank" rel="noopener noreferrer" aria-label="Open 2025-p2a-web-volny-projekt-MarekDvorak09">
-            <div class="preview">
-              <img src="screenshots/group-2-08-fa7e261dd7.png" alt="Screenshot preview of 2025-p2a-web-volny-projekt-MarekDvorak09" loading="lazy">
+              <img src="screenshots/group-2-10-fa7e261dd7.png" alt="Screenshot preview of 2025-p2a-web-volny-projekt-MarekDvorak09" loading="lazy">
             </div>
             <div class="site-content">
               <p class="repo">2025-p2a-web-volny-projekt-MarekDvorak09</p>
               <p class="url">https://pslib-cz.github.io/2025-p2a-web-volny-projekt-MarekDvorak09#</p>
               <div class="badges" aria-label="Site badges">
                 <span class="badge original">Original domain</span>
-                <span class="badge original">200</span>
-                <span class="badge original" title="https://pslib-cz.github.io/2025-p2a-web-volny-projekt-MarekDvorak09/">Redirects</span>
                 
               </div>
             </div>
           </a>
-          <a class="site-card" href="https://pslib-cz.github.io/2025-p2a-web-volny-projekt-PetrHIousek/" target="_blank" rel="noopener noreferrer" aria-label="Open 2025-p2a-web-volny-projekt-PetrHIousek">
+          <a class="site-card" href="https://pslib-cz.github.io/2025-p2a-web-volny-projekt-Jakub-Kreisinger/" target="_blank" rel="noopener noreferrer" aria-label="Open 2025-p2a-web-volny-projekt-Jakub-Kreisinger" data-site-card data-index="10" data-name="2025-p2a-web-volny-projekt-Jakub-Kreisinger" data-gambaaa="0">
             <div class="preview">
-              <img src="screenshots/group-2-09-5d3fefa20a.png" alt="Screenshot preview of 2025-p2a-web-volny-projekt-PetrHIousek" loading="lazy">
+              <img src="screenshots/group-2-11-d84be31d8e.png" alt="Screenshot preview of 2025-p2a-web-volny-projekt-Jakub-Kreisinger" loading="lazy">
             </div>
             <div class="site-content">
-              <p class="repo">2025-p2a-web-volny-projekt-PetrHIousek</p>
-              <p class="url">https://pslib-cz.github.io/2025-p2a-web-volny-projekt-PetrHIousek/</p>
+              <p class="repo">2025-p2a-web-volny-projekt-Jakub-Kreisinger</p>
+              <p class="url">https://pslib-cz.github.io/2025-p2a-web-volny-projekt-Jakub-Kreisinger/</p>
               <div class="badges" aria-label="Site badges">
                 <span class="badge original">Original domain</span>
-                <span class="badge original">200</span>
-                
                 
               </div>
             </div>
           </a>
-          <a class="site-card" href="https://pslib-cz.github.io/2025-p2a-web-volny-projekt-JonasFiala#" target="_blank" rel="noopener noreferrer" aria-label="Open 2025-p2a-web-volny-projekt-JonasFiala">
+          <a class="site-card" href="https://pslib-cz.github.io/2025-p2a-web-volny-projekt-JonasFiala#" target="_blank" rel="noopener noreferrer" aria-label="Open 2025-p2a-web-volny-projekt-JonasFiala" data-site-card data-index="11" data-name="2025-p2a-web-volny-projekt-JonasFiala" data-gambaaa="0">
             <div class="preview">
-              <img src="screenshots/group-2-10-c4df1ac020.png" alt="Screenshot preview of 2025-p2a-web-volny-projekt-JonasFiala" loading="lazy">
+              <img src="screenshots/group-2-12-c4df1ac020.png" alt="Screenshot preview of 2025-p2a-web-volny-projekt-JonasFiala" loading="lazy">
             </div>
             <div class="site-content">
               <p class="repo">2025-p2a-web-volny-projekt-JonasFiala</p>
               <p class="url">https://pslib-cz.github.io/2025-p2a-web-volny-projekt-JonasFiala#</p>
               <div class="badges" aria-label="Site badges">
                 <span class="badge original">Original domain</span>
-                <span class="badge original">404</span>
-                
                 
               </div>
             </div>
           </a>
-          <a class="site-card" href="https://pslib-cz.github.io/2025-p2a-web-volny-projekt-Dominik-3#" target="_blank" rel="noopener noreferrer" aria-label="Open 2025-p2a-web-volny-projekt-Dominik-3">
+          <a class="site-card" href="https://pslib-cz.github.io/2025-p2a-web-volny-projekt-vilemstryncl#" target="_blank" rel="noopener noreferrer" aria-label="Open 2025-p2a-web-volny-projekt-vilemstryncl" data-site-card data-index="12" data-name="2025-p2a-web-volny-projekt-vilemstryncl" data-gambaaa="0">
             <div class="preview">
-              <img src="screenshots/group-2-11-19d85c8257.png" alt="Screenshot preview of 2025-p2a-web-volny-projekt-Dominik-3" loading="lazy">
-            </div>
-            <div class="site-content">
-              <p class="repo">2025-p2a-web-volny-projekt-Dominik-3</p>
-              <p class="url">https://pslib-cz.github.io/2025-p2a-web-volny-projekt-Dominik-3#</p>
-              <div class="badges" aria-label="Site badges">
-                <span class="badge original">Original domain</span>
-                <span class="badge original">404</span>
-                
-                
-              </div>
-            </div>
-          </a>
-          <a class="site-card" href="https://pslib-cz.github.io/2025-p2a-web-volny-projekt-vilemstryncl#" target="_blank" rel="noopener noreferrer" aria-label="Open 2025-p2a-web-volny-projekt-vilemstryncl">
-            <div class="preview">
-              <img src="screenshots/group-2-12-08e129e59e.png" alt="Screenshot preview of 2025-p2a-web-volny-projekt-vilemstryncl" loading="lazy">
+              <img src="screenshots/group-2-13-08e129e59e.png" alt="Screenshot preview of 2025-p2a-web-volny-projekt-vilemstryncl" loading="lazy">
             </div>
             <div class="site-content">
               <p class="repo">2025-p2a-web-volny-projekt-vilemstryncl</p>
               <p class="url">https://pslib-cz.github.io/2025-p2a-web-volny-projekt-vilemstryncl#</p>
               <div class="badges" aria-label="Site badges">
                 <span class="badge original">Original domain</span>
-                <span class="badge original">404</span>
-                <span class="badge original" title="https://pslib-cz.github.io/2025-p2a-web-volny-projekt-vilemstryncl/">Redirects</span>
-                
-              </div>
-            </div>
-          </a>
-          <a class="site-card" href="https://pslib-cz.github.io/2025-p2a-web-volny-projekt-MatousFalta/" target="_blank" rel="noopener noreferrer" aria-label="Open 2025-p2a-web-volny-projekt-MatousFalta">
-            <div class="preview">
-              <img src="screenshots/group-2-13-09c7c486e5.png" alt="Screenshot preview of 2025-p2a-web-volny-projekt-MatousFalta" loading="lazy">
-            </div>
-            <div class="site-content">
-              <p class="repo">2025-p2a-web-volny-projekt-MatousFalta</p>
-              <p class="url">https://pslib-cz.github.io/2025-p2a-web-volny-projekt-MatousFalta/</p>
-              <div class="badges" aria-label="Site badges">
-                <span class="badge original">Original domain</span>
-                <span class="badge original">200</span>
-                
-                
-              </div>
-            </div>
-          </a>
-          <a class="site-card" href="https://pslib-cz.github.io/2025-p2a-web-volny-projekt-Dansraitr22#" target="_blank" rel="noopener noreferrer" aria-label="Open 2025-p2a-web-volny-projekt-Dansraitr22">
-            <div class="preview">
-              <img src="screenshots/group-2-14-b5882f442e.png" alt="Screenshot preview of 2025-p2a-web-volny-projekt-Dansraitr22" loading="lazy">
-            </div>
-            <div class="site-content">
-              <p class="repo">2025-p2a-web-volny-projekt-Dansraitr22</p>
-              <p class="url">https://pslib-cz.github.io/2025-p2a-web-volny-projekt-Dansraitr22#</p>
-              <div class="badges" aria-label="Site badges">
-                <span class="badge original">Original domain</span>
-                <span class="badge original">404</span>
-                
-                
-              </div>
-            </div>
-          </a>
-          <a class="site-card" href="https://pslib-cz.github.io/2025-p2a-web-volny-projekt-JakubKolinger/" target="_blank" rel="noopener noreferrer" aria-label="Open 2025-p2a-web-volny-projekt-JakubKolinger">
-            <div class="preview">
-              <img src="screenshots/group-2-15-f2cc84dacf.png" alt="Screenshot preview of 2025-p2a-web-volny-projekt-JakubKolinger" loading="lazy">
-            </div>
-            <div class="site-content">
-              <p class="repo">2025-p2a-web-volny-projekt-JakubKolinger</p>
-              <p class="url">https://pslib-cz.github.io/2025-p2a-web-volny-projekt-JakubKolinger/</p>
-              <div class="badges" aria-label="Site badges">
-                <span class="badge original">Original domain</span>
-                <span class="badge original">200</span>
-                
                 
               </div>
             </div>
@@ -737,5 +717,47 @@
         Generated from sites.txt. Cards always open the original URL, even when the site redirects elsewhere.
       </footer>
     </main>
+    <script>
+      const sortSelect = document.querySelector("#sort-sites");
+      const collator = new Intl.Collator(undefined, { numeric: true, sensitivity: "base" });
+
+      sortSelect?.addEventListener("change", () => {
+        for (const grid of document.querySelectorAll("[data-site-grid]")) {
+          const cards = [...grid.querySelectorAll("[data-site-card]")];
+          cards.sort((a, b) => compareCards(a, b, sortSelect.value));
+          for (const card of cards) {
+            grid.append(card);
+          }
+        }
+      });
+
+      function compareCards(a, b, mode) {
+        if (mode === "name-asc") {
+          return byName(a, b);
+        }
+
+        if (mode === "name-desc") {
+          return byName(b, a);
+        }
+
+        if (mode === "gambaaa-first") {
+          return byDomain(b, a) || byName(a, b);
+        }
+
+        if (mode === "original-first") {
+          return byDomain(a, b) || byName(a, b);
+        }
+
+        return Number(a.dataset.index) - Number(b.dataset.index);
+      }
+
+      function byName(a, b) {
+        return collator.compare(a.dataset.name || "", b.dataset.name || "");
+      }
+
+      function byDomain(a, b) {
+        return Number(a.dataset.gambaaa) - Number(b.dataset.gambaaa);
+      }
+    </script>
   </body>
 </html>
