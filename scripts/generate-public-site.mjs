@@ -10,7 +10,10 @@ const sitesPath = path.join(root, "sites.txt");
 const publicDir = path.join(root, "public");
 const screenshotsDir = path.join(publicDir, "screenshots");
 const targetDomain = "gambaaa.fun";
-const crawlLimit = positiveInteger(process.env.CRAWL_LIMIT) || 40;
+const crawlLimit = positiveInteger(process.env.CRAWL_LIMIT) || 10;
+const skipScreenshots =
+  process.argv.includes("--skip-screenshots") ||
+  process.env.SKIP_SCREENSHOTS === "1";
 
 const generatedAt = new Date();
 
@@ -27,6 +30,9 @@ try {
     const renderedSites = [];
 
     for (const [siteIndex, originalUrl] of group.sites.entries()) {
+      console.log(
+        `[site] ${group.name} ${siteIndex + 1}/${group.sites.length}: ${originalUrl}`,
+      );
       const result = await inspectSite(browser, originalUrl);
 
       renderedSites.push({
@@ -36,14 +42,15 @@ try {
         isGambaaa: isGambaaaHost(result.finalUrl),
         screenshot: result.gallery[0]?.screenshot || null,
         gallery: result.gallery,
+        metadata: result.metadata,
         status: result.status,
-        error: result.error
+        error: result.error,
       });
     }
 
     renderedGroups.push({
       name: group.name,
-      sites: renderedSites
+      sites: renderedSites,
     });
   }
 } finally {
@@ -52,7 +59,16 @@ try {
   }
 }
 
-await writeFile(path.join(publicDir, "index.html"), renderHtml(renderedGroups), "utf8");
+await writeFile(
+  path.join(publicDir, "index.html"),
+  renderHtml(renderedGroups),
+  "utf8",
+);
+await writeFile(
+  path.join(publicDir, "sitemap.xml"),
+  renderSitemap(renderedGroups),
+  "utf8",
+);
 
 function parseGroups(content) {
   const groups = [];
@@ -66,7 +82,7 @@ function parseGroups(content) {
 
     groups.push({
       name: current.name || `Group ${groups.length + 1}`,
-      sites: current.sites
+      sites: current.sites,
     });
     current = { name: null, sites: [] };
   };
@@ -108,7 +124,7 @@ async function launchBrowser(browserTools) {
   const managedBrowsers = [
     ["Chromium", browserTools.chromium],
     ["Firefox", browserTools.firefox],
-    ["WebKit", browserTools.webkit]
+    ["WebKit", browserTools.webkit],
   ];
 
   for (const [name, browserType] of managedBrowsers) {
@@ -131,7 +147,7 @@ async function launchBrowser(browserTools) {
       const browser = await browserTools[candidate.type].launch({
         executablePath,
         headless: true,
-        args: candidate.type === "chromium" ? systemChromiumArgs() : []
+        args: candidate.type === "chromium" ? systemChromiumArgs() : [],
       });
       console.log(`Using ${candidate.name} at ${executablePath}.`);
       return browser;
@@ -139,12 +155,14 @@ async function launchBrowser(browserTools) {
       console.warn(
         `Found ${candidate.name} at ${executablePath}, but could not launch it: ${
           error instanceof Error ? error.message.split("\n")[0] : String(error)
-        }`
+        }`,
       );
     }
   }
 
-  console.warn("No compatible browser executable found, generating placeholders instead.");
+  console.warn(
+    "No compatible browser executable found, generating placeholders instead.",
+  );
   return null;
 }
 
@@ -152,7 +170,8 @@ async function browserCandidates() {
   const home = process.env.HOME || process.env.USERPROFILE || "";
   const localAppData = process.env.LOCALAPPDATA || "";
   const programFiles = process.env.PROGRAMFILES || "C:\\Program Files";
-  const programFilesX86 = process.env["PROGRAMFILES(X86)"] || "C:\\Program Files (x86)";
+  const programFilesX86 =
+    process.env["PROGRAMFILES(X86)"] || "C:\\Program Files (x86)";
   const commands = await pathCommandCandidates();
 
   return [
@@ -161,7 +180,10 @@ async function browserCandidates() {
       type: "chromium",
       paths: [
         "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
-        path.join(home, "Applications/Google Chrome.app/Contents/MacOS/Google Chrome"),
+        path.join(
+          home,
+          "Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        ),
         "/usr/bin/google-chrome",
         "/usr/bin/google-chrome-stable",
         "/usr/bin/chromium",
@@ -170,8 +192,8 @@ async function browserCandidates() {
         path.join(programFiles, "Google/Chrome/Application/chrome.exe"),
         path.join(programFilesX86, "Google/Chrome/Application/chrome.exe"),
         path.join(localAppData, "Google/Chrome/Application/chrome.exe"),
-        ...commands.chrome
-      ]
+        ...commands.chrome,
+      ],
     },
     {
       name: "Chromium",
@@ -185,37 +207,52 @@ async function browserCandidates() {
         "/snap/bin/chromium",
         path.join(programFiles, "Chromium/Application/chrome.exe"),
         path.join(programFilesX86, "Chromium/Application/chrome.exe"),
-        ...commands.chromium
-      ]
+        ...commands.chromium,
+      ],
     },
     {
       name: "Microsoft Edge",
       type: "chromium",
       paths: [
         "/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge",
-        path.join(home, "Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge"),
+        path.join(
+          home,
+          "Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge",
+        ),
         "/usr/bin/microsoft-edge",
         "/usr/bin/microsoft-edge-stable",
         path.join(programFiles, "Microsoft/Edge/Application/msedge.exe"),
         path.join(programFilesX86, "Microsoft/Edge/Application/msedge.exe"),
         path.join(localAppData, "Microsoft/Edge/Application/msedge.exe"),
-        ...commands.edge
-      ]
+        ...commands.edge,
+      ],
     },
     {
       name: "Brave",
       type: "chromium",
       paths: [
         "/Applications/Brave Browser.app/Contents/MacOS/Brave Browser",
-        path.join(home, "Applications/Brave Browser.app/Contents/MacOS/Brave Browser"),
+        path.join(
+          home,
+          "Applications/Brave Browser.app/Contents/MacOS/Brave Browser",
+        ),
         "/usr/bin/brave-browser",
         "/usr/bin/brave",
         "/snap/bin/brave",
-        path.join(programFiles, "BraveSoftware/Brave-Browser/Application/brave.exe"),
-        path.join(programFilesX86, "BraveSoftware/Brave-Browser/Application/brave.exe"),
-        path.join(localAppData, "BraveSoftware/Brave-Browser/Application/brave.exe"),
-        ...commands.brave
-      ]
+        path.join(
+          programFiles,
+          "BraveSoftware/Brave-Browser/Application/brave.exe",
+        ),
+        path.join(
+          programFilesX86,
+          "BraveSoftware/Brave-Browser/Application/brave.exe",
+        ),
+        path.join(
+          localAppData,
+          "BraveSoftware/Brave-Browser/Application/brave.exe",
+        ),
+        ...commands.brave,
+      ],
     },
     {
       name: "Firefox",
@@ -229,20 +266,22 @@ async function browserCandidates() {
         path.join(programFiles, "Mozilla Firefox/firefox.exe"),
         path.join(programFilesX86, "Mozilla Firefox/firefox.exe"),
         path.join(localAppData, "Mozilla Firefox/firefox.exe"),
-        ...commands.firefox
-      ]
-    }
+        ...commands.firefox,
+      ],
+    },
   ];
 }
 
 async function pathCommandCandidates() {
-  const pathDirs = (process.env.PATH || "").split(path.delimiter).filter(Boolean);
+  const pathDirs = (process.env.PATH || "")
+    .split(path.delimiter)
+    .filter(Boolean);
   const commandMap = {
     chrome: ["google-chrome", "google-chrome-stable", "chrome"],
     chromium: ["chromium", "chromium-browser"],
     edge: ["microsoft-edge", "microsoft-edge-stable", "msedge"],
     brave: ["brave-browser", "brave"],
-    firefox: ["firefox"]
+    firefox: ["firefox"],
   };
 
   return Object.fromEntries(
@@ -255,12 +294,12 @@ async function pathCommandCandidates() {
               pathDirs.map(async (dir) => {
                 const candidate = path.join(dir, command);
                 return (await fileExists(candidate)) ? candidate : null;
-              })
-            )
+              }),
+            ),
           )
-        ).filter(Boolean)
-      ])
-    )
+        ).filter(Boolean),
+      ]),
+    ),
   );
 }
 
@@ -295,7 +334,7 @@ function systemChromiumArgs() {
     "--disable-background-networking",
     "--no-first-run",
     "--no-default-browser-check",
-    "--no-sandbox"
+    "--no-sandbox",
   ];
 }
 
@@ -304,26 +343,30 @@ async function inspectSite(browser, originalUrl) {
     return {
       finalUrl: await fetchFinalUrl(originalUrl),
       gallery: [],
+      metadata: emptyMetadata(),
       status: "Preview pending",
-      error: "Install dependencies and rerun the generator to capture screenshots."
+      error:
+        "Install dependencies and rerun the generator to capture screenshots.",
     };
   }
 
   try {
-    const gallery = await crawlSite(browser, originalUrl);
+    const result = await crawlSite(browser, originalUrl);
 
     return {
-      finalUrl: gallery[0]?.url || originalUrl,
-      gallery,
-      status: gallery.length > 0 ? "Loaded" : "Load failed",
-      error: gallery.length > 0 ? null : "No screenshots were captured."
+      finalUrl: result.gallery[0]?.url || originalUrl,
+      gallery: result.gallery,
+      metadata: result.metadata,
+      status: result.gallery.length > 0 ? "Loaded" : "Load failed",
+      error: result.gallery.length > 0 ? null : "No screenshots were captured.",
     };
   } catch (error) {
     return {
       finalUrl: originalUrl,
       gallery: [],
+      metadata: emptyMetadata(),
       status: "Load failed",
-      error: error instanceof Error ? error.message : String(error)
+      error: error instanceof Error ? error.message : String(error),
     };
   }
 }
@@ -332,8 +375,12 @@ async function crawlSite(browser, originalUrl) {
   const queue = [normalizeUrl(originalUrl)];
   const queued = new Set(queue);
   const captured = new Set();
+  const galleryKeys = new Set();
   const gallery = [];
+  const originalScope = siteScopeFromUrl(originalUrl);
   let scope = null;
+  let robots = null;
+  let metadata = emptyMetadata();
 
   while (queue.length > 0 && gallery.length < crawlLimit) {
     const url = queue.shift();
@@ -343,40 +390,79 @@ async function crawlSite(browser, originalUrl) {
 
     const page = await browser.newPage({
       viewport: { width: 1366, height: 900 },
-      deviceScaleFactor: 1
+      deviceScaleFactor: 1,
     });
 
     try {
+      console.log(`[crawl] ${url}`);
       const response = await page.goto(url, {
         waitUntil: "domcontentloaded",
-        timeout: 30000
+        timeout: 30000,
       });
 
-      await page.waitForLoadState("networkidle", { timeout: 5000 }).catch(() => {});
+      await page
+        .waitForLoadState("networkidle", { timeout: 5000 })
+        .catch(() => {});
 
       const finalUrl = normalizeUrl(page.url());
       captured.add(finalUrl);
       captured.add(url);
 
       if (!scope) {
-        scope = siteScopeFromUrl(finalUrl);
+        scope =
+          new URL(finalUrl).origin === originalScope.origin
+            ? originalScope
+            : siteScopeFromUrl(finalUrl);
+        robots = await loadRobots(scope.origin);
+      }
+
+      if (robots && !isAllowedByRobots(finalUrl, robots)) {
+        captured.add(finalUrl);
+        continue;
       }
 
       const title = await page.title().catch(() => "");
       const screenshotName = screenshotNameForUrl(finalUrl);
       const screenshotPath = path.join(screenshotsDir, screenshotName);
+      const screenshotUrl = `screenshots/${screenshotName}`;
+      const galleryKey = `${finalUrl}::${screenshotUrl}`;
 
-      await page.screenshot({
-        path: screenshotPath,
-        fullPage: false
-      });
+      const screenshotExists = await fileExists(screenshotPath);
 
-      gallery.push({
-        url: finalUrl,
-        title: title || pageLabelFromUrl(finalUrl),
-        screenshot: `screenshots/${screenshotName}`,
-        status: response ? response.status() : null
-      });
+      if (galleryKeys.has(galleryKey)) {
+        console.log(`[gallery] duplicate skipped: ${finalUrl}`);
+      } else if (!skipScreenshots || !screenshotExists) {
+        await page.screenshot({
+          path: screenshotPath,
+          fullPage: false,
+        });
+        console.log(
+          `[screenshot] saved ${screenshotUrl}${skipScreenshots ? " (missing)" : ""}`,
+        );
+      } else {
+        console.log(`[screenshot] reused ${screenshotUrl}`);
+      }
+
+      if (!galleryKeys.has(galleryKey)) {
+        galleryKeys.add(galleryKey);
+        gallery.push({
+          url: finalUrl,
+          title: title || pageLabelFromUrl(finalUrl),
+          screenshot: screenshotUrl,
+          status: response ? response.status() : null,
+        });
+      }
+
+      if (gallery.length === 1) {
+        const sitemapUrls = await discoverSitemapUrls(scope.origin, robots);
+        metadata = {
+          ...(await inspectPageMetadata(page)),
+          robots: robots?.exists || false,
+          sitemap: sitemapUrls.length > 0,
+          sitemapUrls,
+          loadMs: await pageLoadMs(page),
+        };
+      }
 
       const links = await page
         .locator("a[href]")
@@ -385,7 +471,12 @@ async function crawlSite(browser, originalUrl) {
 
       for (const link of links) {
         const normalized = normalizeCrawlLink(link, scope);
-        if (!normalized || queued.has(normalized) || captured.has(normalized)) {
+        if (
+          !normalized ||
+          queued.has(normalized) ||
+          captured.has(normalized) ||
+          (robots && !isAllowedByRobots(normalized, robots))
+        ) {
           continue;
         }
 
@@ -395,14 +486,181 @@ async function crawlSite(browser, originalUrl) {
     } catch (error) {
       captured.add(url);
       console.warn(
-        `Could not crawl ${url}: ${error instanceof Error ? error.message.split("\n")[0] : String(error)}`
+        `Could not crawl ${url}: ${error instanceof Error ? error.message.split("\n")[0] : String(error)}`,
       );
     } finally {
       await page.close();
     }
   }
 
-  return gallery;
+  return { gallery, metadata };
+}
+
+async function inspectPageMetadata(page) {
+  return await page.evaluate(() => {
+    const hasText = (selector, attr) => {
+      const node = document.querySelector(selector);
+      const value = attr ? node?.getAttribute(attr) : node?.textContent;
+      return Boolean(value && value.trim());
+    };
+
+    const images = [...document.images];
+    const controls = [
+      ...document.querySelectorAll("button, input, select, textarea"),
+    ];
+
+    return {
+      seo:
+        Boolean(document.title.trim()) &&
+        hasText('meta[name="description"]', "content") &&
+        hasText('link[rel="canonical"]', "href"),
+      accessibility:
+        Boolean(document.documentElement.lang) &&
+        Boolean(document.querySelector("h1")) &&
+        images.every((image) => image.hasAttribute("alt")) &&
+        controls.every((control) => {
+          if (control.tagName === "BUTTON") {
+            return Boolean(
+              control.textContent.trim() || control.getAttribute("aria-label"),
+            );
+          }
+
+          const id = control.getAttribute("id");
+          return Boolean(
+            control.getAttribute("aria-label") ||
+            control.getAttribute("aria-labelledby") ||
+            (id && document.querySelector(`label[for="${CSS.escape(id)}"]`)),
+          );
+        }),
+    };
+  });
+}
+
+async function pageLoadMs(page) {
+  return await page.evaluate(() => {
+    const nav = performance.getEntriesByType("navigation")[0];
+    return nav
+      ? Math.round(
+          nav.loadEventEnd || nav.domContentLoadedEventEnd || nav.duration,
+        )
+      : null;
+  });
+}
+
+async function loadRobots(origin) {
+  const robotsUrl = `${origin}/robots.txt`;
+
+  try {
+    const response = await fetch(robotsUrl, {
+      redirect: "follow",
+      signal: AbortSignal.timeout(10000),
+    });
+
+    if (!response.ok) {
+      return { exists: false, rules: [], sitemapUrls: [] };
+    }
+
+    return parseRobots(await response.text());
+  } catch {
+    return { exists: false, rules: [], sitemapUrls: [] };
+  }
+}
+
+function parseRobots(content) {
+  const rules = [];
+  const sitemapUrls = [];
+  let appliesToBot = false;
+
+  for (const rawLine of content.split(/\r?\n/g)) {
+    const line = rawLine.replace(/#.*/, "").trim();
+    if (!line) {
+      continue;
+    }
+
+    const separator = line.indexOf(":");
+    if (separator === -1) {
+      continue;
+    }
+
+    const key = line.slice(0, separator).trim().toLowerCase();
+    const value = line.slice(separator + 1).trim();
+
+    if (key === "sitemap" && value) {
+      sitemapUrls.push(value);
+      continue;
+    }
+
+    if (key === "user-agent") {
+      const agent = value.toLowerCase();
+      appliesToBot = agent === "*" || agent.includes("gambaaa");
+      continue;
+    }
+
+    if ((key === "allow" || key === "disallow") && appliesToBot) {
+      rules.push({
+        type: key,
+        path: value || "/",
+      });
+    }
+  }
+
+  return { exists: true, rules, sitemapUrls };
+}
+
+function isAllowedByRobots(rawUrl, robots) {
+  if (!robots?.exists || robots.rules.length === 0) {
+    return true;
+  }
+
+  const pathName = new URL(rawUrl).pathname || "/";
+  const matches = robots.rules
+    .filter((rule) => rule.path && pathName.startsWith(rule.path))
+    .sort((a, b) => b.path.length - a.path.length);
+
+  if (matches.length === 0) {
+    return true;
+  }
+
+  return matches[0].type === "allow";
+}
+
+async function discoverSitemapUrls(origin, robots) {
+  const urls = [...(robots?.sitemapUrls || [])];
+  const defaultSitemap = `${origin}/sitemap.xml`;
+
+  if (!urls.includes(defaultSitemap) && (await urlExists(defaultSitemap))) {
+    urls.push(defaultSitemap);
+  }
+
+  if (urls.length > 0) {
+    console.log(`[sitemap] found ${urls.join(", ")}`);
+  }
+
+  return urls;
+}
+
+async function urlExists(url) {
+  try {
+    const response = await fetch(url, {
+      method: "HEAD",
+      redirect: "follow",
+      signal: AbortSignal.timeout(10000),
+    });
+    return response.ok;
+  } catch {
+    return false;
+  }
+}
+
+function emptyMetadata() {
+  return {
+    robots: false,
+    sitemap: false,
+    sitemapUrls: [],
+    seo: false,
+    accessibility: false,
+    loadMs: null,
+  };
 }
 
 function normalizeCrawlLink(rawUrl, scope) {
@@ -417,11 +675,18 @@ function normalizeCrawlLink(rawUrl, scope) {
       return null;
     }
 
-    if (url.origin !== scope.origin || !url.pathname.startsWith(scope.basePath)) {
+    if (
+      url.origin !== scope.origin ||
+      !url.pathname.startsWith(scope.basePath)
+    ) {
       return null;
     }
 
-    if (/\.(avif|gif|jpe?g|pdf|png|svg|webp|zip)$/i.test(url.pathname)) {
+    if (
+      /\.(avif|css|gif|ico|jpe?g|js|json|map|pdf|png|svg|webp|xml|zip)$/i.test(
+        url.pathname,
+      )
+    ) {
       return null;
     }
 
@@ -433,13 +698,18 @@ function normalizeCrawlLink(rawUrl, scope) {
 
 function siteScopeFromUrl(rawUrl) {
   const url = new URL(rawUrl);
+  const segments = url.pathname.split("/");
+  const lastSegment = segments.at(-1) || "";
+  const isFile = /\.[a-z0-9]+$/i.test(lastSegment);
   const basePath = url.pathname.endsWith("/")
     ? url.pathname
-    : url.pathname.slice(0, url.pathname.lastIndexOf("/") + 1) || "/";
+    : isFile
+      ? url.pathname.slice(0, url.pathname.lastIndexOf("/") + 1) || "/"
+      : `${url.pathname}/`;
 
   return {
     origin: url.origin,
-    basePath
+    basePath,
   };
 }
 
@@ -473,7 +743,7 @@ async function fetchFinalUrl(originalUrl) {
     const response = await fetch(originalUrl, {
       method: "GET",
       redirect: "follow",
-      signal: AbortSignal.timeout(15000)
+      signal: AbortSignal.timeout(15000),
     });
 
     return response.url || originalUrl;
@@ -506,9 +776,38 @@ function escapeHtml(value) {
     .replaceAll("'", "&#39;");
 }
 
+function escapeXml(value) {
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&apos;");
+}
+
+function renderSitemap(groups) {
+  const urls = unique(
+    groups
+      .flatMap((group) => group.sites)
+      .flatMap((site) => [
+        ...site.gallery.map((item) => item.url),
+        ...(site.metadata?.sitemapUrls || []),
+      ])
+      .filter(Boolean),
+  );
+
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${urls.map((url) => `  <url><loc>${escapeXml(url)}</loc></url>`).join("\n")}
+</urlset>
+`;
+}
+
 function renderHtml(groups) {
   const totalSites = groups.reduce((sum, group) => sum + group.sites.length, 0);
-  const gambaaaSites = groups.flatMap((group) => group.sites).filter((site) => site.isGambaaa).length;
+  const gambaaaSites = groups
+    .flatMap((group) => group.sites)
+    .filter((site) => site.isGambaaa).length;
 
   return `<!doctype html>
 <html lang="en">
@@ -549,6 +848,7 @@ function renderHtml(groups) {
       }
 
       button,
+      input,
       select {
         font: inherit;
       }
@@ -595,10 +895,14 @@ function renderHtml(groups) {
       }
 
       .tools {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        gap: 10px;
+        display: grid;
+        grid-template-columns: minmax(220px, 1fr) minmax(180px, 260px);
+        gap: 12px;
+        width: min(720px, 100%);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #151922;
+        padding: 12px;
       }
 
       .field {
@@ -612,15 +916,21 @@ function renderHtml(groups) {
         font-weight: 800;
       }
 
+      input,
       select {
+        width: 100%;
         min-height: 38px;
         border: 1px solid var(--line);
         border-radius: 8px;
-        background: #151922;
+        background: #0f1218;
         color: var(--text);
         font-size: 0.92rem;
         font-weight: 700;
-        padding: 0 34px 0 12px;
+        padding: 0 12px;
+      }
+
+      input::placeholder {
+        color: #798395;
       }
 
       .summary span,
@@ -678,6 +988,10 @@ function renderHtml(groups) {
         transform: translateY(-2px);
         border-color: #566176;
         background: var(--panel-strong);
+      }
+
+      .site-card[hidden] {
+        display: none;
       }
 
       .preview {
@@ -771,6 +1085,16 @@ function renderHtml(groups) {
       .badge.error {
         border-color: color-mix(in srgb, var(--danger) 50%, transparent);
         color: #ffd7d7;
+      }
+
+      .badge.good {
+        border-color: color-mix(in srgb, var(--accent) 45%, transparent);
+        color: #cffff0;
+      }
+
+      .badge.warn {
+        border-color: color-mix(in srgb, var(--warning) 45%, transparent);
+        color: #ffe8ae;
       }
 
       footer {
@@ -886,6 +1210,10 @@ function renderHtml(groups) {
           grid-template-columns: 1fr;
         }
 
+        .tools {
+          grid-template-columns: 1fr;
+        }
+
         .gallery-stage {
           grid-template-columns: 1fr;
         }
@@ -914,6 +1242,10 @@ function renderHtml(groups) {
         </div>
         <div class="tools" aria-label="Site controls">
           <div class="field">
+            <label for="search-sites">Search</label>
+            <input id="search-sites" type="search" placeholder="Repo, URL, badge, page title">
+          </div>
+          <div class="field">
             <label for="sort-sites">Sort</label>
             <select id="sort-sites">
               <option value="original">Original order</option>
@@ -927,15 +1259,18 @@ function renderHtml(groups) {
       </section>
       ${groups
         .map(
-          (group, index) => `<section class="group" aria-labelledby="group-${index + 1}">
+          (
+            group,
+            index,
+          ) => `<section class="group" aria-labelledby="group-${index + 1}">
         <div class="group-head">
           <h2 id="group-${index + 1}">${escapeHtml(group.name)}</h2>
-          <p class="group-count">${group.sites.length} sites</p>
+          <p class="group-count" data-group-count>${group.sites.length} sites</p>
         </div>
         <div class="grid" data-site-grid>
           ${group.sites.map(renderSiteCard).join("\n          ")}
         </div>
-      </section>`
+      </section>`,
         )
         .join("\n      ")}
       <footer>
@@ -962,6 +1297,7 @@ function renderHtml(groups) {
       </div>
     </div>
     <script>
+      const searchInput = document.querySelector("#search-sites");
       const sortSelect = document.querySelector("#sort-sites");
       const collator = new Intl.Collator(undefined, { numeric: true, sensitivity: "base" });
       const modal = document.querySelector("#gallery-modal");
@@ -975,15 +1311,27 @@ function renderHtml(groups) {
       let activeGallery = [];
       let activeIndex = 0;
 
-      sortSelect?.addEventListener("change", () => {
+      searchInput?.addEventListener("input", applyControls);
+      sortSelect?.addEventListener("change", applyControls);
+
+      function applyControls() {
+        const query = (searchInput?.value || "").trim().toLowerCase();
+
         for (const grid of document.querySelectorAll("[data-site-grid]")) {
           const cards = [...grid.querySelectorAll("[data-site-card]")];
-          cards.sort((a, b) => compareCards(a, b, sortSelect.value));
+          cards.sort((a, b) => compareCards(a, b, sortSelect?.value || "original"));
           for (const card of cards) {
+            card.hidden = Boolean(query) && !(card.dataset.search || "").includes(query);
             grid.append(card);
           }
+
+          const visibleCount = cards.filter((card) => !card.hidden).length;
+          const count = grid.closest(".group")?.querySelector("[data-group-count]");
+          if (count) {
+            count.textContent = String(visibleCount) + " / " + String(cards.length) + " sites";
+          }
         }
-      });
+      }
 
       function compareCards(a, b, mode) {
         if (mode === "name-asc") {
@@ -1095,8 +1443,25 @@ function renderSiteCard(site, index) {
   const escapedRepo = escapeHtml(site.repoName);
   const escapedOriginal = escapeHtml(site.originalUrl);
   const escapedGallery = escapeHtml(JSON.stringify(site.gallery));
+  const metadata = site.metadata || emptyMetadata();
+  const loadLabel = metadata.loadMs ? `${metadata.loadMs} ms` : "Load unknown";
+  const searchText = [
+    site.repoName,
+    site.originalUrl,
+    site.finalUrl,
+    site.isGambaaa ? "gambaaa" : "original domain",
+    metadata.robots ? "robots" : "no robots",
+    metadata.sitemap ? "sitemap" : "no sitemap",
+    metadata.seo ? "seo" : "seo missing",
+    metadata.accessibility ? "accessibility" : "accessibility missing",
+    loadLabel,
+    ...site.gallery.flatMap((item) => [item.title, item.url]),
+  ]
+    .filter(Boolean)
+    .join(" ")
+    .toLowerCase();
 
-  return `<article class="site-card" data-site-card data-index="${index}" data-name="${escapedRepo}" data-gambaaa="${site.isGambaaa ? "1" : "0"}">
+  return `<article class="site-card" data-site-card data-index="${index}" data-name="${escapedRepo}" data-gambaaa="${site.isGambaaa ? "1" : "0"}" data-search="${escapeHtml(searchText)}">
             <button class="preview" type="button" data-gallery="${escapedGallery}" data-gallery-title="${escapedRepo}" ${site.gallery.length === 0 ? "disabled" : ""} aria-label="Open screenshot gallery for ${escapedRepo}">
               ${
                 site.screenshot
@@ -1109,8 +1474,17 @@ function renderSiteCard(site, index) {
               <a class="url" href="${escapedOriginal}" target="_blank" rel="noopener noreferrer">${escapedOriginal}</a>
               <div class="badges" aria-label="Site badges">
                 ${site.isGambaaa ? `<span class="badge gambaaa">On ${targetDomain}</span>` : `<span class="badge original">Original domain</span>`}
+                ${renderBooleanBadge("robots.txt", metadata.robots)}
+                ${renderBooleanBadge("sitemap", metadata.sitemap)}
+                ${renderBooleanBadge("SEO", metadata.seo)}
+                ${renderBooleanBadge("A11y", metadata.accessibility)}
+                <span class="badge original">Load ${escapeHtml(loadLabel)}</span>
                 ${site.error ? `<span class="badge error" title="${escapeHtml(site.error)}">Needs check</span>` : ""}
               </div>
             </div>
           </article>`;
+}
+
+function renderBooleanBadge(label, value) {
+  return `<span class="badge ${value ? "good" : "warn"}">${value ? "" : "No "}${escapeHtml(label)}</span>`;
 }

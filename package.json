@@ -4,7 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "generate": "bun scripts/generate-public-site.mjs"
+    "generate": "bun scripts/generate-public-site.mjs",
+    "generate:skip-screenshots": "bun scripts/generate-public-site.mjs --skip-screenshots"
   },
   "dependencies": {
     "playwright": "^1.52.0"
