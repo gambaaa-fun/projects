@@ -928,7 +928,7 @@ function renderHtml(groups) {
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Gambaaa Projects</title>
+    <title>Volný Projekt projects</title>
     <style>
       :root {
         color-scheme: dark;
@@ -1371,7 +1371,7 @@ function renderHtml(groups) {
     <main class="page">
       <section class="hero" aria-labelledby="page-title">
         <p class="eyebrow">Daily website preview board</p>
-        <h1 id="page-title">Gambaaa Projects</h1>
+        <h1 id="page-title">Volný project Projects</h1>
         <div class="summary" aria-label="Site summary">
           <span>${totalSites} sites</span>
           <span>${groups.length} groups</span>
