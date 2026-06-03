@@ -1,4 +1,4 @@
-# Gambaaa
+# P2A (2025)
 https://pslib-cz.github.io/2025-p2a-web-volny-projekt-jan-wiener/
 https://pslib-cz.github.io/2025-p2a-web-volny-projekt-DavidHavrda/
 https://pslib-cz.github.io/2025-p2a-web-volny-projekt-AdamNeuber/
@@ -18,8 +18,6 @@ https://pslib-cz.github.io/2025-p2a-web-volny-projekt-MatousFalta/
 https://pslib-cz.github.io/2025-p2a-web-volny-projekt-Dansraitr22#
 https://pslib-cz.github.io/2025-p2a-web-volny-projekt-JakubKolinger/
 https://pslib-cz.github.io/2025-p2a-web-volny-projekt-KaterinaKramarova272/
-
-# Non-Gambaaa
 https://pslib-cz.github.io/2025-p2a-web-volny-projekt-MinhDangPham/
 https://pslib-cz.github.io/2025-p2a-web-volny-projekt-MarekKnobloch/
 https://pslib-cz.github.io/2025-p2a-web-volny-projekt-jarin163#
@@ -32,3 +30,35 @@ https://pslib-cz.github.io/2025-p2a-web-volny-projekt-MarekDvorak09#
 https://pslib-cz.github.io/2025-p2a-web-volny-projekt-Jakub-Kreisinger/
 https://pslib-cz.github.io/2025-p2a-web-volny-projekt-JonasFiala#
 https://pslib-cz.github.io/2025-p2a-web-volny-projekt-vilemstryncl#
+
+# P2B (2025)
+https://pslib-cz.github.io/2025-p2b-web-project-tomassys
+https://pslib-cz.github.io/2025-p2b-web-project-matejkopka
+https://pslib-cz.github.io/2025-p2b-web-project-Dubyyyyyyy
+https://pslib-cz.github.io/2025-p2b-web-project-adamsoldat
+https://pslib-cz.github.io/2025-p2b-web-project-frantisekzeman
+https://pslib-cz.github.io/2025-p2b-web-project-kyrylpakhliuk
+https://pslib-cz.github.io/2025-p2b-web-project-machymachacek
+https://pslib-cz.github.io/2025-p2b-web-project-imqrandom
+https://pslib-cz.github.io/2025-p2b-web-project-dominiksvidron
+https://pslib-cz.github.io/2025-p2b-web-project-tomaskrupar
+https://pslib-cz.github.io/2025-p2b-web-project-JakubLinka
+https://pslib-cz.github.io/2025-p2b-web-project-matej-danihel
+https://pslib-cz.github.io/2025-p2b-web-project-RobinPavlu
+https://pslib-cz.github.io/2025-p2b-web-project-KubaAnti
+https://pslib-cz.github.io/2025-p2b-web-project-KristynaHozakova
+https://pslib-cz.github.io/2025-p2b-web-project-Tomiis737
+https://pslib-cz.github.io/2025-p2b-web-project-PlacekVojtisek
+https://pslib-cz.github.io/2025-p2b-web-project-janbohacek2
+https://pslib-cz.github.io/2025-p2b-web-project-Martin-vit
+https://pslib-cz.github.io/2025-p2b-web-project-AdamHerberger
+https://pslib-cz.github.io/2025-p2b-web-project-Jakub-Macko
+https://pslib-cz.github.io/2025-p2b-web-project-SAndor1231
+https://pslib-cz.github.io/2025-p2b-web-project-1Pierowski
+https://pslib-cz.github.io/2025-p2b-web-project-VitSamek
+https://pslib-cz.github.io/2025-p2b-web-project-MatejKouril
+https://pslib-cz.github.io/2025-p2b-web-project-hronr1chard
+https://pslib-cz.github.io/2025-p2b-web-project-NovakPetr2208
+https://pslib-cz.github.io/2025-p2b-web-project-tr1kerr
+https://pslib-cz.github.io/2025-p2b-web-project-JakubMertl123
+https://pslib-cz.github.io/2025-p2b-web-project-Nguyen-Tran-Pslib
