@@ -1786,13 +1786,86 @@ function renderHtml(groups) {
       const prevButton = document.querySelector("[data-gallery-prev]");
       const nextButton = document.querySelector("[data-gallery-next]");
       const closeButton = document.querySelector("[data-gallery-close]");
+      const preferenceKey = "gambaaa-project-controls";
+      const preferenceMaxAge = 24 * 60 * 60 * 1000;
       let activeGallery = [];
       let activeIndex = 0;
 
-      searchInput?.addEventListener("input", applyControls);
-      sortSelect?.addEventListener("change", applyControls);
+      restorePreferences();
+
+      searchInput?.addEventListener("input", () => {
+        savePreferences();
+        applyControls();
+      });
+      sortSelect?.addEventListener("change", () => {
+        savePreferences();
+        applyControls();
+      });
       ungroupToggle?.addEventListener("click", () => {
         const enabled = ungroupToggle.getAttribute("aria-pressed") !== "true";
+        setUngrouped(enabled);
+        savePreferences();
+        applyControls();
+      });
+
+      applyControls();
+
+      function restorePreferences() {
+        const preferences = readPreferences();
+        if (!preferences) {
+          return;
+        }
+
+        if (searchInput && typeof preferences.search === "string") {
+          searchInput.value = preferences.search;
+        }
+
+        if (
+          sortSelect &&
+          typeof preferences.sort === "string" &&
+          [...sortSelect.options].some((option) => option.value === preferences.sort)
+        ) {
+          sortSelect.value = preferences.sort;
+        }
+
+        setUngrouped(Boolean(preferences.ungrouped));
+      }
+
+      function readPreferences() {
+        try {
+          const preferences = JSON.parse(localStorage.getItem(preferenceKey) || "null");
+          if (!preferences || Date.now() - Number(preferences.savedAt || 0) > preferenceMaxAge) {
+            localStorage.removeItem(preferenceKey);
+            return null;
+          }
+
+          return preferences;
+        } catch {
+          return null;
+        }
+      }
+
+      function savePreferences() {
+        try {
+          localStorage.setItem(
+            preferenceKey,
+            JSON.stringify({
+              search: searchInput?.value || "",
+              sort: sortSelect?.value || "updated-desc",
+              ungrouped: ungroupToggle?.getAttribute("aria-pressed") === "true",
+              savedAt: Date.now(),
+            }),
+          );
+        } catch {
+          // Preferences are optional.
+        }
+      }
+
+      function setUngrouped(enabled) {
+        if (!ungroupToggle) {
+          return;
+        }
+
         ungroupToggle.setAttribute("aria-pressed", String(enabled));
         ungroupToggle.textContent = enabled ? "Group" : "Ungroup";
         for (const section of document.querySelectorAll("[data-grouped-section]")) {
@@ -1802,10 +1875,7 @@ function renderHtml(groups) {
         if (flatSection) {
           flatSection.hidden = !enabled;
         }
-        applyControls();
-      });
-
-      applyControls();
+      }
 
       function applyControls() {
         const query = normalizeText(searchInput?.value || "");
@@ -1884,7 +1954,11 @@ function renderHtml(groups) {
 
         for (const alias of aliases) {
           if ((card.dataset.goodSearch || "").split(" ").includes(alias)) {
-            score += 120;
+            score += 1000;
+          }
+
+          if ((card.dataset.badSearch || "").split(" ").includes(alias)) {
+            score -= 500;
           }
 
           if ((card.dataset.name || "").toLowerCase().includes(alias)) {
@@ -2014,6 +2088,14 @@ function renderSiteCard(site, index) {
   ]
     .filter(Boolean)
     .join(" ");
+  const badSearchTerms = [
+    metadata.robots ? null : "robots",
+    metadata.sitemap ? null : "sitemap",
+    metadata.seo ? null : "seo",
+    metadata.accessibility ? null : "a11y accessibility",
+  ]
+    .filter(Boolean)
+    .join(" ");
   const searchText = [
     site.repoName,
     site.originalUrl,
@@ -2036,7 +2118,7 @@ function renderSiteCard(site, index) {
     .join(" ")
     .toLowerCase();
 
-  return `<article class="site-card" data-site-card data-index="${index}" data-name="${escapedRepo}" data-gambaaa="${site.isGambaaa ? "1" : "0"}" data-updated="${latestCommit.timestamp || 0}" data-good-search="${escapeHtml(goodSearchTerms)}" data-search="${escapeHtml(searchText)}">
+  return `<article class="site-card" data-site-card data-index="${index}" data-name="${escapedRepo}" data-gambaaa="${site.isGambaaa ? "1" : "0"}" data-updated="${latestCommit.timestamp || 0}" data-good-search="${escapeHtml(goodSearchTerms)}" data-bad-search="${escapeHtml(badSearchTerms)}" data-search="${escapeHtml(searchText)}">
             <button class="preview" type="button" data-gallery="${escapedGallery}" data-gallery-title="${escapedRepo}" ${site.gallery.length === 0 ? "disabled" : ""} aria-label="Open screenshot gallery for ${escapedRepo}">
               ${
                 site.screenshot
