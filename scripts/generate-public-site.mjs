@@ -14,12 +14,14 @@ const fallbackGithubOwner = "gambaaa-fun";
 const crawlLimit = positiveInteger(process.env.CRAWL_LIMIT) || 10;
 const groupParallelism = positiveInteger(process.env.GROUP_PARALLELISM) || 2;
 const debugCommits = process.env.DEBUG_COMMITS !== "0";
+const screenshotFormat = imageFormat(process.env.SCREENSHOT_FORMAT) || "webp";
+const screenshotQuality =
+  boundedNumber(process.env.SCREENSHOT_QUALITY, 0, 1) ?? 0.82;
 const skipScreenshots =
   process.argv.includes("--skip-screenshots") ||
   process.env.SKIP_SCREENSHOTS === "1";
 
 const generatedAt = new Date();
-
 await mkdir(screenshotsDir, { recursive: true });
 
 const groups = parseGroups(await readFile(sitesPath, "utf8"));
@@ -333,7 +335,9 @@ async function pathCommandCandidates() {
             commands.flatMap((command) =>
               pathDirs.map(async (dir) => {
                 const candidate = path.join(dir, command);
-                return (await fileExists(candidate)) ? candidate : null;
+                return (await fileExists(candidate, constants.X_OK))
+                  ? candidate
+                  : null;
               }),
             ),
           )
@@ -345,7 +349,7 @@ async function pathCommandCandidates() {
 
 async function findExecutable(candidate) {
   for (const executablePath of unique(candidate.paths.filter(Boolean))) {
-    if (await fileExists(executablePath)) {
+    if (await fileExists(executablePath, constants.X_OK)) {
       return executablePath;
     }
   }
@@ -353,9 +357,9 @@ async function findExecutable(candidate) {
   return null;
 }
 
-async function fileExists(filePath) {
+async function fileExists(filePath, mode = constants.F_OK) {
   try {
-    await access(filePath, constants.X_OK);
+    await access(filePath, mode);
     return true;
   } catch {
     return false;
@@ -471,10 +475,7 @@ async function crawlSite(browser, originalUrl) {
       if (galleryKeys.has(galleryKey)) {
         console.log(`[gallery] duplicate skipped: ${finalUrl}`);
       } else if (!skipScreenshots || !screenshotExists) {
-        await page.screenshot({
-          path: screenshotPath,
-          fullPage: false,
-        });
+        await writeOptimizedScreenshot(page, screenshotPath);
         console.log(
           `[screenshot] saved ${screenshotUrl}${skipScreenshots ? " (missing)" : ""}`,
         );
@@ -771,7 +772,49 @@ function canonicalUrl(rawUrl) {
 }
 
 function screenshotNameForUrl(rawUrl) {
-  return `${hashUrl(canonicalUrl(rawUrl))}.png`;
+  return `${hashUrl(canonicalUrl(rawUrl))}.${screenshotFormat}`;
+}
+
+async function writeOptimizedScreenshot(page, screenshotPath) {
+  const pngBuffer = await page.screenshot({
+    type: "png",
+    fullPage: false,
+  });
+  const optimizedBuffer = await transcodeScreenshot(page, pngBuffer);
+  await writeFile(screenshotPath, optimizedBuffer);
+}
+
+async function transcodeScreenshot(page, pngBuffer) {
+  const mimeType = `image/${screenshotFormat}`;
+  const encoded = await page.evaluate(
+    async ({ bytes, mimeType, quality }) => {
+      const blob = new Blob([new Uint8Array(bytes)], { type: "image/png" });
+      const bitmap = await createImageBitmap(blob);
+      const canvas = document.createElement("canvas");
+      canvas.width = bitmap.width;
+      canvas.height = bitmap.height;
+      const context = canvas.getContext("2d", { alpha: false });
+      context.drawImage(bitmap, 0, 0);
+      bitmap.close();
+
+      const output = await new Promise((resolve) =>
+        canvas.toBlob(resolve, mimeType, quality),
+      );
+
+      if (!output || output.type !== mimeType) {
+        throw new Error(`${mimeType} encoding is not supported by this browser`);
+      }
+
+      return [...new Uint8Array(await output.arrayBuffer())];
+    },
+    {
+      bytes: [...pngBuffer],
+      mimeType,
+      quality: screenshotQuality,
+    },
+  );
+
+  return Buffer.from(encoded);
 }
 
 function hashUrl(rawUrl) {
@@ -787,6 +830,18 @@ function pageLabelFromUrl(rawUrl) {
 function positiveInteger(value) {
   const parsed = Number.parseInt(value, 10);
   return Number.isFinite(parsed) && parsed > 0 ? parsed : null;
+}
+
+function boundedNumber(value, min, max) {
+  const parsed = Number.parseFloat(value);
+  return Number.isFinite(parsed) && parsed >= min && parsed <= max
+    ? parsed
+    : null;
+}
+
+function imageFormat(value) {
+  const normalized = String(value || "").trim().toLowerCase();
+  return ["avif", "webp"].includes(normalized) ? normalized : null;
 }
 
 async function fetchFinalUrl(originalUrl) {
