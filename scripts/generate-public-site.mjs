@@ -10,7 +10,10 @@ const sitesPath = path.join(root, "sites.txt");
 const publicDir = path.join(root, "public");
 const screenshotsDir = path.join(publicDir, "screenshots");
 const targetDomain = "gambaaa.fun";
+const fallbackGithubOwner = "gambaaa-fun";
 const crawlLimit = positiveInteger(process.env.CRAWL_LIMIT) || 10;
+const groupParallelism = positiveInteger(process.env.GROUP_PARALLELISM) || 2;
+const debugCommits = process.env.DEBUG_COMMITS !== "0";
 const skipScreenshots =
   process.argv.includes("--skip-screenshots") ||
   process.env.SKIP_SCREENSHOTS === "1";
@@ -22,39 +25,15 @@ await mkdir(screenshotsDir, { recursive: true });
 const groups = parseGroups(await readFile(sitesPath, "utf8"));
 const browserTools = await loadBrowserTools();
 const browser = await launchBrowser(browserTools);
-
-const renderedGroups = [];
+let renderedGroups = [];
 
 try {
-  for (const [groupIndex, group] of groups.entries()) {
-    const renderedSites = [];
-
-    for (const [siteIndex, originalUrl] of group.sites.entries()) {
-      console.log(
-        `[site] ${group.name} ${siteIndex + 1}/${group.sites.length}: ${originalUrl}`,
-      );
-      const result = await inspectSite(browser, originalUrl);
-
-      renderedSites.push({
-        originalUrl,
-        repoName: repoNameFromUrl(originalUrl),
-        repoUrl: repoUrlFromSiteUrl(originalUrl),
-        readme: await readmeInfoFromSiteUrl(originalUrl),
-        finalUrl: result.finalUrl,
-        isGambaaa: isGambaaaHost(result.finalUrl),
-        screenshot: result.gallery[0]?.screenshot || null,
-        gallery: result.gallery,
-        metadata: result.metadata,
-        status: result.status,
-        error: result.error,
-      });
-    }
-
-    renderedGroups.push({
-      name: group.name,
-      sites: renderedSites,
-    });
-  }
+  console.log(
+    `[groups] processing ${groups.length} groups with ${Math.min(groupParallelism, groups.length)} workers`,
+  );
+  renderedGroups = await parallelMap(groups, groupParallelism, (group) =>
+    renderGroup(browser, group),
+  );
 } finally {
   if (browser) {
     await browser.close();
@@ -71,6 +50,65 @@ await writeFile(
   renderSitemap(renderedGroups),
   "utf8",
 );
+
+async function renderGroup(browser, group) {
+  const renderedSites = [];
+
+  for (const [siteIndex, originalUrl] of group.sites.entries()) {
+    renderedSites.push(await renderSite(browser, group, siteIndex, originalUrl));
+  }
+
+  return {
+    name: group.name,
+    sites: renderedSites,
+  };
+}
+
+async function renderSite(browser, group, siteIndex, originalUrl) {
+  console.log(
+    `[site] ${group.name} ${siteIndex + 1}/${group.sites.length}: ${originalUrl}`,
+  );
+
+  const [result, readme, latestCommit] = await Promise.all([
+    inspectSite(browser, originalUrl),
+    readmeInfoFromSiteUrl(originalUrl),
+    latestCommitInfoFromSiteUrl(originalUrl),
+  ]);
+
+  return {
+    originalUrl,
+    repoName: repoNameFromUrl(originalUrl),
+    repoUrl: repoUrlFromSiteUrl(originalUrl),
+    readme,
+    latestCommit,
+    finalUrl: result.finalUrl,
+    isGambaaa: isGambaaaHost(result.finalUrl),
+    screenshot: result.gallery[0]?.screenshot || null,
+    gallery: result.gallery,
+    metadata: result.metadata,
+    status: result.status,
+    error: result.error,
+  };
+}
+
+async function parallelMap(items, concurrency, mapper) {
+  const results = new Array(items.length);
+  let nextIndex = 0;
+
+  async function worker() {
+    while (nextIndex < items.length) {
+      const index = nextIndex;
+      nextIndex += 1;
+      results[index] = await mapper(items[index], index);
+    }
+  }
+
+  await Promise.all(
+    Array.from({ length: Math.min(concurrency, items.length) }, () => worker()),
+  );
+
+  return results;
+}
 
 function parseGroups(content) {
   const groups = [];
@@ -775,18 +813,34 @@ function isGambaaaHost(url) {
 }
 
 function repoNameFromUrl(rawUrl) {
+  return repoInfoFromSiteUrl(rawUrl).name;
+}
+
+function repoInfoFromSiteUrl(rawUrl) {
   const parsed = new URL(rawUrl);
   const parts = parsed.pathname.split("/").filter(Boolean);
-  return parts.at(-1) || parsed.hostname;
+  const githubPagesOwner = parsed.hostname
+    .toLowerCase()
+    .match(/^([a-z0-9-]+)\.github\.io$/)?.[1];
+
+  return {
+    owner: githubPagesOwner || fallbackGithubOwner,
+    name: parts.at(-1) || parsed.hostname,
+  };
 }
 
 function repoUrlFromSiteUrl(rawUrl) {
-  return `https://github.com/pslib-cz/${repoNameFromUrl(rawUrl)}`;
+  const repo = repoInfoFromSiteUrl(rawUrl);
+  return repoUrlFromInfo(repo);
+}
+
+function repoUrlFromInfo(repo) {
+  return `https://github.com/${repo.owner}/${repo.name}`;
 }
 
 async function readmeInfoFromSiteUrl(rawUrl) {
-  const repoName = repoNameFromUrl(rawUrl);
-  const readmeUrl = `https://raw.githubusercontent.com/pslib-cz/${repoName}/main/README.md`;
+  const repo = repoInfoFromSiteUrl(rawUrl);
+  const readmeUrl = `https://raw.githubusercontent.com/${repo.owner}/${repo.name}/main/README.md`;
 
   try {
     const response = await fetch(readmeUrl, {
@@ -799,10 +853,10 @@ async function readmeInfoFromSiteUrl(rawUrl) {
     }
 
     const content = await response.text();
-    const links = extractUsefulReadmeLinks(content, repoName);
+    const links = extractUsefulReadmeLinks(content, repo);
 
     return {
-      url: repoUrlFromSiteUrl(rawUrl),
+      url: repoUrlFromInfo(repo),
       links,
     };
   } catch {
@@ -810,7 +864,191 @@ async function readmeInfoFromSiteUrl(rawUrl) {
   }
 }
 
-function extractUsefulReadmeLinks(content, repoName) {
+async function latestCommitInfoFromSiteUrl(rawUrl) {
+  const repo = repoInfoFromSiteUrl(rawUrl);
+  const atomResult = await latestCommitInfoFromAtom(repo, rawUrl);
+  if (atomResult.date) {
+    return atomResult;
+  }
+
+  return await latestCommitInfoFromApi(repo, rawUrl);
+}
+
+async function latestCommitInfoFromAtom(repo, rawUrl) {
+  const commitsUrl = `https://github.com/${repo.owner}/${repo.name}/commits.atom`;
+  debugCommit(
+    `atom lookup ${repo.owner}/${repo.name} from ${rawUrl} via ${commitsUrl}`,
+  );
+
+  try {
+    const response = await fetch(commitsUrl, {
+      headers: {
+        Accept: "application/atom+xml, application/xml;q=0.9, */*;q=0.8",
+        "User-Agent": "gambaaa-projects-generator",
+      },
+      redirect: "follow",
+      signal: AbortSignal.timeout(10000),
+    });
+
+    if (!response.ok) {
+      debugCommit(
+        `atom failed ${repo.owner}/${repo.name}: HTTP ${response.status} ${response.statusText}`,
+      );
+      return emptyCommitInfo();
+    }
+
+    const feed = await response.text();
+    const entry = firstAtomEntry(feed);
+    const committedAt = atomTagText(entry, "updated");
+    const commitUrl = atomEntryLink(entry);
+    const sha = commitUrl?.match(/\/commit\/([a-f0-9]{7,40})/i)?.[1] || null;
+
+    if (!entry) {
+      debugCommit(`atom empty ${repo.owner}/${repo.name}: no entries found`);
+    } else if (!committedAt) {
+      debugCommit(`atom missing date ${repo.owner}/${repo.name}`);
+    } else {
+      debugCommit(
+        `atom found ${repo.owner}/${repo.name}: ${committedAt} ${sha ? sha.slice(0, 7) : ""}`,
+      );
+    }
+
+    return {
+      date: committedAt,
+      timestamp: committedAt ? Date.parse(committedAt) || 0 : 0,
+      sha,
+      url: commitUrl,
+      message: decodeXmlEntities(atomTagText(entry, "title")),
+    };
+  } catch (error) {
+    debugCommit(
+      `atom error ${repo.owner}/${repo.name}: ${error instanceof Error ? error.message : String(error)}`,
+    );
+    return emptyCommitInfo();
+  }
+}
+
+async function latestCommitInfoFromApi(repo, rawUrl) {
+  const commitsUrl = `https://api.github.com/repos/${repo.owner}/${repo.name}/commits?per_page=1`;
+  debugCommit(
+    `api lookup ${repo.owner}/${repo.name} from ${rawUrl} via ${commitsUrl}`,
+  );
+
+  try {
+    const response = await fetch(commitsUrl, {
+      headers: {
+        Accept: "application/vnd.github+json",
+        "User-Agent": "gambaaa-projects-generator",
+      },
+      redirect: "follow",
+      signal: AbortSignal.timeout(10000),
+    });
+
+    if (!response.ok) {
+      debugCommit(
+        `api failed ${repo.owner}/${repo.name}: HTTP ${response.status} ${response.statusText}; remaining=${response.headers.get("x-ratelimit-remaining") || "?"}; reset=${formatRateLimitReset(response.headers.get("x-ratelimit-reset"))}`,
+      );
+      return emptyCommitInfo();
+    }
+
+    const commits = await response.json();
+    const commit = Array.isArray(commits) ? commits[0] : null;
+    const committedAt =
+      commit?.commit?.committer?.date || commit?.commit?.author?.date || null;
+
+    if (!commit) {
+      debugCommit(`api empty ${repo.owner}/${repo.name}: no commits found`);
+    } else if (!committedAt) {
+      debugCommit(
+        `api missing date ${repo.owner}/${repo.name}: commit ${commit.sha || "unknown sha"} has no committer/author date`,
+      );
+    } else {
+      debugCommit(
+        `api found ${repo.owner}/${repo.name}: ${committedAt} ${commit.sha ? commit.sha.slice(0, 7) : ""}`,
+      );
+    }
+
+    return {
+      date: committedAt,
+      timestamp: committedAt ? Date.parse(committedAt) || 0 : 0,
+      sha: commit?.sha || null,
+      url: commit?.html_url || null,
+      message: firstCommitMessageLine(commit?.commit?.message || ""),
+    };
+  } catch (error) {
+    debugCommit(
+      `api error ${repo.owner}/${repo.name}: ${error instanceof Error ? error.message : String(error)}`,
+    );
+    return emptyCommitInfo();
+  }
+}
+
+function firstAtomEntry(feed) {
+  return feed.match(/<entry\b[\s\S]*?<\/entry>/i)?.[0] || "";
+}
+
+function atomTagText(entry, tagName) {
+  if (!entry) {
+    return "";
+  }
+
+  return decodeXmlEntities(
+    entry.match(new RegExp(`<${tagName}\\b[^>]*>([\\s\\S]*?)<\\/${tagName}>`, "i"))?.[1]?.trim() || "",
+  );
+}
+
+function atomEntryLink(entry) {
+  if (!entry) {
+    return null;
+  }
+
+  return (
+    decodeXmlEntities(
+      entry.match(/<link\b[^>]*href="([^"]+)"/i)?.[1]?.trim() || "",
+    ) || null
+  );
+}
+
+function decodeXmlEntities(value) {
+  return String(value)
+    .replaceAll("&amp;", "&")
+    .replaceAll("&lt;", "<")
+    .replaceAll("&gt;", ">")
+    .replaceAll("&quot;", '"')
+    .replaceAll("&apos;", "'")
+    .replaceAll("&#39;", "'");
+}
+
+function debugCommit(message) {
+  if (debugCommits) {
+    console.log(`[commit] ${message}`);
+  }
+}
+
+function formatRateLimitReset(value) {
+  const timestamp = Number(value);
+  if (!Number.isFinite(timestamp) || timestamp <= 0) {
+    return "?";
+  }
+
+  return new Date(timestamp * 1000).toISOString();
+}
+
+function emptyCommitInfo() {
+  return {
+    date: null,
+    timestamp: 0,
+    sha: null,
+    url: null,
+    message: "",
+  };
+}
+
+function firstCommitMessageLine(message) {
+  return message.split(/\r?\n/g)[0]?.trim() || "";
+}
+
+function extractUsefulReadmeLinks(content, repo) {
   const rawUrls = [...content.matchAll(/https?:\/\/[^\s<>"')\]]+/gi)].map(
     (match) => cleanReadmeUrl(match[0]),
   );
@@ -821,11 +1059,11 @@ function extractUsefulReadmeLinks(content, repoName) {
     ),
   ].map(
     (match) =>
-      `https://github.com/pslib-cz/${repoName}/tree/main/${match[1].replace(/^\.?\//, "")}`,
+      `https://github.com/${repo.owner}/${repo.name}/tree/main/${match[1].replace(/^\.?\//, "")}`,
   );
 
   return unique([...rawUrls, ...assetHints])
-    .map((url) => normalizeReadmeLink(url, repoName))
+    .map((url) => normalizeReadmeLink(url, repo))
     .filter(Boolean)
     .filter((url) => !isDiscardedReadmeUrl(url))
     .map((url) => ({
@@ -838,10 +1076,10 @@ function cleanReadmeUrl(url) {
   return url.replace(/[),.;\]]+$/g, "");
 }
 
-function normalizeReadmeLink(rawUrl, repoName) {
+function normalizeReadmeLink(rawUrl, repo) {
   try {
     if (rawUrl.startsWith("/public/assets/images")) {
-      return `https://github.com/pslib-cz/${repoName}/tree/main${rawUrl}`;
+      return `https://github.com/${repo.owner}/${repo.name}/tree/main${rawUrl}`;
     }
 
     return new URL(rawUrl).href;
@@ -879,6 +1117,19 @@ function readmeLinkLabel(rawUrl) {
   }
 
   return host.replace(/^www\./, "");
+}
+
+function formatCommitDate(commitInfo) {
+  if (!commitInfo?.date) {
+    return "Unknown update";
+  }
+
+  return `Updated ${new Date(commitInfo.date).toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+    timeZone: "Europe/Prague",
+  })}`;
 }
 
 function escapeHtml(value) {
@@ -1391,6 +1642,7 @@ function renderHtml(groups) {
               <option value="name-desc">Name Z-A</option>
               <option value="gambaaa-first">Gambaaa first</option>
               <option value="original-first">Original domain first</option>
+              <option value="updated-desc">Last updated</option>
             </select>
           </div>
         </div>
@@ -1453,13 +1705,17 @@ function renderHtml(groups) {
       sortSelect?.addEventListener("change", applyControls);
 
       function applyControls() {
-        const query = (searchInput?.value || "").trim().toLowerCase();
+        const query = normalizeText(searchInput?.value || "");
 
         for (const grid of document.querySelectorAll("[data-site-grid]")) {
           const cards = [...grid.querySelectorAll("[data-site-card]")];
-          cards.sort((a, b) => compareCards(a, b, sortSelect?.value || "original"));
+          cards.sort(
+            (a, b) =>
+              compareSearchRank(a, b, query) ||
+              compareCards(a, b, sortSelect?.value || "original"),
+          );
           for (const card of cards) {
-            card.hidden = Boolean(query) && !(card.dataset.search || "").includes(query);
+            card.hidden = Boolean(query) && searchScore(card, query) === 0;
             grid.append(card);
           }
 
@@ -1488,6 +1744,10 @@ function renderHtml(groups) {
           return byDomain(a, b) || byName(a, b);
         }
 
+        if (mode === "updated-desc") {
+          return byUpdated(b, a) || byName(a, b);
+        }
+
         return Number(a.dataset.index) - Number(b.dataset.index);
       }
 
@@ -1497,6 +1757,61 @@ function renderHtml(groups) {
 
       function byDomain(a, b) {
         return Number(a.dataset.gambaaa) - Number(b.dataset.gambaaa);
+      }
+
+      function byUpdated(a, b) {
+        return Number(a.dataset.updated || "0") - Number(b.dataset.updated || "0");
+      }
+
+      function compareSearchRank(a, b, query) {
+        if (!query) {
+          return 0;
+        }
+
+        return searchScore(b, query) - searchScore(a, query);
+      }
+
+      function searchScore(card, query) {
+        if (!query) {
+          return 0;
+        }
+
+        const aliases = searchAliases(query);
+        let score = 0;
+
+        for (const alias of aliases) {
+          if ((card.dataset.goodSearch || "").split(" ").includes(alias)) {
+            score += 120;
+          }
+
+          if ((card.dataset.name || "").toLowerCase().includes(alias)) {
+            score += 80;
+          }
+
+          if ((card.dataset.search || "").includes(alias)) {
+            score += 20;
+          }
+        }
+
+        return score;
+      }
+
+      function searchAliases(query) {
+        const aliases = new Set(query.split(/\s+/g).filter(Boolean));
+
+        if (aliases.has("a11y")) {
+          aliases.add("accessibility");
+        }
+
+        if (aliases.has("accessibility")) {
+          aliases.add("a11y");
+        }
+
+        return aliases;
+      }
+
+      function normalizeText(value) {
+        return value.trim().toLowerCase();
       }
 
       for (const button of document.querySelectorAll("[data-gallery]")) {
@@ -1583,8 +1898,19 @@ function renderSiteCard(site, index) {
   const escapedRepoUrl = escapeHtml(site.repoUrl);
   const escapedGallery = escapeHtml(JSON.stringify(site.gallery));
   const metadata = site.metadata || emptyMetadata();
+  const latestCommit = site.latestCommit || emptyCommitInfo();
   const statusCode = site.gallery[0]?.status || null;
   const statusLabel = statusCode ? `HTTP ${statusCode}` : "HTTP unknown";
+  const updatedLabel = formatCommitDate(latestCommit);
+  const goodSearchTerms = [
+    site.isGambaaa ? "gambaaa" : "original",
+    metadata.robots ? "robots" : null,
+    metadata.sitemap ? "sitemap" : null,
+    metadata.seo ? "seo" : null,
+    metadata.accessibility ? "a11y accessibility" : null,
+  ]
+    .filter(Boolean)
+    .join(" ");
   const searchText = [
     site.repoName,
     site.originalUrl,
@@ -1596,15 +1922,18 @@ function renderSiteCard(site, index) {
     metadata.robots ? "robots" : "no robots",
     metadata.sitemap ? "sitemap" : "no sitemap",
     metadata.seo ? "seo" : "seo missing",
-    metadata.accessibility ? "accessibility" : "accessibility missing",
+    metadata.accessibility ? "a11y accessibility" : "no a11y accessibility missing",
     statusLabel,
+    updatedLabel,
+    latestCommit.message,
+    latestCommit.sha,
     ...site.gallery.flatMap((item) => [item.title, item.url]),
   ]
     .filter(Boolean)
     .join(" ")
     .toLowerCase();
 
-  return `<article class="site-card" data-site-card data-index="${index}" data-name="${escapedRepo}" data-gambaaa="${site.isGambaaa ? "1" : "0"}" data-search="${escapeHtml(searchText)}">
+  return `<article class="site-card" data-site-card data-index="${index}" data-name="${escapedRepo}" data-gambaaa="${site.isGambaaa ? "1" : "0"}" data-updated="${latestCommit.timestamp || 0}" data-good-search="${escapeHtml(goodSearchTerms)}" data-search="${escapeHtml(searchText)}">
             <button class="preview" type="button" data-gallery="${escapedGallery}" data-gallery-title="${escapedRepo}" ${site.gallery.length === 0 ? "disabled" : ""} aria-label="Open screenshot gallery for ${escapedRepo}">
               ${
                 site.screenshot
@@ -1617,6 +1946,7 @@ function renderSiteCard(site, index) {
               <a class="url" href="${escapedOriginal}" target="_blank" rel="noopener noreferrer">${escapedOriginal}</a>
               <div class="links" aria-label="Repository resources">
                 <a class="resource-link" href="${escapedRepoUrl}" target="_blank" rel="noopener noreferrer">GitHub</a>
+                ${latestCommit.url ? `<a class="resource-link" href="${escapeHtml(latestCommit.url)}" target="_blank" rel="noopener noreferrer" title="${escapeHtml(latestCommit.message || "Latest GitHub commit")}">${escapeHtml(updatedLabel)}</a>` : `<span class="resource-link" title="Latest GitHub commit was not available">${escapeHtml(updatedLabel)}</span>`}
                 ${site.readme?.url ? `<a class="resource-link" href="${escapeHtml(site.readme.url)}" target="_blank" rel="noopener noreferrer">README</a>` : ""}
                 ${(site.readme?.links || []).map((link) => `<a class="resource-link" href="${escapeHtml(link.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(link.label)}</a>`).join("")}
               </div>
