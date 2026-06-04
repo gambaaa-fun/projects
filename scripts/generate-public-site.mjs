@@ -1169,6 +1169,7 @@ ${urls.map((url) => `  <url><loc>${escapeXml(url)}</loc></url>`).join("\n")}
 }
 
 function renderHtml(groups) {
+  const allSites = groups.flatMap((group) => group.sites);
   const totalSites = groups.reduce((sum, group) => sum + group.sites.length, 0);
   const gambaaaSites = groups
     .flatMap((group) => group.sites)
@@ -1261,9 +1262,10 @@ function renderHtml(groups) {
 
       .tools {
         display: grid;
-        grid-template-columns: minmax(220px, 1fr) minmax(180px, 260px);
+        grid-template-columns: minmax(220px, 1fr) minmax(180px, 260px) auto;
+        align-items: end;
         gap: 12px;
-        width: min(720px, 100%);
+        width: min(880px, 100%);
         border: 1px solid var(--line);
         border-radius: 8px;
         background: #151922;
@@ -1282,7 +1284,8 @@ function renderHtml(groups) {
       }
 
       input,
-      select {
+      select,
+      .toggle-button {
         width: 100%;
         min-height: 38px;
         border: 1px solid var(--line);
@@ -1292,6 +1295,21 @@ function renderHtml(groups) {
         font-size: 0.92rem;
         font-weight: 700;
         padding: 0 12px;
+      }
+
+      .toggle-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        cursor: pointer;
+        white-space: nowrap;
+      }
+
+      .toggle-button[aria-pressed="true"] {
+        border-color: color-mix(in srgb, var(--accent) 50%, transparent);
+        background: color-mix(in srgb, var(--accent-strong) 18%, #0f1218);
+        color: #cffff0;
       }
 
       input::placeholder {
@@ -1313,6 +1331,10 @@ function renderHtml(groups) {
 
       .group {
         padding-top: 34px;
+      }
+
+      [hidden] {
+        display: none !important;
       }
 
       .group-head {
@@ -1642,9 +1664,19 @@ function renderHtml(groups) {
               <option value="name-desc">Name Z-A</option>
               <option value="gambaaa-first">Gambaaa first</option>
               <option value="original-first">Original domain first</option>
-              <option value="updated-desc">Last updated</option>
+              <option value="updated-desc" selected>Last updated</option>
             </select>
           </div>
+          <button class="toggle-button" type="button" data-ungroup-toggle aria-pressed="false">Ungroup</button>
+        </div>
+      </section>
+      <section class="group" data-flat-section aria-labelledby="group-all" hidden>
+        <div class="group-head">
+          <h2 id="group-all">All sites</h2>
+          <p class="group-count" data-group-count>${allSites.length} sites</p>
+        </div>
+        <div class="grid" data-site-grid>
+          ${allSites.map(renderSiteCard).join("\n          ")}
         </div>
       </section>
       ${groups
@@ -1652,7 +1684,7 @@ function renderHtml(groups) {
           (
             group,
             index,
-          ) => `<section class="group" aria-labelledby="group-${index + 1}">
+          ) => `<section class="group" data-grouped-section aria-labelledby="group-${index + 1}">
         <div class="group-head">
           <h2 id="group-${index + 1}">${escapeHtml(group.name)}</h2>
           <p class="group-count" data-group-count>${group.sites.length} sites</p>
@@ -1689,6 +1721,7 @@ function renderHtml(groups) {
     <script>
       const searchInput = document.querySelector("#search-sites");
       const sortSelect = document.querySelector("#sort-sites");
+      const ungroupToggle = document.querySelector("[data-ungroup-toggle]");
       const collator = new Intl.Collator(undefined, { numeric: true, sensitivity: "base" });
       const modal = document.querySelector("#gallery-modal");
       const modalTitle = document.querySelector("#gallery-title");
@@ -1703,6 +1736,21 @@ function renderHtml(groups) {
 
       searchInput?.addEventListener("input", applyControls);
       sortSelect?.addEventListener("change", applyControls);
+      ungroupToggle?.addEventListener("click", () => {
+        const enabled = ungroupToggle.getAttribute("aria-pressed") !== "true";
+        ungroupToggle.setAttribute("aria-pressed", String(enabled));
+        ungroupToggle.textContent = enabled ? "Group" : "Ungroup";
+        for (const section of document.querySelectorAll("[data-grouped-section]")) {
+          section.hidden = enabled;
+        }
+        const flatSection = document.querySelector("[data-flat-section]");
+        if (flatSection) {
+          flatSection.hidden = !enabled;
+        }
+        applyControls();
+      });
+
+      applyControls();
 
       function applyControls() {
         const query = normalizeText(searchInput?.value || "");
