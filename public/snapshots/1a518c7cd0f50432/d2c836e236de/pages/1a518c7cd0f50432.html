@@ -1,0 +1,1553 @@
+<!DOCTYPE html><html lang="en"><head>
+    <base href="../">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mythical Creatures E-Shop</title>
+
+    <!-- Typography Strategy -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&amp;family=Crimson+Text:ital,wght@0,400;0,600;1,400&amp;display=swap" rel="stylesheet">
+
+    <!-- Icon Strategy -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="apple-touch-icon" sizes="180x180" href="images/favicon_io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon_io/favicon-16x16.png">
+    <link rel="manifest" href="images/favicon_io/site.webmanifest">
+
+    <!-- LightGallery -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2/css/lg-zoom.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2/css/lg-thumbnail.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@2/lightgallery.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@2/plugins/zoom/lg-zoom.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@2/plugins/thumbnail/lg-thumbnail.umd.min.js"></script>
+
+    <noscript>
+        <style>
+            .page-section {
+                display: block !important;
+                margin-bottom: 4rem;
+            }
+
+            #page-product-detail {
+                display: none !important;
+            }
+
+            #cart-toggle {
+                display: none !important;
+            }
+
+            #cart-drawer {
+                display: none !important;
+            }
+
+            #cart-overlay {
+                display: none !important;
+            }
+
+            .menu-toggle {
+                display: none !important;
+            }
+
+            .nav-links {
+                display: flex !important;
+            }
+        </style>
+    </noscript>
+    <style>
+        /* Design System Tokens */
+        :root {
+            --color-bg: #F7F3E3;
+            --color-surface: #FFFDF5;
+            --color-dark: #2B2118;
+            --color-accent: #6F1A07;
+            --color-mid: #AF9164;
+            --color-silver: #5C5652;
+            --color-pink: #ff2d78;
+
+            --font-display: 'Cinzel', serif;
+            --font-body: 'Crimson Text', serif;
+
+            --space-xs: 0.5rem;
+            --space-sm: 1rem;
+            --space-md: 2rem;
+            --space-lg: 4rem;
+
+            --border-thin: 1px solid var(--color-mid);
+        }
+
+        /* Base Reset */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Mobile First Base */
+        body {
+            font-family: var(--font-body);
+            color: var(--color-dark);
+            background: var(--color-bg);
+            background-image: none;
+            font-size: 1.1rem;
+            line-height: 1.5;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Atmosphere Effects */
+        .bg-mesh {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: radial-gradient(circle at 15% 25%, rgba(255, 45, 120, 0.04) 0%, transparent 45%),
+                radial-gradient(circle at 85% 75%, rgba(10, 10, 10, 0.03) 0%, transparent 45%);
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        .noise-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.06;
+            filter: url(#noiseFilter);
+            mix-blend-mode: multiply;
+        }
+
+        /* Typography */
+        h1,
+        h2,
+        h3,
+        .display {
+            font-family: var(--font-display);
+            color: var(--color-dark);
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        /* Global Navigation */
+        nav {
+            padding: var(--space-sm) var(--space-md);
+            border-bottom: 3px solid var(--color-accent);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: var(--color-dark);
+            backdrop-filter: blur(12px);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: var(--space-md);
+        }
+
+        .nav-logo {
+            flex-shrink: 0;
+        }
+
+        .nav-logo img {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            object-fit: cover;
+            display: block;
+            box-shadow: 0 0 0 2px var(--color-accent);
+        }
+
+        .search-wrapper {
+            display: flex;
+            justify-content: flex-end;
+            flex-shrink: 0;
+        }
+
+        .search-bar {
+            background-color: var(--color-accent);
+            border: none;
+            border-radius: 9999px;
+            padding: 0.5rem 1.5rem;
+            color: #fff;
+            font-family: var(--font-body);
+            width: 100%;
+            max-width: 250px;
+            outline: none;
+        }
+
+        .search-bar::placeholder {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-md);
+            transition: max-height 0.3s ease;
+            flex: 1;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--color-bg);
+            font-size: 0.9rem;
+            padding-bottom: 0.25rem;
+            border-bottom: 2px solid transparent;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+
+        .nav-links a.active,
+        .nav-links a:hover {
+            border-bottom: 2px solid var(--color-accent);
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        @media (max-width: 767px) {
+            nav {
+                flex-wrap: wrap;
+            }
+
+            .search-wrapper {
+                order: 3;
+                width: 100%;
+                justify-content: center;
+                max-width: none;
+            }
+
+            .search-bar {
+                max-width: 100%;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                align-items: center;
+                gap: var(--space-sm);
+                display: none;
+            }
+
+            .nav-links.open {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: block;
+                order: 2;
+            }
+        }
+
+        /* Single Page App Toggling */
+        .page-section {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .page-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(5px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Breadcrumb Strategy */
+        .breadcrumb-band {
+            background-color: var(--color-dark);
+            color: var(--color-bg);
+            padding: var(--space-sm) var(--space-md);
+            border-bottom: 2px solid var(--color-accent);
+            display: flex;
+            align-items: center;
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+        }
+
+        /* Skeleton Structure */
+        .container {
+            padding: var(--space-md);
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Component: Cards */
+        .card {
+            border: none;
+            box-shadow: 0 4px 24px rgba(43, 33, 24, 0.12), inset 0 0 0 1px rgba(175, 145, 100, 0.3);
+            background: linear-gradient(145deg, #FFFDF5, #FBF6E8);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+        }
+
+        .card:hover {
+            box-shadow: 0 12px 40px rgba(43, 33, 24, 0.2), inset 0 0 0 1px rgba(175, 145, 100, 0.6), 0 0 30px rgba(111, 26, 7, 0.08);
+            transform: translateY(-2px);
+            z-index: 2;
+        }
+
+        /* ============================================
+        /GLOBAL IMAGE FIT — applies to every <img>
+        ============================================ */
+        img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center center;
+        }
+
+        /* Universal image wrapper */
+        .img-wrapper {
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+        }
+
+        /* Forces img to fill wrapper regardless of orientation */
+        .img-wrapper img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transition: transform 300ms ease, filter 300ms ease;
+        }
+
+        .img-wrapper:hover img {
+            transform: scale(1.05);
+            filter: brightness(0.7);
+        }
+
+        .card-content {
+            padding: var(--space-md);
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .card-content hr {
+            border: none;
+            border-top: var(--border-thin);
+            margin: var(--space-md) 0;
+        }
+
+        /* Layout: Home Page */
+        .section-title {
+            text-align: center;
+            margin: var(--space-lg) 0;
+            font-size: 2.5rem;
+            position: relative;
+            padding-bottom: 1.5rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--color-accent);
+        }
+
+        .home-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--space-md);
+        }
+
+        @media (min-width: 1024px) {
+            .home-grid {
+                grid-template-columns: 60% 1fr;
+            }
+        }
+
+        /* Home featured cards — fixed height layout */
+        .home-grid .img-wrapper {
+            height: 280px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .home-grid .img-wrapper img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .home-grid .card-content h2,
+        .home-grid .card-content h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: var(--space-xs);
+        }
+
+        .home-grid .card-content p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Layout: Shop Page */
+        .shop-layout {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--space-md);
+        }
+
+        @media (min-width: 1024px) {
+            .shop-layout {
+                grid-template-columns: 220px 1fr;
+            }
+        }
+
+        /* Shop: Sidebar Filter */
+        .sidebar {
+            display: none;
+            background: linear-gradient(180deg, #FFFDF5, #F7F3E3);
+            padding: 1.5rem;
+            box-shadow: inset 0 0 0 1px rgba(175, 145, 100, 0.3);
+        }
+
+        .sidebar.open {
+            display: block;
+            margin-bottom: var(--space-md);
+        }
+
+        @media (min-width: 1024px) {
+            .sidebar {
+                display: block;
+                border-right: var(--border-thin);
+                padding-right: var(--space-md);
+            }
+        }
+
+        .mobile-filter-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: none;
+            border: var(--border-thin);
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            font-family: var(--font-body);
+            margin-bottom: var(--space-sm);
+        }
+
+        @media (min-width: 1024px) {
+            .mobile-filter-btn {
+                display: none;
+            }
+        }
+
+        .filter-group {
+            margin-bottom: var(--space-md);
+        }
+
+        .filter-group-label {
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            margin-bottom: 0.75rem;
+            letter-spacing: 0.05em;
+            color: var(--color-dark);
+        }
+
+        .filter-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        .filter-item input {
+            appearance: none;
+            width: 14px;
+            height: 14px;
+            border: 1px solid var(--color-text);
+            border-radius: 0;
+            cursor: pointer;
+        }
+
+        .filter-item input:checked {
+            background: var(--color-text);
+        }
+
+        .sidebar hr {
+            border: none;
+            border-top: var(--border-thin);
+            margin: var(--space-md) 0;
+        }
+
+        /* Shop: Product Grid */
+        .product-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--space-md);
+        }
+
+        @media (min-width: 768px) {
+            .product-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .product-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .product-img-container {
+            aspect-ratio: 4 / 3;
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+            border-bottom: var(--border-thin);
+        }
+
+        .product-img-container img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.4s ease, filter 0.4s ease;
+            border-bottom: none;
+        }
+
+        .card:hover .product-img-container img {
+            transform: scale(1.05);
+            filter: brightness(0.8);
+        }
+
+        .product-info {
+            padding: var(--space-sm);
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .product-title {
+            font-size: 1.1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .product-desc {
+            font-size: 0.85rem;
+            color: #444;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            margin-bottom: var(--space-sm);
+            flex-grow: 1;
+        }
+
+        .product-price {
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--color-accent);
+            font-family: 'Cinzel', serif;
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-sm);
+            margin-top: var(--space-lg);
+            font-size: 1rem;
+        }
+
+        .pagination span {
+            cursor: pointer;
+            padding: 0.25rem 0.5rem;
+        }
+
+        .pagination span.active {
+            text-decoration: underline;
+            text-underline-offset: 4px;
+        }
+
+        /* ============================================
+        /   GALLERY SECTION (About page)
+        ============================================ */
+        .gallery-section {
+            margin-top: var(--space-lg);
+        }
+
+        .gallery-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: var(--space-md);
+        }
+
+        .creature-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .creature-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .creature-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .creature-grid a {
+            display: block;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* LightGallery toolbar overrides */
+        .lg-toolbar {
+            background-color: var(--color-accent) !important;
+        }
+
+        .lg-actions .lg-next,
+        .lg-actions .lg-prev {
+            background-color: var(--color-accent) !important;
+        }
+
+        .lg-sub-html h4 {
+            font-family: var(--font-display);
+            text-transform: uppercase;
+        }
+
+        .lg-sub-html p {
+            font-size: 0.9rem;
+            max-width: 520px;
+            margin: 0.5rem auto 0;
+        }
+
+        /* Cart & Medieval Redesign Additions */
+        #cart-drawer {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 360px;
+            height: 100vh;
+            background: #F7F3E3;
+            border-left: 2px solid #AF9164;
+            transform: translateX(100%);
+            transition: transform 300ms ease;
+            z-index: 2000;
+            display: flex;
+            flex-direction: column;
+            padding: 2rem;
+            box-sizing: border-box;
+            color: #2B2118;
+        }
+
+        #cart-drawer.open {
+            transform: translateX(0);
+        }
+
+        #cart-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            z-index: 1999;
+        }
+
+        #cart-overlay.open {
+            display: block;
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid #AF9164;
+            padding-bottom: 1rem;
+        }
+
+        #cart-items {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            flex: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        #cart-items li {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            border-bottom: 1px solid #AF9164;
+            padding-bottom: 1rem;
+        }
+
+        #cart-items li img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border: 1px solid #AF9164;
+        }
+
+        #cart-items li .cart-item-info {
+            flex: 1;
+        }
+
+        #cart-items li .cart-item-remove {
+            background: none;
+            border: none;
+            color: #6F1A07;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+
+        .cart-footer {
+            border-top: 1px solid #AF9164;
+            padding-top: 1rem;
+            margin-top: 1rem;
+        }
+
+        #cart-badge {
+            background: #6F1A07;
+            color: #F7F3E3;
+            border-radius: 50%;
+            padding: 0.1rem 0.4rem;
+            font-size: 0.75rem;
+            margin-left: 4px;
+        }
+
+        .muted-text {
+            color: #5C5652;
+        }
+
+        nav h1,
+        nav h2,
+        nav h3,
+        nav .display,
+        .breadcrumb-band h1,
+        .breadcrumb-band h2,
+        .breadcrumb-band h3,
+        .breadcrumb-band .display {
+            color: var(--color-bg);
+        }
+
+        #cart-order {
+            background: var(--color-accent);
+            color: var(--color-bg);
+            border: none;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+        }
+
+        #cart-order:hover {
+            background: #8B2208;
+        }
+
+        #detail-add-to-cart,
+        button.add-to-cart {
+            background: var(--color-accent);
+            color: var(--color-bg);
+            border: none;
+            padding: 1rem 2rem;
+            font-family: 'Cinzel', serif;
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 1.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: background 300ms ease, transform 200ms ease;
+        }
+
+        #detail-add-to-cart::before,
+        button.add-to-cart::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: translateX(-100%);
+            transition: transform 500ms ease;
+        }
+
+        #detail-add-to-cart:hover::before,
+        button.add-to-cart:hover::before {
+            transform: translateX(100%);
+        }
+
+        #detail-add-to-cart:hover,
+        button.add-to-cart:hover {
+            background: #8B2208;
+            transform: translateY(-1px);
+        }
+
+        #detail-add-to-cart:active,
+        button.add-to-cart:active {
+            transform: translateY(0);
+        }
+
+        #cart-toggle {
+            background: none;
+            border: none;
+            color: var(--color-bg);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            font-size: 1.1rem;
+            font-family: 'Cinzel', serif;
+            margin-left: 1rem;
+        }
+
+        .filter-sidebar input[type="checkbox"] {
+            appearance: auto;
+            -webkit-appearance: auto;
+            width: 16px;
+            height: 16px;
+            accent-color: #6F1A07;
+            cursor: pointer;
+        }
+
+        .product-detail-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 768px) {
+            .product-detail-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .detail-image-wrapper {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 4/3;
+            overflow: hidden;
+        }
+
+        .detail-image-wrapper img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .detail-tag {
+            font-family: 'Cinzel', serif;
+            font-size: 0.85rem;
+            color: var(--color-accent);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .detail-characteristics {
+            list-style: none;
+            padding: 0;
+            margin: 1.5rem 0;
+            border-top: 1px solid var(--color-mid);
+            border-bottom: 1px solid var(--color-mid);
+            padding: 1rem 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .detail-info {
+            border-left: 3px solid var(--color-accent);
+            padding-left: 2rem;
+        }
+
+        .detail-price {
+            font-family: 'Cinzel', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-accent);
+            margin: 1rem 0;
+            text-shadow: 0 0 20px rgba(111, 26, 7, 0.3);
+        }
+
+        #detail-back {
+            background: none;
+            border: 1px solid var(--color-mid);
+            color: var(--color-dark);
+            margin-top: 1rem;
+            cursor: pointer;
+            padding: 0.6rem 1.2rem;
+            width: 100%;
+        }
+
+        .product-title::before {
+            content: attr(data-tag);
+            display: block;
+            font-size: 0.7rem;
+            color: var(--color-accent);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            font-family: 'Cinzel', serif;
+            margin-bottom: 0.3rem;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--color-bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--color-mid);
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--color-accent);
+        }
+    </style>
+<noscript>
+  <style>
+    .page-section { display: block !important; margin-bottom: 4rem; }
+    #page-product-detail { display: none !important; }
+    #cart-toggle { display: none !important; }
+    #cart-drawer { display: none !important; }
+    #cart-overlay { display: none !important; }
+    .menu-toggle { display: none !important; }
+    .nav-links { display: flex !important; }
+  </style>
+</noscript>
+</head>
+
+<body>
+
+    <!-- Atmosphere Filters -->
+    <svg style="display:none;" xmlns="http://www.w3.org/2000/svg">
+        <filter id="noiseFilter">
+            <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"></feTurbulence>
+        </filter>
+    </svg>
+
+    <div class="bg-mesh"></div>
+    <div class="noise-overlay"></div>
+
+    <!-- Global Nav -->
+    <nav>
+        <div class="nav-logo">
+            <img src="images/favicon_io/apple-touch-icon.png" alt="Logo">
+        </div>
+        <div class="nav-links" id="nav-links">
+            <a href="#page-home" onclick="navTo('home')" class="active" id="link-home">Home</a>
+            <a href="#page-shop" onclick="navTo('shop')" id="link-shop">Shop</a>
+            <a href="#page-this" onclick="navTo('this')" id="link-this">This</a>
+            <a href="#page-that" onclick="navTo('that')" id="link-that">That</a>
+            <a href="#page-there" onclick="navTo('there')" id="link-there">There</a>
+            <a href="#page-about" onclick="navTo('about')" id="link-about">About</a>
+        </div>
+        <div class="search-wrapper">
+            <input type="search" class="search-bar" placeholder="Search mythical beings..." style="">
+            <button id="cart-toggle" aria-label="Košík">
+                🛒 <span id="cart-badge">0</span>
+            </button>
+<noscript>
+  <a href="#page-there" style="color: var(--color-bg); font-family: 'Cinzel', serif; font-size: 0.85rem; text-decoration: none; margin-left: 1rem;">Contact</a>
+</noscript>
+        </div>
+        <button class="menu-toggle" onclick="document.getElementById('nav-links').classList.toggle('open')">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="menu" aria-hidden="true" class="lucide lucide-menu"><path d="M4 5h16"></path><path d="M4 12h16"></path><path d="M4 19h16"></path></svg>
+        </button>
+    </nav>
+
+    <!-- HOME PAGE -->
+    <main id="page-home" class="page-section active">
+        <div class="breadcrumb-band">/Home</div>
+        <div class="container">
+            <h1 class="section-title display">What do we offer</h1>
+            <div class="home-grid">
+                <article class="card card-large">
+                    <div class="img-wrapper" style="aspect-ratio:16/9;">
+                        <img src="images/lucid-origin_a_cinematic_photo_of_A_breathtaking_mythical_creatures_emerging_from_ancient_tem-0.jpg" alt="Beings of Legend">
+                    </div>
+                    <div class="card-content">
+                        <h2 class="display">Beings of Legend</h2>
+                        <p>Step into a realm where myths breathe and legends walk. We offer a curated selection of the
+                            most extraordinary creatures across all dimensions, elements, and ancient lineages. From the
+                            untamed skies to the abyssal depths, our companions are bound by ancient magic and supreme
+                            care.</p>
+                        <hr>
+                        <p style="font-size: 0.85rem; color: #555;">Find your lifelong mythical companion today.</p>
+                    </div>
+                </article>
+                <article class="card card-small">
+                    <div class="img-wrapper" style="aspect-ratio:4/3;">
+                        <img src="images/lucid-origin_a_cinematic_photo_of_A_colossal_mythical_fire_deity_made_of_living_flame_and_mol-0.jpg" alt="Magical Realm">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="display" style="font-size: 1.2rem;">Unmatched Rarity</h3>
+                        <p style="font-size: 0.9rem; margin-top: 0.5rem; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical;">
+                            Every entity in our care is sourced ethically from their natural mystical habitats. We
+                            guarantee authentic lineages, pristine elemental affinities, and a deep magical bond that
+                            will resonate with your soul.
+                        </p>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <!-- SHOP PAGE -->
+    <main id="page-shop" class="page-section">
+        <div class="breadcrumb-band">/Shop</div>
+        <div class="container">
+            <button class="mobile-filter-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="sliders-horizontal" aria-hidden="true" style="width: 16px;" class="lucide lucide-sliders-horizontal"><path d="M10 5H3"></path><path d="M12 19H3"></path><path d="M14 3v4"></path><path d="M16 17v4"></path><path d="M21 12h-9"></path><path d="M21 19h-5"></path><path d="M21 5h-7"></path><path d="M8 10v4"></path><path d="M8 12H3"></path></svg> Filters
+            </button>
+            <div class="shop-layout">
+                <!-- Shop Filters -->
+                <aside class="sidebar filter-sidebar" id="sidebar"><form id="filter-form" method="get" action="#">
+                    <div class="filter-group">
+                        <div class="filter-group-label">Typ bytosti</div>
+                        <label class="filter-item"><input type="checkbox" data-group="typ" value="drak" style=""> Drak</label>
+                        <label class="filter-item"><input type="checkbox" data-group="typ" value="morska" style=""> Mořská
+                            bytost</label>
+                        <label class="filter-item"><input type="checkbox" data-group="typ" value="pekelna" style=""> Pekelná
+                            bytost</label>
+                        <label class="filter-item"><input type="checkbox" data-group="typ" value="lesni" style=""> Lesní
+                            bytost</label>
+                        <label class="filter-item"><input type="checkbox" data-group="typ" value="had" style=""> Had</label>
+                        <label class="filter-item"><input type="checkbox" data-group="typ" value="hybrid" style="">
+                            Hybrid</label>
+                    </div>
+                    <hr>
+                    <div class="filter-group">
+                        <div class="filter-group-label">Nebezpečnost</div>
+                        <label class="filter-item"><input type="checkbox" data-group="nebezpecnost" value="nizka" style="">
+                            Nízká</label>
+                        <label class="filter-item"><input type="checkbox" data-group="nebezpecnost" value="stredni" style="">
+                            Střední</label>
+                        <label class="filter-item"><input type="checkbox" data-group="nebezpecnost" value="vysoka" style="">
+                            Vysoká</label>
+                        <label class="filter-item"><input type="checkbox" data-group="nebezpecnost" value="extremni" style="">
+                            Extrémní</label>
+                    </div>
+                    <hr>
+                    <div class="filter-group">
+                        <div class="filter-group-label">Cena</div>
+                        <label class="filter-item"><input type="checkbox" data-group="cena" value="nizka" style=""> Do 100
+                            Kč</label>
+                        <label class="filter-item"><input type="checkbox" data-group="cena" value="stredni" style=""> 100–500
+                            Kč</label>
+                        <label class="filter-item"><input type="checkbox" data-group="cena" value="vysoka" style=""> 500
+                            Kč+</label>
+                    </div>
+                </form></aside>
+
+                <!-- Shop Products -->
+                <div class="product-grid">
+                    <article class="card product-card" data-typ="lesni" data-nebezpecnost="nizka" data-cena="nizka" data-name="Silver Unicorn" data-price="67.00" data-img="images/lucid-origin_a_cinematic_photo_of_A_majestic_silver-white_unicorn_standing_in_an_enchanted_mo-0.jpg" data-description="Čistá bytost lesů, jejíž roh má léčivé schopnosti. Zjeví se pouze těm s čistým srdcem." data-origin="Enchanted Forest, Northern Realms" data-danger="Nízká" data-diet="Starlight and pure spring water" data-lifespan="1000+ let" data-temperament="Klidný, důvěřivý" style="cursor: pointer;">
+                        <div class="product-img-container">
+                            <img src="images/lucid-origin_a_cinematic_photo_of_A_majestic_silver-white_unicorn_standing_in_an_enchanted_mo-0.jpg" alt="Unicorn">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title display">Silver Unicorn</h3>
+                            <p class="product-desc">Pure magical being of the enchanted forest. Requires a diet of
+                                starlight and pure spring water.</p>
+                            <div class="product-price">Cena: 67.00 Kč</div>
+                        </div>
+                    </article>
+                    <article class="card product-card" data-typ="morska" data-nebezpecnost="extremni" data-cena="vysoka" data-name="Abyssal Kraken" data-price="890.00" data-img="images/lucid-origin_a_cinematic_photo_of_A_colossal_dark_kraken_rising_from_black_abyssal_ocean_dept-0.jpg" data-description="Obří mořský démon s chapadly schopnými potopit celé loďstvo. Bdí v bezedných hlubinách oceánu." data-origin="Abyssal Ocean Depths" data-danger="Extrémní" data-diet="Celé lodě a jejich posádky" data-lifespan="Nesmrtelný" data-temperament="Agresivní, teritoriální" style="cursor: pointer;">
+                        <div class="product-img-container">
+                            <img src="images/lucid-origin_a_cinematic_photo_of_A_colossal_dark_kraken_rising_from_black_abyssal_ocean_dept-0.jpg" alt="Kraken">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title display">Abyssal Kraken</h3>
+                            <p class="product-desc">Colossal cephalopod for ocean guardians. Ensure you have adequate
+                                marine space before purchase.</p>
+                            <div class="product-price">Cena: 890.00 Kč</div>
+                        </div>
+                    </article>
+                    <article class="card product-card" data-typ="hybrid" data-nebezpecnost="vysoka" data-cena="stredni" data-name="Royal Griffin" data-price="450.00" data-img="images/lucid-origin_a_cinematic_photo_of_A_noble_griffin_perched_on_a_mountain_peak_fortress_wall_li-0.jpg" data-description="Pán nebes i pevniny — tělo lva, křídla orla. Věrný pouze svému rytíři, smrtelně nebezpečný ostatním." data-origin="Mountain Fortress, Eastern Peaks" data-danger="Vysoká" data-diet="Horská zvěř, divoké kozy" data-lifespan="500 let" data-temperament="Hrdý, loajální" style="cursor: pointer;">
+                        <div class="product-img-container">
+                            <img src="images/lucid-origin_a_cinematic_photo_of_A_noble_griffin_perched_on_a_mountain_peak_fortress_wall_li-0.jpg" alt="Griffin">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title display">Royal Griffin</h3>
+                            <p class="product-desc">Half lion, half eagle. The perfect noble steed for surveying your
+                                mountainous domain.</p>
+                            <div class="product-price">Cena: 450.00 Kč</div>
+                        </div>
+                    </article>
+                    <article class="card product-card" data-typ="pekelna" data-nebezpecnost="stredni" data-cena="nizka" data-name="Cerberus Pup" data-price="120.00" data-img="images/ChatGPT_Image_13__5__2026_09_32_15.png" data-description="Trojhlavý strážce podsvětí. I jako štěně dokáže odradit nežádoucí návštěvníky svým trojitým vrčením." data-origin="The Underworld, Gate of Hades" data-danger="Střední" data-diet="Souls and hellfire bones" data-lifespan="Nesmrtelný" data-temperament="Hravý, ochranářský" style="cursor: pointer;">
+                        <div class="product-img-container">
+                            <img src="images/ChatGPT_Image_13__5__2026_09_32_15.png" alt="Cerberus">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title display">Cerberus Pup</h3>
+                            <p class="product-desc">Three heads, one loyal heart. Excellent guard dog for underworld
+                                entrances or suburban homes.</p>
+                            <div class="product-price">Cena: 120.00 Kč</div>
+                        </div>
+                    </article>
+                    <article class="card product-card" data-typ="hybrid" data-nebezpecnost="extremni" data-cena="stredni" data-name="Bronze Chimera" data-price="330.00" data-img="images/lucid-origin_a_cinematic_photo_of_A_fearsome_chimera_creature_with_a_bronze_lion_body_goat_he-0.jpg" data-description="Tvor složený ze tří šelem — lev, koza, had. Dýchá oheň a přináší zkázu všemu, co jí stojí v cestě." data-origin="Ancient Ruins, Southern Wastelands" data-danger="Extrémní" data-diet="Anything that moves" data-lifespan="300 let" data-temperament="Nepředvídatelný, destruktivní" style="cursor: pointer;">
+                        <div class="product-img-container">
+                            <img src="images/lucid-origin_a_cinematic_photo_of_A_fearsome_chimera_creature_with_a_bronze_lion_body_goat_he-0.jpg" alt="Chimera">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title display">Bronze Chimera</h3>
+                            <p class="product-desc">A fiery amalgamation of beasts. Highly territorial, recommended for
+                                experienced handlers only.</p>
+                            <div class="product-price">Cena: 330.00 Kč</div>
+                        </div>
+                    </article>
+                    <article class="card product-card" data-typ="had" data-nebezpecnost="extremni" data-cena="nizka" data-name="Emerald Basilisk" data-price="67.00" data-img="images/lucid-origin_a_cinematic_photo_of_A_massive_basilisk_serpent_king_coiled_around_a_stone_thron-0.jpg" data-description="Král hadů, jehož pohled zabíjí na místě. Jediný způsob jak ho porazit — jeho vlastní odraz." data-origin="Underground Stone Chambers" data-danger="Extrémní" data-diet="Large mammals, unfortunate adventurers" data-lifespan="700 let" data-temperament="Chladný, smrtící" style="cursor: pointer;">
+                        <div class="product-img-container">
+                            <img src="images/lucid-origin_a_cinematic_photo_of_A_massive_basilisk_serpent_king_coiled_around_a_stone_thron-0.jpg" alt="Basilisk">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title display">Emerald Basilisk</h3>
+                            <p class="product-desc">A serpent king whose gaze is legendary. Comes with a complimentary
+                                set of mirrored eyewear.</p>
+                            <div class="product-price">Cena: 67.00 Kč</div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Shop Pagination -->
+                <div class="pagination">
+                    <span class="active">1</span>
+                    <span>2</span>
+                    <span>…</span>
+                    <span>10</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- THIS PAGE -->
+    <main id="page-this" class="page-section">
+        <div class="breadcrumb-band">/This</div>
+        <div class="container">
+            <article class="card">
+                <div class="card-content">
+                    <h2 class="display">This Page</h2>
+                    <p>Placeholder content for the "This" section.</p>
+                </div>
+            </article>
+        </div>
+    </main>
+
+    <!-- THAT PAGE -->
+    <main id="page-that" class="page-section">
+        <div class="breadcrumb-band">/That</div>
+        <div class="container">
+            <article class="card">
+                <div class="card-content">
+                    <h2 class="display">That Page</h2>
+                    <p>Placeholder content for the "That" section.</p>
+                </div>
+            </article>
+        </div>
+    </main>
+
+    <!-- THERE PAGE -->
+    <main id="page-there" class="page-section">
+        <div class="breadcrumb-band">/There</div>
+        <div class="container">
+            <article class="card">
+                <div class="card-content">
+                    <h2 class="display">There Page</h2>
+                    <p>Placeholder content for the "There" section.</p>
+                </div>
+            </article>
+        </div>
+    </main>
+
+    <!-- ABOUT PAGE -->
+    <main id="page-about" class="page-section">
+        <div class="breadcrumb-band">/About</div>
+        <div class="container">
+            <!-- About hero — full-width card -->
+            <article class="card card-large">
+                <div class="img-wrapper" style="aspect-ratio:16/9;">
+                    <img src="images/lucid-origin_a_cinematic_photo_of_A_breathtaking_mythical_creatures_emerging_from_ancient_tem-0.jpg" alt="Mythical Realm">
+                </div>
+                <div class="card-content">
+                    <h2 class="display">About Our Bestiary</h2>
+                    <p>Founded in the primordial age, our bestiary has been the premier provider of mythical and
+                        legendary companions across the realms. We believe that the bond between a mortal and a
+                        magical being transcends time.</p>
+                    <p style="margin-top: 1rem;">Our facilities span across dimensions, ensuring that every
+                        creature—from the smallest pixie to the most colossal leviathan—is raised in environments
+                        that perfectly mimic their natural, magical habitats. We work closely with druids, magi, and
+                        mythical handlers to guarantee the well-being of all our entities.</p>
+                </div>
+            </article>
+
+            <!-- Gallery — Bytosti které nabízíme -->
+            <section class="gallery-section">
+                <h2 class="section-title gallery-title display">Bytosti které nabízíme</h2>
+                <div class="creature-grid" id="creature-gallery">
+
+                    <!-- 1: Silver Unicorn -->
+                    <a href="images/lucid-origin_a_cinematic_photo_of_A_majestic_silver-white_unicorn_standing_in_an_enchanted_mo-0.jpg" data-lg-size="1200-900" data-sub-html="&lt;h4&gt;Silver Unicorn&lt;/h4&gt;&lt;p&gt;Čistá bytost lesů, jejíž roh má léčivé schopnosti. Zjeví se pouze těm s čistým srdcem.&lt;/p&gt;" data-lg-id="ba69630f-76a4-44a5-8a3e-3e7dbaf9b25d">
+                        <div class="img-wrapper" style="aspect-ratio:4/3;">
+                            <img src="images/lucid-origin_a_cinematic_photo_of_A_majestic_silver-white_unicorn_standing_in_an_enchanted_mo-0.jpg" alt="Silver Unicorn">
+                        </div>
+                    </a>
+
+                    <!-- 2: Abyssal Kraken -->
+                    <a href="images/lucid-origin_a_cinematic_photo_of_A_colossal_dark_kraken_rising_from_black_abyssal_ocean_dept-0.jpg" data-lg-size="1200-900" data-sub-html="&lt;h4&gt;Abyssal Kraken&lt;/h4&gt;&lt;p&gt;Obří mořský démon s chapadly schopnými potopit celé loďstvo. Bdí v bezedných hlubinách oceánu.&lt;/p&gt;" data-lg-id="29d3ab5c-2101-40e9-a532-9240b30a6f89">
+                        <div class="img-wrapper" style="aspect-ratio:4/3;">
+                            <img src="images/lucid-origin_a_cinematic_photo_of_A_colossal_dark_kraken_rising_from_black_abyssal_ocean_dept-0.jpg" alt="Abyssal Kraken">
+                        </div>
+                    </a>
+
+                    <!-- 3: Royal Griffin -->
+                    <a href="images/lucid-origin_a_cinematic_photo_of_A_noble_griffin_perched_on_a_mountain_peak_fortress_wall_li-0.jpg" data-lg-size="1200-900" data-sub-html="&lt;h4&gt;Royal Griffin&lt;/h4&gt;&lt;p&gt;Pán nebes i pevniny — tělo lva, křídla orla. Věrný pouze svému rytíři, smrtelně nebezpečný ostatním.&lt;/p&gt;" data-lg-id="0060e777-d6c9-4938-8441-9b8134468f27">
+                        <div class="img-wrapper" style="aspect-ratio:4/3;">
+                            <img src="images/lucid-origin_a_cinematic_photo_of_A_noble_griffin_perched_on_a_mountain_peak_fortress_wall_li-0.jpg" alt="Royal Griffin">
+                        </div>
+                    </a>
+
+                    <!-- 4: Cerberus Pup -->
+                    <a href="images/ChatGPT_Image_13__5__2026_09_32_15.png" data-lg-size="1200-900" data-sub-html="&lt;h4&gt;Cerberus Pup&lt;/h4&gt;&lt;p&gt;Trojhlavý strážce podsvětí. I jako štěně dokáže odradit nežádoucí návštěvníky svým trojitým vrčením.&lt;/p&gt;" data-lg-id="96486d03-1355-4982-86a7-fa00c360d3bb">
+                        <div class="img-wrapper" style="aspect-ratio:4/3;">
+                            <img src="images/ChatGPT_Image_13__5__2026_09_32_15.png" alt="Cerberus Pup">
+                        </div>
+                    </a>
+
+                    <!-- 5: Bronze Chimera -->
+                    <a href="images/lucid-origin_a_cinematic_photo_of_A_fearsome_chimera_creature_with_a_bronze_lion_body_goat_he-0.jpg" data-lg-size="1200-900" data-sub-html="&lt;h4&gt;Bronze Chimera&lt;/h4&gt;&lt;p&gt;Tvor složený ze tří šelem — lev, koza, had. Dýchá oheň a přináší zkázu všemu, co jí stojí v cestě.&lt;/p&gt;" data-lg-id="a082adbc-a0c4-4d5b-a7c0-a005e9076e89">
+                        <div class="img-wrapper" style="aspect-ratio:4/3;">
+                            <img src="images/lucid-origin_a_cinematic_photo_of_A_fearsome_chimera_creature_with_a_bronze_lion_body_goat_he-0.jpg" alt="Bronze Chimera">
+                        </div>
+                    </a>
+
+                    <!-- 6: Emerald Basilisk -->
+                    <a href="images/lucid-origin_a_cinematic_photo_of_A_massive_basilisk_serpent_king_coiled_around_a_stone_thron-0.jpg" data-lg-size="1200-900" data-sub-html="&lt;h4&gt;Emerald Basilisk&lt;/h4&gt;&lt;p&gt;Král hadů, jehož pohled zabíjí na místě. Jediný způsob jak ho porazit — jeho vlastní odraz.&lt;/p&gt;" data-lg-id="5bff605c-5403-4f8a-a905-8faababefac9">
+                        <div class="img-wrapper" style="aspect-ratio:4/3;">
+                            <img src="images/lucid-origin_a_cinematic_photo_of_A_massive_basilisk_serpent_king_coiled_around_a_stone_thron-0.jpg" alt="Emerald Basilisk">
+                        </div>
+                    </a>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <section id="page-product-detail" class="page-section">
+        <div class="breadcrumb-band">
+            <span id="detail-breadcrumb">/Shop / <span id="detail-crumb-name"></span></span>
+        </div>
+        <div class="product-detail-grid">
+            <div class="detail-image-wrapper">
+                <img id="detail-img" src="" alt="">
+            </div>
+            <div class="detail-info">
+                <span id="detail-danger" class="detail-tag"></span>
+                <h1 id="detail-name"></h1>
+                <p id="detail-description"></p>
+                <ul class="detail-characteristics">
+                    <li><strong>Původ:</strong> <span id="detail-origin"></span></li>
+                    <li><strong>Nebezpečnost:</strong> <span id="detail-danger-val"></span></li>
+                    <li><strong>Strava:</strong> <span id="detail-diet"></span></li>
+                    <li><strong>Délka života:</strong> <span id="detail-lifespan"></span></li>
+                    <li><strong>Temperament:</strong> <span id="detail-temperament"></span></li>
+                </ul>
+                <p class="detail-price">Cena: <span id="detail-price"></span> Kč</p>
+                <button id="detail-add-to-cart">Add to Collection</button>
+                <button id="detail-back">← Zpět do shopu</button>
+            </div>
+        </div>
+    </section>
+
+    <div id="cart-overlay"></div>
+    <aside id="cart-drawer">
+        <div class="cart-header">
+            <h2>Košík</h2>
+            <button id="cart-close">✕</button>
+        </div>
+        <ul id="cart-items"></ul>
+        <div class="cart-footer">
+            <p>Celkem: <strong id="cart-total">0.00 Kč</strong></p>
+            <button id="cart-order">Checkout</button>
+        </div>
+    </aside>
+
+    <!-- Interaction Scripts -->
+    <script>
+        lucide.createIcons();
+
+        // Cart Logic
+        const cartToggle = document.getElementById('cart-toggle');
+        const cartDrawer = document.getElementById('cart-drawer');
+        const cartOverlay = document.getElementById('cart-overlay');
+        const cartClose = document.getElementById('cart-close');
+        const cartItems = document.getElementById('cart-items');
+        const cartBadge = document.getElementById('cart-badge');
+        const cartTotal = document.getElementById('cart-total');
+
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        function renderCart() {
+            if (!cartItems) return;
+            cartItems.innerHTML = '';
+            let total = 0;
+            cart.forEach((item, index) => {
+                total += parseFloat(item.price) || 0;
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <img src="${item.img}" alt="${item.name}">
+                    <div class="cart-item-info">
+                        <div>${item.name}</div>
+                        <div><strong>${item.price} Kč</strong></div>
+                    </div>
+                    <button class="cart-item-remove" data-index="${index}">✕</button>
+                `;
+                cartItems.appendChild(li);
+            });
+            if (cartBadge) cartBadge.textContent = cart.length;
+            if (cartTotal) cartTotal.textContent = total.toFixed(2) + ' Kč';
+        }
+
+        if (cartItems) {
+            cartItems.addEventListener('click', (e) => {
+                if (e.target.classList.contains('cart-item-remove')) {
+                    const index = e.target.getAttribute('data-index');
+                    cart.splice(index, 1);
+                    localStorage.setItem('cart', JSON.stringify(cart));
+                    renderCart();
+                }
+            });
+        }
+
+        if (cartToggle) {
+            cartToggle.addEventListener('click', () => {
+                cartDrawer.classList.add('open');
+                cartOverlay.classList.add('open');
+            });
+        }
+
+        if (cartClose && cartOverlay) {
+            cartClose.addEventListener('click', () => {
+                cartDrawer.classList.remove('open');
+                cartOverlay.classList.remove('open');
+            });
+
+            cartOverlay.addEventListener('click', () => {
+                cartDrawer.classList.remove('open');
+                cartOverlay.classList.remove('open');
+            });
+        }
+
+        document.addEventListener('click', (e) => {
+            if (e.target && e.target.textContent.trim() === 'Add to Collection') {
+                if (e.target.id === 'detail-add-to-cart') return;
+                const container = e.target.closest('article.card') || document;
+                const nameEl = container.querySelector('.product-title');
+                const priceEl = container.querySelector('.product-price');
+                const imgEl = container.querySelector('img');
+
+                if (nameEl && priceEl && imgEl) {
+                    const name = nameEl.textContent;
+                    const priceMatch = priceEl.textContent.match(/[\d.]+/);
+                    const priceText = priceMatch ? priceMatch[0] : "0";
+                    const image = imgEl.src;
+
+                    cart.push({ name, price: priceText, img: image });
+                    localStorage.setItem('cart', JSON.stringify(cart));
+                    renderCart();
+                }
+            }
+        });
+
+        renderCart();
+
+        function navTo(pageId) {
+            document.querySelectorAll('.page-section, #page-product-detail').forEach(page => {
+                page.classList.remove('active');
+                page.style.display = '';
+            });
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.classList.remove('active');
+            });
+
+            const targetPage = document.getElementById('page-' + pageId);
+            if (targetPage) targetPage.classList.add('active');
+
+            const targetLink = document.getElementById('link-' + pageId);
+            if (targetLink) targetLink.classList.add('active');
+
+            const navLinks = document.getElementById('nav-links');
+            if (navLinks.classList.contains('open')) {
+                navLinks.classList.remove('open');
+            }
+        }
+
+        // LightGallery — creature gallery on About page
+        lightGallery(document.getElementById('creature-gallery'), {
+            plugins: [lgZoom, lgThumbnail],
+            speed: 400,
+            thumbnail: true,
+            subHtmlSelectorRelative: false
+        });
+        // Shop Filter Logic
+        const filterCheckboxes = document.querySelectorAll('.filter-sidebar input[type="checkbox"]');
+
+        filterCheckboxes.forEach(cb => {
+            cb.addEventListener('change', applyFilters);
+        });
+
+        function applyFilters() {
+            const checked = {
+                typ: [],
+                nebezpecnost: [],
+                cena: []
+            };
+
+            filterCheckboxes.forEach(cb => {
+                if (cb.checked) checked[cb.dataset.group].push(cb.value);
+            });
+
+            const cards = document.querySelectorAll('.product-card');
+
+            cards.forEach(card => {
+                const typMatch = checked.typ.length === 0 || checked.typ.includes(card.dataset.typ);
+                const nebMatch = checked.nebezpecnost.length === 0 || checked.nebezpecnost.includes(card.dataset.nebezpecnost);
+                const cenaMatch = checked.cena.length === 0 || matchCena(card.dataset.cena, checked.cena);
+
+                card.style.display = (typMatch && nebMatch && cenaMatch) ? '' : 'none';
+            });
+        }
+
+        function matchCena(cardCena, checkedCena) {
+            return checkedCena.includes(cardCena);
+        }
+
+        // Product card click → detail page
+        document.querySelectorAll('.product-card').forEach(card => {
+            card.style.cursor = 'pointer';
+            card.addEventListener('click', function (e) {
+                if (e.target.closest('button')) return; // don't trigger if clicking a button inside card
+
+                document.getElementById('detail-img').src = this.dataset.img;
+                document.getElementById('detail-img').alt = this.dataset.name;
+                document.getElementById('detail-name').textContent = this.dataset.name;
+                document.getElementById('detail-crumb-name').textContent = this.dataset.name;
+                document.getElementById('detail-description').textContent = this.dataset.description;
+                document.getElementById('detail-origin').textContent = this.dataset.origin;
+                document.getElementById('detail-danger').textContent = this.dataset.danger;
+                document.getElementById('detail-danger-val').textContent = this.dataset.danger;
+                document.getElementById('detail-diet').textContent = this.dataset.diet;
+                document.getElementById('detail-lifespan').textContent = this.dataset.lifespan;
+                document.getElementById('detail-temperament').textContent = this.dataset.temperament;
+                document.getElementById('detail-price').textContent = this.dataset.price;
+
+                // store current card reference for cart
+                document.getElementById('detail-add-to-cart').dataset.img = this.dataset.img;
+                document.getElementById('detail-add-to-cart').dataset.name = this.dataset.name;
+                document.getElementById('detail-add-to-cart').dataset.price = this.dataset.price;
+
+                // show detail page using existing toggle system
+                document.querySelectorAll('.page-section').forEach(p => p.style.display = 'none');
+                document.getElementById('page-product-detail').style.display = 'block';
+            });
+        });
+
+        // Back button
+        document.getElementById('detail-back').addEventListener('click', function () {
+            document.querySelectorAll('.page-section').forEach(p => p.style.display = 'none');
+            document.getElementById('page-shop').style.display = 'block';
+        });
+
+        // Add to cart from detail page
+        document.getElementById('detail-add-to-cart').addEventListener('click', function () {
+            cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            cart.push({
+                name: this.dataset.name,
+                price: this.dataset.price,
+                img: this.dataset.img
+            });
+            localStorage.setItem('cart', JSON.stringify(cart));
+            renderCart();
+            document.getElementById('cart-drawer').classList.add('open');
+            document.getElementById('cart-overlay').classList.add('open');
+        });
+    </script>
+        <div class="lg-container  " id="lg-container-1" tabindex="-1" aria-modal="true" role="dialog">
+            <div id="lg-backdrop-1" class="lg-backdrop" style="transition-duration: 300ms;"></div>
+
+            <div id="lg-outer-1" class="lg-outer lg-use-css3 lg-css3 lg-hide-items lg-slide lg-grab lg-use-transition-for-zoom lg-animate-thumb lg-has-thumb">
+
+              <div id="lg-content-1" class="lg-content">
+                <div id="lg-inner-1" class="lg-inner" style="transition-timing-function: ease; transition-duration: 400ms;">
+                </div>
+                <button type="button" id="lg-prev-1" aria-label="Previous slide" class="lg-prev lg-icon">  </button>
+                <button type="button" id="lg-next-1" aria-label="Next slide" class="lg-next lg-icon">  </button>
+              </div>
+                <div id="lg-toolbar-1" class="lg-toolbar lg-group">
+                    
+                    <button type="button" aria-label="Close gallery" id="lg-close-1" class="lg-close lg-icon"></button>
+                    <a id="lg-download-1" target="_blank" rel="noopener" aria-label="Download" download="" class="lg-download lg-icon"></a><div class="lg-counter" role="status" aria-live="polite">
+                <span id="lg-counter-current-1" class="lg-counter-current">1 </span> /
+                <span id="lg-counter-all-1" class="lg-counter-all">6 </span></div><button id="lg-actual-size-1" type="button" aria-label="View actual size" class="lg-zoom-in lg-icon"></button></div>
+                    
+                <div id="lg-components-1" class="lg-components">
+                    <div class="lg-sub-html" role="status" aria-live="polite"></div>
+                <div class="lg-thumb-outer lg-thumb-align-middle lg-grab">
+        <div class="lg-thumb lg-group" style="transition-duration: 400ms; width: 630px; position: relative;">
+        <div data-lg-item-id="0" class="lg-thumb-item active" style="width: 100px; height: 80px; margin-right: 5px;"><img alt="Silver Unicorn" data-lg-item-id="0" src="images/lucid-origin_a_cinematic_photo_of_A_majestic_silver-white_unicorn_standing_in_an_enchanted_mo-0.jpg"></div><div data-lg-item-id="1" class="lg-thumb-item " style="width: 100px; height: 80px; margin-right: 5px;"><img alt="Abyssal Kraken" data-lg-item-id="1" src="images/lucid-origin_a_cinematic_photo_of_A_colossal_dark_kraken_rising_from_black_abyssal_ocean_dept-0.jpg"></div><div data-lg-item-id="2" class="lg-thumb-item " style="width: 100px; height: 80px; margin-right: 5px;"><img alt="Royal Griffin" data-lg-item-id="2" src="images/lucid-origin_a_cinematic_photo_of_A_noble_griffin_perched_on_a_mountain_peak_fortress_wall_li-0.jpg"></div><div data-lg-item-id="3" class="lg-thumb-item " style="width: 100px; height: 80px; margin-right: 5px;"><img alt="Cerberus Pup" data-lg-item-id="3" src="images/ChatGPT_Image_13__5__2026_09_32_15.png"></div><div data-lg-item-id="4" class="lg-thumb-item " style="width: 100px; height: 80px; margin-right: 5px;"><img alt="Bronze Chimera" data-lg-item-id="4" src="images/lucid-origin_a_cinematic_photo_of_A_fearsome_chimera_creature_with_a_bronze_lion_body_goat_he-0.jpg"></div><div data-lg-item-id="5" class="lg-thumb-item " style="width: 100px; height: 80px; margin-right: 5px;"><img alt="Emerald Basilisk" data-lg-item-id="5" src="images/lucid-origin_a_cinematic_photo_of_A_massive_basilisk_serpent_king_coiled_around_a_stone_thron-0.jpg"></div></div>
+        </div></div>
+            </div>
+        </div>
+        
+
+
+</body></html>

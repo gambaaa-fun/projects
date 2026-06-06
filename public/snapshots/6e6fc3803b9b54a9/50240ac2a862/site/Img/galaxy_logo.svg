@@ -1,0 +1,127 @@
+<svg width="680" height="680" viewBox="0 0 680 680" xmlns="http://www.w3.org/2000/svg" style="background:transparent">
+  <title>Galaxy Nanowire Logo</title>
+  <defs>
+    <radialGradient id="planetGrad" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="1"/>
+      <stop offset="40%" stop-color="#e0e8ff" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#8899cc" stop-opacity="0.7"/>
+    </radialGradient>
+    <radialGradient id="coreGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="1"/>
+      <stop offset="60%" stop-color="#ccddff" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- NANOWIRE TRACES -->
+  <polyline points="340,340 310,290 280,290 250,270 220,270" fill="none" stroke="white" stroke-width="0.8" opacity="0.5"/>
+  <polyline points="340,340 300,280 300,250 280,230 260,230" fill="none" stroke="white" stroke-width="0.6" opacity="0.35"/>
+  <polyline points="340,340 320,300 290,300 260,280 230,280 210,260" fill="none" stroke="white" stroke-width="0.5" opacity="0.3"/>
+  <circle cx="280" cy="290" r="2.5" fill="white" opacity="0.7"/>
+  <circle cx="250" cy="270" r="2" fill="white" opacity="0.6"/>
+  <circle cx="220" cy="270" r="3" fill="white" opacity="0.8"/>
+  <circle cx="300" cy="250" r="2" fill="white" opacity="0.5"/>
+  <circle cx="260" cy="230" r="3" fill="white" opacity="0.7"/>
+  <circle cx="290" cy="300" r="2" fill="white" opacity="0.5"/>
+  <circle cx="230" cy="280" r="2.5" fill="white" opacity="0.6"/>
+
+  <polyline points="340,340 370,290 400,290 430,270 460,270" fill="none" stroke="white" stroke-width="0.8" opacity="0.5"/>
+  <polyline points="340,340 380,280 380,250 400,230 420,230" fill="none" stroke="white" stroke-width="0.6" opacity="0.35"/>
+  <polyline points="340,340 360,300 390,300 420,280 450,280 470,260" fill="none" stroke="white" stroke-width="0.5" opacity="0.3"/>
+  <circle cx="400" cy="290" r="2.5" fill="white" opacity="0.7"/>
+  <circle cx="430" cy="270" r="2" fill="white" opacity="0.6"/>
+  <circle cx="460" cy="270" r="3" fill="white" opacity="0.8"/>
+  <circle cx="380" cy="250" r="2" fill="white" opacity="0.5"/>
+  <circle cx="420" cy="230" r="3" fill="white" opacity="0.7"/>
+  <circle cx="390" cy="300" r="2" fill="white" opacity="0.5"/>
+  <circle cx="450" cy="280" r="2.5" fill="white" opacity="0.6"/>
+
+  <polyline points="340,340 310,390 280,390 250,410 220,410" fill="none" stroke="white" stroke-width="0.8" opacity="0.5"/>
+  <polyline points="340,340 300,400 300,430 280,450 240,450" fill="none" stroke="white" stroke-width="0.6" opacity="0.35"/>
+  <polyline points="340,340 310,410 270,410 250,430 220,430 200,450" fill="none" stroke="white" stroke-width="0.5" opacity="0.3"/>
+  <circle cx="280" cy="390" r="2.5" fill="white" opacity="0.7"/>
+  <circle cx="250" cy="410" r="2" fill="white" opacity="0.6"/>
+  <circle cx="220" cy="410" r="3" fill="white" opacity="0.8"/>
+  <circle cx="300" cy="430" r="2" fill="white" opacity="0.5"/>
+  <circle cx="240" cy="450" r="3" fill="white" opacity="0.7"/>
+
+  <polyline points="340,340 370,390 400,390 430,410 460,410" fill="none" stroke="white" stroke-width="0.8" opacity="0.5"/>
+  <polyline points="340,340 380,400 380,430 400,450 440,450" fill="none" stroke="white" stroke-width="0.6" opacity="0.35"/>
+  <polyline points="340,340 360,410 400,410 430,430 460,430 480,450" fill="none" stroke="white" stroke-width="0.5" opacity="0.3"/>
+  <circle cx="400" cy="390" r="2.5" fill="white" opacity="0.7"/>
+  <circle cx="430" cy="410" r="2" fill="white" opacity="0.6"/>
+  <circle cx="460" cy="410" r="3" fill="white" opacity="0.8"/>
+  <circle cx="380" cy="430" r="2" fill="white" opacity="0.5"/>
+  <circle cx="440" cy="450" r="3" fill="white" opacity="0.7"/>
+
+  <polyline points="340,340 290,320 260,310 230,300 200,295" fill="none" stroke="white" stroke-width="0.7" opacity="0.4"/>
+  <circle cx="260" cy="310" r="2" fill="white" opacity="0.6"/>
+  <circle cx="200" cy="295" r="3" fill="white" opacity="0.7"/>
+  <polyline points="340,340 390,320 420,310 450,300 480,295" fill="none" stroke="white" stroke-width="0.7" opacity="0.4"/>
+  <circle cx="420" cy="310" r="2" fill="white" opacity="0.6"/>
+  <circle cx="480" cy="295" r="3" fill="white" opacity="0.7"/>
+  <polyline points="340,340 290,360 260,370 230,380 200,385" fill="none" stroke="white" stroke-width="0.7" opacity="0.4"/>
+  <circle cx="260" cy="370" r="2" fill="white" opacity="0.6"/>
+  <circle cx="200" cy="385" r="3" fill="white" opacity="0.7"/>
+  <polyline points="340,340 390,360 420,370 450,380 480,385" fill="none" stroke="white" stroke-width="0.7" opacity="0.4"/>
+  <circle cx="420" cy="370" r="2" fill="white" opacity="0.6"/>
+  <circle cx="480" cy="385" r="3" fill="white" opacity="0.7"/>
+
+  <!-- OUTER GALAXY RING -->
+  <ellipse cx="340" cy="340" rx="230" ry="55" fill="none" stroke="white" stroke-width="2.5" opacity="0.85" transform="rotate(-20,340,340)"/>
+  <ellipse cx="340" cy="340" rx="230" ry="55" fill="none" stroke="white" stroke-width="1" opacity="0.2" transform="rotate(-20,340,340) translate(4,4)"/>
+
+  <!-- INNER ORBITAL RING -->
+  <ellipse cx="340" cy="340" rx="140" ry="35" fill="none" stroke="white" stroke-width="1.5" opacity="0.6" transform="rotate(-20,340,340)"/>
+
+  <!-- GALAXY ARMS -->
+  <path d="M 340 340 Q 300 310 260 290 Q 230 275 210 265" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" opacity="0.8"/>
+  <path d="M 340 340 Q 380 370 420 390 Q 450 405 470 415" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" opacity="0.8"/>
+  <path d="M 340 340 Q 375 310 400 285 Q 420 268 435 258" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" opacity="0.65"/>
+  <path d="M 340 340 Q 305 370 275 395 Q 255 412 242 422" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" opacity="0.65"/>
+
+  <!-- ORBITING PLANETS -->
+  <circle cx="430" cy="268" r="13" fill="white" opacity="0.9"/>
+  <ellipse cx="430" cy="268" rx="20" ry="5" fill="none" stroke="white" stroke-width="1.2" opacity="0.5" transform="rotate(-15,430,268)"/>
+  <circle cx="252" cy="418" r="8" fill="white" opacity="0.8"/>
+  <circle cx="472" cy="340" r="5" fill="white" opacity="0.7"/>
+  <circle cx="210" cy="310" r="4" fill="white" opacity="0.6"/>
+
+  <!-- SPARKLES -->
+  <path d="M 160 180 L 163 170 L 166 180 L 176 183 L 166 186 L 163 196 L 160 186 L 150 183 Z" fill="white" opacity="0.9"/>
+  <path d="M 490 160 L 492 153 L 494 160 L 501 162 L 494 164 L 492 171 L 490 164 L 483 162 Z" fill="white" opacity="0.9"/>
+  <path d="M 520 490 L 523 480 L 526 490 L 536 493 L 526 496 L 523 506 L 520 496 L 510 493 Z" fill="white" opacity="0.9"/>
+  <path d="M 148 490 L 151 483 L 154 490 L 161 493 L 154 496 L 151 503 L 148 496 L 141 493 Z" fill="white" opacity="0.9"/>
+
+  <circle cx="190" cy="220" r="2" fill="white" opacity="0.6"/>
+  <circle cx="175" cy="250" r="1.5" fill="white" opacity="0.5"/>
+  <circle cx="500" cy="200" r="2" fill="white" opacity="0.6"/>
+  <circle cx="510" cy="230" r="1.5" fill="white" opacity="0.5"/>
+  <circle cx="505" cy="450" r="2" fill="white" opacity="0.6"/>
+  <circle cx="175" cy="430" r="1.5" fill="white" opacity="0.5"/>
+  <circle cx="160" cy="380" r="1.5" fill="white" opacity="0.4"/>
+  <circle cx="520" cy="380" r="1.5" fill="white" opacity="0.4"/>
+
+  <!-- CENTRAL PLANET -->
+  <circle cx="342" cy="342" r="64" fill="white" opacity="0.08"/>
+  <circle cx="340" cy="340" r="62" fill="url(#planetGrad)" opacity="0.95"/>
+  <circle cx="340" cy="340" r="62" fill="none" stroke="white" stroke-width="1" opacity="0.3"/>
+  <circle cx="340" cy="340" r="48" fill="none" stroke="white" stroke-width="0.6" opacity="0.2"/>
+
+  <!-- CORE GLOW -->
+  <circle cx="340" cy="340" r="30" fill="url(#coreGlow)" opacity="0.9"/>
+
+  <!-- CENTER STAR BURST -->
+  <line x1="340" y1="316" x2="340" y2="364" stroke="white" stroke-width="2.5" stroke-linecap="round" opacity="0.95"/>
+  <line x1="316" y1="340" x2="364" y2="340" stroke="white" stroke-width="2.5" stroke-linecap="round" opacity="0.95"/>
+  <line x1="323" y1="323" x2="357" y2="357" stroke="white" stroke-width="1.2" stroke-linecap="round" opacity="0.7"/>
+  <line x1="357" y1="323" x2="323" y2="357" stroke="white" stroke-width="1.2" stroke-linecap="round" opacity="0.7"/>
+
+  <!-- DEBRIS DOTS -->
+  <circle cx="264" cy="297" r="2.5" fill="white" opacity="0.7"/>
+  <circle cx="240" cy="330" r="2" fill="white" opacity="0.6"/>
+  <circle cx="255" cy="365" r="2.5" fill="white" opacity="0.7"/>
+  <circle cx="420" cy="317" r="2" fill="white" opacity="0.6"/>
+  <circle cx="440" cy="348" r="2.5" fill="white" opacity="0.7"/>
+  <circle cx="425" cy="382" r="2" fill="white" opacity="0.6"/>
+</svg>

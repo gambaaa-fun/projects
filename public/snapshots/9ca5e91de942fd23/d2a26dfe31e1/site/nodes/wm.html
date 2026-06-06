@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <base href="./">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Warmind</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Rajdhani:wght@300;400;500;600;700&family=Exo+2:wght@200;300;400;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+ 
+  :root {
+    --gold: #c9a84c;
+    --gold-bright: #f0cc70;
+    --dark-bg: #040810;
+    --text-muted: rgba(200, 185, 145, 0.55);
+    --white: #f0ece0;
+    --border: rgba(201, 168, 76, 0.25);
+  }
+ 
+  html { scroll-behavior: smooth; }
+ 
+  body {
+    background-color: var(--dark-bg);
+    color: var(--white);
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 400;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+ 
+  /* MAIN GRID */
+  .quad-grid {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+  }
+ 
+  .quad {
+    position: relative;
+    min-height: 50vh;
+    overflow: hidden;
+  }
+ 
+  /* Only draw the center axes — right edge on left quads, bottom edge on top quads */
+  .quad-tl { border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .quad-tr { border-bottom: 1px solid var(--border); }
+  .quad-bl { border-right: 1px solid var(--border); }
+ 
+  /* LORE QUADS */
+  .quad-lore {
+    padding: 56px 64px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    background: linear-gradient(135deg, rgba(4,8,16,0.95) 0%, rgba(7,14,28,0.9) 100%);
+  }
+ 
+  .quad-lore::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 10% 10%, rgba(201,168,76,0.04) 0%, transparent 60%);
+    pointer-events: none;
+  }
+ 
+  .lore-label {
+    font-family: 'Exo 2', sans-serif;
+    font-size: 13px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+    opacity: 0.7;
+  }
+ 
+  .lore-text {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 1.85;
+    color: rgba(220, 205, 165, 0.75);
+    letter-spacing: 0.3px;
+  }
+ 
+  /* IMAGE QUADS */
+  .quad-img {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(4, 8, 16, 0.98);
+    overflow: hidden;
+  }
+ 
+  .quad-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    opacity: 0.9;
+    transition: opacity 0.4s ease, transform 0.6s ease;
+  }
+ 
+  .quad-img:hover img {
+    opacity: 1;
+    transform: scale(1.02);
+  }
+ 
+  /* FOOTER */
+  footer {
+    border-top: 1px solid rgba(201,168,76,0.1);
+    padding: 40px;
+    text-align: center;
+    font-family: 'Exo 2', sans-serif;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+ 
+  /* Desktop grid positioning */
+  .quad-tl { grid-column: 1; grid-row: 1; }
+  .quad-tr { grid-column: 2; grid-row: 1; }
+  .quad-bl { grid-column: 1; grid-row: 2; }
+  .quad-br { grid-column: 2; grid-row: 2; }
+ 
+  /* MOBILE — single column, alternating LORE / IMG / LORE / IMG */
+  @media (max-width: 700px) {
+    .quad-grid {
+      grid-template-columns: 1fr;
+      grid-template-rows: repeat(4, auto);
+    }
+ 
+    .quad {
+      min-height: 44vh;
+      grid-column: 1 !important;
+    }
+ 
+    .quad-tl { grid-row: 1; border-right: none; border-bottom: 1px solid var(--border); }
+    .quad-tr { grid-row: 2; border-bottom: 1px solid var(--border); }
+    .quad-br { grid-row: 3; border-bottom: 1px solid var(--border); }
+    .quad-bl { grid-row: 4; border-right: none; border-bottom: none; }
+ 
+    .quad-lore {
+      padding: 40px 32px;
+    }
+  }
+</style>
+</head>
+<body>
+ 
+<main class="quad-grid">
+ 
+  <!-- TOP-LEFT: LORE -->
+  <div class="quad quad-lore quad-tl">
+    <div class="lore-label">Rasputin a rodina Bray</div>
+    <p class="lore-text">
+      Další etapa příběhu našeho Strážce se odehrává na již navštíveném Marsu, konrétně na jeho z větší části zamrzlé části. Zde se poprvé setkáváme s ženou jménem Ana Bray, která nás na Mars pozvala kvůli neobvyklé příležitosti: Pod tajícím ledem totiž objevila lidský válečný bunkr z doby nám známé pouze jako "Zlatá doba" lidstva. Uvnitř tohoto komplexu se nacházelo mnoho úlomků historie, avšak se mezi nimi tyčilo něco zajímavějšího. V hloubkách bunkru se nacházela stvoření o kterých se dlouho tušilo, že z Marsu kompletně vymizela; stvoření Temnoty známé jako Hive. Tato skupina Hive v bunkru nepředstavovala žádnou hrozbu, přesto bylo ale zvláštní, jak se na Marsu znovu objevili. Na úplném dně bunkru ale najdeme něco ještě více neočekávaného. Umělá superinteligence nesoucí název Rasputin, tzv. Warmind, která sloužila pro obranu lidstva v Zlatých dobách naší civilizace, nyní plně při smyslech. Ale přece jen se něco změnilo. Rasputin, dříve nástroj lidmi navržený a sestavený, nyní vyhlašuje svou nezávislost na lidstvu, a rozhodnutí nás chránit učiní pouze podle svých vlastních pravidel. I přesto, že nelze považovat za spojence lidstva, nám Rasputin prozradil, že byl probuzen tím samým způsobem, jakým Ghaul zemřel. Také vysvětlil, proč zamrazil sebe, a obrovskou část Marsu. Od jeho probuzení se neúprosně snaží odvrátit hrozbu dlouho s ním pohřbenou pod ledem, která se nyní, stejně jako Rasputin, vynořuje.
+    </p>
+  </div>
+ 
+  <!-- TOP-RIGHT: IMG -->
+  <div class="quad quad-img quad-tr">
+    <img src="./gallery/mars.png" alt="Renegades">
+  </div>
+ 
+  <!-- BOTTOM-LEFT: IMG -->
+  <div class="quad quad-img quad-bl">
+    <img src="./gallery/xol.png" alt="random strike boss">
+  </div>
+ 
+  <!-- BOTTOM-RIGHT: LORE -->
+  <div class="quad quad-lore quad-br">
+    <div class="lore-label">Nokris, Xol a Rasputinovo rozhodnutí</div>
+    <p class="lore-text">
+      Hive následují a řídí se tzv. Logikou Meče - pokud jeden z nich padne v boji, jeho smrt byla zasloužena, a podle této logiky dokáže bytost dostatečně mocná překonat nekonečno. Skupina Hive, kterou Rasputin s sebou pohřbil pod ledem Marsu, se nazývá Grasp of Nokris. Jejich vůdce, Nokris, je přímým synem nejsilnějšího z bytostí Hive - Oryx. Avšak v prastarých knihách o Oryxově potomcích není o Nokrisovi ani zmínka; Je to proto, že Nokris je podle Logiky Meče kacíř. V mladém věku se naučil umění nekromancie - vrácení života ze smrti, která je podle Logiky zasloužená a finální. Po Nokrisově boku se také nachází kosmický červ Xol. Xol je bytost doposud známá pouze Hive jako tzv. Červí Bohové. Těch existuje pouze 6, a jsou většinou Hive uctívání. Důvod, proč se Nokris, Xol a jejich skupina Hive vydali na Mars byl jednoduchý; Stát se nejmocnějšímí Hive, počínaje Marsem. Teď, když led pomalu taje, se Hive dostali zpět na povrch Marsu, a Rasputin potřebuje naší pomoc. S Rasputinovým Světlem se našemu Strážci do rukou dostanou tzv. Valkýrská kopí - jasně oranžové šípy plné Světla. Ana nezůstává daleko pozadu, její cíl na Marsu se ale liší od toho našeho. Zatímco my a náš Ghost se snaží najít a zbavit se Nokrise, což se nám nakonec podaří, Ana prohledává jednu Rasputinovu základnu za druhou, hledající informace o minulosti rodiny Bray - To jí ale zabere více planet než Mars. Eventuelně se náš Strážce, přes několik informantů Hive, i Nokrise samotného, dostane k Lokaci, kde se Xol pohybuje, a pomocí Valkýrských kopí ho jednou pro vždy skolíme. Po Xolově smrti nám Rasputin nabídne výjimečnou příležitost: Bude nadále fungovat po boku lidstva, ne ale jako nástroj, ale spojenec.
+    </p>
+  </div>
+ 
+</main>
+ 
+<footer>
+  &copy; Bungie — Destiny 2 — Timeline of Light and Dark
+</footer>
+ 
+</body>
+</html>

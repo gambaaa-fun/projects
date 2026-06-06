@@ -1,0 +1,33 @@
+<svg width="100%" viewBox="0 0 680 380" role="img" xmlns="http://www.w3.org/2000/svg" style="">
+<title style="fill:rgb(0, 0, 0);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto">Glowride A1 adjusted ring</title>
+<desc style="fill:rgb(0, 0, 0);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto">Glowride final logo with slightly smaller blue ring</desc>
+
+<defs>
+  <radialGradient id="gb" cx="50%" cy="50%" r="50%">
+    <stop offset="0%" stop-color="#1A6FD4" stop-opacity="0.28"/>
+    <stop offset="100%" stop-color="#1A6FD4" stop-opacity="0"/>
+  </radialGradient>
+  <filter id="fh"><feGaussianBlur stdDeviation="14"/></filter>
+  <filter id="fs"><feGaussianBlur stdDeviation="5"/></filter>
+  <filter id="ft"><feGaussianBlur stdDeviation="9"/></filter>
+</defs>
+
+<g transform="translate(340,190)" style="fill:rgb(0, 0, 0);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto">
+  <circle cx="0" cy="0" r="148" fill="#080810" style="fill:rgb(8, 8, 16);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <ellipse cx="0" cy="0" rx="138" ry="138" fill="url(#gb)" filter="url(#fh)" style="stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <!-- Blue ring — slightly smaller than before (was 118, now 100) -->
+  <circle cx="0" cy="0" r="100" fill="none" stroke="#1A3A6A" stroke-width="20" style="fill:none;stroke:rgb(26, 58, 106);color:rgb(255, 255, 255);stroke-width:20px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <circle cx="0" cy="0" r="100" fill="none" stroke="#1A6FD4" stroke-width="4" stroke-opacity="0.6" style="fill:none;stroke:rgb(26, 111, 212);color:rgb(255, 255, 255);stroke-width:4px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <circle cx="0" cy="0" r="100" fill="none" stroke="#4A9FFF" stroke-width="1.5" stroke-opacity="0.35" filter="url(#fs)" style="fill:none;stroke:rgb(74, 159, 255);color:rgb(255, 255, 255);stroke-width:1.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <!-- Yellow outer ring -->
+  <circle cx="0" cy="0" r="146" fill="none" stroke="#F5C400" stroke-width="2.5" style="fill:none;stroke:rgb(245, 196, 0);color:rgb(255, 255, 255);stroke-width:2.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <circle cx="0" cy="0" r="146" fill="none" stroke="#F5C400" stroke-width="7" stroke-opacity="0.12" filter="url(#fs)" style="fill:none;stroke:rgb(245, 196, 0);color:rgb(255, 255, 255);stroke-width:7px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <!-- GLOW -->
+  <text x="0" y="14" font-family="Arial Black, sans-serif" font-size="62" font-weight="900" fill="#F5C400" text-anchor="middle" letter-spacing="6" filter="url(#ft)" opacity="0.5" style="fill:rgb(245, 196, 0);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:0.5;font-family:&quot;Arial Black&quot;, sans-serif;font-size:62px;font-weight:900;text-anchor:middle;dominant-baseline:auto">GLOW</text>
+  <text x="0" y="14" font-family="Arial Black, sans-serif" font-size="62" font-weight="900" fill="#F5C400" text-anchor="middle" letter-spacing="6" style="fill:rgb(245, 196, 0);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Arial Black&quot;, sans-serif;font-size:62px;font-weight:900;text-anchor:middle;dominant-baseline:auto">GLOW</text>
+  <!-- RIDE -->
+  <text x="0" y="54" font-family="Arial Black, sans-serif" font-size="25" font-weight="900" fill="#4A9FFF" text-anchor="middle" letter-spacing="16" filter="url(#fs)" opacity="0.4" style="fill:rgb(74, 159, 255);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:0.4;font-family:&quot;Arial Black&quot;, sans-serif;font-size:25px;font-weight:900;text-anchor:middle;dominant-baseline:auto">RIDE</text>
+  <text x="0" y="54" font-family="Arial Black, sans-serif" font-size="25" font-weight="900" fill="#4A9FFF" text-anchor="middle" letter-spacing="16" style="fill:rgb(74, 159, 255);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Arial Black&quot;, sans-serif;font-size:25px;font-weight:900;text-anchor:middle;dominant-baseline:auto">RIDE</text>
+</g>
+
+</svg>

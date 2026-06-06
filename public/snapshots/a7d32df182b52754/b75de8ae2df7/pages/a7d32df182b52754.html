@@ -1,0 +1,380 @@
+<!DOCTYPE html><html lang="cs"><head>
+    <base href="../">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ZYNTHA – Premium Streetwear</title>
+  <meta name="description" content="ZYNTHA – prémiové streetwear oblečení. Hoodies, trička, šortky a čepice.">
+  <link rel="icon" href="data:image/svg+xml,&lt;svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'&gt;&lt;text y='.9em' font-size='90'&gt;Z&lt;/text&gt;&lt;/svg&gt;">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/css/lightgallery.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&amp;family=Jost:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="normalize.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  
+  <header class="nav-header" id="nav-header">
+    <nav class="nav-container" aria-label="Hlavní navigace">
+      <a href="index.html" class="nav-logo" aria-label="ZYNTHA – zpět na úvodní stránku">ZYNTHA</a>
+
+     
+      <ul class="nav-links" role="list">
+        <li><a href="index.html" class="nav-link active">Úvod</a></li>
+        <li><a href="products.html" class="nav-link">Produkty</a></li>
+        <li><a href="contact.html" class="nav-link">Kontakt</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <button class="nav-icon-btn" aria-label="Vyhledat">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
+        </button>
+        <button class="nav-icon-btn" aria-label="Košík">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path><line x1="3" x2="21" y1="6" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+        </button>
+        
+        <button class="hamburger" id="hamburger" aria-label="Otevřít menu" aria-expanded="false" aria-controls="mobile-menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+
+    
+    <div class="mobile-menu" id="mobile-menu" role="dialog" aria-label="Mobilní navigace" aria-hidden="true">
+      <ul role="list">
+        <li><a href="index.html" class="mobile-link active">Úvod</a></li>
+        <li><a href="products.html" class="mobile-link">Produkty</a></li>
+        <li><a href="contact.html" class="mobile-link">Kontakt</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+
+    
+    <section class="hero" aria-label="Úvodní sekce">
+      <div class="hero-bg-text" aria-hidden="true">HOODIE</div>
+      <div class="hero-content">
+        <p class="hero-label animate-fade-up">Nová kolekce 2026</p>
+        <h1 class="hero-title animate-fade-up delay-1">
+          Oversized<br>
+          <em>Hoodie</em>
+        </h1>
+        <div class="hero-actions animate-fade-up delay-2">
+          <a href="products.html" class="btn btn-primary">Nakupovat</a>
+          <a href="products.html" class="btn btn-ghost">Celá kolekce</a>
+        </div>
+      </div>
+      <div class="hero-image animate-fade-in delay-3" aria-hidden="true">
+        <img src="images/pic1.jpg" alt="Hlavní produktová fotografie" class="product-svg">
+      </div>
+      
+      <div class="scroll-indicator animate-bounce" aria-hidden="true">
+        <span></span>
+      </div>
+    </section>
+
+    
+    <section class="section trending" aria-labelledby="trending-title">
+      <div class="section-header">
+        <h2 class="section-title" id="trending-title">Trending teď</h2>
+        <a href="products.html" class="section-link">Zobrazit vše</a>
+      </div>
+
+      
+      <div class="swiper trending-swiper swiper-initialized swiper-horizontal swiper-backface-hidden" aria-label="Trendinový výběr produktů">
+        <div class="swiper-wrapper" id="swiper-wrapper-917e773745ba26cb" aria-live="polite">
+          
+          <div class="swiper-slide swiper-slide-active" role="group" aria-label="1 / 4" style="width: 270px; margin-right: 24px;">
+            <article class="product-card reveal" role="article" style="transition-delay: 0s;">
+              <a href="detail.html" class="product-card-img-wrap" aria-label="Classic Tee – detail produktu">
+                <div class="product-card-img">
+                <img src="images/pic1.jpg" alt="Produktová fotografie">
+              </div>
+                <div class="product-card-overlay">
+                  <span>Rychlý náhled</span>
+                </div>
+              </a>
+              <div class="product-card-info">
+                <h3 class="product-card-name">Classic Tee</h3>
+                <p class="product-card-color">Cobalt Blue</p>
+                <p class="product-card-price">890 Kč</p>
+              </div>
+            </article>
+          </div>
+          
+          <div class="swiper-slide swiper-slide-next" role="group" aria-label="2 / 4" style="width: 270px; margin-right: 24px;">
+            <article class="product-card reveal" style="transition-delay: 0.07s;">
+              <a href="detail.html" class="product-card-img-wrap" aria-label="Zip Hoodie – detail produktu">
+                <div class="product-card-img">
+                <img src="images/pic1.jpg" alt="Produktová fotografie">
+              </div>
+                <div class="product-card-overlay"><span>Rychlý náhled</span></div>
+              </a>
+              <div class="product-card-info">
+                <h3 class="product-card-name">Zip Hoodie</h3>
+                <p class="product-card-color">Onyx</p>
+                <p class="product-card-price">1 490 Kč</p>
+              </div>
+            </article>
+          </div>
+          
+          <div class="swiper-slide" role="group" aria-label="3 / 4" style="width: 270px; margin-right: 24px;">
+            <article class="product-card reveal" style="transition-delay: 0.14s;">
+              <a href="detail.html" class="product-card-img-wrap" aria-label="Cargo Shorts – detail produktu">
+                <div class="product-card-img">
+                <img src="images/pic1.jpg" alt="Produktová fotografie">
+              </div>
+                <div class="product-card-overlay"><span>Rychlý náhled</span></div>
+              </a>
+              <div class="product-card-info">
+                <h3 class="product-card-name">Cargo Shorts</h3>
+                <p class="product-card-color">Sand</p>
+                <p class="product-card-price">790 Kč</p>
+              </div>
+            </article>
+          </div>
+          
+          <div class="swiper-slide" role="group" aria-label="4 / 4" style="width: 270px; margin-right: 24px;">
+            <article class="product-card reveal" style="transition-delay: 0.21s;">
+              <a href="detail.html" class="product-card-img-wrap" aria-label="Bucket Hat – detail produktu">
+                <div class="product-card-img">
+                <img src="images/pic1.jpg" alt="Produktová fotografie">
+              </div>
+                <div class="product-card-overlay"><span>Rychlý náhled</span></div>
+              </a>
+              <div class="product-card-info">
+                <h3 class="product-card-name">Bucket Hat</h3>
+                <p class="product-card-color">Blue Slate</p>
+                <p class="product-card-price">490 Kč</p>
+              </div>
+            </article>
+          </div>
+        </div>
+        <div class="swiper-pagination swiper-pagination-clickable swiper-pagination-bullets swiper-pagination-horizontal swiper-pagination-lock" aria-label="Stránkování produktů"><span class="swiper-pagination-bullet swiper-pagination-bullet-active" tabindex="0" role="button" aria-label="Go to slide 1" aria-current="true"></span></div>
+      <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>
+    </section>
+
+    
+    <section class="collections" aria-label="Kolekce">
+      <div class="collection-grid">
+        <article class="collection-card collection-card--large reveal" style="transition-delay: 0s;">
+          <div class="collection-card-bg" aria-hidden="true">
+              <img src="images/pic1.jpg" alt="Lookbook kolekce">
+          </div>
+          <div class="collection-card-content">
+            <p class="collection-label">SS 2026</p>
+            <h3 class="collection-title">Shorts<br>Collection</h3>
+            <a href="products.html" class="btn btn-ghost btn-sm">Prozkoumat</a>
+          </div>
+        </article>
+        <article class="collection-card reveal" style="transition-delay: 0.07s;">
+          <div class="collection-card-bg" aria-hidden="true">
+              <img src="images/pic2.jpg" alt="Profilové foto kolekce čepic">
+          </div>
+          <div class="collection-card-content">
+            <p class="collection-label">SS 2026</p>
+            <h3 class="collection-title">Headwear<br>SS 2026</h3>
+            <a href="products.html" class="btn btn-ghost btn-sm">Prozkoumat</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    
+    <section class="section recommended" aria-labelledby="recommended-title">
+      <div class="section-header">
+        <h2 class="section-title" id="recommended-title">Doporučené kousky</h2>
+        <a href="products.html" class="section-link">Zobrazit vše</a>
+      </div>
+      <div class="products-grid">
+        <article class="product-card reveal" style="transition-delay: 0.14s;">
+          <a href="detail.html" class="product-card-img-wrap" aria-label="Light Wash Tee">
+            <div class="product-card-img">
+                <img src="images/pic1.jpg" alt="Produktová fotografie">
+              </div>
+            <div class="product-card-overlay"><span>Rychlý náhled</span></div>
+          </a>
+          <div class="product-card-info">
+            <h3 class="product-card-name">Light Wash Tee</h3>
+            <p class="product-card-color">Sky Blue</p>
+            <p class="product-card-price">790 Kč</p>
+          </div>
+        </article>
+        <article class="product-card reveal" style="transition-delay: 0.21s;">
+          <a href="detail.html" class="product-card-img-wrap" aria-label="Desert Hoodie">
+            <div class="product-card-img">
+                <img src="images/pic1.jpg" alt="Produktová fotografie">
+              </div>
+            <div class="product-card-overlay"><span>Rychlý náhled</span></div>
+          </a>
+          <div class="product-card-info">
+            <h3 class="product-card-name">Desert Hoodie</h3>
+            <p class="product-card-color">Camel</p>
+            <p class="product-card-price">1 290 Kč</p>
+          </div>
+        </article>
+        <article class="product-card reveal" style="transition-delay: 0s;">
+          <a href="detail.html" class="product-card-img-wrap" aria-label="Slim Denim">
+            <div class="product-card-img">
+                <img src="images/pic1.jpg" alt="Produktová fotografie">
+              </div>
+            <div class="product-card-overlay"><span>Rychlý náhled</span></div>
+          </a>
+          <div class="product-card-info">
+            <h3 class="product-card-name">Slim Denim</h3>
+            <p class="product-card-color">Indigo</p>
+            <p class="product-card-price">1 190 Kč</p>
+          </div>
+        </article>
+        <article class="product-card reveal" style="transition-delay: 0.07s;">
+          <a href="detail.html" class="product-card-img-wrap" aria-label="Snapback Cap">
+            <div class="product-card-img">
+                <img src="images/pic1.jpg" alt="Produktová fotografie">
+              </div>
+            <div class="product-card-overlay"><span>Rychlý náhled</span></div>
+          </a>
+          <div class="product-card-info">
+            <h3 class="product-card-name">Snapback Cap</h3>
+            <p class="product-card-color">Navy</p>
+            <p class="product-card-price">590 Kč</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    
+    <section class="section gallery-section" aria-labelledby="gallery-title">
+      <div class="section-header">
+        <h2 class="section-title" id="gallery-title">Lookbook</h2>
+        <a href="products.html" class="section-link">Celá galerie</a>
+      </div>
+      <div class="gallery-grid" id="gallery" aria-label="Galerie produktů">
+        <a href="#" class="gallery-item reveal" data-src="images/pic1.jpg" aria-label="Lookbook foto 1" data-lg-id="3e3f8eeb-12d2-4203-a145-1f70859cdd24" style="transition-delay: 0.14s;">
+          <div class="gallery-placeholder" style="background: linear-gradient(135deg, #1a1a1a 0%, #2a2010 100%);">
+            <img src="images/pic1.jpg" alt="Lookbook fotografie">
+          </div>
+        </a>
+        <a href="#" class="gallery-item reveal" data-src="images/pic1.jpg" aria-label="Lookbook foto 2" data-lg-id="2ec28835-c9ed-4ed8-8e5f-e7bd04f63583" style="transition-delay: 0.21s;">
+          <div class="gallery-placeholder" style="background: linear-gradient(135deg, #0a1525 0%, #1a2535 100%);">
+            <img src="images/pic1.jpg" alt="Lookbook fotografie">
+          </div>
+        </a>
+        <a href="#" class="gallery-item reveal" data-src="images/pic1.jpg" aria-label="Lookbook foto 3" data-lg-id="6bcdca60-d65e-4cf7-b945-4dcb8bcd6e39" style="transition-delay: 0s;">
+          <div class="gallery-placeholder" style="background: linear-gradient(135deg, #1a1005 0%, #2a2010 100%);">
+            <img src="images/pic1.jpg" alt="Lookbook fotografie">
+          </div>
+        </a>
+        <a href="#" class="gallery-item reveal" data-src="images/pic1.jpg" aria-label="Lookbook foto 4" data-lg-id="2bb2f8a9-5883-494c-a755-80d36336ed30" style="transition-delay: 0.07s;">
+          <div class="gallery-placeholder" style="background: linear-gradient(135deg, #0a1020 0%, #1a2030 100%);">
+            <img src="images/pic1.jpg" alt="Lookbook fotografie">
+          </div>
+        </a>
+      </div>
+    </section>
+
+    
+    <section class="newsletter" aria-labelledby="newsletter-title">
+      <div class="newsletter-content reveal" style="transition-delay: 0.14s;">
+        <p class="newsletter-label">Buďte první</p>
+        <h2 class="newsletter-title" id="newsletter-title">Nové kolekce<br><em>dříve než ostatní</em></h2>
+        <p class="newsletter-desc">Přihlaste se k odběru novinek a získejte 10 % slevu na první objednávku.</p>
+        <form class="newsletter-form" id="newsletter-form" novalidate="" aria-label="Formulář odběru novinek">
+          <div class="form-group">
+            <label for="email-input" class="sr-only">E-mailová adresa</label>
+            <input type="email" id="email-input" name="email" placeholder="váš@email.cz" class="form-input" required="" aria-required="true" aria-describedby="email-error" style="">
+            <span class="form-error" id="email-error" role="alert" aria-live="polite"></span>
+          </div>
+          <button type="submit" class="btn btn-primary">Přihlásit se</button>
+        </form>
+        <p class="newsletter-note">Žádný spam. Odhlásit se můžete kdykoli.</p>
+      </div>
+    </section>
+
+  </main>
+
+  
+  <footer class="footer" aria-label="Zápatí stránky">
+    <div class="footer-grid">
+      <div class="footer-brand reveal" style="transition-delay: 0.21s;">
+        <a href="index.html" class="footer-logo" aria-label="ZYNTHA domovská stránka">ZYNTHA</a>
+        <p class="footer-tagline">Prémiové streetwear pro každodenní styl.</p>
+      </div>
+      <nav class="footer-nav reveal" aria-label="Produkty" style="transition-delay: 0s;">
+        <h3 class="footer-nav-title">Produkty</h3>
+        <ul role="list">
+          <li><a href="products.html">Hoodies</a></li>
+          <li><a href="products.html">Trička</a></li>
+          <li><a href="products.html">Šortky</a></li>
+          <li><a href="products.html">Čepice</a></li>
+        </ul>
+      </nav>
+      <nav class="footer-nav reveal" aria-label="Zákaznická podpora" style="transition-delay: 0.07s;">
+        <h3 class="footer-nav-title">Zákaznická péče</h3>
+        <ul role="list">
+          <li><a href="contact.html">Kontakt</a></li>
+          <li><a href="#">Vrácení zboží</a></li>
+          <li><a href="#">Doprava</a></li>
+          <li><a href="#">FAQ</a></li>
+        </ul>
+      </nav>
+      <nav class="footer-nav reveal" aria-label="Sledujte nás" style="transition-delay: 0.14s;">
+        <h3 class="footer-nav-title">Sledujte nás</h3>
+        <ul role="list">
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">TikTok</a></li>
+          <li><a href="#">Pinterest</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 ZYNTHA. Všechna práva vyhrazena.</p>
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  
+  <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/lightgallery.min.js"></script>
+
+  <script src="scripts.js"></script>
+        <div class="lg-container  " id="lg-container-1" tabindex="-1" aria-modal="true" role="dialog">
+            <div id="lg-backdrop-1" class="lg-backdrop" style="transition-duration: 300ms;"></div>
+
+            <div id="lg-outer-1" class="lg-outer lg-use-css3 lg-css3 lg-hide-items lg-slide lg-grab">
+
+              <div id="lg-content-1" class="lg-content">
+                <div id="lg-inner-1" class="lg-inner" style="transition-timing-function: ease; transition-duration: 400ms;">
+                </div>
+                <button type="button" id="lg-prev-1" aria-label="Previous slide" class="lg-prev lg-icon">  </button>
+                <button type="button" id="lg-next-1" aria-label="Next slide" class="lg-next lg-icon">  </button>
+              </div>
+                <div id="lg-toolbar-1" class="lg-toolbar lg-group">
+                    
+                    <button type="button" aria-label="Close gallery" id="lg-close-1" class="lg-close lg-icon"></button>
+                    <div class="lg-counter" role="status" aria-live="polite">
+                <span id="lg-counter-current-1" class="lg-counter-current">1 </span> /
+                <span id="lg-counter-all-1" class="lg-counter-all">4 </span></div></div>
+                    
+                <div id="lg-components-1" class="lg-components">
+                    <div class="lg-sub-html" role="status" aria-live="polite"></div>
+                </div>
+            </div>
+        </div>
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body></html>

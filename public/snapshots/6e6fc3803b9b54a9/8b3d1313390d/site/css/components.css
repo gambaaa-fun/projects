@@ -1,0 +1,43 @@
+
+
+
+
+
+.brand-logo{
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: var(--normal-text);
+  font-weight: bold;
+}
+
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.25rem;
+}
+
+.hamburger span {
+  display: block;
+  width: 35px;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--secondary-text-colour);
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+.main_button {
+  padding: 1.1em 2.5em;
+  border-radius: 10px;
+  border: 2px solid transparent;
+  background-image: linear-gradient(black, black), var(--secondary-text-colour);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  text-decoration: none;
+}

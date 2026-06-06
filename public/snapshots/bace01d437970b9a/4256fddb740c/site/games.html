@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <base href="./">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Games</title>
+    <link rel="stylesheet" href="./src/style.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js" defer></script>
+    <script src="./src/index.js" defer></script>
+</head>
+<body>
+    <header class="navbar" aria-label="VoidWorks header">
+        <div class="brand">
+            <a href="./index.html">
+                <img src="./src/assets/logo/VoidWorks logo.svg" alt="VoidWorks Logo" href="./index.html">
+                <p class="heading">VoidWorks</p>
+            </a>
+        </div>
+
+        <a class="menu-button" href="#" aria-label="Otevřít menu" aria-expanded="false"
+            aria-controls="site-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </a>
+
+        <nav class="menu-panel" id="site-menu" aria-label="Navigace">
+            <a href="./index.html">Domů</a>
+            <a href="./games.html">Hry</a>
+            <a href="./contact.html">Kontakt</a>
+        </nav>
+    </header>
+
+    <main class="game-container">
+        <section aria-label="Naše hry">
+            <div class="games-grid">
+                <div class="column games-column games-column--left">
+                    <article class="game-card smth">
+                        <div class="card-swiper swiper ">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide">
+                                    <picture>
+                                        <source type="image/avif" srcset="./src/assets/char/avif/mercenary.avif">
+                                        <source type="image/webp" srcset="./src/assets/char/webp/mercenary.webp">
+                                        <img src="./src/assets/char/jpg/mercenary.jpg" alt="Neon Requiem cover (mercenary)" loading="lazy" decoding="async" class="game-card__img">
+                                    </picture>
+                                </div>
+                                <div class="swiper-slide">
+                                    <picture>
+                                        <source type="image/avif" srcset="./src/assets/char/avif/mercenary_fight.avif">
+                                        <source type="image/webp" srcset="./src/assets/char/webp/mercenary_fight.webp">
+                                        <img src="./src/assets/char/jpg/mercenary_fight.jpg" alt="Neon Requiem fight (mercenary)" loading="lazy" decoding="async" class="game-card__img">
+                                    </picture>
+                                </div>
+                                <div class="swiper-slide">
+                                    <picture>
+                                        <source type="image/avif" srcset="./src/assets/char/avif/mercenary_talk.avif">
+                                        <source type="image/webp" srcset="./src/assets/char/webp/mercenary_talk.webp">
+                                        <img src="./src/assets/char/jpg/mercenary_talk.jpg" alt="Neon Requiem talk (mercenary)" loading="lazy" decoding="async" class="game-card__img">
+                                    </picture>
+                                </div>
+                            </div>
+                            <div class="swiper-pagination card-pagination" aria-hidden="true"></div>
+                        </div>
+                        <div class="game-card__content">
+                            <div class="game-card__tag">Cyberpunk / Action RPG</div>
+                            <h3 class="game-card__title">Neon Requiem</h3>
+                            <p class="game-card__text">V rozpadajícím se kyberpunkovém městě přežívá jen ten nejsilnější. Kai je žoldačka bez minulosti — nebo si to aspoň myslí. Akční RPG plné neonových světel, temných tajemství a voleb bez správné odpovědi.</p>
+                        </div>
+                    </article>
+
+                    <article class="game-card">
+                        <div class="card-swiper swiper">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide">
+                                    <picture>
+                                        <source type="image/avif" srcset="./src/assets/char/avif/astronaut.avif">
+                                        <source type="image/webp" srcset="./src/assets/char/webp/astronaut.webp">
+                                        <img src="./src/assets/char/jpg/astronaut.jpg" alt="Starbound Stray cover (astronaut)" loading="lazy" decoding="async" class="game-card__img">
+                                    </picture>
+                                </div>
+                                <div class="swiper-slide">
+                                    <picture>
+                                        <source type="image/avif" srcset="./src/assets/char/avif/astronaut_fight.avif">
+                                        <source type="image/webp" srcset="./src/assets/char/webp/astronaut_fight.webp">
+                                        <img src="./src/assets/char/jpg/astronaut_fight.jpg" alt="Starbound Stray fight (astronaut)" loading="lazy" decoding="async" class="game-card__img">
+                                    </picture>
+                                </div>
+                                <div class="swiper-slide">
+                                    <picture>
+                                        <source type="image/avif" srcset="./src/assets/char/avif/astronaut_talk.avif">
+                                        <source type="image/webp" srcset="./src/assets/char/webp/astronaut_talk.webp">
+                                        <img src="./src/assets/char/jpg/astronaut_talk.jpg" alt="Starbound Stray talk (astronaut)" loading="lazy" decoding="async" class="game-card__img">
+                                    </picture>
+                                </div>
+                            </div>
+                            <div class="swiper-pagination card-pagination" aria-hidden="true"></div>
+                        </div>
+                        <div class="game-card__content">
+                            <div class="game-card__tag">Sci-fi / Adventure</div>
+                            <h3 class="game-card__title">Starbound Stray</h3>
+                            <p class="game-card__text">Uprostřed mezigalaktické války nachází astronaut Rael malého mimozemšťana — jediného přeživšího z napadené planety. Bojuje za přežití lidstva, ale zároveň chrání bytost která mu připomíná proč bojuje.</p>
+                        </div>
+                    </article>
+
+                    <article class="game-card">
+                        <div class="card-swiper swiper">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide">
+                                    <picture>
+                                        <source type="image/avif" srcset="./src/assets/char/avif/knight.avif">
+                                        <source type="image/webp" srcset="./src/assets/char/webp/knight.webp">
+                                        <img src="./src/assets/char/jpg/knight.jpg" alt="Devoured Oath cover (knight)" loading="lazy" decoding="async" class="game-card__img">
+                                    </picture>
+                                </div>
+                                <div class="swiper-slide">
+                                    <picture>
+                                        <source type="image/avif" srcset="./src/assets/char/avif/knight_fight.avif">
+                                        <source type="image/webp" srcset="./src/assets/char/webp/knight_fight.webp">
+                                        <img src="./src/assets/char/jpg/knight_fight.jpg" alt="Devoured Oath fight (knight)" loading="lazy" decoding="async" class="game-card__img">
+                                    </picture>
+                                </div>
+                                <div class="swiper-slide">
+                                    <picture>
+                                        <source type="image/avif" srcset="./src/assets/char/avif/knight_talk.avif">
+                                        <source type="image/webp" srcset="./src/assets/char/webp/knight_talk.webp">
+                                        <img src="./src/assets/char/jpg/knight_talk.jpg" alt="Devoured Oath talk (knight)" loading="lazy" decoding="async" class="game-card__img">
+                                    </picture>
+                                </div>
+                            </div>
+                            <div class="swiper-pagination card-pagination" aria-hidden="true"></div>
+                        </div>
+                        <div class="game-card__content">
+                            <div class="game-card__tag">Dark Fantasy / Action RPG</div>
+                            <h3 class="game-card__title">Devoured Oath</h3>
+                            <p class="game-card__text">Rytíř Aldric přísahal zničit démona který pohltil jeho království. Na cestě nachází artefakty staré civilizace — každý mu dává sílu, každý ho pomalu požírá. Čím blíž je vítězství, tím víc ztrácí sám sebe.</p>
+                        </div>                  
+                    </article>
+                    </div>
+
+                    <div class="column games-column games-column--right">
+                    <article class="game-card">
+                        <div class="card-swiper swiper">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide">
+                                    <picture>
+                                        <source type="image/avif" srcset="./src/assets/char/avif/walker.avif">
+                                        <source type="image/webp" srcset="./src/assets/char/webp/walker.webp">
+                                        <img src="./src/assets/char/jpg/walker.jpg" alt="Ashen Wake cover (walker)" loading="lazy" decoding="async" class="game-card__img">
+                                    </picture>
+                                </div>
+                                <div class="swiper-slide">
+                                    <picture>
+                                        <source type="image/avif" srcset="./src/assets/char/avif/walker_fight.avif">
+                                        <source type="image/webp" srcset="./src/assets/char/webp/walker_fight.webp">
+                                        <img src="./src/assets/char/jpg/walker_fight.jpg" alt="Ashen Wake fight (walker)" loading="lazy" decoding="async" class="game-card__img">
+                                    </picture>
+                                </div>
+                                <div class="swiper-slide">
+                                    <picture>
+                                        <source type="image/avif" srcset="./src/assets/char/avif/walker_talk.avif">
+                                        <source type="image/webp" srcset="./src/assets/char/webp/walker_talk.webp">
+                                        <img src="./src/assets/char/jpg/walker_talk.jpg" alt="Ashen Wake talk (walker)" loading="lazy" decoding="async" class="game-card__img">
+                                    </picture>
+                                </div>
+                            </div>
+                            <div class="swiper-pagination card-pagination" aria-hidden="true"></div>
+                        </div>
+                        <div class="game-card__content">
+                            <div class="game-card__tag">Action / Shooter</div>
+                            <h3 class="game-card__title">Ashen Wake</h3>
+                            <p class="game-card__text">Svět skončil. Ne výbuchem — ale tichem. Eden je jedna z mála přeživších v pustině kde voda má cenu krve. Putuje zničenou krajinou, hledá odpověď na jednu otázku — stojí tento svět ještě za záchranu?</p>
+                        </div>
+                    </article>
+
+                    <article class="game-card">
+                        <div class="card-swiper swiper">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide">
+                                    <picture>
+                                        <source type="image/avif" srcset="./src/assets/char/avif/pirate.avif">
+                                        <source type="image/webp" srcset="./src/assets/char/webp/pirate.webp">
+                                        <img src="./src/assets/char/jpg/pirate.jpg" alt="Dead Tide cover (pirate)" loading="lazy" decoding="async" class="game-card__img">
+                                    </picture>
+                                </div>
+                                <div class="swiper-slide">
+                                    <picture>
+                                        <source type="image/avif" srcset="./src/assets/char/avif/pirate_fight.avif">
+                                        <source type="image/webp" srcset="./src/assets/char/webp/pirate_fight.webp">
+                                        <img src="./src/assets/char/jpg/pirate_fight.jpg" alt="Dead Tide fight (pirate)" loading="lazy" decoding="async" class="game-card__img">
+                                    </picture>
+                                </div>
+                                <div class="swiper-slide">
+                                    <picture>
+                                        <source type="image/avif" srcset="./src/assets/char/avif/pirate_talk.avif">
+                                        <source type="image/webp" srcset="./src/assets/char/webp/pirate_talk.webp">
+                                        <img src="./src/assets/char/jpg/pirate_talk.jpg" alt="Dead Tide talk (pirate)" loading="lazy" decoding="async" class="game-card__img">
+                                    </picture>
+                                </div>
+                            </div>
+                            <div class="swiper-pagination card-pagination" aria-hidden="true"></div>
+                        </div>
+                        <div class="game-card__content">
+                            <div class="game-card__tag">Survival / Horror</div>
+                            <h3 class="game-card__title">Dead Tide</h3>
+                            <p class="game-card__text">Kapitánka Mara Voss ovládla nejobávanější loď na sedmi mořích. Ale pod hladinou se něco probouzí — staré, hladové a trpělivé. Moře si vždy vezme co mu patří.</p>
+                        </div>
+                    </article>
+
+                    <article class="game-card">
+                        <div class="card-swiper swiper">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide">
+                                    <picture>
+                                        <source type="image/avif" srcset="./src/assets/char/avif/scientist.avif">
+                                        <source type="image/webp" srcset="./src/assets/char/webp/scientist.webp">
+                                        <img src="./src/assets/char/jpg/scientist.jpg" alt="Fractured Mind cover (scientist)" loading="lazy" decoding="async" class="game-card__img">
+                                    </picture>
+                                </div>
+                                <div class="swiper-slide">
+                                    <picture>
+                                        <source type="image/avif" srcset="src/assets/char/avif/scientist_fight.avif">
+                                        <source type="image/webp" srcset="./src/assets/char/webp/scientis_fight.webp">
+                                        <img src="src/assets/char/jpg/scientist_fight.jpg" alt="Fractured Mind fight (scientist)" loading="lazy" decoding="async" class="game-card__img">
+                                    </picture>
+                                </div>
+                                <div class="swiper-slide">
+                                    <picture>
+                                        <source type="image/avif" srcset="./src/assets/char/avif/scientist_talk.avif">
+                                        <source type="image/webp" srcset="./src/assets/char/webp/scientist_talk.webp">
+                                        <img src="./src/assets/char/jpg/scientist_talk.jpg" alt="Fractured Mind talk (scientist)" loading="lazy" decoding="async" class="game-card__img">
+                                    </picture>
+                                </div>
+                            </div>
+                            <div class="swiper-pagination card-pagination" aria-hidden="true"></div>
+                        </div>
+                        <div class="game-card__content">
+                            <div class="game-card__tag">Psychological / Adventure</div>
+                            <h3 class="game-card__title">Fractured Mind</h3>
+                            <p class="game-card__text">Dr. Marcus Vane se probouzí v opuštěné výzkumné stanici bez vzpomínek. Zdi jsou pokreslené vzorci které sám napsal. Čím víc se snaží přijít na to co se stalo, tím méně si je jistý tím, co je skutečné — a kdo vlastně je.</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </main>
+
+
+    <footer class="footer">
+            <div>© 2025 VoidWorks. Všechna práva vyhrazena.</div>
+            <div class="text">
+                <a href="mailto:jakub.tuma@gambaaa.fun" class="text--email">contact@voidworks.com</a>
+            </div>
+            <nav class="nav-footer" aria-label="Patička navigace">
+                <a href="./index.html">Domů</a>
+                <a href="./games.html">Hry</a>
+                <a href="./contact.html">Kontakt</a>
+            </nav>
+        </footer>
+</body>
+</html>

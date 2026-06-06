@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+    <base href="./">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TJ Sokol Víska | Kontakt</title>
+    <link rel="icon" type="image/png" href="./images/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="./css/base.css">
+    <link rel="stylesheet" href="./css/layout.css">
+    <link rel="stylesheet" href="./css/components.css">
+</head>
+
+<body>
+
+    <header class="hlavni-hlavicka">
+        <div class="container header-grid-nav">
+            <button class="menu-toggle" aria-label="Otevřít menu">
+                <span class="menu-bar"></span>
+                <span class="menu-bar"></span>
+                <span class="menu-bar"></span>
+            </button>
+            <a href="#" class="logo-odkaz">
+                <img src="./images/Logo.svg" alt="Logo TJ Sokol Víska" class="logo-foto">
+            </a>
+            <nav class="hlavni-navigace">
+                <ul>
+                    <li><a href="./index.html">HLAVNÍ STRÁNKA</a></li>
+                    <li><a href="./vysledky.html">VÝSLEDKY</a></li>
+                    <li><a href="./soupiska.html">SOUPISKA</a></li>
+                    <li><a href="./kontakt.html">KONTAKT</a></li>
+                </ul>
+            </nav>
+            <div class="header-socialy">
+                <a href="https://facebook.com" target="_blank" aria-label="Facebook">
+                    <img src="./images/facebook-logo.svg" alt="Facebook" class="fb-foto">
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="kontakt-sekce">
+            <div class="container kontakt-layout">
+                <div class="kontakt-obsah">
+                    <h1 class="kontakt-nadpis">Kontaktuj nás</h1>
+                    <p class="kontakt-perex">Chceš se k nám přidat,<br>sponzorovat nás,<br>a nebo máš jenom otázku?</p>
+                    <h2 class="kontakt-vyzva">Neváhej a napiš!</h2>
+                    <div class="kontakt-cara"></div>
+
+                    <div class="kontakt-alt desktop-only">
+                        <h3>Nebo nás kontaktuj<br>zde:</h3>
+                        <p>Info.sokolviska@gmail.com<br>XXX XXX XXX<br>Visnova Xxx/Xx</p>
+                    </div>
+                </div>
+
+                <div class="kontakt-form-obal">
+                    <form class="kontakt-form" action="#" method="POST">
+                        <div class="form-group">
+                            <label class="form-label" for="jmeno">Jméno</label>
+                            <input type="text" id="jmeno" class="form-control" placeholder="David Havrda" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="email">Email</label>
+                            <input type="email" id="email" class="form-control" placeholder="david.havrda.024@pslib.cz"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="zprava">Zpráva</label>
+                            <textarea id="zprava" class="form-control form-textarea" placeholder="Ahoj jsem david"
+                                required></textarea>
+                        </div>
+                        <button type="button" class="form-submit">Odeslat</button>
+                    </form>
+                </div>
+
+                <div class="kontakt-alt mobil-only">
+                    <h3>Nebo nás kontaktuj<br>zde:</h3>
+                    <p>Info.sokolviska@gmail.com<br>XXX XXX XXX<br>Visnova Xxx/Xx</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="hlavni-patka">
+        <div class="patka-graphics">
+            <img src="./images/football-goal-icon-playground-vector-48852294 (1) 1.png" alt="" class="patka-branka">
+            <img src="./images/male-soccer-player-celebrating-in-blue-jersey-and-shorts-illustration-from-behind-showing-number-eight-on-back-vector 1.png"
+                alt="" class="patka-hrac">
+        </div>
+        <div class="container patka-grid">
+            <div class="patka-sloupec">
+                <h3>Obsah</h3>
+                <ul class="patka-odkazy">
+                    <li><a href="./index.html">Hlavní Stránka</a></li>
+                    <li><a href="./vysledky.html">Výsledky</a></li>
+                    <li><a href="./kontakt.html">Kontakt</a></li>
+                </ul>
+            </div>
+            <div class="patka-sloupec">
+                <h3>Kontakt</h3>
+                <p>Info.sokolviska@gmail.com</p>
+                <p>XXX XXX XXX</p>
+                <p>Višňová Xxx/Xx</p>
+            </div>
+            <div class="patka-logo-box">
+                <img src="./images/Logo.svg" alt="TJ Sokol Víska" class="patka-logo">
+            </div>
+        </div>
+    </footer>
+
+    <script src="./js/main.js"></script>
+</body>
+
+</html>

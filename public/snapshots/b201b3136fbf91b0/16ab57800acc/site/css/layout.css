@@ -1,0 +1,78 @@
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.hlavni-hlavicka {
+    background-color: var(--clr-navy);
+    color: var(--clr-white);
+    padding-top: 15px;
+    padding-bottom: 15px;
+    position: relative;
+    z-index: 100;
+}
+
+.header-grid-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo-odkaz {
+    display: block;
+}
+
+.logo-foto {
+    height: 60px;
+    width: auto;
+}
+
+.hlavni-navigace {
+    display: none;
+}
+
+@media (min-width: 1024px) {
+    .menu-toggle {
+        display: none;
+    }
+
+    .header-grid-nav {
+        position: relative;
+    }
+
+    .hlavni-navigace {
+        display: block;
+        order: -1;
+    }
+
+    .logo-odkaz {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .hlavni-navigace ul,
+    .hlavni-navigace menu {
+        display: flex;
+        gap: 30px;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .hlavni-navigace a {
+        color: var(--clr-white);
+        font-family: var(--font-heading);
+        font-size: 18px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+
+    .hlavni-navigace a:hover {
+        color: var(--clr-cyan);
+    }
+}

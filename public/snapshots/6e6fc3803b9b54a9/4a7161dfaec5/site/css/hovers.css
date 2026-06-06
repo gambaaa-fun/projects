@@ -1,0 +1,15 @@
+.header__nav-button--getdemo:hover {
+
+    background: var(--secondary-text-colour);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+}
+
+
+.header__nav-button--login:hover {
+    background: var(--secondary-text-colour);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    border: 1px solid white;
+}

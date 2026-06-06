@@ -1,0 +1,30 @@
+.aboutus {
+    display: flex;
+    flex-direction: column;
+    gap: 55px;
+}
+
+.aboutus__figure {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.aboutus__figure-reversed {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+@media (min-width: 900px) {
+    .aboutus__figure {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .aboutus__figure-reversed {
+        flex-direction: row-reverse;
+        align-items: center;
+        align-self: end;
+    }
+}

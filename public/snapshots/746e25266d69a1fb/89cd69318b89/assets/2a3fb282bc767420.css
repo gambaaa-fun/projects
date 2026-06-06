@@ -1,0 +1,276 @@
+/* index.html */
+
+/* ── O NÁS ── */
+
+.about {
+    padding: 2rem 1.25rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.about__inner {
+    display: grid;
+    gap: 2rem;
+}
+
+.about__text h2 {
+    font-size: 1.5rem;
+    margin-bottom: .75rem;
+}
+
+.about__text p {
+    line-height: 1.7;
+    color: var(--text-muted);
+    font-size: .95rem;
+}
+
+.about__logos {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+    align-items: center;
+}
+
+.about__logo {
+    width: 100%;
+    height: auto;
+    max-height: 3rem;
+    object-fit: contain;
+    filter: grayscale(1) opacity(.7);
+    transition: filter .2s;
+}
+
+.about__logo:hover {
+    filter: grayscale(0) opacity(1);
+}
+
+/* ── NOVINKY (carousel – CSS scroll snap) ── */
+
+.news {
+    padding: 2rem 0;
+    background-color: var(--bg-alt);
+}
+
+.news__title {
+    font-size: 1.4rem;
+    text-align: center;
+    margin-bottom: 1.25rem;
+    padding: 0 1.25rem;
+}
+
+.news__track {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    padding: .5rem 1.25rem 1rem;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.news__track::-webkit-scrollbar {
+    display: none;
+}
+
+.news__card {
+    scroll-snap-align: start;
+    flex: 0 0 min(80vw, 22rem);
+    background-color: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: .65rem;
+    overflow: hidden;
+    display: grid;
+    grid-template-rows: auto 1fr;
+    transition: transform .2s, box-shadow .2s;
+}
+
+.news__card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px var(--shadow);
+}
+
+.news__card-img {
+    width: 100%;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+}
+
+.news__card-body {
+    padding: 1rem;
+    display: grid;
+    gap: .5rem;
+}
+
+.news__card-title {
+    font-family: 'Exo 2', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: .03em;
+}
+
+.news__card-text {
+    font-size: .875rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* ── VIZE A HODNOTY ── */
+
+.values {
+    padding: 2rem 1.25rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.values__inner {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.values__text h2 {
+    font-size: 1.5rem;
+    margin-bottom: .75rem;
+}
+
+.values__text p {
+    line-height: 1.7;
+    color: var(--text-muted);
+    font-size: .95rem;
+}
+
+.values__img {
+    border-radius: .65rem;
+    overflow: hidden;
+    aspect-ratio: 16/9;
+}
+
+.values__img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* ── HISTORIE A MILNÍKY ── */
+
+.history {
+    padding: 2rem 1.25rem;
+    background-color: var(--bg-alt);
+}
+
+.history__inner {
+    display: grid;
+    gap: 1.5rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.history__img {
+    border-radius: .65rem;
+    overflow: hidden;
+    aspect-ratio: 16/9;
+}
+
+.history__img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.history__text h2 {
+    font-size: 1.5rem;
+    margin-bottom: .75rem;
+}
+
+.history__text p {
+    line-height: 1.7;
+    color: var(--text-muted);
+    font-size: .95rem;
+}
+
+/* ── TÝM A KULTURA ── */
+
+.team {
+    padding: 2rem 1.25rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.team__inner {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.team__text h2 {
+    font-size: 1.5rem;
+    margin-bottom: .75rem;
+}
+
+.team__text p {
+    line-height: 1.7;
+    color: var(--text-muted);
+    font-size: .95rem;
+}
+
+.team__img {
+    border-radius: .65rem;
+    overflow: hidden;
+    aspect-ratio: 16/9;
+}
+
+.team__img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* ── DESKTOP ── */
+
+@media (min-width: 768px) {
+
+    .about__inner {
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+    }
+
+    .about__logos {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .news__card {
+        flex: 0 0 22rem;
+    }
+
+    .values__inner {
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+    }
+
+    .history__inner {
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+    }
+
+    .team__inner {
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+    }
+
+    .values__text h2,
+    .history__text h2,
+    .team__text h2 {
+        font-size: 1.85rem;
+    }
+}
+
+@media (min-width: 1024px) {
+
+    .about__logos {
+        grid-template-columns: repeat(5, 1fr);
+    }
+}

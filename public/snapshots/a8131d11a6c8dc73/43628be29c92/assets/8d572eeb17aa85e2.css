@@ -1,0 +1,127 @@
+@import url("./74ebf7b74bfc025e.css");
+
+:root {
+    --black-color: #0e0e0e;
+    --nice-blue:  rgb(37, 145, 164);
+    --darker-blue: rgb(0, 127, 127);
+    --dark-grey: #1f1f1f;
+    --cervena: #282828;
+    font-family: "Chillax-Medium";
+}
+body{
+    background-image: url(./ae4c2bcbd5488a4d.jpg);
+    background-size: cover;
+    overflow-x: hidden;
+}
+/*.navbar {
+    background-color: var(--black-color);
+    padding: 1em;
+    display: flex;
+    justify-content: space-between;
+
+}
+    .nav__menu>div {
+    content: "";
+    width: 45px;
+    height: 5px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 1em;
+    margin: 0.5em;
+}*/
+.navbar {
+    background-color: var(--black-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 3em;
+    position: fixed;
+    top: 0.5em;
+    left: 0.5em;
+    width: 50%;
+    max-width: 17em;
+    z-index: 4;
+    padding: 2vh 2em;
+}
+@media (min-width: 1200px) {
+    .navbar{
+        padding: 4vh 3em;  
+    } 
+}
+
+.navbar>a {
+    text-decoration: none;
+    color: #f1f1f1;
+}
+
+.formulář{
+    background-color: #e1e1e1;
+    border-radius: 1em;
+    display: flex;
+    flex-direction: column;
+    border-color: #0a0a0a;
+    margin: 10em 2em;
+    padding: 2em;
+}
+footer p, h3 {
+    opacity: 0.7;
+}
+.ThisIsTheEnd img{
+    transform: scale(0.6);
+}
+form > input{
+    color: var(--cervena);
+    background-color: #e1e1e1;
+    border-radius: 0.7em;
+    padding: 1em;
+    width: 10em;
+    margin-bottom: 1.5em;
+    border-color: #0a0a0a;
+    font-size: large;
+}
+.tlacitko{
+    margin-right: -1em;
+    background-color:var(--cervena);
+    padding: 1em;
+    color: white;
+    font-size: larger;
+    width: 7em;
+    text-align: center;
+    border-radius: 0.7em;
+    text-decoration: none;
+}
+.btn-div{
+    margin: 1em;
+    display: flex;
+    justify-content: right;
+}
+.checkbox{
+  color: var(--cervena);  
+}
+footer {
+    background-color: var(--black-color);
+    display: flex;
+    gap: 2em;
+    color: rgb(230, 230, 230);
+    padding: 1.5em;
+}
+
+.ThisIsTheEnd {
+    background-color: #060606;
+    display: flex;
+    padding: 1.5em;
+}
+
+.ThisIsTheEnd>p {
+    color: #f1f1f1;
+}
+@media (min-width:900px) {
+ .formulář{
+    margin: 8em;
+ }
+ form >input {
+    width: 14em;
+ }  
+ .tlacitko{
+    margin-right: 10em;
+} 
+}

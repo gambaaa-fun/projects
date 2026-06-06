@@ -1,0 +1,348 @@
+<!DOCTYPE html><html lang="cs"><head>
+    <base href="../">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>d.s. Lištičky | Dětská skupina Lučany nad Nisou</title>
+    <link rel="icon" href="images/logo.png" type="image/png">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=Outfit:wght@400;700;800&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+    
+    <meta name="description" content="Dětská skupina Lištičky v Lučanech nad Nisou. Profesionální a láskyplná péče o děti. Prohlédněte si naši školku, galerii, dokumenty a jídelníček.">
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="index.html" class="logo">
+                <img src="images/logo.png" alt="Lištičky logo">
+                d.s. Lištičky
+            </a>
+            
+            <input type="checkbox" id="menu-toggle" class="menu-toggle-checkbox" style="">
+            <label for="menu-toggle" class="menu-toggle-label" aria-label="Otevřít menu">
+                <span class="icon">menu</span>
+            </label>
+            
+            <div class="nav-container">
+                <nav class="main-nav">
+                    <ul>
+                        <li><a href="index.html" class="active">Domů</a></li>
+                        <li><a href="o-nas.html">O nás</a></li>
+                        <li><a href="galerie.html">Galerie</a></li>
+                        <li><a href="jidelnicek.html">Jídelníček</a></li>
+                        <li><a href="plan-akci.html">Plán akcí</a></li>
+                        <li><a href="dokumenty.html">Dokumenty</a></li>
+                        <li><a href="kontakty.html">Kontakty</a></li>
+                    </ul>
+                </nav>
+
+                <div class="lang-switch">
+                    <a href="#" class="active">CZ</a>
+                    <span class="text-muted">|</span>
+                    <a href="#">EN</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="site-wrapper">
+        <div class="container">
+            
+            <section class="hero">
+                <div class="grid-2">
+                    <div class="hero-content">
+                        <h1>Pojďte se s námi učit, hrát si a poznávat svět.</h1>
+                        <p class="text-muted" style="font-size: var(--size-text-lg); line-height: 1.8;">
+                            Vítejte v dětské skupině <strong>Lištičky v Lučanech nad Nisou</strong>. 
+                            Vytváříme laskavé, hravé a bezpečné prostředí, kde vaše děti mohou svobodně růst. 
+                            Náš cíl je nabízet co nejlepší péči a vyjít vstříc zvýšenému zájmu rodičů, kteří potřebují láskyplný přístup a moderní pojetí výuky.
+                        </p>
+                        <div class="flex-wrap gap-2 mt-1">
+                            <a href="kontakty.html" class="btn">
+                                <span class="icon">edit_calendar</span> Přihlásit dítě
+                            </a>
+                            <a href="galerie.html" class="btn btn-secondary">
+                                <span class="icon">photo_library</span> Nahlédnout do galerie
+                            </a>
+                        </div>
+                        
+                        <div class="mt-4 flex-wrap gap-3 items-center text-muted" style="font-size: var(--size-text-sm);">
+                            <div class="items-center gap-1">
+                                <span class="icon text-primary">check_circle</span>
+                                <span>Individuální přístup</span>
+                            </div>
+                            <div class="items-center gap-1">
+                                <span class="icon text-primary">check_circle</span>
+                                <span>Pobyt v přírodě</span>
+                            </div>
+                            <div class="items-center gap-1">
+                                <span class="icon text-primary">check_circle</span>
+                                <span>Kvalifikovaný personál</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hero-image">
+                        <img src="images/hero.png" alt="Ilustrace usmívající se lištičky na zelené louce" loading="lazy">
+                    </div>
+                </div>
+            </section>
+
+            <section class="py-5">
+                <div class="grid-2">
+                    <div style="background-color: var(--color-primary-light); border-radius: var(--radius-lg); padding: 3rem; color: var(--color-bg-white);">
+                        <span class="icon" style="font-size: 64px; margin-bottom: 1rem;">waving_hand</span>
+                        <h2 style="color: var(--color-bg-white); font-size: var(--size-text-xxxl);">Ahoj, jsme Lištičky!</h2>
+                        <p style="font-size: var(--size-text-lg); opacity: 0.9;">
+                            Naše dětská skupina v Lučanech nad Nisou poskytuje bezpečné a inspirativní zázemí pro děti od útlého věku. 
+                            Každý den zažíváme malá i velká dobrodružství.
+                        </p>
+                        <a href="o-nas.html" class="btn btn-outline" style="border-color: var(--color-bg-white); color: var(--color-bg-white); margin-top: 1rem;">
+                            Poznejte náš příběh <span class="icon">arrow_forward</span>
+                        </a>
+                    </div>
+                    <div class="flex-wrap items-center justify-center">
+                        <img src="images/logo.png" alt="Velké logo d.s. Lištičky" style="max-width: 300px; opacity: 0.8; filter: grayscale(50%);">
+                    </div>
+                </div>
+            </section>
+
+            <section class="py-4 bg-white shadow" style="padding-inline: 2rem; margin-bottom: 4rem;">
+                <div class="section-title">
+                    <h2>Proč si děti a rodiče vybírají Lištičky?</h2>
+                    <p class="text-muted" style="max-width: 600px; margin-inline: auto;">Děláme věci srdcem a zakládáme si na hodnotách, které rozvíjejí dětskou osobnost i lásku k přírodě.</p>
+                </div>
+                
+                <div class="grid-4">
+                    <div class="card" style="border: none; box-shadow: none; padding: 1rem;">
+                        <span class="card-icon text-primary"><span class="icon" style="font-size: inherit;">park</span></span>
+                        <h3>Učení venku</h3>
+                        <p class="text-muted">Příroda je naše učebna. Lučany nad Nisou nabízí krásné lesy, kam s dětmi chodíme na průzkumy, učíme se rozeznávat rostliny a zvířátka.</p>
+                    </div>
+                    <div class="card" style="border: none; box-shadow: none; padding: 1rem;">
+                        <span class="card-icon text-secondary"><span class="icon" style="font-size: inherit;">diversity_1</span></span>
+                        <h3>Malý kolektiv</h3>
+                        <p class="text-muted">Díky menšímu počtu dětí ve skupině se můžeme věnovat každému zvlášť. Zajišťujeme tak pocit absolutního bezpečí a klidu pro jejich rozvoj.</p>
+                    </div>
+                    <div class="card" style="border: none; box-shadow: none; padding: 1rem;">
+                        <span class="card-icon text-primary"><span class="icon" style="font-size: inherit;">palette</span></span>
+                        <h3>Kreativita a tvoření</h3>
+                        <p class="text-muted">Podporujeme umělecké vyjádření. Děti mají neomezený přístup k barvám, plastelíně a dalším kreativním pomůckám. Často si tvoříme dárky pro maminky.</p>
+                    </div>
+                    <div class="card" style="border: none; box-shadow: none; padding: 1rem;">
+                        <span class="card-icon text-secondary"><span class="icon" style="font-size: inherit;">restaurant_menu</span></span>
+                        <h3>Zdravá strava</h3>
+                        <p class="text-muted">Jídlo pečlivě vybíráme s ohledem na zdravý vývoj. Zajišťujeme pestrý jídelníček plný ovoce, zeleniny a dbáme na pitný režim i případné alergie.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="py-5">
+                <div class="grid-2">
+                    <div>
+                        <h2>Jak vypadá typický den v naší skupině?</h2>
+                        <p class="text-muted mb-4">Pravidelný režim dává dětem pocit jistoty a bezpečí. Harmonogram se může měnit v závislosti na počasí, ale většinou dodržujeme tento rytmus.</p>
+                        
+                        <ul style="display: grid; gap: 1.5rem; position: relative; padding-left: 2rem;">
+                            <div style="position: absolute; left: 11px; top: 10px; bottom: 10px; width: 2px; background-color: var(--color-primary-light); opacity: 0.3;"></div>
+                            
+                            <li style="position: relative;">
+                                <span class="icon text-primary" style="position: absolute; left: -2rem; background: var(--color-bg-light);">schedule</span>
+                                <h4>07:00 - 08:30 | Příchod a volná hra</h4>
+                                <p class="text-muted" style="font-size: var(--size-text-sm);">Děti se scházejí, volně si hrají a zapojují se do ranních rituálů.</p>
+                            </li>
+                            <li style="position: relative;">
+                                <span class="icon text-primary" style="position: absolute; left: -2rem; background: var(--color-bg-light);">schedule</span>
+                                <h4>08:30 - 09:00 | Dopolední svačina</h4>
+                                <p class="text-muted" style="font-size: var(--size-text-sm);">Zdravá a vyvážená svačinka pro doplnění energie.</p>
+                            </li>
+                            <li style="position: relative;">
+                                <span class="icon text-primary" style="position: absolute; left: -2rem; background: var(--color-bg-light);">schedule</span>
+                                <h4>09:00 - 11:30 | Vzdělávací blok a pobyt venku</h4>
+                                <p class="text-muted" style="font-size: var(--size-text-sm);">Řízené tvoření, zpěv, cvičení nebo procházka po okolí Lučan.</p>
+                            </li>
+                            <li style="position: relative;">
+                                <span class="icon text-primary" style="position: absolute; left: -2rem; background: var(--color-bg-light);">schedule</span>
+                                <h4>11:30 - 12:30 | Oběd a příprava na odpočinek</h4>
+                                <p class="text-muted" style="font-size: var(--size-text-sm);">Teplý a vyvážený oběd. Následuje hygiena a přesun na lehátka.</p>
+                            </li>
+                            <li style="position: relative;">
+                                <span class="icon text-primary" style="position: absolute; left: -2rem; background: var(--color-bg-light);">schedule</span>
+                                <h4>12:30 - 14:30 | Spánek a odpočinek</h4>
+                                <p class="text-muted" style="font-size: var(--size-text-sm);">Spánek nebo klidové aktivity pro děti s nižší potřebou spánku.</p>
+                            </li>
+                            <li style="position: relative;">
+                                <span class="icon text-primary" style="position: absolute; left: -2rem; background: var(--color-bg-light);">schedule</span>
+                                <h4>14:30 - 16:30 | Odpolední svačina a vyzvedávání</h4>
+                                <p class="text-muted" style="font-size: var(--size-text-sm);">Děti si volně hrají, tvoří a postupně odcházejí s rodiči domů.</p>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                        <img src="images/gallery-toys.png" alt="Hračky v naší třídě" class="card" style="padding: 0; object-fit: cover; height: 300px; width: 100%;">
+                        <img src="images/gallery-nature.png" alt="Děti venku v přírodě" class="card" style="padding: 0; object-fit: cover; height: 300px; width: 100%;">
+                    </div>
+                </div>
+            </section>
+
+            <section class="py-5 text-center">
+                <div class="section-title">
+                    <h2>Nahlédněte k nám</h2>
+                    <p class="text-muted">Prohlédněte si malou ukázku toho, jak to u nás žije.</p>
+                </div>
+                
+                <div class="gallery-grid" style="margin-bottom: 2rem;">
+                    <div class="gallery-item">
+                        <img src="images/gallery-toys.png" alt="Naše herna s hračkami" loading="lazy">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="images/gallery-nature.png" alt="Hřiště v lese" loading="lazy">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="images/hero.png" alt="Maskot lištička v přírodě" loading="lazy">
+                    </div>
+                </div>
+                
+                <a href="galerie.html" class="btn btn-outline">Celá fotogalerie <span class="icon">photo_library</span></a>
+            </section>
+
+            <section class="py-5 bg-white shadow" style="padding-inline: 2rem; margin-bottom: 4rem;">
+                <div class="section-title">
+                    <h2>Napsali o nás rodiče</h2>
+                    <p class="text-muted">Největší odměnou je pro nás úsměv dětí a spokojenost rodičů.</p>
+                </div>
+                
+                <div class="grid-3">
+                    <div class="card" style="background-color: var(--color-bg-light); border: none;">
+                        <div class="text-primary mb-1">
+                            <span class="icon">star</span><span class="icon">star</span><span class="icon">star</span><span class="icon">star</span><span class="icon">star</span>
+                        </div>
+                        <p style="font-style: italic;">"Syn chodí do Lištiček s nadšením. Líbí se mi přístup tet a také to, že tráví hodně času venku. Moc doporučuji."</p>
+                        <h4 style="margin: 0; margin-top: auto;">— Jana Nováková, maminka Honzíka</h4>
+                    </div>
+                    <div class="card" style="background-color: var(--color-bg-light); border: none;">
+                        <div class="text-primary mb-1">
+                            <span class="icon">star</span><span class="icon">star</span><span class="icon">star</span><span class="icon">star</span><span class="icon">star</span>
+                        </div>
+                        <p style="font-style: italic;">"Nádherné prostředí a profesionální péče. Dcerka udělala neuvěřitelný pokrok v mluvení a samostatnosti."</p>
+                        <h4 style="margin: 0; margin-top: auto;">— Petr Svoboda, tatínek Emičky</h4>
+                    </div>
+                    <div class="card" style="background-color: var(--color-bg-light); border: none;">
+                        <div class="text-primary mb-1">
+                            <span class="icon">star</span><span class="icon">star</span><span class="icon">star</span><span class="icon">star</span><span class="icon">star</span>
+                        </div>
+                        <p style="font-style: italic;">"Nejlepší dětská skupina v Lučanech. Domácké, příjemné prostředí a vždy perfektní komunikace. Máme to tu moc rádi."</p>
+                        <h4 style="margin: 0; margin-top: auto;">— Klára Dvořáková, maminka Tomáška</h4>
+                    </div>
+                </div>
+            </section>
+
+            <section class="py-5" style="max-width: 800px; margin: 0 auto;">
+                <div class="section-title">
+                    <h2>Často kladené dotazy</h2>
+                    <p class="text-muted">Shrnuli jsme odpovědi na otázky, které nám rodiče pokládají nejčastěji.</p>
+                </div>
+                
+                <div>
+                    <details class="faq-item">
+                        <summary>Od jakého věku přijímáte děti?</summary>
+                        <div class="faq-content">
+                            <p>Do naší dětské skupiny přijímáme děti od 2 let věku. Klademe důraz na to, aby bylo dítě schopno základní komunikace a bylo alespoň zčásti samostatné, což pomáhá hladké adaptaci.</p>
+                        </div>
+                    </details>
+                    
+                    <details class="faq-item">
+                        <summary>Jak probíhá adaptace nového dítěte?</summary>
+                        <div class="faq-content">
+                            <p>Adaptace probíhá postupně a individuálně. První dny doporučujeme pobyt s rodičem, následně se doba prodlužuje. Nenutíme děti k ničemu a řídíme se jejich tempem.</p>
+                        </div>
+                    </details>
+                    
+                    <details class="faq-item">
+                        <summary>Co s sebou děti potřebují první den?</summary>
+                        <div class="faq-content">
+                            <p>Základní výbava obsahuje: bačkorky (pevnou obuv), oblečení na zahradu/do lesa (které se může umazat), náhradní oblečení do třídy (od spodního prádla po tričko) a oblíbeného plyšáčka pro klidný spánek. Seznam naleznete také v sekci <a href="dokumenty.html" class="text-primary">Dokumenty ke stažení</a>.</p>
+                        </div>
+                    </details>
+                    
+                    <details class="faq-item">
+                        <summary>Zajišťujete stravování? Jak řešíte alergie?</summary>
+                        <div class="faq-content">
+                            <p>Ano, celodenní stravování je zajištěno. Obědy k nám dováží externí certifikovaný dodavatel, svačinky chystáme čerstvé na místě. V případě prokázané lékařské diagnózy (např. alergie na lepek, mléko) dokážeme po domluvě zajistit vhodnou alternativu.</p>
+                        </div>
+                    </details>
+                </div>
+            </section>
+
+            <section class="py-5 text-center">
+                <div style="background: var(--color-secondary); color: var(--color-bg-white); border-radius: var(--radius-lg); padding: 4rem 2rem; position: relative; overflow: hidden;">
+                    <span class="icon" style="position: absolute; right: -20px; bottom: -20px; font-size: 200px; opacity: 0.1; transform: rotate(-15deg);">toys</span>
+                    
+                    <h2 style="color: var(--color-bg-white); position: relative; z-index: 1;">Zaujali jsme vás? Rádi vás přivítáme!</h2>
+                    <p style="font-size: var(--size-text-lg); margin-bottom: 2rem; position: relative; z-index: 1;">Přijďte se k nám podívat osobně. Rádi vám vše ukážeme a zodpovíme vaše dotazy.</p>
+                    
+                    <div class="justify-center gap-2 flex-wrap" style="position: relative; z-index: 1;">
+                        <a href="kontakty.html" class="btn" style="background-color: var(--color-bg-white); color: var(--color-secondary-light);">
+                            Domluvit prohlídku <span class="icon">calendar_month</span>
+                        </a>
+                        <a href="dokumenty.html" class="btn btn-outline" style="border-color: var(--color-bg-white); color: var(--color-bg-white);">
+                            Stáhnout přihlášku <span class="icon">download</span>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-inner">
+            <div>
+                <a href="index.html" class="logo" style="color: var(--color-bg-white);">
+                    <img src="images/logo.png" alt="Lištičky logo">
+                    d.s. Lištičky
+                </a>
+                <p style="margin-top: 1.5rem; opacity: 0.8; font-size: var(--size-text-sm);">Dětská skupina v Lučanech nad Nisou. Místo pro hru, smích a objevování.</p>
+                
+                <a href="https://www.facebook.com/lisacilucany?locale=cs_CZ" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 1rem; color: var(--color-bg-white); opacity: 0.9;">
+                    <span class="icon">thumb_up</span> Naše Facebook stránka
+                </a>
+            </div>
+            <div>
+                <h3 style="color: var(--color-bg-white);">Navigace</h3>
+                <ul style="opacity: 0.8; line-height: 2;">
+                    <li><a href="index.html">Domů</a></li>
+                    <li><a href="o-nas.html">O nás</a></li>
+                    <li><a href="galerie.html">Galerie</a></li>
+                    <li><a href="plan-akci.html">Plán akcí</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 style="color: var(--color-bg-white);">Užitečné</h3>
+                <ul style="opacity: 0.8; line-height: 2;">
+                    <li><a href="jidelnicek.html">Týdenní jídelníček</a></li>
+                    <li><a href="dokumenty.html">Dokumenty ke stažení</a></li>
+                    <li><a href="kontakty.html">Kontakt a mapa</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 style="color: var(--color-bg-white);">Kontaktní údaje</h3>
+                <ul style="opacity: 0.8; line-height: 2;">
+                    <li><span class="icon" style="font-size: 18px; vertical-align: middle;">location_on</span> Lučany nad Nisou 640<br>Lučany nad Nisou</li>
+                    <li><span class="icon" style="font-size: 18px; vertical-align: middle;">phone</span> <a href="tel:+420720169023">+420 720 169 023</a></li>
+                    <li><span class="icon" style="font-size: 18px; vertical-align: middle;">mail</span> <a href="mailto:dslisticky@seznam.cz">dslisticky@seznam.cz</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="text-center" style="margin-top: 4rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); opacity: 0.5; font-size: 14px;">
+            <p>© 2026 d.s. Lištičky v Lučanech nad Nisou. Všechna práva vyhrazena. Projekt do předmětu Webové aplikace.</p>
+        </div>
+    </footer>
+
+
+</body></html>

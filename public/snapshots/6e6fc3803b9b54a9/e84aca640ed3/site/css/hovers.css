@@ -1,0 +1,37 @@
+
+
+
+.header__nav-button--getdemo:hover {
+    background: var(--secondary-text-colour);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    border: 1px solid white;
+}
+
+.header__nav-button--login:hover {
+    background: var(--secondary-text-colour);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    border-color: white;
+}
+
+.header__main-button--register {
+    transition: box-shadow 0.4s ease-in-out;
+}
+
+.header__main-button--register:hover {
+    box-shadow:
+        0 0 100px 10px rgba(212, 58, 255, 0.788),
+        0 0 400px 40px rgba(170, 50, 255, 0.329),
+        0 0 800px 80px rgba(238, 50, 255, 0.247);
+}
+.footer__btn {
+    transition:  0.4s ease-in-out;
+
+}
+
+.footer__btn:hover {
+    background-image: var(--third-text-colour);
+}
+
+

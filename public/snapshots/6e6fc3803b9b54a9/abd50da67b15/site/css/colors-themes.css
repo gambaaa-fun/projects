@@ -1,0 +1,25 @@
+:root {
+  --primary-text-colour: rgb(255, 255, 255);
+  --secondary-text-colour: linear-gradient(45deg, #f0e4ff, #7eb7ff, #edb982);
+  --third-text-colour: linear-gradient(90deg, #5ea6ff, #CC00FF);
+}
+
+.special_text{
+  background: var(--secondary-text-colour);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.special_text_2{
+  background: var(--third-text-colour);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.white_text{
+    color: var(--primary-text-colour);
+}
+
+.black_text{
+    color: black;
+}

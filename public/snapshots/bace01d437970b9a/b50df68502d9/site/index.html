@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <base href="./">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="./src/assets/logo/VoidWorks logo.svg" />
+    <link rel="stylesheet" href="./src/style.css" />
+    <script src="./src/index.js" defer></script>
+    <title>VoidWorks</title>
+</head>
+
+<body>
+    <header class="navbar" aria-label="VoidWorks header">
+        <div class="brand">
+            <a href="./index.html" class="brand--link">
+                <img src="./src/assets/logo/VoidWorks logo.svg" alt="VoidWorks Logo" href="./index.html">
+                <p class="heading">VoidWorks</p>
+            </a>
+        </div>
+
+        <a class="menu-button" href="#" aria-label="Otevřít menu" aria-expanded="false"
+            aria-controls="site-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </a>
+
+        <nav class="menu-panel" id="site-menu" aria-label="Navigace">
+            <a href="./index.html">Domů</a>
+            <a href="./games.html">Hry</a>
+            <a href="./contact.html">Kontakt</a>
+        </nav>
+    </header>
+
+    <main>
+        <section id="homepage" aria-labelledby="hero-heading">
+            <span class="smth">
+                <h1 class="heading heading--purple" id="hero-heading">Tvoříme světy, které nezapomeneš</h1>
+                <p class="text">
+                    Každá hra, kterou vytvoříme, začíná jednou otázkou — co když příběh opravdu záleží?
+                    Ve VoidWorks nevytváříme jen hry. Vytváříme světy plné temných tajemství, zlomených hrdinů
+                    a rozhodnutí, která tě budou pronásledovat dlouho po konci titulků.
+                </p>
+            </span>
+        </section>
+
+        <section class="img-container" aria-label="Postavy z našich her">
+            <picture class="img img-blur" aria-label="mercenary">
+                <source type="image/avif" srcset="./src/assets/char/avif/mercenary.avif">
+                <source type="image/webp" srcset="./src/assets/char/webp/mercenary.webp">
+                <img src="./src/assets/char/jpg/mercenary.jpg" alt="mercenary" class="img img-blur">
+            </picture>
+
+            <picture class="img img-blur" aria-label="astronaut">
+                <source type="image/avif" srcset="./src/assets/char/avif/astronaut.avif">
+                <source type="image/webp" srcset="./src/assets/char/webp/astronaut.webp">
+                <img src="./src/assets/char/jpg/astronaut.jpg" alt="astronaut" class="img img-blur">
+            </picture>
+
+            <picture class="img img-blur" aria-label="knight">
+                <source type="image/avif" srcset="./src/assets/char/avif/knight.avif">
+                <source type="image/webp" srcset="./src/assets/char/webp/knight.webp">
+                <img src="./src/assets/char/jpg/knight.jpg" alt="knight" class="img img-blur">
+            </picture>
+        </section>
+
+        <section id="games" aria-labelledby="games-heading">
+            <h2 class="heading heading--purple" id="games-heading">Příklad naších her</h2>
+            <p class="text">
+                Každý titul, který jsme vydali, nese otisk stejného přesvědčení: příběh není ozdoba,
+                příběh je základ. Od mrazivých kosmických hororů po středověké tragédie — naše hry se neptají,
+                jestli přežiješ. Ptají se, čím se staneš.
+            </p>
+
+            <div class="games-grid">
+                <article class="game-card">
+                    <div class="game-card__tag">Cyberpunk / Action RPG</div>
+                    <h3 class="game-card__title">Neon Requiem</h3>
+                    <p class="game-card__text">Žoldák ve válce bez vítězů. Každé rozhodnutí má cenu - jseš přípravený ji
+                        zaplatit.</p>
+                </article>
+
+                <article class="game-card">
+                    <div class="game-card__tag">Sci-fi / Adventure</div>
+                    <h3 class="game-card__title">Starbound Stray</h3>
+                    <p class="game-card__text">Na okraji sluneční soustavy se nachází něco, co by nemělo existovat.</p>
+                </article>
+
+                <article class="game-card">
+                    <div class="game-card__tag">Dark Fantasy / Action RPG</div>
+                    <h3 class="game-card__title">Devoured Oath</h3>
+                    <p class="game-card__text">Rytíř, který přežil příliš mnoho. Království, které stojí za to chránit —
+                        nebo ne?</p>
+                </article>
+            </div>
+        </section>
+
+        <section id="philosophy" aria-labelledby="philosophy-heading">
+            <h2 class="heading heading--purple" id="philosophy-heading">Naše filozofie</h2>
+            <p class="text">
+                Herní průmysl je plný titulů navržených tak, aby tě udržely co nejdéle přilepeného k obrazovce.
+                My jdeme opačným směrem. Chceme, abys dohrál naši hru, odložil ovladač a dlouho přemýšlel o tom,
+                co ses právě dozvěděl o sobě.
+            </p>
+            <p class="text" style="margin-top: 1.25rem;">
+                Věříme, že hry jsou schopny nabídnout něco, co film ani kniha nemůžou — skutečný pocit odpovědnosti
+                za to, co se ve světě stane. Každý náš příběh je postaven tak, aby ta odpovědnost byla tíživá a
+                skutečná.
+            </p>
+        </section>
+
+        <footer class="footer">
+            <div>© 2025 VoidWorks. Všechna práva vyhrazena.</div>
+            <div class="text">
+                <a href="mailto:jakub.tuma@gambaaa.fun" class="text--email">contact@voidworks.com</a>
+            </div>
+            <nav class="nav-footer" aria-label="Patička navigace">
+                <a href="./index.html">Domů</a>
+                <a href="./games.html">Hry</a>
+                <a href="./contact.html">Kontakt</a>
+            </nav>
+        </footer>
+</body>
+</html>

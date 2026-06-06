@@ -1,0 +1,434 @@
+@import url("./d87bacb928e0606f.css") layer(Reset);
+@layer Reset, Typography, Main;
+
+@layer Reset {
+
+}
+
+@layer Typography {
+    html {
+        font-family: 'Roboto', sans-serif;
+    }
+        .H3 {
+        font-family: Roboto;
+        font-size: 24px;
+        font-weight: 700;
+        line-height: normal;
+    }
+
+    .H1 {
+        font-family: Roboto;
+        font-size: 32px;
+        font-weight: 700;
+        line-height: normal;
+    }
+
+    .H2 {
+        font-family: Roboto;
+        font-size: 28px;
+        font-weight: 700;
+        line-height: normal;
+    }
+
+    .Text--Center {
+        text-align: center;
+    }
+
+    .Text--Light {
+        color: var(--Text-Color-Light);
+    }
+
+    .PlainText {
+        font-family: 'Roboto', sans-serif;
+        font-size: 20px;
+        font-weight: 400;
+        line-height: 1.6;
+        text-wrap: pretty;
+        white-space: pre-line;
+    }
+
+}
+
+@layer Main {
+    :root {
+        --CardBackground-Color: #F0E086;
+        --Background-Color: #F4F4A8;
+        --HeaderFooter-Color: #E8B35F;
+        --Card-Color: #9A1313;
+        --Button-Color-Light: #F9734A;
+        --Seperator-Dark: #C54D29;
+        --Text-Color-Dark: #000000;
+        --Text-Color-Light: #ffffff;
+    }
+
+    .Header {
+        background: var(--HeaderFooter-Color);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 3rem;
+        flex: 1 0 0;
+        align-self: stretch;
+        width: 100%;
+    }
+
+    .Header__Home {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+    }
+
+    .Header__HomeAndHamburger {
+        display: flex;
+        height: 100px;
+        justify-content: center;
+        align-items: center;
+        gap: 48px;
+        align-self: stretch;
+    }
+
+    .Header__Hamburger {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        width: 40px;
+        height: 25px;
+    }
+
+    .Hamburger__Span {
+        display: block;
+        background: var(--Text-Color-Dark);
+        width: 40px;
+        height: 2.5px;
+    }
+
+    .Header__Nav {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        flex: 1 0 0;
+        align-self: stretch;
+    }
+
+    .Nav__Text {
+        color: var(--Text-Color-Light);
+    }
+
+    .Main {
+        background: var(--Background-Color);
+        display: grid;
+        padding: 2rem 1.5rem;
+        row-gap: 4rem;
+        column-gap: 4rem;
+        align-self: stretch;
+        grid-template-rows: repeat(3, fit-content(100%));
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+        grid-auto-flow: row;
+        align-content: center;
+    }
+
+    .Footer {
+        padding-top: 2rem;
+        background: var(--HeaderFooter-Color);
+        display: grid;
+        align-self: stretch;
+        grid-template-rows: fit-content(100%) minmax(0, 1fr);
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+        grid-auto-flow: row;
+    }
+
+    .Footer__Kontakt {
+        grid-row: span 1;
+        grid-column: span 1;
+        justify-self: stretch;
+        text-align: center;
+        margin: 0;
+    }
+
+    .Footer__Informations {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 7px;
+        align-self: stretch;
+        grid-row: span 1;
+        grid-column: span 1;
+    }
+
+    .Footer__InformationBox {
+        display: grid;
+        row-gap: 0.5rem;
+        column-gap: 0.5rem;
+        grid-template-rows: repeat(3, fit-content(100%));
+        grid-template-columns: repeat(1, fit-content(100%));
+        grid-auto-flow: row;
+    }
+
+    .InformationBox__Info {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        align-self: stretch;
+        grid-row: span 1;
+        grid-column: span 1;
+    }
+
+    .Main__Articles {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 1.5rem;
+        grid-row: span 1;
+        grid-column: span 1;
+        justify-self: stretch;
+        width: 100%;
+        background-color: var(--CardBackground-Color);
+border-radius: 1rem;
+    }
+
+    .Articles__Name {
+        display: flex;
+        padding: 10px 0;
+        justify-content: center;
+        align-items: center;
+        gap: 25px;
+        align-self: stretch;
+    }
+
+    .Icon--HeaderLogo {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+    }
+
+    .Icon--Articles {
+        width: 80px;
+        height: 80px;
+        aspect-ratio: 1/1;
+        object-fit: cover;
+    }
+
+    .Icon--Footer {
+        width: 32px;
+        height: 32px;
+        aspect-ratio: 1/1;
+        object-fit: cover;
+    }
+
+    .Icon--Hamburger {
+        width: 60px;
+        height: 60px;
+        aspect-ratio: 1/1;
+        object-fit: cover;
+    }
+
+    .Separator {
+        display: block;
+        height: 20px;
+        align-self: stretch;
+        background: var(--Seperator-Dark);
+        width: 100%;
+    }
+
+    .Separator--Nav {}
+
+    .Hamburger__HamburgerMenu {
+        display: none;
+        flex-direction: column;
+        align-self: stretch;
+    }
+
+    .Hamburger__HamburgerMenu--open {
+        display: flex;
+    }
+
+    .Hamburger__Menu__Item {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: end;
+        gap: 10px;
+    }
+
+    .Menu__Link {
+        text-decoration: none;
+        color: var(--Text-Color-Dark);
+    }
+
+    .Menu__Item__Content {
+        display: flex;
+        height: 80px;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 30px;
+        align-self: stretch;
+    }
+
+
+    .Main__Articles .PlainText {
+        max-width: 550px;
+        width: 100%;
+        margin: 0 auto;
+        text-align: left;
+    }
+
+    @media (min-width: 768px) {
+        .Header__HomeAndHamburger {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            align-self: stretch;
+            flex: 1 0 0;
+        }
+
+        .Hamburger__HamburgerMenu {
+            display: flex;
+            padding: 0 16px;
+            justify-content: center;
+            align-items: center;
+            gap: 16px;
+            flex: 3 0 0;
+            flex-direction: row;
+        }
+
+        .Header__Nav {
+            flex-direction: row;
+        }
+
+        .Header__Hamburger {
+            display: none;
+        }
+
+        .Separator--Nav {
+            display: none;
+        }
+
+        .Icon--Hamburger {
+            width: 40px;
+            height: 40px;
+        }
+
+        .Main {
+            background: var(--Background-Color);
+            display: grid;
+            padding: 32px 16px;
+            row-gap: 64px;
+            column-gap: 64px;
+            align-self: stretch;
+            grid-template-rows: auto auto;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            grid-auto-flow: row;
+            justify-items: center;
+        }
+
+        .Main__Articles {
+            display: flex;
+            padding: 32px 0;
+            flex-direction: column;
+            align-items: center;
+            gap: 24px;
+            align-self: stretch;
+            grid-row: span 1;
+            grid-column: span 1;
+            justify-self: stretch;
+            width: 100%;
+        }
+
+.Articles__WhoWeAre {
+            display: flex;
+            padding: 32px 0;
+            flex-direction: column;
+            justify-content: flex-start; 
+            align-items: center;
+            gap: 24px;
+            align-self: stretch;
+            grid-row: span 1;
+            grid-column: span 1;
+            justify-self: stretch;
+        }
+
+        .Articles__WhatIsLarp {
+            display: flex;
+            padding: 32px 0;
+            flex-direction: column;
+            justify-content: flex-start; 
+            align-items: center;
+            gap: 24px;
+            align-self: stretch;
+            grid-row: span 1;
+            grid-column: span 1;
+            justify-self: stretch;
+        }
+
+        .Articles__WhenAndWhy {
+            width: 100%;
+            display: flex;
+
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 24px;
+            align-self: stretch;
+            grid-row: span 1;
+            grid-column: span 2;
+            justify-self: stretch;
+        }
+
+        .Icon--Footer {
+            width: 36px;
+            height: 36px;
+        }
+    }
+
+    @media (min-width: 1200px) {
+        .Icon--Footer {
+            width: 40px;
+            height: 40px;
+        }
+
+        .Icon--Hamburger {
+            width: 60px;
+            height: 60px;
+        }
+
+        .Hamburger__HamburgerMenu {
+            display: flex;
+            padding: 0 32px;
+            align-items: center;
+            gap: 60px;
+        }
+
+        .Icon--Logo {
+            width: 140px;
+            align-self: stretch;
+        }
+
+        .Header__HomeAndHamburger {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: auto;
+            gap: 20px;
+            align-self: stretch;
+        }
+
+        .Header__Nav {
+            display: flex;
+            height: 140px;
+            justify-content: center;
+            align-items: center;
+            gap: 100px;
+        }
+
+        .Hamburger__Menu__Item {
+            display: flex;
+            height: 80px;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 30px;
+        }
+    }
+}

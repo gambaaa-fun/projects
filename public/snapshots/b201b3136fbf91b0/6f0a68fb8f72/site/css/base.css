@@ -1,0 +1,35 @@
+:root {
+    --clr-navy: #001D4A;
+    --clr-cyan: #00FFFF;
+    --clr-white: #FFFFFF;
+    --clr-gray-bg: #F4F7F9;
+    --font-heading: 'Anton', sans-serif;
+    --font-body: 'Inter', sans-serif;
+}
+
+body {
+    font-family: var(--font-body);
+    font-size: 16px;
+    background-color: var(--clr-white);
+    color: var(--clr-navy);
+    overflow-x: hidden;
+    margin: 0;
+}
+
+h1,
+h2,
+h3 {
+    font-family: var(--font-heading);
+    text-transform: uppercase;
+    font-weight: 400;
+}
+
+a {
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}

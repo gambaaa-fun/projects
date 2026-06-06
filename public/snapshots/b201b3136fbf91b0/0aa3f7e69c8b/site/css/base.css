@@ -1,0 +1,64 @@
+@layer reset, base, layout, components;
+
+@layer reset {
+
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+        margin-top: 0;
+        margin-bottom: 0;
+        margin-left: 0;
+        margin-right: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        min-height: 100vh;
+        line-height: 1.5;
+    }
+
+    img {
+        display: block;
+        max-width: 100%;
+        height: auto;
+    }
+
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+}
+
+@layer base {
+    :root {
+        --clr-navy: #001D4A;
+        --clr-glass: #112F5A;
+        --clr-cyan: #00FFFF;
+        --clr-white: #FFFFFF;
+        --clr-gray-bg: #F8F9FA;
+
+        --font-heading: 'Anton', sans-serif;
+        --font-body: 'Inter', sans-serif;
+    }
+
+    body {
+        font-family: var(--font-body);
+        font-size: 16px;
+        color: var(--clr-navy);
+        background-color: var(--clr-white);
+    }
+
+    h2 {
+        font-family: var(--font-heading);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+}

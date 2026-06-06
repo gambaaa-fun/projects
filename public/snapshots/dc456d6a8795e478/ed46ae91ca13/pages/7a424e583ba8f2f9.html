@@ -1,0 +1,514 @@
+<!DOCTYPE html><html lang="cs" class="js"><head>
+    <base href="../">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Průvodce metami | GeoGuide</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/94c71116c7982d9e.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <link rel="icon" href="data:image/svg+xml,&lt;svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22&gt;&lt;text y=%22.9em%22 font-size=%2290%22&gt;🌍&lt;/text&gt;&lt;/svg&gt;">
+</head>
+
+<body>
+
+    <!-- Header Overlay -->
+    <div class="header__overlay" aria-hidden="true"></div>
+
+    <!-- Header / Navigation -->
+    <header class="header">
+        <div class="container header__container">
+            <a href="index.html" class="header__logo-link">
+                <div class="header__logo-icon">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM11 19.93C7.05 19.43 4 16.05 4 12C4 11.38 4.08 10.79 4.21 10.21L9 15V16C9 17.1 9.9 18 11 18V19.93ZM17.9 17.39C17.64 16.58 16.9 16 16 16H15V13C15 12.45 14.55 12 14 12H8V10.5C8 10.22 8.22 10 8.5 10H11V8C11 7.45 10.55 7 10 7H6.74C7.57 5.22 9.3 4 11.3 4C14.73 4 17.58 6.42 18.23 9.69C18.66 11.83 18.52 14.7 17.9 17.39Z"></path>
+                    </svg>
+                </div>
+                <span class="header__logo-text">GeoGuide</span>
+            </a>
+
+            <button class="header__mobile-btn" aria-label="Toggle menu" aria-expanded="false">
+                <span class="header__hamburger"></span>
+            </button>
+
+            <nav>
+                <menu class="header__nav-list">
+                    <li><a href="index.html" class="header__nav-link">Domů</a></li>
+                    <li><a href="guide.html" class="header__nav-link header__nav-link--active" aria-current="page">Průvodce</a></li>
+                    <li><a href="pricing.html" class="header__nav-link">Předplatné</a></li>
+                    <li><a href="resources.html" class="header__nav-link">Jak dál</a></li>
+                </menu>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main">
+
+        <!-- Page Intro Banner -->
+        <section class="page-intro">
+            <div class="container">
+                <div class="reveal reveal--prepared reveal--active">
+                    <h1 class="page-intro__title">Začátečnické mety pro GeoGuessr</h1>
+                    <p class="page-intro__desc">Tato pravidla nejsou stoprocentní a nefungují vždy dokonale, ale dají ti
+                        jako začátečníkovi obrovskou výhodu a silný startovní bod při každém hádání.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery Section -->
+        <section class="section section--no-pt">
+            <div class="container">
+                <div class="gallery-grid">
+
+                    <!-- Card 1 -->
+                    <article class="card meta-card reveal reveal--prepared reveal--active" data-meta="sun">
+                        <img src="../assets/8278e0939599fff5.webp" alt="Slunce nad silnicí — určení polokoule" class="meta-card__img" width="600" height="400" style="cursor: zoom-in;">
+                        <div class="meta-card__content">
+                            <h2 class="meta-card__title">Sun Meta</h2>
+                            <p class="meta-card__desc">Naučte se využít slunce k okamžitému určení polokoule. Je to
+                                nejlepší startovní bod pro každé hádání.</p>
+                            <div class="meta-card__full-content">
+                                <span class="modal__region">Příklady: Severní vs. Jižní polokoule</span>
+                                <p class="modal__text">Poloha slunce na obloze je ta největší a nejlepší nápověda,
+                                    kterou ve hře máte zdarma. Protože slunce se pohybuje nad rovníkem, jeho poloha vám
+                                    okamžitě prozradí, na které polokouli se nacházíte. Pokud se podíváte na slunce a
+                                    kompas ukazuje, že je na jihu, nacházíte se na severní polokouli (např. Evropa,
+                                    Severní Amerika nebo Japonsko). Pokud slunce leží na severu, jste zaručeně na jižní
+                                    polokouli (např. Austrálie, Jižní Amerika, Nový Zéland nebo Jižní Afrika). Tento
+                                    jednoduchý trik dokáže okamžitě vyřadit polovinu světa.</p>
+                                <div class="modal__good-for">
+                                    <strong>K čemu je to dobré?</strong>
+                                    <span>Skvělé pro odlišení Evropy a USA od Austrálie, Jižní Ameriky a Jižní Afriky.
+                                        Blízko rovníku je to méně spolehlivé, ale stále je to naprosto klíčová meta pro
+                                        začátečníky.</span>
+                                </div>
+                                <div class="modal__tip">
+                                    <div class="modal__tip-title">Tip pro začátečníky:</div>
+                                    <div>Vždy nejdříve zkontrolujte herní kompas! Pokud je obloha zatažená a slunce není
+                                        vidět přímo, hledejte stíny – podívejte se pod stromy, značky nebo auta. Kam
+                                        míří stín, tam je opačná strana od slunce. <strong>Pozor na chytáky:</strong>
+                                        Blízko rovníku (např. Indonésie, Kolumbie, Ekvádor) může být slunce často přímo
+                                        nad hlavou, případně mírně odkloněné na stranu podle ročního období, což
+                                        určování polokoule velmi ztěžuje.</div>
+                                </div>
+                            </div>
+                            <button class="btn btn--secondary meta-card__btn">Zobrazit detail</button>
+                        </div>
+                    </article>
+
+                    <!-- Card 2 -->
+                    <article class="card meta-card reveal meta-card--delay-1 reveal--prepared reveal--active" data-meta="drive-side">
+                        <img src="../assets/0a1004e592797316.jpg" alt="Strana řízení na silnici" class="meta-card__img" width="600" height="400" style="cursor: zoom-in;">
+                        <div class="meta-card__content">
+                            <h2 class="meta-card__title">Strana řízení</h2>
+                            <p class="meta-card__desc">Zjistěte, které země jezdí vlevo a jak to bezpečně poznat z aut
+                                nebo značek. Eliminuje to velkou část světa.</p>
+                            <div class="meta-card__full-content">
+                                <span class="modal__region">Jezdí vlevo: UK, Irsko, Austrálie, N. Zéland, J. Afrika,
+                                    Indie, Indonésie, Japonsko, Thajsko.</span>
+                                <p class="modal__text">Zatímco většina světa (včetně České republiky, USA či celé Jižní
+                                    Ameriky) jezdí vpravo, existuje úzká a velmi specifická skupina zemí, která jezdí
+                                    vlevo. Patří mezi ně především bývalé britské kolonie. Znalost levostranného provozu
+                                    je extrémně silná pomůcka, která zúží váš výběr jen na pár konkrétních zemí. Pokud
+                                    vidíte auto jet vlevo, nacházíte se pravděpodobně ve Velké Británii, Irsku, Jižní
+                                    Africe, Austrálii, na Novém Zélandu, v Indii, Indonésii, Japonsku nebo Thajsku.</p>
+                                <div class="modal__good-for">
+                                    <strong>K čemu je to dobré?</strong>
+                                    <span>Toto je jedna z nejsilnějších met pro okamžité vyřazení celých kontinentů.
+                                        Jakmile vidíte levostranný provoz, můžete zapomenout na celou Ameriku a většinu
+                                        Evropy.</span>
+                                </div>
+                                <div class="modal__tip">
+                                    <div class="modal__tip-title">Tip pro začátečníky:</div>
+                                    <div>Pokud je silnice prázdná a chybí auta v pohybu, hledejte jiné stopy: Kde jsou
+                                        auta zaparkovaná a jakým směrem stojí? Na kterou stranu ulice jsou otočené
+                                        dopravní značky? Kde má zaparkované auto volant (volant bývá na straně blíž
+                                        středu vozovky)? <strong>Varování:</strong> Na jednosměrkách může být určení
+                                        matoucí, proto vždy hledejte více důkazů.</div>
+                                </div>
+                            </div>
+                            <button class="btn btn--secondary meta-card__btn">Zobrazit detail</button>
+                        </div>
+                    </article>
+
+                    <!-- Card 3 -->
+                    <article class="card meta-card reveal meta-card--delay-2 reveal--prepared reveal--active" data-meta="lines">
+                        <img src="../assets/3525e840a9cd8e27.png" alt="Barvy čar na silnici" class="meta-card__img" width="600" height="400" style="cursor: zoom-in;">
+                        <div class="meta-card__content">
+                            <h2 class="meta-card__title">Čáry na silnici</h2>
+                            <p class="meta-card__desc">Základní rozdíly v barvách čar na silnici. Jednoduchý způsob, jak
+                                odlišit Ameriku od Evropy.</p>
+                            <div class="meta-card__full-content">
+                                <span class="modal__region">Příklady: Amerika, Afrika, Asie vs. Evropa</span>
+                                <p class="modal__text">Barva čar na silnici je jedním z prvních detailů, kterých byste
+                                    si měli všimnout hned po slunci. Rozdělení je velmi překvapivě konzistentní: V
+                                    Severní a Jižní Americe se jako středová čára oddělující protijedoucí pruhy používá
+                                    téměř výhradně žlutá barva. Naproti tomu v Evropě jsou středové i postranní čáry
+                                    většinou bílé. Pokud tedy vidíte dvojitou žlutou čáru uprostřed cesty, s obrovskou
+                                    pravděpodobností jste někde na americkém kontinentu nebo v určitých asijských
+                                    státech (jako je Japonsko).</p>
+                                <div class="modal__good-for">
+                                    <strong>K čemu je to dobré?</strong>
+                                    <span>Velmi nedoceněná a začátečnicky přívětivá meta. Žluté středové čáry rychle
+                                        oddělí USA, Kanadu, Latinskou Ameriku, Jižní Afriku a část Asie od zbytku
+                                        Evropy, kde převládají bílé.</span>
+                                </div>
+                                <div class="modal__tip">
+                                    <div class="modal__tip-title">Tip pro začátečníky:</div>
+                                    <div>Kromě středových čar si všímejte i čar na krajnici. Například Jižní Afrika nebo
+                                        Izrael jsou známé žlutými postranní čárami. <strong>Výjimky:</strong> Žluté
+                                        středové čáry najdete občas i v Norsku a Finsku kvůli viditelnosti ve sněhu.
+                                        Naopak Chile je výjimečnou zemí v Jižní Americe, která primárně používá čistě
+                                        bílé čáry.</div>
+                                </div>
+                            </div>
+                            <button class="btn btn--secondary meta-card__btn">Zobrazit detail</button>
+                        </div>
+                    </article>
+
+                    <!-- Card 4 -->
+                    <article class="card meta-card reveal meta-card--delay-3 reveal--prepared reveal--active" data-meta="plates">
+                        <img src="../assets/bebabd9d8fa05248.webp" alt="Poznávací značky aut v Evropě" class="meta-card__img" width="600" height="400" style="cursor: zoom-in;">
+                        <div class="meta-card__content">
+                            <h2 class="meta-card__title">Poznávací značky (SPZ)</h2>
+                            <p class="meta-card__desc">Dlouhé evropské značky s modrým pruhem versus krátké americké.
+                                Nenápadný detail, který je vidět všude.</p>
+                            <div class="meta-card__full-content">
+                                <span class="modal__region">Příklady: Evropa, Amerika, specifické země</span>
+                                <p class="modal__text">Přestože Google v aplikaci Street View poznávací značky (SPZ)
+                                    kvůli ochraně soukromí rozmazává, jejich základní tvar, rozměr a barvu lze stále
+                                    velmi snadno určit. Tyto proporce tvoří vynikající nápovědu! Evropská auta mají
+                                    většinou velmi dlouhé a úzké značky, které na levé straně obsahují charakteristický
+                                    vertikální modrý pruh (znak Evropské unie). Pokud vidíte tento pruh, jste zaručeně v
+                                    Evropě. Oproti tomu americká auta používají velmi krátké, zavalité a často více
+                                    barevné značky bez postranních pruhů.</p>
+                                <div class="modal__good-for">
+                                    <strong>K čemu je to dobré?</strong>
+                                    <span>Dlouhé značky s modrým pruhem znamenají EU. Krátké značky najdeš spíše v
+                                        Americe. Žluté zadní značky mají specifické země.</span>
+                                </div>
+                                <div class="modal__tip">
+                                    <div class="modal__tip-title">Tip pro začátečníky:</div>
+                                    <div>Barva značek prozradí konkrétní zemi! Nizozemsko a Lucembursko používají
+                                        výrazné žluté značky vpředu i vzadu. Velká Británie používá bílou značku vpředu
+                                        a žlutou vzadu. <strong>Omezení:</strong> Dejte si pozor na státy jako Itálie,
+                                        které mají sice dlouhou EU značku, ale modré pruhy má na obou stranách (levé i
+                                        pravé), což z ní dělá specifickou a jedinečnou nápovědu.</div>
+                                </div>
+                            </div>
+                            <button class="btn btn--secondary meta-card__btn">Zobrazit detail</button>
+                        </div>
+                    </article>
+
+                    <!-- Card 5 -->
+                    <article class="card meta-card reveal meta-card--delay-1 reveal--prepared" data-meta="language">
+                        <img src="../assets/066bed98639f2fd2.png" alt="Jazyky a abecedy na dopravních značkách" class="meta-card__img" width="600" height="400" style="cursor: zoom-in;">
+                        <div class="meta-card__content">
+                            <h2 class="meta-card__title">Jazyky a abecedy</h2>
+                            <p class="meta-card__desc">Rozpoznejte vizuální styl různých abeced a znaků. I bez znalosti
+                                jazyka vás text rychle nasměruje.</p>
+                            <div class="meta-card__full-content">
+                                <span class="modal__region">Příklady: Evropa, Asie, Jižní Amerika</span>
+                                <p class="modal__text">Schopnost rozpoznat základní znaky a písmena z různých koutů
+                                    světa vám obrovsky usnadní orientaci. Jazyk je vůbec nejsilnější nástroj, pokud na
+                                    nějaký text narazíte. Vidíte-li například azbuku (cyrilici), nacházíte se s největší
+                                    pravděpodobností ve východní Evropě, Rusku nebo některých zemích střední Asie (např.
+                                    Kyrgyzstán). Unikátní písmena jako ø a æ vás naopak jasně nasměrují do Skandinávie.
+                                    Setkáte-li se se španělštinou či portugalštinou (například typické ã s vlnovkou nebo
+                                    ç), hledáte s velkou jistotou v Jižní Americe nebo na Pyrenejském poloostrově.</p>
+                                <div class="modal__good-for">
+                                    <strong>K čemu je to dobré?</strong>
+                                    <span>Pomůže rozeznat Cyrilici (azbuku), Španělštinu/Portugalštinu, polská speciální
+                                        písmena, maďarská, balkánské, české a slovenské znaky nebo skandinávská
+                                        písmena.</span>
+                                </div>
+                                <div class="modal__tip">
+                                    <div class="modal__tip-title">Tip pro začátečníky:</div>
+                                    <div>Nemusíte daný jazyk umět plynule číst ani mu rozumět. Bohatě stačí vnímat jeho
+                                        vizuální styl. Všimnete-li si například nápisů s velkým množstvím háčků a čárek
+                                        (ř, č, š, ž), s vysokou pravděpodobností jste v Česku, na Slovensku nebo na
+                                        Balkáně. Maďarština je zase typická častým používáním kombinací "sz" a dlouhých
+                                        samohlásek (ő, ű).<br><br><small>Toto je pouze základní verze. Pokročilejší
+                                            rozdělení najdeš v doporučených <a href="resources.html" class="modal__link">zdrojích</a>.</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="btn btn--secondary meta-card__btn">Zobrazit detail</button>
+                        </div>
+                    </article>
+
+                    <!-- Card 6 -->
+                    <article class="card meta-card reveal meta-card--delay-2 reveal--prepared" data-meta="bollards">
+                        <img src="../assets/3a8a78f1439354ab.png" alt="Patníky u silnice v České republice" class="meta-card__img" width="600" height="400" style="cursor: zoom-in;">
+                        <div class="meta-card__content">
+                            <h2 class="meta-card__title">Patníky u silnice (bollards)</h2>
+                            <p class="meta-card__desc">Unikátní patníky a odrazky podél silnic. Jedna z nejoblíbenějších
+                                met pro přesné určení státu v Evropě.</p>
+                            <div class="meta-card__full-content">
+                                <span class="modal__region">Příklady: Evropa, Asie, Oceánie, Latinská Amerika</span>
+                                <p class="modal__text">Malé patníky a odrazky podél silnic patří mezi nejoblíbenější
+                                    "meta clues" mezi pokročilými hráči. Téměř každý stát nebo region vyvinul svůj
+                                    vlastní unikátní styl patníků kvůli lokálním normám. Protože jsou patníky přítomny
+                                    téměř všude – na rovinkách, v lesích, v horách i na venkově – představují absolutně
+                                    spolehlivý klíč k určení přesné země, zejména v Evropě, kde jsou rozdíly velmi
+                                    zřetelné. Naučit se poznat alespoň deset základních evropských patníků vám zaručeně
+                                    vyhraje mnoho těžkých kol v lesní pustině.</p>
+                                <div class="modal__good-for">
+                                    <strong>K čemu je to dobré?</strong>
+                                    <span>Například bílo-černé styly (Německo/Rakousko), červený pruh (Polsko), odrazky
+                                        (Česko/Slovensko), oranžové odrazky (Japonsko) nebo speciální sloupky v
+                                        Austrálii.</span>
+                                </div>
+                                <div class="modal__tip">
+                                    <div class="modal__tip-title">Tip pro začátečníky:</div>
+                                    <div>Detailní rozdíly hledejte v barvě samotného plastu (zda je patník celý bílý,
+                                        nebo má černé prvky), v tvaru odrazky (zda jde o tenký svislý obdélník,
+                                        vodorovný proužek, nebo malé kolečko) a v barvě odrazky (bílá, oranžová,
+                                        červená). Například Polsko používá bílé patníky s výrazným tlustým červeným
+                                        pruhem kolem dokola. Francie má zase na patnících často velký bílý plastový
+                                        klobouček s červeným reflexním obdélníkem.<br><br><small>Toto je pouze základní
+                                            verze. Pokročilejší rozdělení najdeš v doporučených <a href="resources.html" class="modal__link">zdrojích</a>.</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="btn btn--secondary meta-card__btn">Zobrazit detail</button>
+                        </div>
+                    </article>
+
+                    <!-- Card 7 -->
+                    <article class="card meta-card reveal meta-card--delay-3 reveal--prepared" data-meta="poles">
+                        <img src="../assets/782e74f5c58067a2.png" alt="Elektrické sloupy — betonové s dírami" class="meta-card__img" width="600" height="400" style="cursor: zoom-in;">
+                        <div class="meta-card__content">
+                            <h2 class="meta-card__title">Elektrické sloupy</h2>
+                            <p class="meta-card__desc">Materiál a tvar elektrických sloupů. Neocenitelná nápověda
+                                uprostřed prázdné krajiny.</p>
+                            <div class="meta-card__full-content">
+                                <span class="modal__region">Příklady: Japonsko, Severní a Jižní Amerika, Evropa</span>
+                                <p class="modal__text">Podobně jako patníky, i sloupy elektrického vedení mají svůj
+                                    lokální charakter. Infrastruktura se staví z materiálů a podle norem typických pro
+                                    danou zemi. Sloupy jsou užitečné zejména při zkoumání venkovských a opuštěných
+                                    silnic na třetím světě nebo v hluboké přírodě, kde nenajdete žádný psaný text ani
+                                    poznávací značky. Zkoumání materiálů, tvarů izolátorů a množství kabelů dokáže často
+                                    jednoznačně určit stát či celý region.</p>
+                                <div class="modal__good-for">
+                                    <strong>K čemu je to dobré?</strong>
+                                    <span>Husté chaotické sloupy a transformátory (Japonsko), dřevěné sloupy s křížem
+                                        (USA/Kanada), betonové s dírami (Balkán, Latinská Amerika).</span>
+                                </div>
+                                <div class="modal__tip">
+                                    <div class="modal__tip-title">Tip pro začátečníky:</div>
+                                    <div>Soustřeďte se primárně na materiál. USA a Kanada používají téměř vždy masivní
+                                        dřevěné sloupy. Naproti tomu Latinská Amerika a státy jako Rumunsko či Maďarsko
+                                        často používají betonové sloupy s charakteristickými čtvercovými dírami
+                                        (vypadají jako žebříky). Japonsko je absolutně legendární svým chaotickým
+                                        spletencem silných kabelů, výstražným žlutočerným obložením spodku sloupu a
+                                        mnoha transformátory namotanými na sloupech u silnic.<br><br><small>Toto je
+                                            pouze základní verze. Pokročilejší rozdělení najdeš v doporučených <a href="resources.html" class="modal__link">zdrojích</a>.</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="btn btn--secondary meta-card__btn">Zobrazit detail</button>
+                        </div>
+                    </article>
+
+                    <!-- Card 8 -->
+                    <article class="card meta-card reveal meta-card--delay-4 reveal--prepared" data-meta="car">
+                        <img src="../assets/81f21f7485956364.avif" alt="Google Street View auto a kamera" class="meta-card__img" width="600" height="400" style="cursor: zoom-in;">
+                        <div class="meta-card__content">
+                            <h2 class="meta-card__title">Google auto a kamera</h2>
+                            <p class="meta-card__desc">Auto, které fotí Street View. Od šnorchlu v Keni po pásku v Ghaně
+                                – někdy samotné auto prozradí zemi.</p>
+                            <div class="meta-card__full-content">
+                                <span class="modal__region">Příklady: Keňa, Ghana, Jižní Amerika, Mongolsko</span>
+                                <p class="modal__text">Říká se tomu "Car meta". Google Street View se snímá pomocí
+                                    reálných aut, a ty se v různých částech světa liší. Často byly různé africké,
+                                    asijské či jihoamerické státy mapovány specifickými modely aut. Pokud se v těchto
+                                    oblastech podíváte dolů přímo pod sebe, často uvidíte část přední kapoty, zadní
+                                    nárazník, střešní antény nebo stíny samotného vybavení kamery. Tohle tvoří zcela
+                                    exaktní klíč. Každé takto unikátní auto prozrazuje přesnou zemi, ve které zrovna
+                                    probíhalo focení mapy.</p>
+                                <div class="modal__good-for">
+                                    <strong>K čemu je to dobré?</strong>
+                                    <span>Černá nebo bílá kapota, šnorchl typický pro Keňu, střešní nosič s páskou v
+                                        Ghaně. Generace a kvalita kamery (Halo effect, starý rozmazaný obraz).</span>
+                                </div>
+                                <div class="modal__tip">
+                                    <div class="modal__tip-title">Tip pro začátečníky:</div>
+                                    <div>Zdaleka nejznámější je takzvaný Keňský šnorchl (Kenya snorkel) – masivní černá
+                                        trubka sání motoru vyčnívající z pravé přední části vozu, určená pro brodění
+                                        řek. V africké Ghaně zase uvidíte čtyři trubky střešního nosiče s
+                                        charakteristickou černou lepicí páskou na jedné z nich. V Peru nebo Chile můžete
+                                        často narazit na specificky černé či bílé barvy kapoty.
+                                        <strong>Varování:</strong> Google flotila se neustále aktualizuje a stará auta
+                                        jsou na novějších snímcích nahrazována, proto by car meta neměla být vaší
+                                        jedinou nápovědou.<br><br><small>Toto je pouze základní verze. Pokročilejší
+                                            rozdělení najdeš v doporučených <a href="resources.html" class="modal__link">zdrojích</a>.</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="btn btn--secondary meta-card__btn">Zobrazit detail</button>
+                        </div>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Practical Examples Carousel Section -->
+        <section class="section section--bg-white">
+            <div class="container">
+                <div class="utilities__text-center reveal reveal--prepared">
+                    <h2 class="section__title">Praktické ukázky ze hry</h2>
+                    <p class="section__subtitle utilities__max-width-800">Podívej se, jak vypadají mety v reálných lokacích a
+                        jak z nich zkušení hráči dedukují správnou zemi.</p>
+                </div>
+
+                <!-- Swiper -->
+                <div class="swiper practical-carousel reveal carousel--delay-2 reveal--prepared swiper-initialized swiper-horizontal swiper-backface-hidden">
+                    <div class="swiper-wrapper" id="swiper-wrapper-be82cddbd428bfed" aria-live="polite">
+
+                        <!-- Slide 1 -->
+                        <div class="swiper-slide swiper-slide-active" role="group" aria-label="1 / 5" data-swiper-slide-index="0" style="width: 1136px; margin-right: 20px;">
+                            <figure class="carousel__figure">
+                                <img src="../assets/cfb38c137c11d50d.png" alt="Kambodža — příklad GeoGuessr lokace" class="carousel__img" width="800" height="500" style="cursor: zoom-in;">
+                                <figcaption class="carousel__caption">
+                                    <h3 class="carousel__title">Kambodža</h3>
+                                    <p class="carousel__desc">Na tomto snímku si můžeš všimnout unikátního písma na
+                                        dopravních značkách, charakteristické červené barvy místní půdy a slunce, které
+                                        se nachází na jižní straně oblohy, což tě okamžitě navede na polokouli jižní.</p>
+                                </figcaption>
+                            </figure>
+                        </div>
+
+                        <!-- Slide 2 -->
+                        <div class="swiper-slide swiper-slide-next" role="group" aria-label="2 / 5" data-swiper-slide-index="1" style="width: 1136px; margin-right: 20px;">
+                            <figure class="carousel__figure">
+                                <img src="../assets/9e857a5ff4272501.png" alt="Mongolsko — příklad GeoGuessr lokace" class="carousel__img" width="800" height="500" style="cursor: zoom-in;">
+                                <figcaption class="carousel__caption">
+                                    <h3 class="carousel__title">Mongolsko</h3>
+                                    <p class="carousel__desc">Mongolsko snadno rozpoznáš podle typického doprovodného
+                                        auta Google Street View (tzv. car meta), prázdné travnaté krajiny bez
+                                        jakýchkoliv stromů a skromnější venkovské zástavby.</p>
+                                </figcaption>
+                            </figure>
+                        </div>
+
+                        <!-- Slide 3 -->
+                        <div class="swiper-slide" role="group" aria-label="3 / 5" data-swiper-slide-index="2" style="width: 1136px; margin-right: 20px;">
+                            <figure class="carousel__figure">
+                                <img src="../assets/004122b6840703d6.png" alt="Jižní Afrika — příklad GeoGuessr lokace" class="carousel__img" width="800" height="500" style="cursor: zoom-in;">
+                                <figcaption class="carousel__caption">
+                                    <h3 class="carousel__title">Jižní Afrika</h3>
+                                    <p class="carousel__desc">Pro Jižní Afriku jsou typické výrazné žluté čáry na
+                                        krajnicích silnice. Když k tomu přidáš slunce na severní části oblohy a suchou,
+                                        otevřenou krajinu, máš téměř stoprocentní jistotu.</p>
+                                </figcaption>
+                            </figure>
+                        </div>
+
+                        <!-- Slide 4 -->
+                        <div class="swiper-slide" role="group" aria-label="4 / 5" data-swiper-slide-index="3" style="width: 1136px; margin-right: 20px;">
+                            <figure class="carousel__figure">
+                                <img src="../assets/e583b6439c79186f.png" alt="Jižní Amerika — příklad GeoGuessr lokace" class="carousel__img" width="800" height="500" style="cursor: zoom-in;">
+                                <figcaption class="carousel__caption">
+                                    <h3 class="carousel__title">Jižní Amerika</h3>
+                                    <p class="carousel__desc">V Jižní Americe se často setkáš s výraznou žlutou dělicí
+                                        čárou uprostřed silnice. V kombinaci s bujnou tropickou vegetací a vlhkým
+                                        vzduchem bezpečně poznáš oblast kolem Amazonie.</p>
+                                </figcaption>
+                            </figure>
+                        </div>
+
+                        <!-- Slide 5 -->
+                        <div class="swiper-slide" role="group" aria-label="5 / 5" data-swiper-slide-index="4" style="width: 1136px; margin-right: 20px;">
+                            <figure class="carousel__figure">
+                                <img src="../assets/0bbf960c13a12267.png" alt="Španělsko — příklad GeoGuessr lokace" class="carousel__img" width="800" height="500" style="cursor: zoom-in;">
+                                <figcaption class="carousel__caption">
+                                    <h3 class="carousel__title">Španělsko</h3>
+                                    <p class="carousel__desc">Španělsko tě přivítá sluncem na jižní straně oblohy a
+                                        hřejivou středomořskou atmosférou. Klíčovým detailem je zde typický betonový
+                                        sloup elektrického vedení s otvory připomínajícími žebřík.</p>
+                                </figcaption>
+                            </figure>
+                        </div>
+
+                    </div>
+                    <!-- Navigation -->
+                    <div class="swiper-button-next" tabindex="0" role="button" aria-label="Next slide" aria-controls="swiper-wrapper-be82cddbd428bfed"></div>
+                    <div class="swiper-button-prev" tabindex="0" role="button" aria-label="Previous slide" aria-controls="swiper-wrapper-be82cddbd428bfed"></div>
+                    <!-- Pagination -->
+                    <div class="swiper-pagination swiper-pagination-clickable swiper-pagination-bullets swiper-pagination-horizontal"><span class="swiper-pagination-bullet swiper-pagination-bullet-active" tabindex="0" role="button" aria-label="Go to slide 1" aria-current="true"></span><span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 2"></span><span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 3"></span><span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 4"></span><span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 5"></span></div>
+                <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Modal Overlay -->
+    <div class="modal" id="metaModal" aria-hidden="true" role="dialog" aria-labelledby="modalTitle">
+        <div class="modal__content">
+            <button class="modal__close" id="modalClose" aria-label="Zavřít modal">×</button>
+            <img src="" alt="Detail mety" class="modal__img" id="modalImg" width="800" height="400" style="cursor: zoom-in;">
+            <div class="modal__body">
+                <span class="modal__region" id="modalRegion">Region</span>
+                <h3 class="modal__title" id="modalTitle">Název Mety</h3>
+                <p class="modal__text" id="modalText">Základní popis problému.</p>
+                <div class="modal__good-for" id="modalGoodFor">
+                    <strong>K čemu je to dobré?</strong>
+                    <span id="modalGoodForText">Text k čemu to je.</span>
+                </div>
+                <div class="modal__tip">
+                    <div class="modal__tip-title">Tip pro začátečníky:</div>
+                    <div id="modalTipText">Zde bude speciální rada.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Image Viewer Overlay -->
+    <div class="image-viewer" id="imageViewer" aria-hidden="true" role="dialog" aria-label="Zvětšený obrázek">
+        <button class="image-viewer__close" aria-label="Zavřít obrázek">×</button>
+        <img src="" alt="Zvětšený obrázek" class="image-viewer__img" id="imageViewerImg">
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__grid">
+                <div>
+                    <div class="footer__title">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM11 19.93C7.05 19.43 4 16.05 4 12C4 11.38 4.08 10.79 4.21 10.21L9 15V16C9 17.1 9.9 18 11 18V19.93ZM17.9 17.39C17.64 16.58 16.9 16 16 16H15V13C15 12.45 14.55 12 14 12H8V10.5C8 10.22 8.22 10 8.5 10H11V8C11 7.45 10.55 7 10 7H6.74C7.57 5.22 9.3 4 11.3 4C14.73 4 17.58 6.42 18.23 9.69C18.66 11.83 18.52 14.7 17.9 17.39Z"></path>
+                        </svg>
+                        GeoGuide
+                    </div>
+                    <p class="footer__desc">Vizuální průvodce světem GeoGuessru pro začátečníky. Žádné dlouhé texty, jen
+                        to nejdůležitější pro dobrý start.</p>
+                </div>
+                <div>
+                    <div class="footer__title">Rychlé odkazy</div>
+                    <ul class="footer__list">
+                        <li class="footer__list-item"><a href="index.html" class="footer__list-link">Domů</a></li>
+                        <li class="footer__list-item"><a href="guide.html" class="footer__list-link">Průvodce metami</a></li>
+                        <li class="footer__list-item"><a href="pricing.html" class="footer__list-link">Ceny předplatného</a></li>
+                        <li class="footer__list-item"><a href="resources.html" class="footer__list-link">Externí zdroje</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="footer__title">Školní projekt</div>
+                    <p class="footer__desc">Tento web byl vytvořen jako školní projekt zaměřený na čisté HTML, CSS a JavaScript.</p>
+                    <p class="footer__desc"><strong>Autor:</strong> Petr Novák</p>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                © 2026 GeoGuide – Beginner's GeoGuessr Guide. Vytvořeno pro vzdělávací účely.
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="../assets/5ebacc0e891d48d4.js"></script>
+
+
+</body></html>

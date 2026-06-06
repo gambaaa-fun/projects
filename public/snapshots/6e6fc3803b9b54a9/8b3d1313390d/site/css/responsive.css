@@ -1,0 +1,38 @@
+
+
+
+/* Hamburger menu*/
+.nav--open .hamburger span:nth-child(1) {
+  transform: translateY(16px) rotate(45deg);
+}
+.nav--open .hamburger span:nth-child(2) {
+  opacity: 0;
+}
+.nav--open .hamburger span:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+@media (max-width: 1250px) {
+  .header__nav {
+    grid-template-columns: auto auto;
+    justify-content: space-between;
+    position: relative;
+    border-radius: 20px;
+  }
+  .hamburger {
+    display: grid;
+  }
+  .header__nav-list,
+  .header__nav-buttons {
+    display: none;
+    grid-column: 1 / -1;
+    grid-auto-flow: row;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    gap: 2rem;
+    padding: 0.5rem 0;
+  }
+  .nav--open .header__nav-list,
+  .nav--open .header__nav-buttons {
+    display: grid;
+  }
+}

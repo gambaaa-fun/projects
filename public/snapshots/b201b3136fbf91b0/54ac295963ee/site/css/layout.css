@@ -1,0 +1,211 @@
+@layer layout {
+    .container {
+        width: 100%;
+        max-width: 1200px;
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .hlavni-hlavicka {
+        background-color: var(--clr-navy);
+        padding-top: 15px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid rgba(0, 255, 255, 0.1);
+    }
+
+    .header-grid-nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .logo-foto {
+        height: 50px;
+        width: auto;
+    }
+
+    .fb-foto {
+        height: 30px;
+        width: auto;
+    }
+
+    .hlavni-navigace {
+        display: none;
+    }
+
+    .hero-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
+
+    .hero-obsah {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .hero-foto-box {
+        display: flex;
+        justify-content: center;
+    }
+
+    .hero-hrac-foto {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .hudba-sekce,
+    .hodnoty-sekce {
+        padding-top: 60px;
+        padding-bottom: 60px;
+        background-color: var(--clr-white);
+    }
+
+    .hodnoty-list {
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+    }
+
+    .hodnota-radek {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .stinovana-foto {
+        width: 100%;
+        border-radius: 16px;
+        box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .hlavni-patka {
+        background-color: var(--clr-navy);
+        color: var(--clr-white);
+        padding-top: 60px;
+        padding-bottom: 40px;
+        position: relative;
+        margin-top: 80px;
+    }
+
+    .patka-grafika {
+        position: absolute;
+        top: -45px;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .patka-branka {
+        height: 45px;
+    }
+
+    .patka-hrac {
+        height: 55px;
+    }
+
+    .patka-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 35px;
+    }
+
+    .patka-sloupec h3 {
+        font-size: 24px;
+        margin-bottom: 15px;
+    }
+
+    .patka-odkazy {
+        list-style-type: none;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .patka-logo {
+        max-width: 100px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    @media (min-width: 1024px) {
+        .menu-toggle {
+            display: none;
+        }
+
+        .header-grid-nav {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .hlavni-navigace {
+            display: block;
+            justify-self: center;
+        }
+
+        .hlavni-navigace ul {
+            list-style-type: none;
+            display: flex;
+            flex-direction: row;
+            gap: 30px;
+        }
+
+        .hlavni-navigace a {
+            color: var(--clr-white);
+            text-transform: uppercase;
+            font-family: var(--font-heading);
+            font-size: 16px;
+            letter-spacing: 0.05em;
+            transition: color 0.2s;
+        }
+
+        .hlavni-navigace a:hover {
+            color: var(--clr-cyan);
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            padding-top: 60px;
+            padding-bottom: 60px;
+        }
+
+        .hodnota-radek {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .radek-otoceny .hodnota-text {
+            grid-column: 2;
+        }
+
+        .radek-otoceny .hodnota-foto {
+            grid-column: 1;
+            grid-row: 1;
+        }
+
+        .patka-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr auto;
+            align-items: start;
+        }
+
+        .patka-logo {
+            margin-left: 0;
+            margin-right: 0;
+        }
+    }
+}

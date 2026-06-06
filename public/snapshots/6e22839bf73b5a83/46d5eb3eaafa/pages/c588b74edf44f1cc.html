@@ -1,0 +1,485 @@
+<!DOCTYPE html><html lang="cs"><head>
+    <base href="../">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Autoškola Kuba – moderní autoškola v Praze. Získejte řidičák snadno a rychle. Kurzy skupin B, A, AM a další.">
+    <title>Autoškola Kuba – Získejte řidičák snadno a rychle</title>
+    <link rel="stylesheet" href="../assets/850f3e66a58cbc3f.css">
+    <!-- lightGallery CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2/css/lightgallery-bundle.min.css">
+</head>
+
+<body>
+
+    <!-- ===== NAVBAR ===== -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#domov" class="nav-logo">Autoškola<span>kuba</span></a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#domov">Domů</a></li>
+                <li><a href="#vozidla">Vozidla</a></li>
+                <li><a href="#cenik">Ceník</a></li>
+                <li><a href="#mapa">Mapa</a></li>
+                <li><a href="#terminy">Termíny</a></li>
+                <li><a href="#kontakt">Kontakt</a></li>
+            </ul>
+            <div class="nav-toggle" id="navToggle" onclick="toggleNav()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ===== HERO ===== -->
+    <header class="hero" id="domov">
+        <div class="hero-bg">
+            <div class="hero-placeholder">
+                <div style="text-align:center;">
+                    <span class="placeholder-icon">📷</span>
+                    <br>Foto hero – autoškola / silnice
+                </div>
+            </div>
+        </div>
+        <div class="hero-content">
+            <h1>Autoškola<span>kuba</span></h1>
+            <p>Získejte řidičák snadno a rychle. Individuální přístup, moderní vozidla a profesionální instruktoři.</p>
+            <div class="hero-contacts">
+                <a href="tel:+420602123456" class="hero-contact-item">
+                    <span class="icon">📞</span> +420 602 123 456
+                </a>
+                <a href="mailto:info@autoskola-kuba.cz" class="hero-contact-item">
+                    <span class="icon">✉️</span> info@autoskola-kuba.cz
+                </a>
+            </div>
+            <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+                <a href="formular.html" class="btn btn-primary">Přihláška a dokumenty ke stažení</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+
+        <!-- ===== VOZIDLA ===== -->
+        <section id="vozidla">
+            <div class="section-container">
+                <div class="section-header">
+                    <h2>Naše <span>vozidla</span></h2>
+                    <p>Učte se na moderních a bezpečných vozidlech s duálním ovládáním</p>
+                    <div class="section-line"></div>
+                </div>
+                <div class="vehicles-grid">
+                    <!-- Card 1 - Škoda Fabia -->
+                    <div class="vehicle-card" id="gallery-fabia" style="animation-play-state: paused;">
+                        <div class="photo-placeholder red">
+                            <img src="../assets/eb635552a99b10db.png" alt="Škoda Fabia – z šikma">
+                            <img src="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/icons/images.svg" alt="Galerie" class="gallery-icon">
+                        </div>
+                        <div class="vehicle-card-body">
+                            <h2>Škoda Fabia</h2>
+                            <p>Kompaktní a obratný vůz ideální pro výcvik ve městě. Manuální převodovka, klimatizace.
+                            </p>
+                            <span class="vehicle-badge">Skupina B</span>
+                        </div>
+                        <!-- Skryté fotky pro galerii -->
+                        <a href="../assets/eb635552a99b10db.png" class="gallery-item" data-sub-html="&lt;h4&gt;Škoda Fabia – z šikma&lt;/h4&gt;" data-lg-id="4652d960-c3f0-41b8-946c-0c556b1db9f2">
+                            <img src="../assets/eb635552a99b10db.png" alt="Škoda Fabia – z šikma">
+                        </a>
+                        <a href="../assets/ad01397aaa9ebad9.png" class="gallery-item" data-sub-html="&lt;h4&gt;Škoda Fabia – zepředu&lt;/h4&gt;" data-lg-id="5b37f6b8-7639-4e80-84dc-c466e28509b0">
+                            <img src="../assets/ad01397aaa9ebad9.png" alt="Škoda Fabia – zepředu">
+                        </a>
+                        <a href="../assets/b4fbf1225a829cdb.png" class="gallery-item" data-sub-html="&lt;h4&gt;Škoda Fabia – z boku&lt;/h4&gt;" data-lg-id="fe516ac6-f556-498a-9e2c-c28a0244af8c">
+                            <img src="../assets/b4fbf1225a829cdb.png" alt="Škoda Fabia – z boku">
+                        </a>
+                    </div>
+                    <!-- Card 2 - Volkswagen Golf -->
+                    <div class="vehicle-card" id="gallery-golf" style="animation-play-state: paused;">
+                        <div class="photo-placeholder dark">
+                            <img src="../assets/dfa62686b8bd1be5.png" alt="Volkswagen Golf – z šikma">
+                            <img src="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/icons/images.svg" alt="Galerie" class="gallery-icon">
+                        </div>
+                        <div class="vehicle-card-body">
+                            <h2>Volkswagen Golf</h2>
+                            <p>Spolehlivý a komfortní vůz s automatickou převodovkou. Skvělé jízdní vlastnosti.</p>
+                            <span class="vehicle-badge">Skupina B – automat</span>
+                        </div>
+                        <!-- Skryté fotky pro galerii -->
+                        <a href="../assets/dfa62686b8bd1be5.png" class="gallery-item" data-sub-html="&lt;h4&gt;Volkswagen Golf – z šikma&lt;/h4&gt;" data-lg-id="bbd45ab6-5e4e-415c-b344-9213434e25ed">
+                            <img src="../assets/dfa62686b8bd1be5.png" alt="Volkswagen Golf – z šikma">
+                        </a>
+                        <a href="../assets/266c6a81f0a1e900.png" class="gallery-item" data-sub-html="&lt;h4&gt;Volkswagen Golf – zepředu&lt;/h4&gt;" data-lg-id="6a90155c-5262-49de-9c21-3ceeadd4e36c">
+                            <img src="../assets/266c6a81f0a1e900.png" alt="Volkswagen Golf – zepředu">
+                        </a>
+                        <a href="../assets/7dbc10d9f0d8655f.png" class="gallery-item" data-sub-html="&lt;h4&gt;Volkswagen Golf – z boku&lt;/h4&gt;" data-lg-id="3aff9841-2864-458a-8678-237327847657">
+                            <img src="../assets/7dbc10d9f0d8655f.png" alt="Volkswagen Golf – z boku">
+                        </a>
+                    </div>
+                    <!-- Card 3 - Honda CBR 500R -->
+                    <div class="vehicle-card" id="gallery-honda" style="animation-play-state: paused;">
+                        <div class="photo-placeholder grey">
+                            <img src="../assets/0727d3f62a4f303e.png" alt="Honda CBR 500R – z šikma">
+                            <img src="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/icons/images.svg" alt="Galerie" class="gallery-icon">
+                        </div>
+                        <div class="vehicle-card-body">
+                            <h2>Honda CBR 500R</h2>
+                            <p>Sportovní motocykl pro výcvik skupiny A. ABS, moderní podvozek a nízká hmotnost.</p>
+                            <span class="vehicle-badge">Skupina A</span>
+                        </div>
+                        <!-- Skryté fotky pro galerii -->
+                        <a href="../assets/0727d3f62a4f303e.png" class="gallery-item" data-sub-html="&lt;h4&gt;Honda CBR 500R – z šikma&lt;/h4&gt;" data-lg-id="e593337e-1169-4cf0-973c-35da73d7fb8d">
+                            <img src="../assets/0727d3f62a4f303e.png" alt="Honda CBR 500R – z šikma">
+                        </a>
+                        <a href="../assets/d367e68b31464270.png" class="gallery-item" data-sub-html="&lt;h4&gt;Honda CBR 500R – zepředu&lt;/h4&gt;" data-lg-id="56984d91-15f8-4b11-b3d9-f21780d63867">
+                            <img src="../assets/d367e68b31464270.png" alt="Honda CBR 500R – zepředu">
+                        </a>
+                        <a href="../assets/78e943b6c576e85a.png" class="gallery-item" data-sub-html="&lt;h4&gt;Honda CBR 500R – z boku&lt;/h4&gt;" data-lg-id="d40a951a-1545-407a-b335-4a32d893898e">
+                            <img src="../assets/78e943b6c576e85a.png" alt="Honda CBR 500R – z boku">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== CENÍK ===== -->
+        <section id="cenik" style="background:var(--white);">
+            <div class="section-container">
+                <div class="section-header">
+                    <h2>Ceník <span>kurzů</span></h2>
+                    <p>Transparentní ceny bez skrytých poplatků. Možnost platby na splátky.</p>
+                    <div class="section-line"></div>
+                </div>
+                <div class="pricing-grid">
+                    <!-- B – featured -->
+                    <div class="pricing-card featured" style="animation-play-state: paused;">
+                        <div class="pricing-header">
+                            <h3>B</h3>
+                            <div class="category">Osobní automobil</div>
+                        </div>
+                        <div class="pricing-price">21 300 <small>Kč</small></div>
+                        <ul class="pricing-features">
+                            <li>Teorie – 40 hodin</li>
+                            <li>Praktický výcvik – 28 hodin</li>
+                            <li>Zdravotní příprava</li>
+                            <li>Učební materiály zdarma</li>
+                            <li>Přihlášení ke zkoušce</li>
+                            <li>Možnost splátek</li>
+                        </ul>
+                        <a href="formular.html" class="btn btn-primary">Mám zájem</a>
+                    </div>
+                    <!-- A -->
+                    <div class="pricing-card" style="animation-play-state: paused;">
+                        <div class="pricing-header">
+                            <h3>A</h3>
+                            <div class="category">Motocykl</div>
+                        </div>
+                        <div class="pricing-price">19 400<small>Kč</small></div>
+                        <ul class="pricing-features">
+                            <li>Teorie – 4 hodiny</li>
+                            <li>Praktický výcvik – 16 hodin</li>
+                            <li>Ochranné vybavení</li>
+                            <li>Učební materiály zdarma</li>
+                            <li>Přihlášení ke zkoušce</li>
+                        </ul>
+                        <a href="formular.html" class="btn btn-dark">Mám zájem</a>
+                    </div>
+                    <!-- A+B -->
+                    <div class="pricing-card" style="animation-play-state: paused;">
+                        <div class="pricing-header">
+                            <h3>A+B</h3>
+                            <div class="category">Motocykl + Osobní automobil</div>
+                        </div>
+                        <div class="pricing-price">32 700<small>Kč</small></div>
+                        <ul class="pricing-features">
+                            <li>Teorie – 44 hodin</li>
+                            <li>Praktický výcvik – 44 hodin</li>
+                            <li>Zdravotní příprava</li>
+                            <li>Ochranné vybavení</li>
+                            <li>Učební materiály zdarma</li>
+                            <li>Přihlášení ke zkoušce</li>
+                            <li>Zvýhodněná cena balíčku</li>
+                        </ul>
+                        <a href="formular.html" class="btn btn-dark">Mám zájem</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== MAPA ===== -->
+        <section id="mapa" class="map-section">
+            <div class="section-container">
+                <div class="section-header">
+                    <h2>Kde nás <span>najdete</span></h2>
+                    <p>Sídlíme v centru Prahy s výbornou dopravní dostupností</p>
+                    <div class="section-line"></div>
+                </div>
+                <div class="map-wrapper">
+
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2560.698370697613!2d14.42076!3d50.08804!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x470b94e1e6c0b0a1%3A0x400af0f66164090!2sPraha!5e0!3m2!1scs!2scz!4v1700000000000!5m2!1scs!2scz" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mapa – Autoškola Kuba">
+                    </iframe>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== TERMÍNY ===== -->
+        <section id="terminy">
+            <div class="section-container">
+                <div class="section-header">
+                    <h2>Termíny <span>teoretických hodin</span></h2>
+                    <p>Vyberte si termín, který vám vyhovuje. Přihlašte se včas, kapacita je omezena.</p>
+                    <div class="section-line"></div>
+                </div>
+                <div style="overflow-x:auto;">
+                    <table class="schedule-table" style="animation-play-state: paused;">
+                        <thead>
+                            <tr>
+                                <th>Datum</th>
+                                <th>Čas</th>
+                                <th>Kurz</th>
+                                <th>Kapacita</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>5. 5. 2025</td>
+                                <td>17:00 – 19:00</td>
+                                <td>Skupina B – Pravidla provozu I</td>
+                                <td><span class="status-badge open">Volná místa</span></td>
+                            </tr>
+                            <tr>
+                                <td>8. 5. 2025</td>
+                                <td>17:00 – 19:00</td>
+                                <td>Skupina B – Pravidla provozu II</td>
+                                <td><span class="status-badge open">Volná místa</span></td>
+                            </tr>
+                            <tr>
+                                <td>12. 5. 2025</td>
+                                <td>17:00 – 19:00</td>
+                                <td>Skupina B – Ovládání vozidla</td>
+                                <td><span class="status-badge open">Volná místa</span></td>
+                            </tr>
+                            <tr>
+                                <td>15. 5. 2025</td>
+                                <td>17:00 – 19:00</td>
+                                <td>Skupina B – Zdravotní příprava</td>
+                                <td><span class="status-badge full">Obsazeno</span></td>
+                            </tr>
+                            <tr>
+                                <td>19. 5. 2025</td>
+                                <td>17:00 – 19:00</td>
+                                <td>Skupina A – Teorie motocyklů</td>
+                                <td><span class="status-badge open">Volná místa</span></td>
+                            </tr>
+                            <tr>
+                                <td>22. 5. 2025</td>
+                                <td>9:00 – 11:00</td>
+                                <td>Skupina B – Pravidla provozu III</td>
+                                <td><span class="status-badge open">Volná místa</span></td>
+                            </tr>
+                            <tr>
+                                <td>26. 5. 2025</td>
+                                <td>17:00 – 19:00</td>
+                                <td>Skupina B – Závěrečná teorie</td>
+                                <td><span class="status-badge full">Obsazeno</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== CTA ===== -->
+        <section class="cta-section" id="kontakt">
+            <div class="section-container" style="text-align:center;">
+                <h2 style="color:var(--white);">Máte <span style="color:var(--primary);">dotazy</span>?</h2>
+                <p style="color:rgba(255,255,255,0.7);font-size:1.1rem;max-width:600px;margin:0 auto 2rem;">
+                    Neváhejte nás kontaktovat. Rádi vám odpovíme na všechny dotazy ohledně kurzů.
+                </p>
+                <div style="display:flex;gap:2rem;justify-content:center;flex-wrap:wrap;">
+                    <a href="tel:+420602123456" class="hero-contact-item">
+                        <span class="icon">📞</span> +420 602 123 456
+                    </a>
+                    <a href="mailto:info@autoskola-kuba.cz" class="hero-contact-item">
+                        <span class="icon">✉️</span> info@autoskola-kuba.cz
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-logo">Autoškola<span>_kuba</span></div>
+            <div class="footer-contact">
+                <a href="tel:+420602123456">📞 +420 602 123 456</a>
+                <a href="mailto:info@autoskola-kuba.cz">✉️ info@autoskola-kuba.cz</a>
+            </div>
+            <div class="footer-copy">
+                © 2025 Autoškola_kuba. Všechna práva vyhrazena.
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===== JS ===== -->
+    <script>
+        function toggleNav() {
+            document.getElementById('navLinks').classList.toggle('active');
+        }
+
+        // Close mobile nav on link click
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('navLinks').classList.remove('active');
+            });
+        });
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.vehicle-card, .pricing-card, .schedule-table').forEach(el => {
+            el.style.animationPlayState = 'paused';
+            observer.observe(el);
+        });
+
+        // Active nav link on scroll
+        const sections = document.querySelectorAll('section, header');
+        const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                if (scrollY >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+
+    <!-- lightGallery JS -->
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@2/lightgallery.umd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@2/plugins/thumbnail/lg-thumbnail.umd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@2/plugins/zoom/lg-zoom.umd.js"></script>
+    <script>
+        // Samostatná lightGallery pro každé vozidlo
+        document.querySelectorAll('.vehicle-card').forEach(function (card) {
+            var lgInstance = lightGallery(card, {
+                plugins: [lgZoom, lgThumbnail],
+                selector: '.gallery-item',
+                speed: 400,
+                licenseKey: '0000-0000-000-0000'
+            });
+
+            // Klik na viditelnou část karty otevře galerii
+            card.querySelector('.photo-placeholder').addEventListener('click', function () {
+                card.querySelector('.gallery-item').click();
+            });
+            card.querySelector('.vehicle-card-body').addEventListener('click', function () {
+                card.querySelector('.gallery-item').click();
+            });
+        });
+    </script>
+        <div class="lg-container  " id="lg-container-1" tabindex="-1" aria-modal="true" role="dialog">
+            <div id="lg-backdrop-1" class="lg-backdrop" style="transition-duration: 300ms;"></div>
+
+            <div id="lg-outer-1" class="lg-outer lg-use-css3 lg-css3 lg-hide-items lg-slide lg-grab lg-use-transition-for-zoom lg-animate-thumb lg-has-thumb">
+
+              <div id="lg-content-1" class="lg-content">
+                <div id="lg-inner-1" class="lg-inner" style="transition-timing-function: ease; transition-duration: 400ms;">
+                </div>
+                <button type="button" id="lg-prev-1" aria-label="Previous slide" class="lg-prev lg-icon">  </button>
+                <button type="button" id="lg-next-1" aria-label="Next slide" class="lg-next lg-icon">  </button>
+              </div>
+                <div id="lg-toolbar-1" class="lg-toolbar lg-group">
+                    
+                    <button type="button" aria-label="Close gallery" id="lg-close-1" class="lg-close lg-icon"></button>
+                    <a id="lg-download-1" target="_blank" rel="noopener" aria-label="Download" download="" class="lg-download lg-icon"></a><div class="lg-counter" role="status" aria-live="polite">
+                <span id="lg-counter-current-1" class="lg-counter-current">1 </span> /
+                <span id="lg-counter-all-1" class="lg-counter-all">3 </span></div><button id="lg-actual-size-1" type="button" aria-label="View actual size" class="lg-zoom-in lg-icon"></button></div>
+                    
+                <div id="lg-components-1" class="lg-components">
+                    <div class="lg-sub-html" role="status" aria-live="polite"></div>
+                <div class="lg-thumb-outer lg-thumb-align-middle lg-grab">
+        <div class="lg-thumb lg-group" style="transition-duration: 400ms; width: 315px; position: relative;">
+        <div data-lg-item-id="0" class="lg-thumb-item active" style="width: 100px; height: 80px; margin-right: 5px;"><img alt="Škoda Fabia – z šikma" data-lg-item-id="0" src="../assets/eb635552a99b10db.png"></div><div data-lg-item-id="1" class="lg-thumb-item " style="width: 100px; height: 80px; margin-right: 5px;"><img alt="Škoda Fabia – zepředu" data-lg-item-id="1" src="../assets/ad01397aaa9ebad9.png"></div><div data-lg-item-id="2" class="lg-thumb-item " style="width: 100px; height: 80px; margin-right: 5px;"><img alt="Škoda Fabia – z boku" data-lg-item-id="2" src="../assets/b4fbf1225a829cdb.png"></div></div>
+        </div></div>
+            </div>
+        </div>
+        
+        <div class="lg-container  " id="lg-container-2" tabindex="-1" aria-modal="true" role="dialog">
+            <div id="lg-backdrop-2" class="lg-backdrop" style="transition-duration: 300ms;"></div>
+
+            <div id="lg-outer-2" class="lg-outer lg-use-css3 lg-css3 lg-hide-items lg-slide lg-grab lg-use-transition-for-zoom lg-animate-thumb lg-has-thumb">
+
+              <div id="lg-content-2" class="lg-content">
+                <div id="lg-inner-2" class="lg-inner" style="transition-timing-function: ease; transition-duration: 400ms;">
+                </div>
+                <button type="button" id="lg-prev-2" aria-label="Previous slide" class="lg-prev lg-icon">  </button>
+                <button type="button" id="lg-next-2" aria-label="Next slide" class="lg-next lg-icon">  </button>
+              </div>
+                <div id="lg-toolbar-2" class="lg-toolbar lg-group">
+                    
+                    <button type="button" aria-label="Close gallery" id="lg-close-2" class="lg-close lg-icon"></button>
+                    <a id="lg-download-2" target="_blank" rel="noopener" aria-label="Download" download="" class="lg-download lg-icon"></a><div class="lg-counter" role="status" aria-live="polite">
+                <span id="lg-counter-current-2" class="lg-counter-current">1 </span> /
+                <span id="lg-counter-all-2" class="lg-counter-all">3 </span></div><button id="lg-actual-size-2" type="button" aria-label="View actual size" class="lg-zoom-in lg-icon"></button></div>
+                    
+                <div id="lg-components-2" class="lg-components">
+                    <div class="lg-sub-html" role="status" aria-live="polite"></div>
+                <div class="lg-thumb-outer lg-thumb-align-middle lg-grab">
+        <div class="lg-thumb lg-group" style="transition-duration: 400ms; width: 315px; position: relative;">
+        <div data-lg-item-id="0" class="lg-thumb-item active" style="width: 100px; height: 80px; margin-right: 5px;"><img alt="Volkswagen Golf – z šikma" data-lg-item-id="0" src="../assets/dfa62686b8bd1be5.png"></div><div data-lg-item-id="1" class="lg-thumb-item " style="width: 100px; height: 80px; margin-right: 5px;"><img alt="Volkswagen Golf – zepředu" data-lg-item-id="1" src="../assets/266c6a81f0a1e900.png"></div><div data-lg-item-id="2" class="lg-thumb-item " style="width: 100px; height: 80px; margin-right: 5px;"><img alt="Volkswagen Golf – z boku" data-lg-item-id="2" src="../assets/7dbc10d9f0d8655f.png"></div></div>
+        </div></div>
+            </div>
+        </div>
+        
+        <div class="lg-container  " id="lg-container-3" tabindex="-1" aria-modal="true" role="dialog">
+            <div id="lg-backdrop-3" class="lg-backdrop" style="transition-duration: 300ms;"></div>
+
+            <div id="lg-outer-3" class="lg-outer lg-use-css3 lg-css3 lg-hide-items lg-slide lg-grab lg-use-transition-for-zoom lg-animate-thumb lg-has-thumb">
+
+              <div id="lg-content-3" class="lg-content">
+                <div id="lg-inner-3" class="lg-inner" style="transition-timing-function: ease; transition-duration: 400ms;">
+                </div>
+                <button type="button" id="lg-prev-3" aria-label="Previous slide" class="lg-prev lg-icon">  </button>
+                <button type="button" id="lg-next-3" aria-label="Next slide" class="lg-next lg-icon">  </button>
+              </div>
+                <div id="lg-toolbar-3" class="lg-toolbar lg-group">
+                    
+                    <button type="button" aria-label="Close gallery" id="lg-close-3" class="lg-close lg-icon"></button>
+                    <a id="lg-download-3" target="_blank" rel="noopener" aria-label="Download" download="" class="lg-download lg-icon"></a><div class="lg-counter" role="status" aria-live="polite">
+                <span id="lg-counter-current-3" class="lg-counter-current">1 </span> /
+                <span id="lg-counter-all-3" class="lg-counter-all">3 </span></div><button id="lg-actual-size-3" type="button" aria-label="View actual size" class="lg-zoom-in lg-icon"></button></div>
+                    
+                <div id="lg-components-3" class="lg-components">
+                    <div class="lg-sub-html" role="status" aria-live="polite"></div>
+                <div class="lg-thumb-outer lg-thumb-align-middle lg-grab">
+        <div class="lg-thumb lg-group" style="transition-duration: 400ms; width: 315px; position: relative;">
+        <div data-lg-item-id="0" class="lg-thumb-item active" style="width: 100px; height: 80px; margin-right: 5px;"><img alt="Honda CBR 500R – z šikma" data-lg-item-id="0" src="../assets/0727d3f62a4f303e.png"></div><div data-lg-item-id="1" class="lg-thumb-item " style="width: 100px; height: 80px; margin-right: 5px;"><img alt="Honda CBR 500R – zepředu" data-lg-item-id="1" src="../assets/d367e68b31464270.png"></div><div data-lg-item-id="2" class="lg-thumb-item " style="width: 100px; height: 80px; margin-right: 5px;"><img alt="Honda CBR 500R – z boku" data-lg-item-id="2" src="../assets/78e943b6c576e85a.png"></div></div>
+        </div></div>
+            </div>
+        </div>
+        
+
+
+
+</body></html>

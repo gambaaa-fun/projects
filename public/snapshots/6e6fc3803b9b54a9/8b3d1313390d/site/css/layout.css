@@ -1,0 +1,120 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;600;700&display=swap');
+
+
+:root {
+  --h1: 2rem;
+  --normal-text: 1.05rem;
+  --important-text: 1.5rem;
+  --lighter-text: 1.5rem;
+}
+
+* {
+  font-family: "Roboto";
+}
+
+a {
+  text-decoration: none;
+}
+
+/*--------------------------
+ -----------Header----------
+ ---------------------------*/
+
+.header {
+  display: grid;
+  grid-template-rows: auto 1fr ;
+  grid-template-columns: 1fr;
+  padding: 1rem;
+  row-gap: 200px;
+  
+}
+
+
+
+/* -----------Navigace-------- */
+
+.header__nav {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  border-radius: 40px;
+  padding: 0.5rem 1rem;
+  gap: 1rem;
+  position: sticky;
+
+}
+
+.header__nav-list {
+  list-style: none;
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: repeat(4, 0.5fr);
+  align-items: center;
+  justify-items: center;
+  font-size: var(--normal-text);
+}
+
+.header__nav-buttons {
+  display: grid;
+  grid-auto-flow: column;
+  align-items: center;
+  gap: 1rem;
+  font-size: var(--normal-text);
+}
+.header__nav-dev-link {
+  display: grid;
+  grid-auto-flow: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+.header__nav-button--getdemo {
+  padding: 0.5em 2em;
+  border-radius: 25px;
+  border: 1px solid rgb(255, 255, 255);
+}
+.header__nav-button--login {
+  padding: 0.5em 2em;
+  border-radius: 25px;
+  background-color: rgb(255, 255, 255);
+}
+/* nadpis sekce */
+
+.header > div {
+  display: grid;
+  place-items: center;
+  text-align: center;
+  align-content: center;
+  grid-template-rows: auto auto auto;
+  row-gap: 180px; 
+}
+
+
+.header__main{
+  display: grid;
+}
+
+.header__main-title {
+  max-width: 1200px;
+  font-size: var(--h1);
+  font-weight: bold;
+  text-align: center;
+  font-size: clamp(1.5rem, 6vw, var(--h1));
+  margin: 0; 
+}
+
+.header__main-subtitle{
+  max-width: 600px;
+  font-size: clamp(1rem, 4vw, var(--lighter-text));
+  font-weight: 300;
+  margin: 0;
+}
+
+.header__main-button--register{
+  display: grid;
+  font-size: var(--normal-text);
+  font-weight: 600;
+}
+
+/*--------------------------
+ -----------Main------------
+ ---------------------------*/

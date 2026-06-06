@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+    <base href="./">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- links -->
+  <link rel="stylesheet" href="../css/fonts.css" />
+  <link rel="stylesheet" href="../css/normalized.css" />
+  <link rel="stylesheet" href="../css/colors-themes.css" />
+  <link rel="stylesheet" href="../css/layout.css" />
+  <link rel="stylesheet" href="../css/components.css" />
+  <link rel="stylesheet" href="../css/responsive.css" />
+  <link rel="stylesheet" href="../css/hovers.css">
+
+  <script src="../js/humburger.js" defer></script>
+
+  <title>Registr</title>
+</head>
+
+<body>
+  <header class="header">
+
+    <nav class="header__nav header__nav--register text--normal">
+      <a href="../index.html" class="register__back text--white"><img width="40px" src="../svg-icons/back.svg" alt=""></a>
+      <a href="../index.html" class="brand__logo">
+        <img src="../svg-icons/galaxy_logo.svg" alt="AI Educated logo" width="50px" />
+        <span class="text--gradient">AI Educated</span>
+      </a>
+      <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <ul class="header__nav-list text--normal">
+        <li class="header__nav-item text--gradient-2"><a href="#">kurzy</a></li>
+        <li class="header__nav-item text--gradient-2"><a href="#">produkty</a></li>
+        <li class="header__nav-item text--gradient-2"><a href="#">zdroje</a></li>
+        <li class="header__nav-item text--gradient-2"><a href="#">ceny</a></li>
+      </ul>
+    </nav>
+  </header> 
+
+  <main class="register__main">
+    <h2 class="text--h2 text--white main__h2 ">Zaregistrujte se níže a přejděte na kurz.</h2>
+
+    <form action="" class="register__form shadow--glow">
+      <span class="text--important text--gradient-2 register__form-person">Jmeno + přijmení</span>
+
+      <input class="input" type="text" placeholder="Jmeno" required>
+      <input class="input" type="text" placeholder="Přijmení" required>
+
+      <span class="text--important text--gradient-2 register__form-person">Přihlašovací údaje</span>
+
+      <input class="input" type="text" placeholder="e-mail" required>
+      <input class="input" type="password" placeholder="heslo" required>
+
+      <span class="text--important text--gradient-2 register__form-accept">Potvrdit</span>
+
+      <button class="btn--main text--gradient">vytvořit účet</button>
+
+      <span class="text--important text--gradient-2 register__form-accept">Nebo</span>
+
+      <button class="continue__with--button"><img src="../svg-icons/google.svg" width="40px" alt=""><span>google</span></button>
+      <button class="continue__with--button"><img src="../svg-icons/apple.svg" width="40px" alt=""><span>Apple</span></button>
+
+    </form>
+  </main>
+</body>
+
+</html>

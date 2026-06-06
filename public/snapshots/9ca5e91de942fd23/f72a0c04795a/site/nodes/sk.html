@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <base href="./">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shadowkeep</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Rajdhani:wght@300;400;500;600;700&family=Exo+2:wght@200;300;400;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+ 
+  :root {
+    --gold: #c9a84c;
+    --gold-bright: #f0cc70;
+    --dark-bg: #040810;
+    --text-muted: rgba(200, 185, 145, 0.55);
+    --white: #f0ece0;
+    --border: rgba(201, 168, 76, 0.25);
+  }
+ 
+  html { scroll-behavior: smooth; }
+ 
+  body {
+    background-color: var(--dark-bg);
+    color: var(--white);
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 400;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+ 
+  /* MAIN GRID */
+  .quad-grid {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+  }
+ 
+  .quad {
+    position: relative;
+    min-height: 50vh;
+    overflow: hidden;
+  }
+ 
+  /* Only draw the center axes — right edge on left quads, bottom edge on top quads */
+  .quad-tl { border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .quad-tr { border-bottom: 1px solid var(--border); }
+  .quad-bl { border-right: 1px solid var(--border); }
+ 
+  /* LORE QUADS */
+  .quad-lore {
+    padding: 56px 64px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    background: linear-gradient(135deg, rgba(4,8,16,0.95) 0%, rgba(7,14,28,0.9) 100%);
+  }
+ 
+  .quad-lore::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 10% 10%, rgba(201,168,76,0.04) 0%, transparent 60%);
+    pointer-events: none;
+  }
+ 
+  .lore-label {
+    font-family: 'Exo 2', sans-serif;
+    font-size: 13px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+    opacity: 0.7;
+  }
+ 
+  .lore-text {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 1.85;
+    color: rgba(220, 205, 165, 0.75);
+    letter-spacing: 0.3px;
+  }
+ 
+  /* IMAGE QUADS */
+  .quad-img {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(4, 8, 16, 0.98);
+    overflow: hidden;
+  }
+ 
+  .quad-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    opacity: 0.9;
+    transition: opacity 0.4s ease, transform 0.6s ease;
+  }
+ 
+  .quad-img:hover img {
+    opacity: 1;
+    transform: scale(1.02);
+  }
+ 
+  /* FOOTER */
+  footer {
+    border-top: 1px solid rgba(201,168,76,0.1);
+    padding: 40px;
+    text-align: center;
+    font-family: 'Exo 2', sans-serif;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+ 
+  /* Desktop grid positioning */
+  .quad-tl { grid-column: 1; grid-row: 1; }
+  .quad-tr { grid-column: 2; grid-row: 1; }
+  .quad-bl { grid-column: 1; grid-row: 2; }
+  .quad-br { grid-column: 2; grid-row: 2; }
+ 
+  /* MOBILE — single column, alternating LORE / IMG / LORE / IMG */
+  @media (max-width: 700px) {
+    .quad-grid {
+      grid-template-columns: 1fr;
+      grid-template-rows: repeat(4, auto);
+    }
+ 
+    .quad {
+      min-height: 44vh;
+      grid-column: 1 !important;
+    }
+ 
+    .quad-tl { grid-row: 1; border-right: none; border-bottom: 1px solid var(--border); }
+    .quad-tr { grid-row: 2; border-bottom: 1px solid var(--border); }
+    .quad-br { grid-row: 3; border-bottom: 1px solid var(--border); }
+    .quad-bl { grid-row: 4; border-right: none; border-bottom: none; }
+ 
+    .quad-lore {
+      padding: 40px 32px;
+    }
+  }
+</style>
+</head>
+<body>
+ 
+<main class="quad-grid">
+ 
+  <!-- TOP-LEFT: LORE -->
+  <div class="quad quad-lore quad-tl">
+    <div class="lore-label">Nový druh Hive na Měsíci, Eris Morn a zvláštní pyramida pod povrchem</div>
+    <p class="lore-text">
+      Po smrti Riven se s Ghostem vydáváme blíže k naší domovské planetě, a to na náš Měsíc. Tam se potkáváme s Eris; bývalou Strážkyní, a nám dobře známým spojencem. Při naší cestě k Eris jsme se na povrchu Měsíce střetli s neobvyklým počtem Hive s rysy odlišnými od ostatních známých druhů. Tento druh má karmínově zalitý povrch těla, a namísto temných, tmavě zeleně zářících struktur vystavují vysoké věže z tmavé rudé, barevně podobné jejich vlastním tělům. Pro našeho Strážce nejsou však neobvykle zbarvení Hive problém, a brzy postupujeme dále, až se konečně dostaneme k útočišti, které Eris na Měsíci založila. Něco se nám na ní ale nezdá - obklopuje ji pět zvláštních, tmavě rudých duší - a jak se brzy dovídáme, duše patří padlým členům týmu, do kterého Eris jednou patřila, z dávné doby, dlouho před začátkem příběhu našeho Strážce. Eris tvrdí, že výskyt rudých přízraků a Hive na Měsíci není shodou náhod. Podařilo se jí vystopovat nejsilnější bod výstupu podivné energie, kterou přízraky jejího týmu vyzařují. Náš Strážce se za zdrojem vydá; je to obrovská prasklina uprostřed ničeho, avšak vespod propasti se nachází něco temnějšího. Jakmile náš Strážce sestoupí o pár úrovní níže, spatří ji v celé své kráse: Gigantickou, plně černou pyramidu, ležící uprostřed obrovské propasti. Pyramida vyzařuje velmi silné množství té podivné energie, jako kdyby se nás snažily posednout naše noční můry. Po pokusu se k pyramidě přiblížit dřív uslyší náš Strážce šepot. Šepot se stejným hlasem, jako náš Ghost. V tu chvíli se před námi zjeví tři figury: Fikrul, nedávno pohřben našimi silami, Ghaul, dlouho mrtvý vůdce Rudého Legionu, a Crota, nechvalně známý a nejsilnější Oryxův potomek, který v jeho době povraždil více Strážců, než Ghaulova armáda za celou Rudou Válku. Všichni tři už ale jednou zemřeli, a ani jeden z nich nemají schopnost se sami oživit, natož stát bok po boku. Byly to jen iluze, a Eris se naštěstí podařilo nás z propasti vysvobodit. Co Eris překvapilo nejvíce je, že se před námi, ze všech možných hrůz, kterými si náš Strážce prošel, zjevil zrovna Crota.
+    </p>
+  </div>
+ 
+  <!-- TOP-RIGHT: IMG -->
+  <div class="quad quad-img quad-tr">
+    <img src="./gallery/lunap.png" alt="Only his head remains">
+  </div>
+ 
+  <!-- BOTTOM-LEFT: IMG -->
+  <div class="quad quad-img quad-bl">
+    <img src="./gallery/crota.png" alt="a bs fight on master">
+  </div>
+ 
+  <!-- BOTTOM-RIGHT: LORE -->
+  <div class="quad quad-lore quad-br">
+    <div class="lore-label">Vymýcení přízraků, Crota a původ pyramidy</div>
+    <p class="lore-text">
+      Po našem návratu informujeme Eris o našem objevu. Eris se o původu pyramidy nezmíní; pouze zmíní, že přízraky podobné těm, se kterými jsme se setkali, se nacházejí po celém měsíčním povrchu. Také nás varuje, ať nevěříme ničemu, co z pyramidy vychází, včetně onoho hlasu. S její pomocí se nám podaří několika těchto přízraků, těchto nočních můr Strážců zbavit nadobro. Jedna otázka ale stále zůstává: Je Crota, kterého manifestuje pyramida, stejně mocný, jako opravdový Crota? Crota byl mocný Hive, který byl zodpovědný za smrt všech členů Erisina týmu. Eris se jako jediné podařilo z gigantické jámy, kterou Crota na měsíci nehcal zbudovat, zvané Hellmouth uprchnout, a to pouze díky obětování jejího Ghosta, což ji ponechalo navždy smrtelnou. Samotný Crota padl v bitvě s naším Strážcem, v bitvě která se odehrála dlouho před Ghaulovou invazí naší Země. Po vymýtění přízraků Erisina týmu se dostáváme do hlavní struktury karmínových Hive; Do mohutné věže zvané Scarlet Keep. Zde se střetáváme s Hashladûn, nejmocnější z Crotových potomků. Nemá ale proti našemu Strážcovi šanci, a stejně jako její sestry padne v boji. Hashladûnina smrt nám prozradila mnoho, například to, že karmínově zbarvení Hive se nazývají Hidden Swarm, a důvod jejich přítomnosti na Měsíci je udržování a rozšiřování působení přízračných entit tvořených pyramidou. Rozptýlené všude po měsíčním povrchu, včetně jámy Hellmouth, náš Strážce posbíral kusy zbroje, které měli příslušníci Hidden Swarm použít, aby se bezpečně dostali na vnitřní stranu pyramidy. Bez jiné možnosti se náš Strážce v oné zbroji vydá zpět do propasti, kde se pyramida nachází. Tentokrát žadný Fikrul, Ghaul, ani Crota. Tentokrát nás pyramida pustila blíže, a když to vypadalo že na naši přítomnost nereaguje, nás s velkou silou chytil proud energie a začal nás táhnout přímo do pyramidy. Těsně před srážkou se náš Strážce objevil na druhé straně trupu pyramidy. Uvnitř byla jediná cesta vpřed, která nás zavedla k již známým tvářím. První byl Fikrul, kterého jsme porazili s přehledem. Druhý byl Ghaul, který padl podobným způsobem jako na konci Rudé Války. Na konci tunelu pyramidy byl podstavec, na něm nám dobře známý nepřítel: Crota. Jeho iluze nebyla zdaleka tak silná, jako sám Crota, ale vykazovala značné prvky minulosti. Ale stejně jako všechny ostatní, i Crotova iluze padla, a ačkoli přízraky z Měsíce úplně nezmizely, ty nejsilnější a nejúčinnější se mezi nimi už nenacházeli. Krátce po naší výhře nad iluzemi pyramidy se Eris z Měsíce záhadně vypařila.
+    </p>
+  </div>
+ 
+</main>
+ 
+<footer>
+  &copy; Bungie — Destiny 2 — Timeline of Light and Dark
+</footer>
+ 
+</body>
+</html>

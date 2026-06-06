@@ -1,0 +1,273 @@
+<!DOCTYPE html><html lang="cs"><head>
+    <base href="../">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Produkty – ZYNTHA</title>
+  <meta name="description" content="Prozkoumejte celou kolekci ZYNTHA – hoodies, trička, šortky a čepice.">
+  <link rel="icon" href="data:image/svg+xml,&lt;svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'&gt;&lt;text y='.9em' font-size='90'&gt;Z&lt;/text&gt;&lt;/svg&gt;">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&amp;family=Jost:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/95cb3c2ff72ce8b9.css">
+  <link rel="stylesheet" href="../assets/7ea1cec59fe0ba6d.css">
+</head>
+<body>
+
+  
+  <header class="nav-header" id="nav-header">
+    <nav class="nav-container" aria-label="Hlavní navigace">
+      <a href="index.html" class="nav-logo" aria-label="ZYNTHA – zpět na úvodní stránku">ZYNTHA</a>
+      <ul class="nav-links" role="list">
+        <li><a href="index.html" class="nav-link">Úvod</a></li>
+        <li><a href="products.html" class="nav-link active">Produkty</a></li>
+        <li><a href="contact.html" class="nav-link">Kontakt</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="nav-icon-btn" aria-label="Vyhledat">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
+        </button>
+        <button class="nav-icon-btn" aria-label="Košík">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path><line x1="3" x2="21" y1="6" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+        </button>
+        <button class="hamburger" id="hamburger" aria-label="Otevřít menu" aria-expanded="false" aria-controls="mobile-menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+    <div class="mobile-menu" id="mobile-menu" role="dialog" aria-label="Mobilní navigace" aria-hidden="true">
+      <ul role="list">
+        <li><a href="index.html" class="mobile-link">Úvod</a></li>
+        <li><a href="products.html" class="mobile-link active">Produkty</a></li>
+        <li><a href="contact.html" class="mobile-link">Kontakt</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+
+    
+    <section class="page-hero" aria-label="Záhlaví stránky">
+      <h1 class="page-hero-title animate-fade-up">Kolekce</h1>
+      <p class="page-hero-sub animate-fade-up delay-1">Pečlivě vybrané kousky pro každý styl.</p>
+    </section>
+
+    
+    <section class="products-page" aria-label="Výpis produktů">
+      <div class="products-layout">
+
+        
+        <aside class="filters-sidebar" aria-label="Filtry produktů">
+          <div class="filter-toggle-wrap">
+            <button class="filter-toggle" id="filter-toggle" aria-expanded="false" aria-controls="filter-panel">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><line x1="4" x2="20" y1="6" y2="6"></line><line x1="8" x2="16" y1="12" y2="12"></line><line x1="11" x2="13" y1="18" y2="18"></line></svg>
+              Filtrovat
+            </button>
+          </div>
+
+          <div class="filter-panel" id="filter-panel">
+            <div class="filter-group">
+              <h3 class="filter-group-title">Kategorie</h3>
+              <ul class="filter-list" role="list">
+                <li><button class="filter-btn active" data-filter="all">Vše</button></li>
+                <li><button class="filter-btn" data-filter="hoodie">Hoodies</button></li>
+                <li><button class="filter-btn" data-filter="tee">Trička</button></li>
+                <li><button class="filter-btn" data-filter="shorts">Šortky</button></li>
+                <li><button class="filter-btn" data-filter="hat">Čepice</button></li>
+              </ul>
+            </div>
+            <div class="filter-group">
+              <h3 class="filter-group-title">Seřadit</h3>
+              <ul class="filter-list" role="list">
+                <li><button class="filter-btn active" data-sort="default">Výchozí</button></li>
+                <li><button class="filter-btn" data-sort="price-asc">Cena ↑</button></li>
+                <li><button class="filter-btn" data-sort="price-desc">Cena ↓</button></li>
+              </ul>
+            </div>
+          </div>
+        </aside>
+
+        
+        <div class="products-main">
+          <div class="products-count" aria-live="polite">
+            <span id="products-count">8</span> produktů
+          </div>
+
+          <div class="products-grid products-grid--full" id="products-grid" aria-label="Výpis produktů">
+
+            
+            <article class="product-card reveal visible" data-category="hoodie" data-price="1490" style="transition-delay: 0s;">
+              <a href="detail.html" class="product-card-img-wrap" aria-label="Zip Hoodie Onyx – detail">
+                <div class="product-card-img">
+                <img src="../assets/d3af8ae62a5f4427.jpg" alt="Produktová fotografie">
+              </div>
+                <div class="product-card-overlay"><span>Rychlý náhled</span></div>
+                <span class="product-badge">Bestseller</span>
+              </a>
+              <div class="product-card-info">
+                <h3 class="product-card-name">Zip Hoodie</h3>
+                <p class="product-card-color">Onyx</p>
+                <p class="product-card-price">1 490 Kč</p>
+              </div>
+            </article>
+
+            
+            <article class="product-card reveal visible" data-category="tee" data-price="890" style="transition-delay: 0.07s;">
+              <a href="detail.html" class="product-card-img-wrap" aria-label="Classic Tee – detail">
+                <div class="product-card-img">
+                <img src="../assets/d3af8ae62a5f4427.jpg" alt="Produktová fotografie">
+              </div>
+                <div class="product-card-overlay"><span>Rychlý náhled</span></div>
+              </a>
+              <div class="product-card-info">
+                <h3 class="product-card-name">Classic Tee</h3>
+                <p class="product-card-color">Cobalt Blue</p>
+                <p class="product-card-price">890 Kč</p>
+              </div>
+            </article>
+
+            
+            <article class="product-card reveal visible" data-category="shorts" data-price="790" style="transition-delay: 0.14s;">
+              <a href="detail.html" class="product-card-img-wrap" aria-label="Cargo Shorts – detail">
+                <div class="product-card-img">
+                <img src="../assets/d3af8ae62a5f4427.jpg" alt="Produktová fotografie">
+              </div>
+                <div class="product-card-overlay"><span>Rychlý náhled</span></div>
+                <span class="product-badge product-badge--new">Nové</span>
+              </a>
+              <div class="product-card-info">
+                <h3 class="product-card-name">Cargo Shorts</h3>
+                <p class="product-card-color">Sand</p>
+                <p class="product-card-price">790 Kč</p>
+              </div>
+            </article>
+
+            
+            <article class="product-card reveal visible" data-category="hat" data-price="490" style="transition-delay: 0.21s;">
+              <a href="detail.html" class="product-card-img-wrap" aria-label="Bucket Hat – detail">
+                <div class="product-card-img">
+                <img src="../assets/d3af8ae62a5f4427.jpg" alt="Produktová fotografie">
+              </div>
+                <div class="product-card-overlay"><span>Rychlý náhled</span></div>
+              </a>
+              <div class="product-card-info">
+                <h3 class="product-card-name">Bucket Hat</h3>
+                <p class="product-card-color">Blue Slate</p>
+                <p class="product-card-price">490 Kč</p>
+              </div>
+            </article>
+
+            
+            <article class="product-card reveal visible" data-category="hoodie" data-price="1290" style="transition-delay: 0s;">
+              <a href="detail.html" class="product-card-img-wrap" aria-label="Desert Hoodie – detail">
+                <div class="product-card-img">
+                <img src="../assets/d3af8ae62a5f4427.jpg" alt="Produktová fotografie">
+              </div>
+                <div class="product-card-overlay"><span>Rychlý náhled</span></div>
+              </a>
+              <div class="product-card-info">
+                <h3 class="product-card-name">Desert Hoodie</h3>
+                <p class="product-card-color">Camel</p>
+                <p class="product-card-price">1 290 Kč</p>
+              </div>
+            </article>
+
+            
+            <article class="product-card reveal visible" data-category="tee" data-price="790" style="transition-delay: 0.07s;">
+              <a href="detail.html" class="product-card-img-wrap" aria-label="Light Wash Tee – detail">
+                <div class="product-card-img">
+                <img src="../assets/d3af8ae62a5f4427.jpg" alt="Produktová fotografie">
+              </div>
+                <div class="product-card-overlay"><span>Rychlý náhled</span></div>
+              </a>
+              <div class="product-card-info">
+                <h3 class="product-card-name">Light Wash Tee</h3>
+                <p class="product-card-color">Sky Blue</p>
+                <p class="product-card-price">790 Kč</p>
+              </div>
+            </article>
+
+            
+            <article class="product-card reveal visible" data-category="shorts" data-price="1190" style="transition-delay: 0.14s;">
+              <a href="detail.html" class="product-card-img-wrap" aria-label="Slim Denim – detail">
+                <div class="product-card-img">
+                <img src="../assets/d3af8ae62a5f4427.jpg" alt="Produktová fotografie">
+              </div>
+                <div class="product-card-overlay"><span>Rychlý náhled</span></div>
+              </a>
+              <div class="product-card-info">
+                <h3 class="product-card-name">Slim Denim</h3>
+                <p class="product-card-color">Indigo</p>
+                <p class="product-card-price">1 190 Kč</p>
+              </div>
+            </article>
+
+            
+            <article class="product-card reveal visible" data-category="hat" data-price="590" style="transition-delay: 0.21s;">
+              <a href="detail.html" class="product-card-img-wrap" aria-label="Snapback Cap – detail">
+                <div class="product-card-img">
+                <img src="../assets/d3af8ae62a5f4427.jpg" alt="Produktová fotografie">
+              </div>
+                <div class="product-card-overlay"><span>Rychlý náhled</span></div>
+              </a>
+              <div class="product-card-info">
+                <h3 class="product-card-name">Snapback Cap</h3>
+                <p class="product-card-color">Navy</p>
+                <p class="product-card-price">590 Kč</p>
+              </div>
+            </article>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  
+  <footer class="footer" aria-label="Zápatí stránky">
+    <div class="footer-grid">
+      <div class="footer-brand reveal" style="transition-delay: 0s;">
+        <a href="index.html" class="footer-logo">ZYNTHA</a>
+        <p class="footer-tagline">Prémiové streetwear pro každodenní styl.</p>
+      </div>
+      <nav class="footer-nav reveal" aria-label="Produkty" style="transition-delay: 0.07s;">
+        <h3 class="footer-nav-title">Produkty</h3>
+        <ul role="list">
+          <li><a href="products.html">Hoodies</a></li>
+          <li><a href="products.html">Trička</a></li>
+          <li><a href="products.html">Šortky</a></li>
+          <li><a href="products.html">Čepice</a></li>
+        </ul>
+      </nav>
+      <nav class="footer-nav reveal" aria-label="Zákaznická podpora" style="transition-delay: 0.14s;">
+        <h3 class="footer-nav-title">Zákaznická péče</h3>
+        <ul role="list">
+          <li><a href="contact.html">Kontakt</a></li>
+          <li><a href="#">Vrácení zboží</a></li>
+          <li><a href="#">Doprava</a></li>
+          <li><a href="#">FAQ</a></li>
+        </ul>
+      </nav>
+      <nav class="footer-nav reveal" aria-label="Sledujte nás" style="transition-delay: 0.21s;">
+        <h3 class="footer-nav-title">Sledujte nás</h3>
+        <ul role="list">
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">TikTok</a></li>
+          <li><a href="#">Pinterest</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 ZYNTHA. Všechna práva vyhrazena.</p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script src="../assets/f2fb98afc089e9fc.js"></script>
+
+
+
+
+
+</body></html>

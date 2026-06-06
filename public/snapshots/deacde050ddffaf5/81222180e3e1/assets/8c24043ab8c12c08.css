@@ -1,0 +1,35 @@
+.Button--Registration{
+    background-color: var(--Button-Color-Light);
+display: block;
+max-width: 360px;
+padding: 16px 32px;
+text-align: center;
+gap: 10px;
+border-radius: 1rem;
+text-decoration: none;
+color: var(--Text-Color-Light);
+}
+.LarpCard {
+    border-radius: 1rem;
+    display: flex;
+    width: 100%;
+    max-width: 360px;
+    flex-direction: column;
+    align-items: center;
+    gap: 21px;
+    background-color: var(--CardBackground-Color);
+    border-bottom: 8px solid var(--dark-red, #9A1313);
+}
+.LarpCardGroup {
+    display: grid;
+    gap: 48px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 360px));
+    justify-content: center;
+}
+.Main--Larpy{
+    display: flex;
+    padding-top: 32px;
+    flex-direction: column;
+    align-items: Center;
+    align-self: stretch;
+    background-color: var(--Background-Color);}

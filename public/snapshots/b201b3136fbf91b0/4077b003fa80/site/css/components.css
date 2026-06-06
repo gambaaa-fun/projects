@@ -1,0 +1,1094 @@
+@layer components {
+
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        scroll-behavior: smooth;
+    }
+
+    main>section {
+        margin-bottom: 4.375rem;
+    }
+
+    .menu-toggle {
+        display: flex;
+        flex-direction: column;
+        gap: 0.375rem;
+        cursor: pointer;
+        background: none;
+        border: none;
+        transition: transform 0.2s ease;
+    }
+
+    .menu-bar {
+        width: 1.875rem;
+        height: 0.1875rem;
+        background-color: var(--clr-white);
+        border-radius: 0.1875rem;
+        box-shadow: 0 0 0.3125rem rgba(255, 255, 255, 0.5);
+    }
+
+    .hero-sekce {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 3.75rem;
+    }
+
+    .hero-bila-cast {
+        background-color: var(--clr-white);
+        position: relative;
+        padding-top: 1.25rem;
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-end;
+        padding-right: 0.9375rem;
+    }
+
+    .hero-bg-grafika {
+        position: absolute;
+        top: 0;
+        left: 0;
+        max-width: 20rem;
+        height: 100%;
+        max-height: 18.125rem;
+        z-index: 1;
+        opacity: 0.8;
+        mix-blend-mode: multiply;
+    }
+
+    .bg-orel-foto {
+        width: 100%;
+        height: 100%;
+        display: block;
+        margin: 0;
+        padding: 0;
+        object-fit: contain;
+        object-position: left center;
+    }
+
+    .hero-foto-container {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        justify-content: flex-end;
+        max-height: 16.875rem;
+        filter: drop-shadow(-0.625rem 0.625rem 1.25rem rgba(0, 29, 74, 0.2));
+    }
+
+    .hero-hrac-foto {
+        display: block;
+        max-height: 16.875rem;
+        margin-bottom: -2.1875rem;
+        position: relative;
+        z-index: 4;
+    }
+
+    .hero-spodek-navy {
+        background: linear-gradient(135deg, var(--clr-navy) 0%, #051630 100%);
+        color: var(--clr-white);
+        position: relative;
+        z-index: 3;
+        padding-top: 3.75rem;
+        padding-bottom: 3.125rem;
+        border-top-left-radius: 50% 1.5625rem;
+        border-top-right-radius: 50% 1.5625rem;
+        box-shadow: 0 -0.625rem 1.875rem rgba(0, 0, 0, 0.15);
+    }
+
+    .hero-obsah-layout {
+        display: flex;
+        flex-direction: column;
+        gap: 1.875rem;
+    }
+
+    .hero-sekce h1 {
+        font-size: clamp(2rem, 10vw, 4rem);
+        white-space: nowrap;
+        text-transform: uppercase;
+        text-align: center;
+        line-height: 1;
+        font-family: var(--font-heading);
+        letter-spacing: 0.08em;
+        text-shadow: 0 0.25rem 0.9375rem rgba(0, 0, 0, 0.3);
+    }
+
+    .hero-karty-box {
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+    }
+
+    .hero-karta {
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(0.75rem);
+        -webkit-backdrop-filter: blur(0.75rem);
+        border-radius: 1.25rem;
+        padding: 1.5rem;
+        border: 0.0625rem solid rgba(0, 255, 255, 0.15);
+        border-top: 0.0625rem solid rgba(255, 255, 255, 0.15);
+        box-shadow: 0 0.9375rem 2.1875rem rgba(0, 0, 0, 0.2);
+    }
+
+    .karta-nadpis-box {
+        display: flex;
+        align-items: center;
+        margin-bottom: 0.75rem;
+    }
+
+    .hero-karta h3 {
+        position: relative;
+        font-size: 1.375rem;
+        color: var(--clr-cyan);
+        font-family: var(--font-heading);
+        text-shadow: 0 0 0.625rem rgba(0, 255, 255, 0.2);
+    }
+
+    .hero-karta h3::before {
+        content: '';
+        display: inline-block;
+        width: 0.375rem;
+        height: 1.5rem;
+        background-color: var(--clr-cyan);
+        border-radius: 0.25rem;
+        box-shadow: 0 0 0.75rem var(--clr-cyan), 0 0 1.5rem rgba(0, 255, 255, 0.4);
+        margin-right: 0.875rem;
+        vertical-align: middle;
+    }
+
+    .hero-karta p {
+        font-size: 0.9375rem;
+        color: rgba(255, 255, 255, 0.85);
+        line-height: 1.7;
+    }
+
+    .tlacitko-odkaz {
+        display: inline-block;
+        margin-top: 1rem;
+        padding: 0.875rem 1.75rem;
+        background: rgba(0, 255, 255, 0.05);
+        border: 0.0625rem solid var(--clr-cyan);
+        border-radius: 3.125rem;
+        color: var(--clr-cyan);
+        font-family: var(--font-heading);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        font-size: 0.875rem;
+        box-shadow: 0 0 0.9375rem rgba(0, 255, 255, 0.1);
+        transition: all 0.3s ease;
+    }
+
+    .tlacitko-odkaz:hover {
+        background-color: var(--clr-cyan);
+        color: var(--clr-navy);
+        box-shadow: 0 0 1.5625rem rgba(0, 255, 255, 0.4);
+    }
+
+    .tlacitko-dark {
+        border-color: var(--clr-navy);
+        color: var(--clr-navy);
+        box-shadow: none;
+        background: transparent;
+    }
+
+    .tlacitko-dark:hover {
+        background-color: var(--clr-navy);
+        color: var(--clr-white);
+        box-shadow: 0 0.625rem 1.25rem rgba(0, 29, 74, 0.2);
+    }
+
+    .btn-center {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: fit-content;
+        margin-top: 1.875rem;
+    }
+
+    .sekce-hlavicka {
+        display: flex;
+        align-items: center;
+        margin-bottom: 2.8125rem;
+    }
+
+    .sekce-hlavicka h2 {
+        font-size: 2.25rem;
+        color: var(--clr-navy);
+        font-family: var(--font-heading);
+        text-transform: uppercase;
+        letter-spacing: 0.02em;
+    }
+
+    .sekce-hlavicka h2::before {
+        content: '';
+        display: inline-block;
+        width: 0.625rem;
+        height: 3.375rem;
+        background-color: var(--clr-cyan);
+        border-radius: 0.3125rem;
+        box-shadow: 0 0 0.9375rem var(--clr-cyan), 0 0 1.875rem rgba(0, 255, 255, 0.3);
+        margin-right: 1rem;
+        vertical-align: middle;
+    }
+
+    .sekce-hlavicka-bila h2 {
+        color: var(--clr-white);
+    }
+
+    .hodnoty-sekce {
+        padding-top: 2.5rem;
+        padding-bottom: 2.5rem;
+        background: linear-gradient(180deg, #ffffff 0%, #f4f7f9 100%);
+        position: relative;
+    }
+
+    .hodnoty-list {
+        display: flex;
+        flex-direction: column;
+        gap: 3.75rem;
+        padding: 0 1rem;
+    }
+
+    .hodnota-item {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .hodnota-foto-wrapper {
+        position: relative;
+    }
+
+    .wrapper-left,
+    .text-pad-left {
+        padding-left: 1.25rem;
+    }
+
+    .wrapper-right,
+    .text-pad-right {
+        padding-right: 1.25rem;
+    }
+
+    .wrapper-left::before {
+        content: '';
+        position: absolute;
+        top: 10%;
+        left: -0.1875rem;
+        height: 80%;
+        width: 0.375rem;
+        background-color: var(--clr-cyan);
+        border-radius: 0.25rem;
+        box-shadow: 0 0 0.9375rem var(--clr-cyan);
+        z-index: 5;
+    }
+
+    .wrapper-right::before {
+        content: '';
+        position: absolute;
+        top: 10%;
+        right: -0.1875rem;
+        height: 80%;
+        width: 0.375rem;
+        background-color: var(--clr-cyan);
+        border-radius: 0.25rem;
+        box-shadow: 0 0 0.9375rem var(--clr-cyan);
+        z-index: 5;
+    }
+
+    .hodnota-foto-obal {
+        position: relative;
+        aspect-ratio: 16 / 9;
+        border-radius: 1.25rem;
+        overflow: hidden;
+        box-shadow: 0 0.9375rem 2.1875rem rgba(0, 29, 74, 0.12);
+        background-color: var(--clr-navy);
+        transform: translateZ(0);
+    }
+
+    .hodnota-foto-obal::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to top, rgba(0, 29, 74, 0.3) 0%, transparent 40%);
+        pointer-events: none;
+    }
+
+    .stinovana-foto {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center top;
+        display: block;
+        margin: 0;
+        padding: 0;
+        transform: scale(1.18) translateY(-2%);
+    }
+
+    .hodnota-text-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 0.9375rem;
+        padding-top: 0.625rem;
+    }
+
+    .hodnota-text-row h3 {
+        flex: 0 0 6.875rem;
+        font-family: var(--font-heading);
+        font-size: 1.125rem;
+        color: var(--clr-navy);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        line-height: 1.1;
+    }
+
+    .hodnota-text-row p {
+        flex: 1;
+        font-family: var(--font-body);
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: rgba(0, 29, 74, 0.75);
+        line-height: 1.5;
+    }
+
+    .hodnoty-logo-box,
+    .hodnoty-cta-box {
+        display: flex;
+        justify-content: center;
+        padding-top: 1.25rem;
+    }
+
+    .patka-sekce-logo {
+        opacity: 0.8;
+    }
+
+    .cta-karta {
+        background: linear-gradient(135deg, var(--clr-navy) 0%, #061e42 100%);
+        color: var(--clr-white);
+        border-radius: 1.5rem;
+        padding: 1.5rem;
+        max-width: 20rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+        box-shadow: 0 1.25rem 2.5rem rgba(0, 29, 74, 0.25);
+        border: 0.0625rem solid rgba(0, 255, 255, 0.1);
+    }
+
+    .cta-nadpis-box {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+    }
+
+    .cta-titulky {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .cta-titulky h3 {
+        position: relative;
+        font-size: 1.125rem;
+        font-family: var(--font-heading);
+        text-transform: uppercase;
+        line-height: 1.1;
+    }
+
+    .cta-titulky h3::before {
+        content: '';
+        display: inline-block;
+        width: 0.375rem;
+        height: 3.25rem;
+        background-color: var(--clr-cyan);
+        border-radius: 0.1875rem;
+        box-shadow: 0 0 0.75rem var(--clr-cyan);
+        margin-right: 1rem;
+        vertical-align: middle;
+    }
+
+    .cta-titulky p {
+        font-size: 0.75rem;
+        color: var(--clr-cyan);
+        text-transform: uppercase;
+        font-weight: 700;
+        line-height: 1.1;
+        margin-top: 0.375rem;
+        padding-left: 1.375rem;
+    }
+
+    .cta-button {
+        display: block;
+        text-align: center;
+        background: rgba(0, 255, 255, 0.05);
+        border: 0.0625rem solid var(--clr-cyan);
+        border-radius: 3.125rem;
+        padding: 0.75rem;
+        color: var(--clr-cyan);
+        font-family: var(--font-heading);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        font-size: 0.9375rem;
+        transition: all 0.3s ease;
+        box-shadow: 0 0 0.9375rem rgba(0, 255, 255, 0.05);
+    }
+
+    .cta-button:hover {
+        background-color: var(--clr-cyan);
+        color: var(--clr-navy);
+        box-shadow: 0 0 1.25rem rgba(0, 255, 255, 0.3);
+    }
+
+    .hrace-vedeni-sekce {
+        background-color: var(--clr-gray-bg);
+        padding-top: 5rem;
+        padding-bottom: 5rem;
+    }
+
+    .hrace-vedeni-layout {
+        display: flex;
+        flex-direction: column;
+        gap: 3.75rem;
+    }
+
+    .hrace-cast {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .vedeni-karty {
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+    }
+
+    .vedeni-karta {
+        background-color: var(--clr-white);
+        border-radius: 1.25rem;
+        padding: 1.25rem 1.5rem;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 1.25rem;
+        box-shadow: 0 0.625rem 1.875rem rgba(0, 29, 74, 0.05);
+    }
+
+    .vedeni-karta h3 {
+        font-family: var(--font-heading);
+        font-size: 1.25rem;
+        text-transform: uppercase;
+        color: var(--clr-navy);
+    }
+
+    .vedeni-role {
+        color: var(--clr-cyan);
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        display: block;
+        margin-bottom: 0.75rem;
+        letter-spacing: 0.05em;
+    }
+
+    .vedeni-info-blok {
+        font-size: 0.8125rem;
+        color: rgba(0, 29, 74, 0.7);
+        line-height: 1.6;
+        margin-bottom: 0.5rem;
+    }
+
+    .vedeni-info-blok strong {
+        display: block;
+    }
+
+    .vedeni-info-blok span {
+        display: block;
+    }
+
+    .vedeni-karta-foto {
+        border-radius: 50%;
+        overflow: hidden;
+        align-self: center;
+        box-shadow: 0 0.3125rem 0.9375rem rgba(0, 29, 74, 0.1);
+    }
+
+    .vedeni-karta-foto img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        margin: 0;
+        padding: 0;
+    }
+
+    .hrac-slider-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        justify-content: center;
+        margin-top: 0.625rem;
+    }
+
+    .slider-btn {
+        background-color: var(--clr-white);
+        border: 0.0625rem solid rgba(0, 29, 74, 0.1);
+        color: var(--clr-navy);
+        width: 2.75rem;
+        height: 2.75rem;
+        border-radius: 50%;
+        font-size: 1.5rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 0.3125rem 0.9375rem rgba(0, 0, 0, 0.05);
+        transition: all 0.2s ease;
+    }
+
+    .slider-btn:hover {
+        background-color: var(--clr-navy);
+        color: var(--clr-cyan);
+        border-color: var(--clr-navy);
+    }
+
+    .hrac-karta-velka {
+        transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    .hrac-karta-bg {
+        background: linear-gradient(160deg, var(--clr-navy) 0%, #031024 100%);
+        border-radius: 1.5rem;
+        border: 0.0625rem solid rgba(0, 255, 255, 0.3);
+        border-top: 0.0625rem solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 1.25rem 2.5rem rgba(0, 29, 74, 0.4), inset 0 0 1.25rem rgba(0, 255, 255, 0.05);
+        padding: 1.25rem;
+        max-width: 15.625rem;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .fifa-top-meta {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        align-items: flex-start;
+        position: relative;
+        z-index: 3;
+    }
+
+    .fifa-stat-col {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        line-height: 1;
+    }
+
+    .hrac-cislo {
+        font-family: var(--font-heading);
+        font-size: 3.25rem;
+        color: var(--clr-white);
+        line-height: 0.9;
+        text-shadow: 0 0.25rem 0.9375rem rgba(0, 255, 255, 0.4);
+    }
+
+    .hrac-pozice {
+        font-family: var(--font-heading);
+        font-size: 0.9375rem;
+        color: var(--clr-cyan);
+        letter-spacing: 0.05em;
+        margin-top: 0.25rem;
+    }
+
+    .hrac-karta-logo {
+        opacity: 0.9;
+    }
+
+    .fifa-foto-box {
+        height: 11.875rem;
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        position: relative;
+        margin-top: -0.625rem;
+        z-index: 2;
+    }
+
+    .fifa-foto-box::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        width: 90%;
+        height: 0.0625rem;
+        background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.5), transparent);
+    }
+
+    .hrac-karta-foto {
+        object-fit: contain;
+        display: block;
+        margin: 0;
+        padding: 0;
+        filter: drop-shadow(0 0.625rem 0.9375rem rgba(0, 0, 0, 0.4));
+    }
+
+    .hrac-karta-jmeno {
+        font-family: var(--font-heading);
+        font-size: 1.5rem;
+        color: var(--clr-white);
+        text-transform: uppercase;
+        text-align: center;
+        padding-top: 0.9375rem;
+        letter-spacing: 0.03em;
+    }
+
+    .hrac-karta-info {
+        display: flex;
+        gap: 0.625rem;
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: var(--clr-cyan);
+        padding: 0.375rem 0 0 0;
+        justify-content: center;
+        letter-spacing: 0.08em;
+    }
+
+    .info-divider {
+        opacity: 0.3;
+        color: var(--clr-white);
+    }
+
+    .zapasy-sekce {
+        background-color: var(--clr-navy);
+        background-image: radial-gradient(circle at top right, rgba(0, 255, 255, 0.05) 0%, transparent 50%);
+        padding-top: 5rem;
+        padding-bottom: 5rem;
+        color: var(--clr-white);
+    }
+
+    .zapasy-scroll {
+        display: flex;
+        gap: 1.25rem;
+        overflow-x: auto;
+        padding: 0.625rem 0.625rem 1.875rem 0.625rem;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .zapasy-scroll::-webkit-scrollbar {
+        height: 0.375rem;
+    }
+
+    .zapasy-scroll::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 0.1875rem;
+    }
+
+    .zapasy-scroll::-webkit-scrollbar-thumb {
+        background: var(--clr-cyan);
+        border-radius: 0.1875rem;
+    }
+
+    .zapas-karta {
+        background: linear-gradient(145deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.01) 100%);
+        backdrop-filter: blur(0.625rem);
+        border-radius: 1.25rem;
+        padding: 1.75rem;
+        min-width: 18.75rem;
+        max-width: 20rem;
+        flex-shrink: 0;
+        scroll-snap-align: start;
+        border: 0.0625rem solid rgba(0, 255, 255, 0.1);
+        border-top: 0.0625rem solid rgba(255, 255, 255, 0.15);
+        box-shadow: 0 0.9375rem 2.1875rem rgba(0, 0, 0, 0.3);
+        display: grid;
+        grid-template-columns: 5.3125rem 1fr;
+        gap: 1.5rem;
+        align-items: center;
+    }
+
+    .zapas-datum-box {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border-right: 0.0625rem solid rgba(255, 255, 255, 0.1);
+        padding-right: 1.25rem;
+        text-align: center;
+    }
+
+    .zapas-den {
+        font-size: 0.8125rem;
+        color: rgba(255, 255, 255, 0.5);
+        text-transform: uppercase;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+    }
+
+    .zapas-d {
+        font-family: var(--font-heading);
+        font-size: 2rem;
+        color: var(--clr-white);
+        line-height: 1.1;
+        margin: 0.25rem 0;
+        text-shadow: 0 0.125rem 0.625rem rgba(0, 0, 0, 0.5);
+    }
+
+    .zapas-cas {
+        font-size: 0.8125rem;
+        color: var(--clr-cyan);
+        font-weight: 700;
+        background-color: rgba(0, 255, 255, 0.1);
+        padding: 0.25rem 0.625rem;
+        border-radius: 0.375rem;
+    }
+
+    .zapas-tymy-box {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .zapas-tym-radek {
+        display: flex;
+        align-items: center;
+    }
+
+    .tym-nazev {
+        position: relative;
+        font-size: 1rem;
+        font-weight: 600;
+        color: var(--clr-white);
+        letter-spacing: 0.02em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .tym-nazev::before {
+        content: '';
+        display: inline-block;
+        width: 0.25rem;
+        height: 1rem;
+        background-color: var(--clr-cyan);
+        border-radius: 0.125rem;
+        box-shadow: 0 0 0.625rem var(--clr-cyan);
+        margin-right: 0.625rem;
+        vertical-align: middle;
+    }
+
+    .zapas-vs-badge {
+        font-family: var(--font-heading);
+        font-size: 0.75rem;
+        color: var(--clr-cyan);
+        letter-spacing: 0.1em;
+        padding-left: 0.875rem;
+        position: relative;
+    }
+
+    .zapas-vs-badge::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 50%;
+        width: 0.5rem;
+        height: 0.0625rem;
+        background-color: var(--clr-cyan);
+        opacity: 0.5;
+    }
+
+    .vysledky-odkaz-box {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 1rem;
+        margin-top: 3.125rem;
+    }
+
+    .vysledky-odkaz-text h3 {
+        font-family: var(--font-heading);
+        font-size: 1.75rem;
+        color: var(--clr-white);
+        text-transform: uppercase;
+        letter-spacing: 0.02em;
+    }
+
+    .vysledky-odkaz-text p {
+        font-size: 0.9375rem;
+        color: rgba(255, 255, 255, 0.6);
+        margin-top: 0.25rem;
+    }
+
+    .hlavni-patka {
+        background-color: var(--clr-navy);
+        color: var(--clr-white);
+        padding-top: 5rem;
+        padding-bottom: 2.5rem;
+        position: relative;
+        margin-top: 3.75rem;
+        border-top: 0.0625rem solid rgba(255, 255, 255, 0.05);
+    }
+
+    .patka-graphics {
+        position: absolute;
+        top: -3.75rem;
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: space-between;
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+        pointer-events: none;
+    }
+
+    .patka-branka {
+        filter: drop-shadow(0 0.625rem 0.9375rem rgba(0, 0, 0, 0.2));
+        display: block;
+        margin: 0;
+        padding: 0;
+    }
+
+    .patka-hrac {
+        filter: drop-shadow(0 0.625rem 0.9375rem rgba(0, 0, 0, 0.2));
+        display: block;
+        margin: 0;
+        padding: 0;
+    }
+
+    .patka-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 2.5rem;
+    }
+
+    .patka-sloupec h3 {
+        font-family: var(--font-heading);
+        font-size: 1.375rem;
+        text-transform: uppercase;
+        margin-bottom: 1rem;
+        color: var(--clr-white);
+        letter-spacing: 0.02em;
+    }
+
+    .patka-sloupec p {
+        font-size: 0.875rem;
+        color: rgba(255, 255, 255, 0.6);
+        line-height: 1.8;
+    }
+
+    .patka-odkazy {
+        display: flex;
+        flex-direction: column;
+        gap: 0.625rem;
+    }
+
+    .patka-odkazy a {
+        display: inline-block;
+        font-size: 0.875rem;
+        color: rgba(255, 255, 255, 0.6);
+        transition: color 0.2s;
+    }
+
+    .patka-odkazy a:hover {
+        color: var(--clr-cyan);
+    }
+
+    .patka-logo {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        opacity: 0.8;
+        transition: opacity 0.3s ease;
+    }
+
+    .patka-logo:hover {
+        opacity: 1;
+    }
+
+    @media (min-width: 1024px) {
+        .hero-sekce {
+            flex-direction: row;
+            background-color: var(--clr-navy);
+            padding-top: 2.5rem;
+            padding-bottom: 2.5rem;
+        }
+
+        .hero-bila-cast {
+            background: none;
+            flex: 1;
+            order: 2;
+            padding: 0;
+        }
+
+        .hero-bg-grafika {
+            left: 50%;
+            max-width: 43.75rem;
+            max-height: none;
+            height: auto;
+        }
+
+        .hero-foto-container {
+            max-height: none;
+            align-items: flex-end;
+        }
+
+        .hero-hrac-foto {
+            max-height: none;
+            max-width: 85%;
+            margin-bottom: -2.5rem;
+            margin-left: auto;
+            margin-right: 0;
+        }
+
+        .hero-spodek-navy {
+            order: 1;
+            flex: 1;
+            background: none;
+            padding-top: 0;
+            padding-bottom: 0;
+            border-radius: 0;
+            box-shadow: none;
+        }
+
+        .hero-obsah-layout {
+            align-items: flex-start;
+        }
+
+        .hero-sekce h1 {
+            font-size: 6rem;
+            text-align: left;
+        }
+
+        .hero-karty-box {
+            flex-direction: row;
+        }
+
+        .hero-karta {
+            flex: 1;
+        }
+
+        .hrace-vedeni-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: start;
+            gap: 3.75rem;
+        }
+
+        .vedeni-karty {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.25rem;
+        }
+
+        .zapasy-sekce .container {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 3.125rem;
+            align-items: start;
+        }
+
+        .zapasy-scroll {
+            grid-column: 1 / -1;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.875rem;
+            overflow-x: visible;
+        }
+
+        .zapas-karta {
+            max-width: none;
+        }
+
+        .vysledky-odkaz-box {
+            grid-column: 1;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 0;
+        }
+
+        .hodnoty-list {
+            display: grid;
+            grid-template-columns: 1fr 1.25rem 1fr;
+            align-items: center;
+            row-gap: 3.75rem;
+        }
+
+        .hodnoty-list::before {
+            content: '';
+            grid-column: 2;
+            grid-row: 1 / span 3;
+            width: 0.375rem;
+            height: 100%;
+            background-color: var(--clr-cyan);
+            border-radius: 0.1875rem;
+            box-shadow: 0 0 1.25rem var(--clr-cyan);
+            justify-self: center;
+        }
+
+        .hodnota-item:nth-child(1) {
+            grid-column: 3;
+            grid-row: 1;
+        }
+
+        .hodnota-item:nth-child(2) {
+            grid-column: 1;
+            grid-row: 1;
+        }
+
+        .hodnota-item:nth-child(3) {
+            grid-column: 1;
+            grid-row: 2;
+        }
+
+        .hodnota-item:nth-child(4) {
+            grid-column: 3;
+            grid-row: 2;
+        }
+
+        .hodnoty-logo-box {
+            grid-column: 1;
+            grid-row: 3;
+            justify-content: flex-start;
+            margin-top: 0;
+        }
+
+        .hodnoty-cta-box {
+            grid-column: 3;
+            grid-row: 3;
+            justify-content: flex-end;
+            margin-top: 0;
+        }
+
+        .hodnota-text-row h3 {
+            font-size: 1.25rem;
+            flex: 0 0 8.75rem;
+        }
+
+        .hodnota-text-row p {
+            font-size: 0.9375rem;
+        }
+
+        .patka-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr auto;
+            align-items: start;
+            gap: 3.75rem;
+        }
+
+        .patka-logo {
+            margin-left: 0;
+            margin-right: 0;
+            max-width: 8.75rem;
+        }
+    }
+}

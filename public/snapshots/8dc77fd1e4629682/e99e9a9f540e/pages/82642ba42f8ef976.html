@@ -1,0 +1,85 @@
+<!DOCTYPE html><html lang="cs"><head>
+    <base href="../">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buldak Carbonara | Noodle Hub</title>
+    <meta name="description" content="Dokonalé spojení pálivosti a krémové sýrové omáčky. Nejoblíbenější varianta. Pálivost 3/10.">
+    <link rel="stylesheet" href="../assets/7b96214aa94d635e.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a class="brand" href="index.html"><i class="icon icon-bowl"></i> NOODLE HUB</a>
+            <div class="nav-right">
+                <input type="checkbox" id="menu-toggle" class="menu-toggle-checkbox" style="">
+                <label for="menu-toggle" class="menu-toggle-btn">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </label>
+                <div class="nav-links">
+                    <a href="index.html">Domů</a>
+                    <a href="products.html" class="active">Produkty</a>
+                </div>
+                <a href="cart.html" class="cart-link">
+                    <i class="icon icon-cart"></i>
+                    <span class="cart-badge" id="cart-count">0</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+    <div class="container py-5">
+        <div class="mb-4"><a href="products.html" class="text-muted">← Zpět na produkty</a></div>
+        <div class="product-detail animate-up">
+            <div class="product-detail-img">
+                <img src="https://samyangamerica.com/images/products/buldak-multi-carbonara.png" alt="Buldak Carbonara">
+            </div>
+            <div>
+                <div class="product-brand mb-2">Samyang</div>
+                <h1 class="mb-2">Buldak Carbonara</h1>
+                <div class="d-flex align-items-center gap-3 mb-4">
+                    <div class="text-accent-orange"><i class="icon icon-star"></i><i class="icon icon-star"></i><i class="icon icon-star"></i><i class="icon icon-star"></i><i class="icon icon-star"></i></div>
+                    <span class="text-muted">(214 recenzí)</span>
+                </div>
+                <h2 class="text-primary mb-4" style="font-size:2.5rem;">155 Kč</h2>
+                <p class="text-muted mb-5 text-lg">Dokonalé spojení pálivosti a krémové sýrové omáčky. Nejoblíbenější varianta.</p>
+                <div class="product-features">
+                    <div class="feature-box"><i class="icon icon-fire text-primary mb-2" style="font-size:1.5rem;"></i><div class="small text-muted">Pálivost</div><div class="fw-bold">3/10</div></div>
+                    <div class="feature-box"><i class="icon icon-bowl text-primary mb-2" style="font-size:1.5rem;"></i><div class="small text-muted">Původ</div><div class="fw-bold">Jižní Korea</div></div>
+                    <div class="feature-box"><i class="icon icon-star text-primary mb-2" style="font-size:1.5rem;"></i><div class="small text-muted">Příprava</div><div class="fw-bold">5 min</div></div>
+                </div>
+                <div class="add-to-cart-wrapper">
+                    <input type="number" id="detail-qty" class="qty-input" value="1" min="1" max="99" style="">
+                    <button class="btn btn-primary" style="flex-grow:1;" id="detail-add-to-cart" data-id="2" data-title="Buldak Carbonara" data-price="155" data-img="https://samyangamerica.com/images/products/buldak-multi-carbonara.png">
+                        Přidat do košíku
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="mt-5 pt-5" style="border-top:1px solid var(--glass-border);">
+            <h3 class="mb-4">Recenze zákazníků</h3>
+            <div class="feature-box" style="text-align:left;max-width:600px;">
+                <div class="d-flex justify-content-between mb-2"><h5 class="mb-0">Lucie K.</h5><span class="text-muted small">před 2 dny</span></div>
+                <div class="text-accent-orange small mb-2"><i class="icon icon-star"></i><i class="icon icon-star"></i><i class="icon icon-star"></i><i class="icon icon-star"></i><i class="icon icon-star"></i></div>
+                <p class="mb-0 text-muted">Nejlepší verze Buldaku. Není to takový extrém a ta smetanová chuť je boží!</p>
+            </div>
+        </div>
+    </div>
+    <footer><div class="container text-center"><p class="text-muted small">© 2026 Noodle Hub. Všechna práva vyhrazena.</p></div></footer>
+    <script src="../assets/e0fcb46507e7a0b2.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const btn = document.getElementById('detail-add-to-cart');
+            if (btn && typeof addToCart === 'function') {
+                btn.addEventListener('click', () => {
+                    const qty = parseInt(document.getElementById('detail-qty').value) || 1;
+                    addToCart({ id: btn.dataset.id, title: btn.dataset.title, price: parseInt(btn.dataset.price), img: btn.dataset.img, qty });
+                    const orig = btn.innerHTML; btn.innerHTML = 'Přidáno do košíku!'; btn.style.backgroundColor = '#28a745';
+                    setTimeout(() => { btn.innerHTML = orig; btn.style.backgroundColor = ''; }, 1500);
+                });
+            }
+        });
+    </script>
+
+
+</body></html>
