@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+    <base href="./">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bowling club Chrastava</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Bebas+Neue&family=Lato:wght@300;400;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="./bowling.html" class="nav-logo" style="text-decoration: none;">🎳 Bowling Club Chrastava</a>
+    
+    <!-- Tlačítko pro hamburger menu na mobilu -->
+    <button class="nav-toggle" id="navToggle" aria-label="Otevřít menu">
+      <span class="nav-toggle-text">Informace</span>
+      <div class="nav-toggle-icon">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </button>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#bowling">Bowling</a></li>
+      <li><a href="#kulecnik">Kulečník</a></li>
+      <li><a href="#sipky">Šipky</a></li>
+      <li><a href="#pivo">Pivo</a></li>
+      <li><a href="./otevíračka.html">Otevírací doba</a></li>
+      <li><a href="./rezervace.html">Rezervace</a></li>
+      <li class="nav-phone-mobile"><a href="tel:123456789">📞 123 456 789</a></li>
+    </ul>
+    <div class="nav-phone">📞 123 456 789</div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hero-deco left">🎳</div>
+    <div class="hero-deco right">🎯</div>
+
+    <div class="hero-badge">⭐ Sportbar &amp; Klub ⭐</div>
+
+
+    <h1>
+      <span>Bowling Club</span>
+      Chrastava
+    </h1>
+
+    <p class="hero-subtitle">🎳 Bowling &nbsp;·&nbsp; 🎱 Kulečník &nbsp;·&nbsp; 🎯 Šipky <br>🍺 Čepované
+      pivo na jednom místě.</p>
+
+    <div class="hero-phone-block">
+      <div class="hero-phone-label">Rezervace</div>
+      <div class="hero-phone-number">123 456 789</div>
+    </div>
+
+    <div class="hero-buttons">
+      <a href="./rezervace.html" class="btn-primary">🎳 Rezervovat online</a>
+      <a href="tel:605132083" class="btn-secondary">📞 Zavolat 123 456 789</a>
+    </div>
+
+    <div class="scroll-hint">▼</div>
+  </section>
+
+  <!-- BOWLING --->
+  <section id="bowling">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label">Naše atrakce</div>
+        <div class="section-title">🎳 Bowling</div>
+        <div class="section-divider"></div>
+      </div>
+      <div class="cards-grid">
+        <div class="card">
+          <span class="card-icon">🎳</span>
+          <div class="card-title">3 Bowlingové dráhy</div>
+          <p class="card-text">Profesionálně vybavené dráhy pro nezapomenutelný zážitek. Ať přijdete sami nebo ve
+            skupině, vždy si zahrajete.</p>
+          <span class="card-tag">K dispozici rezervace online</span>
+        </div>
+        <div class="card">
+          <span class="card-icon">👨‍👩‍👧‍👦</span>
+          <div class="card-title">Pro každou příležitost</div>
+          <p class="card-text">Partu přátel, rodinný výlet, oslava narozenin nebo firemní večírek — bowling zvládne
+            všechno a ještě přidá.</p>
+          <span class="card-tag">Skupinové rezervace vítány</span>
+        </div>
+        <div class="card">
+          <span class="card-icon">🏆</span>
+          <div class="card-title">Závodní atmosféra</div>
+          <p class="card-text">Moderní automatické bodování, výborná akustika a příjemná atmosféra sportbaru. Kdo dá
+            strike, vyhrává pivo zdarma.</p>
+          <span class="card-tag">Zábava zaručena</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KULECNIK + SIPKY -->
+  <section id="kulecnik">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label">Klub</div>
+        <div class="section-title">🎱 Kulečník &amp; 🎯 Šipky</div>
+        <div class="section-divider"></div>
+      </div>
+      <div class="cards-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
+        <div class="card" id="sipky">
+          <span class="card-icon">🎱</span>
+          <div class="card-title">Kulečník</div>
+          <p class="card-text">Zahrajte si kulečník v příjemném klubovém prostředí. Kvalitní stůl, tágo, křídy a dobrá
+            nálada jsou samozřejmostí.</p>
+          <span class="card-tag">Volný přístup během otevírací doby</span>
+        </div>
+        <div class="card">
+          <span class="card-icon">🎯</span>
+          <div class="card-title">Šipky</div>
+          <p class="card-text">Ideální zábava k pivu a večernímu posezení. Terč, šipky a dobrá společnost — recept na
+            skvělý večer je jednoduchý.</p>
+          <span class="card-tag">K pivu jako stvořené</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BEER -->
+  <section class="beer-section" id="pivo">
+    <div class="container">
+      <div class="beer-headline">
+        <small>🍺 Čerstvé na čepu 🍺</small>
+        Čepujeme<br>PIVO!
+      </div>
+      <p class="beer-sub">Studené čepované pivo a limonády ke každé hře &nbsp;·&nbsp; Přijďte si sednout, zahrát si a
+        napít se</p>
+    </div>
+  </section>
+
+  <!-- HODINY -->
+  <section id="hodiny">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label">Kdy nás najdete</div>
+        <div class="section-title">Otevírací doba</div>
+        <div class="section-divider"></div>
+      </div>
+      <div class="hours-table-wrap">
+        <table class="hours-table">
+          <tr class="closed-row">
+            <td class="day-name">Pondělí</td>
+            <td class="day-hours">ZAVŘENO</td>
+          </tr>
+          <tr>
+            <td class="day-name">Úterý</td>
+            <td class="day-hours">15:00 – 21:00</td>
+          </tr>
+          <tr>
+            <td class="day-name">Středa</td>
+            <td class="day-hours">15:00 – 21:00</td>
+          </tr>
+          <tr>
+            <td class="day-name">Čtvrtek</td>
+            <td class="day-hours">15:00 – 21:00</td>
+          </tr>
+          <tr class="highlight-row">
+            <td class="day-name">Pátek ✦</td>
+            <td class="day-hours">17:00 – 24:00</td>
+          </tr>
+          <tr class="highlight-row">
+            <td class="day-name">Sobota ✦</td>
+            <td class="day-hours">17:00 – 24:00</td>
+          </tr>
+          <tr>
+            <td class="day-name">Neděle</td>
+            <td class="day-hours">17:00 – 23:00</td>
+          </tr>
+        </table>
+        <div class="hours-note">
+          Pro jistotu volejte: <strong>123 456 789</strong><br>
+          <span style="font-size:0.8rem; margin-top:0.3rem; display:block;">✦ Pátek, sobota a neděle jsou naše hlavní
+            večerní dny</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REZERVACE -->
+  <section id="rezervace">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label">Online systém</div>
+        <div class="section-title">🎳 Rezervace dráhy</div>
+        <div class="section-divider"></div>
+      </div>
+
+      <div class="rezv-container">
+        <div class="rezv-steps">
+          <div class="rezv-step">
+            <div class="rezv-step-num">01</div>
+            <div class="rezv-step-label">Vyberte datum</div>
+          </div>
+          <div class="rezv-step">
+            <div class="rezv-step-num">02</div>
+            <div class="rezv-step-label">Zvolte dráhu &amp; čas</div>
+          </div>
+          <div class="rezv-step">
+            <div class="rezv-step-num">03</div>
+            <div class="rezv-step-label">Potvrďte rezervaci</div>
+          </div>
+        </div>
+
+        <div class="form-card">
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>📅 Datum</label>
+              <input type="date" id="res-date" min="">
+            </div>
+            <div class="form-group">
+              <label>🎳 Dráha</label>
+              <select id="res-lane">
+                <option value="">-- Vyberte dráhu --</option>
+                <option value="1">Dráha 1</option>
+                <option value="2">Dráha 2</option>
+                <option value="3">Dráha 3</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group" style="margin-bottom:1rem;">
+            <label>🕐 Dostupné časy</label>
+            <div class="legend">
+              <span class="legend-item"><span class="legend-dot free"></span>Volný</span>
+              <span class="legend-item"><span class="legend-dot taken"></span>Obsazený</span>
+              <span class="legend-item"><span class="legend-dot sel"></span>Vybraný</span>
+            </div>
+            <div class="time-slots" id="time-slots">
+              <span
+                style="color:var(--text-dim); font-family:'Oswald',sans-serif; font-size:0.85rem; letter-spacing:1px;">Nejprve
+                vyberte datum a dráhu.</span>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>👤 Vaše jméno</label>
+              <input type="text" id="res-name" placeholder="Jan Novák">
+            </div>
+            <div class="form-group">
+              <label>📞 Telefon</label>
+              <input type="tel" id="res-phone" placeholder="+420 000 000 000">
+            </div>
+          </div>
+
+          <div class="form-submit-row">
+            <button class="btn-submit" onclick="submitReservation()">Potvrdit rezervaci</button>
+            <div class="form-phone-note">
+              Pro jistotu volejte:<br><strong>123 456 789</strong>
+            </div>
+          </div>
+
+          <div id="form-result"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">🎳 Bowling Club Chrastava</div>
+    <div class="footer-tagline">Bowling · Kulečník · Šipky · Čepované pivo</div>
+    <div class="footer-icons">🎳 🎱 🎯 🍺</div>
+    <div>
+      <a href="tel:605132083"
+        style="color:var(--gold); font-family:'Bebas Neue',sans-serif; font-size:1.5rem; letter-spacing:3px; text-decoration:none; text-shadow: 0 0 10px rgba(245,197,24,0.4);">📞
+        123 456 789</a>
+    </div>
+    <div class="footer-bottom">
+      © 2025 Bowling Club Chrastava &nbsp;·&nbsp; Chrastava
+    </div>
+  </footer>
+
+  <script>
+    // === SET MIN DATE ===
+    const dateInput = document.getElementById('res-date');
+    const today = new Date();
+    dateInput.min = today.toISOString().split('T')[0];
+
+    // === RESERVATIONS STORAGE (in-memory) ===
+    // Format: reservations[date][lane][time] = name
+    const reservations = {};
+
+    // Pre-populate a few fake taken slots for realism
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    const t = tomorrow.toISOString().split('T')[0];
+    reservations[t] = { '1': { '15:00': 'Demo', '17:00': 'Demo' }, '2': { '16:00': 'Demo' } };
+
+    // === BUSINESS HOURS ===
+    // 0=Sun,1=Mon,...,6=Sat
+    function getSlots(dateStr) {
+      const d = new Date(dateStr);
+      const dow = d.getDay();
+      if (dow === 1) return []; // Monday closed
+      const end = (dow === 5 || dow === 6) ? 22 : 21;
+      const slots = [];
+      for (let h = 15; h < end; h++) {
+        slots.push(`${String(h).padStart(2, '0')}:00`);
+      }
+      return slots;
+    }
+
+    let selectedTime = null;
+
+    function renderSlots() {
+      const date = dateInput.value;
+      const lane = document.getElementById('res-lane').value;
+      const container = document.getElementById('time-slots');
+      selectedTime = null;
+
+      if (!date || !lane) {
+        container.innerHTML = '<span style="color:var(--text-dim); font-family:\'Oswald\',sans-serif; font-size:0.85rem; letter-spacing:1px;">Nejprve vyberte datum a dráhu.</span>';
+        return;
+      }
+
+      const d = new Date(date);
+      const dow = d.getDay();
+      if (dow === 1) {
+        container.innerHTML = '<span style="color:var(--red); font-family:\'Oswald\',sans-serif; font-size:0.9rem; letter-spacing:2px;">V PONDĚLÍ JSME ZAVŘENI</span>';
+        return;
+      }
+
+      const slots = getSlots(date);
+      if (!slots.length) {
+        container.innerHTML = '<span style="color:var(--red);">Tento den jsme zavřeni.</span>';
+        return;
+      }
+
+      const taken = (reservations[date] && reservations[date][lane]) ? reservations[date][lane] : {};
+      container.innerHTML = '';
+
+      slots.forEach(slot => {
+        const el = document.createElement('span');
+        el.className = 'time-slot' + (taken[slot] ? ' taken' : '');
+        el.textContent = slot;
+        if (!taken[slot]) {
+          el.addEventListener('click', () => {
+            document.querySelectorAll('.time-slot.selected').forEach(s => s.classList.remove('selected'));
+            el.classList.add('selected');
+            selectedTime = slot;
+          });
+        }
+        container.appendChild(el);
+      });
+    }
+
+    dateInput.addEventListener('change', renderSlots);
+    document.getElementById('res-lane').addEventListener('change', renderSlots);
+
+    function submitReservation() {
+      const date = dateInput.value;
+      const lane = document.getElementById('res-lane').value;
+      const name = document.getElementById('res-name').value.trim();
+      const phone = document.getElementById('res-phone').value.trim();
+      const result = document.getElementById('form-result');
+
+      result.className = '';
+      result.style.display = 'none';
+
+      if (!date || !lane || !selectedTime || !name || !phone) {
+        result.textContent = '⚠ Prosím vyplňte všechna pole a vyberte čas.';
+        result.className = 'error';
+        return;
+      }
+
+      // Block the slot
+      if (!reservations[date]) reservations[date] = {};
+      if (!reservations[date][lane]) reservations[date][lane] = {};
+      reservations[date][lane][selectedTime] = name;
+
+      result.textContent = `✅ Rezervace potvrzena! Dráha ${lane}, ${date.split('-').reverse().join('.')} v ${selectedTime} pro ${name}. Brzy vám zavoláme na ${phone}.`;
+      result.className = 'success';
+
+      // Reset form
+      document.getElementById('res-name').value = '';
+      document.getElementById('res-phone').value = '';
+      renderSlots();
+    }
+
+    // === MOBILE MENU TOGGLE ===
+    const navToggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+
+    if (navToggle && navLinks) {
+      navToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        navToggle.classList.toggle('active');
+        navLinks.classList.toggle('active');
+      });
+
+      // Zavřít menu po kliknutí na odkaz
+      navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          navToggle.classList.remove('active');
+          navLinks.classList.remove('active');
+        });
+      });
+
+      // Zavřít menu při kliknutí mimo
+      document.addEventListener('click', (e) => {
+        if (!navLinks.contains(e.target) && !navToggle.contains(e.target)) {
+          navToggle.classList.remove('active');
+          navLinks.classList.remove('active');
+        }
+      });
+    }
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <base href="./">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products - Jablotrade</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon_io%20(2)/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon_io%20(2)/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon_io%20(2)/favicon-16x16.png">
+    <link rel="shortcut icon" href="favicon_io%20(2)/favicon.ico">
+</head>
+<body>
+    <header>
+        <h1>Jablotrade</h1>
+        <div class="header-controls">
+            <nav>
+                <ul>
+                    <li><a href="./index-en.html">Home</a></li>
+                    <li><a href="./products-en.html" class="active">Products</a></li>
+                    <li><a href="./contact-en.html">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="lang-switch">
+                <a href="./products.html" class="lang-btn">CZ</a>
+                <a href="./products-en.html" class="lang-btn lang-btn-active">EN</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="fade-in">
+            <h2>Our Premium Products</h2>
+            <p>Discover our top range of LED lighting. We offer the highest quality products designed for long life and maximum efficiency.</p>
+
+            <div id="products">
+
+                <!-- Product 1: Outdoor LED -->
+                <article>
+                    <h3>Outdoor LED Lights</h3>
+                    <div class="gallery">
+                        <div class="gallery-main">
+                            <button class="gallery-prev">&#8592;</button>
+                            <div class="gallery-slides">
+                                <div class="gallery-slide active"><img src="./images/ledvenku.jpg" alt="Outdoor LED 1"></div>
+                                <div class="gallery-slide"><img src="./images/ledvenku 2.jpg" alt="Outdoor LED 2"></div>
+                                <div class="gallery-slide"><img src="./images/ledvenku 3.jpg" alt="Outdoor LED 3"></div>
+                                <div class="gallery-slide"><img src="./images/ledvenku 4.jpg" alt="Outdoor LED 4"></div>
+                                <div class="gallery-slide"><img src="./images/ledvenku 5.jpg" alt="Outdoor LED 5"></div>
+                            </div>
+                            <button class="gallery-next">&#8594;</button>
+                        </div>
+                        <div class="gallery-counter">1 / 5</div>
+                    </div>
+                    <p>High-quality, durable LED lighting for your gardens and facades. An elegant and energy-saving solution for your home.</p>
+                    <div class="price">Custom Price</div>
+                    <a href="./contact-en.html" class="btn-custom">Custom</a>
+                </article>
+
+                <!-- Product 2: Commercial Displays -->
+                <article>
+                    <h3>Commercial Displays</h3>
+                    <div class="gallery">
+                        <div class="gallery-main">
+                            <button class="gallery-prev">&#8592;</button>
+                            <div class="gallery-slides">
+                                <div class="gallery-slide active"><img src="./images/led komerční display.jpg" alt="Commercial Display 1"></div>
+                                <div class="gallery-slide"><img src="./images/led komerční display 2.jpg" alt="Commercial Display 2"></div>
+                                <div class="gallery-slide"><img src="./images/led komerční display 3.jpg" alt="Commercial Display 3"></div>
+                                <div class="gallery-slide"><img src="./images/led komerční display 4.jpg" alt="Commercial Display 4"></div>
+                                <div class="gallery-slide"><img src="./images/led komerční display 5.jpg" alt="Commercial Display 5"></div>
+                            </div>
+                            <button class="gallery-next">&#8594;</button>
+                        </div>
+                        <div class="gallery-counter">1 / 5</div>
+                    </div>
+                    <p>Top borderless displays for advertising and presentations. They provide a clear image and extreme reliability even in demanding operations.</p>
+                    <div class="price">Custom Price</div>
+                    <a href="./contact-en.html" class="btn-custom">Custom</a>
+                </article>
+
+                <!-- Product 3: LED Strips -->
+                <article class="article-strips">
+                    <h3>Premium LED Strips</h3>
+                    <img src="./images/ledpaásky.jpg" alt="Premium LED strips">
+                    <p>Flexible and powerful RGBW LED strips with high diode density. Create a perfect light atmosphere in any interior.</p>
+
+                    <div class="strip-selector">
+                        <label class="selector-label">Select length:</label>
+                        <div class="length-options">
+                            <button class="length-btn active" data-meters="1" data-price="490" onclick="selectLength(this)">1 m</button>
+                            <button class="length-btn" data-meters="2" data-price="890" onclick="selectLength(this)">2 m</button>
+                            <button class="length-btn" data-meters="5" data-price="1990" onclick="selectLength(this)">5 m</button>
+                        </div>
+                        <div class="strip-price">
+                            <span class="strip-price-label">Price:</span>
+                            <span id="strip-price-value">490 CZK</span>
+                        </div>
+                    </div>
+
+                    <div class="cart-section">
+                        <div class="quantity-control">
+                            <button class="qty-btn" onclick="changeQty(-1)" aria-label="Less">−</button>
+                            <span id="qty-display">1</span>
+                            <button class="qty-btn" onclick="changeQty(1)" aria-label="More">+</button>
+                        </div>
+                        <button class="btn-buy" onclick="addToCart()">Buy</button>
+                    </div>
+
+                    <div id="cart-summary" class="cart-summary" style="display:none;">
+                        <span>🛒 Cart: </span>
+                        <span id="cart-text"></span>
+                        <button class="btn-checkout" onclick="checkout()">Checkout</button>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Jablotrade. All rights reserved.</p>
+    </footer>
+    <script src="./script.js"></script>
+</body>
+</html>

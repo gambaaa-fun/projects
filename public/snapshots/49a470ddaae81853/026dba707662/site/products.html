@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <base href="./">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produkty - Jablotrade</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon_io%20(2)/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon_io%20(2)/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon_io%20(2)/favicon-16x16.png">
+    <link rel="shortcut icon" href="favicon_io%20(2)/favicon.ico">
+</head>
+<body>
+    <header>
+        <h1><a href="./index.html">Jablotrade</a></h1>
+        <div class="header-controls">
+            <nav>
+                <ul>
+                    <li><a href="./index.html">Domů</a></li>
+                    <li><a href="./products.html" class="active">Produkty</a></li>
+                    <li><a href="./contact.html">Kontakt</a></li>
+                </ul>
+            </nav>
+            <div class="lang-switch">
+                <a href="./products.html" class="lang-btn lang-btn-active">CZ</a>
+                <a href="./products-en.html" class="lang-btn">EN</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="fade-in">
+            <h2>Naše prémiové produkty</h2>
+            <p>Objevte naši špičkovou nabídku LED osvětlení. Nabízíme produkty nejvyšší kvality navržené pro dlouhou životnost a maximální účinnost.</p>
+
+            <div id="products">
+
+                <!-- Produkt 1: Venkovní LED -->
+                <article>
+                    <h3>Venkovní LED svítidla</h3>
+                    <div class="gallery">
+                        <div class="gallery-main">
+                            <button class="gallery-prev">&#8592;</button>
+                            <div class="gallery-slides">
+                                <div class="gallery-slide active"><img src="./images/ledvenku.jpg" alt="Venkovní LED 1"></div>
+                                <div class="gallery-slide"><img src="./images/ledvenku 2.jpg" alt="Venkovní LED 2"></div>
+                                <div class="gallery-slide"><img src="./images/ledvenku 3.jpg" alt="Venkovní LED 3"></div>
+                                <div class="gallery-slide"><img src="./images/ledvenku 4.jpg" alt="Venkovní LED 4"></div>
+                                <div class="gallery-slide"><img src="./images/ledvenku 5.jpg" alt="Venkovní LED 5"></div>
+                            </div>
+                            <button class="gallery-next">&#8594;</button>
+                        </div>
+                        <div class="gallery-counter">1 / 5</div>
+                    </div>
+                    <p>Vysokokvalitní, odolná LED osvětlení pro vaše zahrady a fasády. Elegantní a energeticky úsporné řešení pro váš domov.</p>
+                    <div class="price">Cena na míru</div>
+                    <a href="./contact.html" class="btn-custom">Na míru</a>
+                </article>
+
+                <!-- Produkt 2: Komerční displeje -->
+                <article>
+                    <h3>Komerční Displeje</h3>
+                    <div class="gallery">
+                        <div class="gallery-main">
+                            <button class="gallery-prev">&#8592;</button>
+                            <div class="gallery-slides">
+                                <div class="gallery-slide active"><img src="./images/led komerční display.jpg" alt="Komerční displej 1"></div>
+                                <div class="gallery-slide"><img src="./images/led komerční display 2.jpg" alt="Komerční displej 2"></div>
+                                <div class="gallery-slide"><img src="./images/led komerční display 3.jpg" alt="Komerční displej 3"></div>
+                                <div class="gallery-slide"><img src="./images/led komerční display 4.jpg" alt="Komerční displej 4"></div>
+                                <div class="gallery-slide"><img src="./images/led komerční display 5.jpg" alt="Komerční displej 5"></div>
+                            </div>
+                            <button class="gallery-next">&#8594;</button>
+                        </div>
+                        <div class="gallery-counter">1 / 5</div>
+                    </div>
+                    <p>Špičkové bezrámečkové displeje pro reklamu a prezentace. Poskytují jasný obraz a extrémní spolehlivost i v náročném provozu.</p>
+                    <div class="price">Cena na míru</div>
+                    <a href="./contact.html" class="btn-custom">Na míru</a>
+                </article>
+
+                <!-- Produkt 3: LED pásky -->
+                <article class="article-strips">
+                    <h3>Prémiové LED pásky</h3>
+                    <div class="gallery gallery-single">
+                        <div class="gallery-main">
+                            <button class="gallery-prev">&#8592;</button>
+                            <div class="gallery-slides">
+                                <div class="gallery-slide active"><img src="images/ledpa%C3%A1sky.jpg" alt="Prémiové LED pásky"></div>
+                            </div>
+                            <button class="gallery-next">&#8594;</button>
+                        </div>
+                        <div class="gallery-counter">1 / 1</div>
+                    </div>
+                    <p>Flexibilní a výkonné RGBW LED pásky s vysokou hustotou diod. Vytvořte si dokonalou světelnou atmosféru v jakémkoliv interiéru.</p>
+                    <div class="price">Od 490 Kč / m</div>
+                    <a href="./led-detail.html" class="btn-buy">Chci koupit</a>
+                </article>
+
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Jablotrade. Všechna práva vyhrazena.</p>
+    </footer>
+    <script src="./script.js"></script>
+</body>
+</html>

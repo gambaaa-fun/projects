@@ -1,9 +1,22 @@
+import { execFile as execFileCallback } from "node:child_process";
 import { createHash } from "node:crypto";
 import { constants } from "node:fs";
-import { access, mkdir, readFile, readdir, stat, writeFile } from "node:fs/promises";
+import {
+  access,
+  mkdir,
+  mkdtemp,
+  readFile,
+  readdir,
+  rm,
+  stat,
+  writeFile,
+} from "node:fs/promises";
+import { tmpdir } from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { promisify } from "node:util";
 
+const execFile = promisify(execFileCallback);
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
 const sitesPath = path.join(root, "sites.txt");
@@ -122,7 +135,11 @@ async function saveGeneratedOutput(reason) {
 async function writeSnapshotListings(archive) {
   for (const siteArchive of Object.values(archive.sites || {})) {
     for (const snapshot of siteArchive.snapshots || []) {
-      const snapshotRoot = path.join(snapshotsDir, siteArchive.id, snapshot.key);
+      const snapshotRoot = path.join(
+        snapshotsDir,
+        siteArchive.id,
+        snapshot.key,
+      );
       const siteRoot = path.join(snapshotRoot, "site");
       const assetsRoot = path.join(snapshotRoot, "assets");
       if (!(await fileExists(snapshotRoot))) {
@@ -138,7 +155,12 @@ async function writeSnapshotListings(archive) {
         await writeDirectoryListings(siteArchive, snapshot, siteRoot, siteRoot);
       }
 
-      await writeDirectoryListing(siteArchive, snapshot, snapshotRoot, snapshotRoot);
+      await writeDirectoryListing(
+        siteArchive,
+        snapshot,
+        snapshotRoot,
+        snapshotRoot,
+      );
     }
   }
 }
@@ -148,8 +170,14 @@ async function repairLocalStaticFiles(siteArchive, siteRoot) {
   const deployFiles = files
     .filter((filePath) => isUsefulRepoFile(filePath))
     .map((filePath) => ({
-      repoPath: path.relative(siteRoot, filePath).split(path.sep).join(path.posix.sep),
-      localPath: path.relative(siteRoot, filePath).split(path.sep).join(path.posix.sep),
+      repoPath: path
+        .relative(siteRoot, filePath)
+        .split(path.sep)
+        .join(path.posix.sep),
+      localPath: path
+        .relative(siteRoot, filePath)
+        .split(path.sep)
+        .join(path.posix.sep),
     }));
 
   for (const file of deployFiles) {
@@ -161,7 +189,12 @@ async function repairLocalStaticFiles(siteArchive, siteRoot) {
     const bytes = await readFile(outputPath);
     await writeFile(
       outputPath,
-      rewriteStaticFile(bytes, file.localPath, deployFiles, siteArchive.originalUrl),
+      rewriteStaticFile(
+        bytes,
+        file.localPath,
+        deployFiles,
+        siteArchive.originalUrl,
+      ),
     );
   }
 }
@@ -219,9 +252,16 @@ function escapeRegExp(value) {
   return String(value).replace(/[\\^$.*+?()[\]{}|]/g, "\\$&");
 }
 
-async function writeDirectoryListings(siteArchive, snapshot, rootDir, currentDir) {
+async function writeDirectoryListings(
+  siteArchive,
+  snapshot,
+  rootDir,
+  currentDir,
+) {
   await writeDirectoryListing(siteArchive, snapshot, rootDir, currentDir);
-  const entries = await readdir(currentDir, { withFileTypes: true }).catch(() => []);
+  const entries = await readdir(currentDir, { withFileTypes: true }).catch(
+    () => [],
+  );
 
   for (const entry of entries) {
     if (entry.isDirectory()) {
@@ -235,8 +275,15 @@ async function writeDirectoryListings(siteArchive, snapshot, rootDir, currentDir
   }
 }
 
-async function writeDirectoryListing(siteArchive, snapshot, rootDir, currentDir) {
-  const entries = await readdir(currentDir, { withFileTypes: true }).catch(() => []);
+async function writeDirectoryListing(
+  siteArchive,
+  snapshot,
+  rootDir,
+  currentDir,
+) {
+  const entries = await readdir(currentDir, { withFileTypes: true }).catch(
+    () => [],
+  );
   const rows = entries
     .filter((entry) => entry.name !== "_listing.html")
     .sort((a, b) => {
@@ -259,9 +306,7 @@ async function writeDirectoryListing(siteArchive, snapshot, rootDir, currentDir)
     .join(path.posix.sep);
   const title = relativeDir || "snapshot root";
   const parent =
-    currentDir === rootDir
-      ? ""
-      : `<p><a href="../_listing.html">../</a></p>`;
+    currentDir === rootDir ? "" : `<p><a href="../_listing.html">../</a></p>`;
 
   await writeFile(
     path.join(currentDir, "_listing.html"),
@@ -621,9 +666,9 @@ async function loadSnapshotArchive() {
 }
 
 async function recoverLocalSnapshots(archive) {
-  const siteEntries = await readdir(snapshotsDir, { withFileTypes: true }).catch(
-    () => [],
-  );
+  const siteEntries = await readdir(snapshotsDir, {
+    withFileTypes: true,
+  }).catch(() => []);
 
   for (const siteEntry of siteEntries) {
     if (!siteEntry.isDirectory()) {
@@ -686,7 +731,8 @@ async function snapshotFromLocalFiles(siteArchive, key) {
   const capturedAt = snapshotInfo?.mtime
     ? snapshotInfo.mtime.toISOString()
     : generatedAt.toISOString();
-  const timestamp = snapshotInfo?.mtimeMs || Date.parse(capturedAt) || Date.now();
+  const timestamp =
+    snapshotInfo?.mtimeMs || Date.parse(capturedAt) || Date.now();
   const originalUrl = siteArchive.originalUrl || siteArchive.canonicalUrl || "";
 
   return {
@@ -699,7 +745,8 @@ async function snapshotFromLocalFiles(siteArchive, key) {
     pages: await Promise.all(
       localPages.map(async (localPage, index) => ({
         url: localPageUrl(originalUrl, localPage, index),
-        title: (await titleFromLocalHtml(localPage)) || pageLabelFromUrl(localPage),
+        title:
+          (await titleFromLocalHtml(localPage)) || pageLabelFromUrl(localPage),
         screenshot: null,
         localPage,
         status: null,
@@ -758,8 +805,10 @@ function localPageUrl(originalUrl, localPage, index) {
   }
 
   try {
-    return new URL(relative, originalUrl.endsWith("/") ? originalUrl : `${originalUrl}/`)
-      .href;
+    return new URL(
+      relative,
+      originalUrl.endsWith("/") ? originalUrl : `${originalUrl}/`,
+    ).href;
   } catch {
     return originalUrl;
   }
@@ -876,7 +925,10 @@ async function inspectSite(browser, originalUrl, latestCommit) {
       snapshots: siteArchive.snapshots,
       metadata: existingSnapshot.metadata || emptyMetadata(),
       status: existingSnapshot.pages.length > 0 ? "Loaded" : "Load failed",
-      error: existingSnapshot.pages.length > 0 ? null : "No snapshots were captured.",
+      error:
+        existingSnapshot.pages.length > 0
+          ? null
+          : "No snapshots were captured.",
     };
   }
 
@@ -1093,7 +1145,9 @@ async function crawlSite(browser, originalUrl, snapshotContext) {
 
   const capturedAt = generatedAt.toISOString();
   const timestamp =
-    snapshotContext.latestCommit?.timestamp || Date.parse(capturedAt) || Date.now();
+    snapshotContext.latestCommit?.timestamp ||
+    Date.parse(capturedAt) ||
+    Date.now();
   const snapshot = {
     key: snapshotContext.snapshotKey,
     capturedAt,
@@ -1119,86 +1173,112 @@ function pagesToGallery(pages = []) {
 
 async function backfillRepositorySnapshots(originalUrl, siteArchive) {
   const repo = repoInfoFromSiteUrl(originalUrl);
-  const repoMeta = await githubJson(
-    `https://api.github.com/repos/${repo.owner}/${repo.name}`,
-  ).catch(() => null);
-  const defaultRef = repoMeta?.default_branch || "main";
-  const pagesConfig = await githubJson(
-    `https://api.github.com/repos/${repo.owner}/${repo.name}/pages`,
-  ).catch(() => null);
-  const publishRoot = await detectPublishRoot(repo, defaultRef, pagesConfig);
-  const commits = await listRepoCommits(repo);
+  const checkout = await cloneRepositoryForBackfill(repo).catch((error) => {
+    console.warn(
+      `[backfill] ${repo.owner}/${repo.name}: ${
+        error instanceof Error ? error.message : String(error)
+      }`,
+    );
+    return null;
+  });
 
-  if (commits.length === 0) {
+  if (!checkout) {
     return;
   }
 
-  siteArchive.repo ||= repo;
-  siteArchive.publishRoot = publishRoot;
-  siteArchive.pagesBuildType = pagesConfig?.build_type || null;
+  try {
+    const commits = await listRepoCommitsFromGit(checkout.dir, repo);
 
-  for (const commit of commits) {
-    if (currentSnapshotFromArchive(siteArchive, commit.sha.slice(0, 12))) {
-      continue;
+    if (commits.length === 0) {
+      return;
     }
 
-    const snapshot = await snapshotFromRepoCommit(
-      repo,
-      originalUrl,
-      siteArchive,
-      commit,
-      publishRoot,
-    ).catch((error) => {
-      console.warn(
-        `[backfill] ${repo.owner}/${repo.name}@${commit.sha.slice(0, 7)}: ${
-          error instanceof Error ? error.message : String(error)
-        }`,
-      );
-      return null;
-    });
+    siteArchive.repo ||= repo;
+    siteArchive.pagesBuildType = "git";
 
-    if (snapshot) {
-      updateSiteArchive(siteArchive, snapshot);
-      console.log(
-        `[backfill] saved ${repo.owner}/${repo.name}@${commit.sha.slice(0, 7)} from ${publishRoot || "/"}`,
-      );
+    for (const commit of commits) {
+      if (currentSnapshotFromArchive(siteArchive, commit.sha.slice(0, 12))) {
+        continue;
+      }
+
+      const snapshot = await snapshotFromRepoCheckout(
+        checkout.dir,
+        repo,
+        originalUrl,
+        siteArchive,
+        commit,
+      ).catch((error) => {
+        console.warn(
+          `[backfill] ${repo.owner}/${repo.name}@${commit.sha.slice(0, 7)}: ${
+            error instanceof Error ? error.message : String(error)
+          }`,
+        );
+        return null;
+      });
+
+      if (snapshot) {
+        siteArchive.publishRoot = snapshot.publishRoot;
+        updateSiteArchive(siteArchive, snapshot);
+        console.log(
+          `[backfill] saved ${repo.owner}/${repo.name}@${commit.sha.slice(0, 7)} from ${snapshot.publishRoot || "/"}`,
+        );
+      }
     }
+  } finally {
+    await rm(checkout.parent, { recursive: true, force: true }).catch(() => {});
   }
 }
 
-async function detectPublishRoot(repo, defaultRef, pagesConfig) {
-  if (pagesConfig?.build_type === "workflow") {
-    const workflowRoot = await publishRootFromWorkflows(repo, defaultRef);
-    if (workflowRoot !== null) {
-      return workflowRoot;
-    }
+async function cloneRepositoryForBackfill(repo) {
+  const parent = await mkdtemp(path.join(tmpdir(), "gambaaa-backfill-"));
+  const dir = path.join(parent, repo.name);
+  const depth = Number.isFinite(backfillLimit)
+    ? Math.max(1, Math.min(backfillLimit, 250))
+    : 250;
+
+  try {
+    await runGit([
+      "clone",
+      "--quiet",
+      "--filter=blob:none",
+      "--no-checkout",
+      "--depth",
+      String(depth),
+      repoUrlFromInfo(repo),
+      dir,
+    ]);
+  } catch (error) {
+    await rm(parent, { recursive: true, force: true }).catch(() => {});
+    throw error;
   }
 
-  if (pagesConfig?.source?.path) {
-    return cleanPublishRoot(pagesConfig.source.path);
-  }
-
-  const workflowRoot = await publishRootFromWorkflows(repo, defaultRef);
-  return workflowRoot === null ? "" : workflowRoot;
+  return { parent, dir };
 }
 
-async function publishRootFromWorkflows(repo, ref) {
-  const tree = await githubJson(
-    `https://api.github.com/repos/${repo.owner}/${repo.name}/git/trees/${encodeURIComponent(ref)}?recursive=1`,
-  ).catch(() => null);
-  const workflowPaths = (tree?.tree || [])
-    .map((item) => item.path)
-    .filter((itemPath) => /^\.github\/workflows\/[^/]+\.(ya?ml)$/i.test(itemPath));
+async function runGit(args, options = {}) {
+  const { stdout } = await execFile("git", args, {
+    ...options,
+    timeout: options.timeout || 60000,
+    maxBuffer: options.maxBuffer || 1024 * 1024 * 8,
+  });
+  return stdout;
+}
 
-  for (const workflowPath of workflowPaths) {
-    const workflow = await fetchGithubRaw(repo, ref, workflowPath).catch(() => "");
+async function detectPublishRootFromCheckout(repoDir) {
+  const workflowDir = path.join(repoDir, ".github", "workflows");
+  const workflowFiles = (
+    await recursiveFiles(workflowDir).catch(() => [])
+  ).filter((filePath) => /\.ya?ml$/i.test(filePath));
+
+  for (const workflowPath of workflowFiles) {
+    const workflow = await readFile(workflowPath, "utf8").catch(() => "");
     const root = parseWorkflowPublishRoot(workflow);
     if (root !== null) {
       return root;
     }
   }
 
-  return null;
+  return "";
 }
 
 function parseWorkflowPublishRoot(workflow) {
@@ -1229,61 +1309,53 @@ function cleanPublishRoot(value) {
   return trimmed === "." ? "" : trimmed;
 }
 
-async function listRepoCommits(repo) {
-  const commits = [];
-  let page = 1;
+async function listRepoCommitsFromGit(repoDir, repo) {
+  const limit = Number.isFinite(backfillLimit)
+    ? Math.max(1, backfillLimit)
+    : 250;
+  const output = await runGit(
+    ["-C", repoDir, "log", `--max-count=${limit}`, "--format=%H%x09%cI%x09%s"],
+    { timeout: 30000 },
+  ).catch(() => "");
 
-  while (commits.length < backfillLimit) {
-    const batch = await githubJson(
-      `https://api.github.com/repos/${repo.owner}/${repo.name}/commits?per_page=100&page=${page}`,
-    ).catch(() => []);
-
-    if (!Array.isArray(batch) || batch.length === 0) {
-      break;
-    }
-
-    for (const commit of batch) {
-      const committedAt =
-        commit?.commit?.committer?.date || commit?.commit?.author?.date || null;
-      commits.push({
-        date: committedAt,
-        timestamp: committedAt ? Date.parse(committedAt) || 0 : 0,
-        sha: commit.sha,
-        url: commit.html_url,
-        message: firstCommitMessageLine(commit?.commit?.message || ""),
-      });
-
-      if (commits.length >= backfillLimit) {
-        break;
-      }
-    }
-
-    if (batch.length < 100) {
-      break;
-    }
-
-    page += 1;
-  }
-
-  return commits.filter((commit) => commit.sha);
+  return output
+    .split(/\r?\n/g)
+    .map((line) => line.trim())
+    .filter(Boolean)
+    .map((line) => {
+      const [sha, date, ...messageParts] = line.split("\t");
+      return {
+        date,
+        timestamp: date ? Date.parse(date) || 0 : 0,
+        sha,
+        url: `${repoUrlFromInfo(repo)}/commit/${sha}`,
+        message: firstCommitMessageLine(messageParts.join("\t")),
+      };
+    })
+    .filter((commit) => commit.sha);
 }
 
-async function snapshotFromRepoCommit(
+async function snapshotFromRepoCheckout(
+  repoDir,
   repo,
   originalUrl,
   siteArchive,
   commit,
-  publishRoot,
 ) {
   const key = commit.sha.slice(0, 12);
   const snapshotRoot = path.join(snapshotsDir, siteArchive.id, key);
   const siteRoot = path.join(snapshotRoot, "site");
-  const tree = await githubJson(
-    `https://api.github.com/repos/${repo.owner}/${repo.name}/git/trees/${commit.sha}?recursive=1`,
-  );
-  const files = (tree?.tree || [])
-    .filter((item) => item.type === "blob")
-    .map((item) => item.path)
+
+  await runGit(["-C", repoDir, "checkout", "--quiet", "--force", commit.sha], {
+    timeout: 60000,
+  });
+
+  const publishRoot = await detectPublishRootFromCheckout(repoDir);
+  const files = (await recursiveCheckoutFiles(repoDir))
+    .map((filePath) =>
+      path.relative(repoDir, filePath).split(path.sep).join(path.posix.sep),
+    )
+    .filter((itemPath) => !itemPath.startsWith(".git/"))
     .filter((itemPath) => pathIsInsidePublishRoot(itemPath, publishRoot))
     .filter(isUsefulRepoFile);
   const deployFiles = files.map((itemPath) => ({
@@ -1300,8 +1372,13 @@ async function snapshotFromRepoCommit(
   for (const file of deployFiles) {
     const outputPath = path.join(siteRoot, ...file.localPath.split("/"));
     await mkdir(path.dirname(outputPath), { recursive: true });
-    const bytes = await fetchGithubRawBytes(repo, commit.sha, file.repoPath);
-    await writeFile(outputPath, rewriteStaticFile(bytes, file.localPath, deployFiles, originalUrl));
+    const bytes = await readFile(
+      path.join(repoDir, ...file.repoPath.split("/")),
+    );
+    await writeFile(
+      outputPath,
+      rewriteStaticFile(bytes, file.localPath, deployFiles, originalUrl),
+    );
   }
 
   const pageFile =
@@ -1329,7 +1406,10 @@ async function snapshotFromRepoCommit(
     label: snapshotLabel(commit, capturedAt),
     source: "github",
     publishRoot,
-    commit,
+    commit: {
+      ...commit,
+      url: commit.url || `${repoUrlFromInfo(repo)}/commit/${commit.sha}`,
+    },
     metadata: emptyMetadata(),
     pages: [
       {
@@ -1343,6 +1423,26 @@ async function snapshotFromRepoCommit(
   };
 }
 
+async function recursiveCheckoutFiles(rootDir) {
+  const entries = await readdir(rootDir, { withFileTypes: true });
+  const files = [];
+
+  for (const entry of entries) {
+    if (entry.name === ".git") {
+      continue;
+    }
+
+    const entryPath = path.join(rootDir, entry.name);
+    if (entry.isDirectory()) {
+      files.push(...(await recursiveCheckoutFiles(entryPath)));
+    } else if (entry.isFile()) {
+      files.push(entryPath);
+    }
+  }
+
+  return files;
+}
+
 function pathIsInsidePublishRoot(itemPath, publishRoot) {
   if (!publishRoot) {
     return !itemPath.startsWith(".git/");
@@ -1352,7 +1452,9 @@ function pathIsInsidePublishRoot(itemPath, publishRoot) {
 }
 
 function publishRelativePath(itemPath, publishRoot) {
-  return publishRoot ? itemPath.slice(publishRoot.length).replace(/^\/+/, "") : itemPath;
+  return publishRoot
+    ? itemPath.slice(publishRoot.length).replace(/^\/+/, "")
+    : itemPath;
 }
 
 function isUsefulRepoFile(itemPath) {
@@ -1381,24 +1483,31 @@ function rewriteStaticFile(bytes, localPath, deployFiles, originalUrl) {
 function rewriteHtmlText(html, rewrite) {
   return ensureHeadBase(
     html
-    .replace(/\b(src|href|poster)=("|')([^"']+)\2/gi, (match, attr, quote, rawUrl) => {
-      const localUrl = rewrite(rawUrl);
-      return localUrl ? `${attr}=${quote}${escapeAttribute(localUrl)}${quote}` : match;
-    })
-    .replace(/\bsrcset=("|')([^"']+)\1/gi, (match, quote, rawValue) => {
-      const rewritten = rawValue
-        .split(",")
-        .map((candidate) => {
-          const [rawUrl, ...rest] = candidate.trim().split(/\s+/g);
+      .replace(
+        /\b(src|href|poster)=("|')([^"']+)\2/gi,
+        (match, attr, quote, rawUrl) => {
           const localUrl = rewrite(rawUrl);
-          return [localUrl || rawUrl, ...rest].join(" ");
-        })
-        .join(", ");
-      return `srcset=${quote}${escapeAttribute(rewritten)}${quote}`;
-    })
-    .replace(/(<style\b[^>]*>)([\s\S]*?)(<\/style>)/gi, (match, open, css, close) =>
-      `${open}${rewriteCssText(css, rewrite)}${close}`,
-    ),
+          return localUrl
+            ? `${attr}=${quote}${escapeAttribute(localUrl)}${quote}`
+            : match;
+        },
+      )
+      .replace(/\bsrcset=("|')([^"']+)\1/gi, (match, quote, rawValue) => {
+        const rewritten = rawValue
+          .split(",")
+          .map((candidate) => {
+            const [rawUrl, ...rest] = candidate.trim().split(/\s+/g);
+            const localUrl = rewrite(rawUrl);
+            return [localUrl || rawUrl, ...rest].join(" ");
+          })
+          .join(", ");
+        return `srcset=${quote}${escapeAttribute(rewritten)}${quote}`;
+      })
+      .replace(
+        /(<style\b[^>]*>)([\s\S]*?)(<\/style>)/gi,
+        (match, open, css, close) =>
+          `${open}${rewriteCssText(css, rewrite)}${close}`,
+      ),
     "./",
   );
 }
@@ -1423,7 +1532,12 @@ function rewriteCssText(css, rewrite) {
   });
 }
 
-function localRepoUrlForReference(rawUrl, fromLocalPath, deployFiles, originalUrl) {
+function localRepoUrlForReference(
+  rawUrl,
+  fromLocalPath,
+  deployFiles,
+  originalUrl,
+) {
   const trimmed = String(rawUrl || "").trim();
   if (
     !trimmed ||
@@ -1434,7 +1548,10 @@ function localRepoUrlForReference(rawUrl, fromLocalPath, deployFiles, originalUr
   }
 
   let targetPath = "";
-  const sitePath = siteScopeFromUrl(originalUrl).basePath.replace(/^\/|\/$/g, "");
+  const sitePath = siteScopeFromUrl(originalUrl).basePath.replace(
+    /^\/|\/$/g,
+    "",
+  );
 
   if (/^https?:\/\//i.test(trimmed) || trimmed.startsWith("//")) {
     try {
@@ -1457,7 +1574,10 @@ function localRepoUrlForReference(rawUrl, fromLocalPath, deployFiles, originalUr
     }
     if (!deployFiles.some((file) => file.localPath === targetPath)) {
       const fallbackPath = path.posix.normalize(
-        path.posix.join(path.posix.dirname(fromLocalPath), trimmed.replace(/^\/+/, "")),
+        path.posix.join(
+          path.posix.dirname(fromLocalPath),
+          trimmed.replace(/^\/+/, ""),
+        ),
       );
       if (deployFiles.some((file) => file.localPath === fallbackPath)) {
         targetPath = fallbackPath;
@@ -1526,7 +1646,8 @@ async function saveLocalAsset(
 
 async function rewriteCapturedAssets(assetSources, assetMap) {
   for (const asset of assetSources.values()) {
-    const isCss = /text\/css/i.test(asset.contentType) || /\.css(?:$|\?)/i.test(asset.url);
+    const isCss =
+      /text\/css/i.test(asset.contentType) || /\.css(?:$|\?)/i.test(asset.url);
     if (!isCss) {
       continue;
     }
@@ -1543,7 +1664,13 @@ async function rewriteCapturedAssets(assetSources, assetMap) {
   }
 }
 
-async function saveLocalPage(page, finalUrl, pagesRoot, snapshotRoot, assetMap) {
+async function saveLocalPage(
+  page,
+  finalUrl,
+  pagesRoot,
+  snapshotRoot,
+  assetMap,
+) {
   const pageName = `${hashUrl(canonicalUrl(finalUrl))}.html`;
   const pagePath = path.join(pagesRoot, pageName);
   let html = await page.content();
@@ -1555,8 +1682,15 @@ async function saveLocalPage(page, finalUrl, pagesRoot, snapshotRoot, assetMap) 
   html = html.replace(
     /\b(src|href|poster)=("|')([^"']+)\2/gi,
     (match, attr, quote, rawUrl) => {
-      const localUrl = localUrlForReference(rawUrl, finalUrl, assetMap, pagePath);
-      return localUrl ? `${attr}=${quote}${escapeAttribute(localUrl)}${quote}` : match;
+      const localUrl = localUrlForReference(
+        rawUrl,
+        finalUrl,
+        assetMap,
+        pagePath,
+      );
+      return localUrl
+        ? `${attr}=${quote}${escapeAttribute(localUrl)}${quote}`
+        : match;
     },
   );
   html = html.replace(
@@ -1581,7 +1715,12 @@ async function saveLocalPage(page, finalUrl, pagesRoot, snapshotRoot, assetMap) 
 
 function rewriteCssUrls(css, baseUrl, assetMap, targetPath) {
   return css.replace(/url\((['"]?)([^'")]+)\1\)/gi, (match, quote, rawUrl) => {
-    const localUrl = localUrlForReference(rawUrl, baseUrl, assetMap, targetPath);
+    const localUrl = localUrlForReference(
+      rawUrl,
+      baseUrl,
+      assetMap,
+      targetPath,
+    );
     return localUrl ? `url(${quote}${localUrl}${quote})` : match;
   });
 }
@@ -1592,7 +1731,12 @@ function rewriteSrcset(value, baseUrl, assetMap, targetPath) {
     .map((candidate) => {
       const trimmed = candidate.trim();
       const [rawUrl, ...rest] = trimmed.split(/\s+/g);
-      const localUrl = localUrlForReference(rawUrl, baseUrl, assetMap, targetPath);
+      const localUrl = localUrlForReference(
+        rawUrl,
+        baseUrl,
+        assetMap,
+        targetPath,
+      );
       return [localUrl || rawUrl, ...rest].join(" ");
     })
     .join(", ");
@@ -1641,7 +1785,9 @@ function normalizeAssetUrl(rawUrl) {
 function isSnapshotAssetUrl(rawUrl, scope) {
   try {
     const url = new URL(rawUrl);
-    return url.origin === scope.origin && url.pathname.startsWith(scope.basePath);
+    return (
+      url.origin === scope.origin && url.pathname.startsWith(scope.basePath)
+    );
   } catch {
     return false;
   }
@@ -1960,7 +2106,9 @@ async function transcodeScreenshot(page, pngBuffer) {
       );
 
       if (!output || output.type !== mimeType) {
-        throw new Error(`${mimeType} encoding is not supported by this browser`);
+        throw new Error(
+          `${mimeType} encoding is not supported by this browser`,
+        );
       }
 
       return [...new Uint8Array(await output.arrayBuffer())];
@@ -1998,7 +2146,9 @@ function boundedNumber(value, min, max) {
 }
 
 function imageFormat(value) {
-  const normalized = String(value || "").trim().toLowerCase();
+  const normalized = String(value || "")
+    .trim()
+    .toLowerCase();
   return ["avif", "webp"].includes(normalized) ? normalized : null;
 }
 
@@ -2143,6 +2293,10 @@ async function latestCommitInfoFromSiteUrl(rawUrl) {
     return atomResult;
   }
 
+  if (process.env.ALLOW_GITHUB_API !== "1") {
+    return emptyCommitInfo();
+  }
+
   return await latestCommitInfoFromApi(repo, rawUrl);
 }
 
@@ -2265,7 +2419,11 @@ function atomTagText(entry, tagName) {
   }
 
   return decodeXmlEntities(
-    entry.match(new RegExp(`<${tagName}\\b[^>]*>([\\s\\S]*?)<\\/${tagName}>`, "i"))?.[1]?.trim() || "",
+    entry
+      .match(
+        new RegExp(`<${tagName}\\b[^>]*>([\\s\\S]*?)<\\/${tagName}>`, "i"),
+      )?.[1]
+      ?.trim() || "",
   );
 }
 
@@ -2476,7 +2634,8 @@ function renderHtml(groups) {
       sum +
       (site.snapshots || []).reduce(
         (snapshotSum, snapshot) =>
-          snapshotSum + (snapshot.pages || []).filter((page) => page.localPage).length,
+          snapshotSum +
+          (snapshot.pages || []).filter((page) => page.localPage).length,
         0,
       ),
     0,
@@ -4341,7 +4500,9 @@ function renderSiteCard(site, index) {
     metadata.robots ? "robots" : "no robots",
     metadata.sitemap ? "sitemap" : "no sitemap",
     metadata.seo ? "seo" : "seo missing",
-    metadata.accessibility ? "a11y accessibility" : "no a11y accessibility missing",
+    metadata.accessibility
+      ? "a11y accessibility"
+      : "no a11y accessibility missing",
     statusLabel,
     updatedLabel,
     latestCommit.message,

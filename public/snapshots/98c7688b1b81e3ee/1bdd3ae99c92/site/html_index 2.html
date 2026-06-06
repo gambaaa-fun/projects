@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <base href="./">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Cech Legends</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;500;800&display=swap" rel="stylesheet">
+    <style>
+:root {
+  --bg: #f7f7f8;
+  --bg2: #0d1117;
+  --bg3: #111820;
+  --accent: #00e5ff;
+  --accent2: #ff3c6e;
+  --gold: #f5c842;
+  --text: #e2e8f0;
+  --muted: #64748b;
+  --border: rgba(0,229,255,0.15);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Barlow', sans-serif;
+  font-weight: 400;
+  overflow-x: hidden;
+  cursor: crosshair;
+}
+
+/* Efekty pozadí zůstávají stejné, ty nejsou závislé na šířce */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.08) 2px, rgba(0,0,0,0.08) 4px);
+  pointer-events: none;
+  z-index: 9999;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9998;
+  opacity: 0.6;
+}
+
+/* --- MOBILE FIRST DEFAULTS (Pro telefony) --- */
+
+section {
+  padding: 4rem 1.5rem; /* Méně paddingu pro mobily */
+  position: relative;
+}
+
+.section-tag {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-bottom: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.section-tag::before { content: '//'; color: var(--accent2); }
+
+.section-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  line-height: 1;
+  letter-spacing: 0.05em;
+  margin-bottom: 1rem;
+}
+
+.section-sub {
+  font-size: 1rem;
+  color: var(--muted);
+  font-weight: 300;
+  max-width: 100%; /* Na mobilu přes celou šířku */
+  line-height: 1.7;
+  margin-bottom: 3rem;
+}
+
+/* Skrytí prvků, které na mobilu nechceme (např. navigace, stats) */
+.nav-links, .hero-stats {
+  display: none;
+}
+
+/* Cech intro - default pod sebou */
+.cech-intro {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+.custom-scroll::-webkit-scrollbar {
+        width: 4px;
+    }
+.custom-scroll::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.05);
+}
+.custom-scroll::-webkit-scrollbar-thumb {
+        background: var(--accent);
+        border-radius: 10px;
+}
+
+.cech-note {
+  background: rgba(0,229,255,0.06);
+  border: 1px solid var(--border);
+  padding: 1.25rem;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+/* --- TABLET / DESKTOP UPGRADES (Větší obrazovky) --- */
+
+@media (min-width: 768px) {
+  section {
+    padding: 6rem 3rem; /* Více místa na desktopu */
+  }
+
+  .nav-links {
+    display: flex; /* Zobrazíme navigaci */
+  }
+
+  .hero-stats {
+    display: block; /* Zobrazíme statistiky */
+  }
+
+  .section-sub {
+    max-width: 500px; /* Omezíme šířku textu pro lepší čitelnost */
+  }
+
+  .cech-intro {
+    grid-template-columns: minmax(0, 1.05fr) minmax(260px, 0.55fr);
+    align-items: end;
+  }
+
+  /* Pokud máš o patičce info, tady ji srovnáš do řady */
+  footer {
+    display: flex;
+    justify-content: space-between;
+    text-align: left;
+  }
+}
+
+/* Ostatní utility */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s, transform 0.6s;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+    </style>
+
+</head>
+<body>
+    <section id="cech" style="background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+  <div style="max-width: 1100px; margin: 0 auto;">
+    <div class="cech-intro">
+      <div>
+        <h2 class="section-title reveal visible">Cech Legends</h2>
+        <p class="section-sub reveal visible">Jsem součástí cechu <strong style="color:var(--accent)">Legends</strong> na serveru EmtGen2. Zde se dozvíš vše o Nás: info, bonusy, seznam, pravidla. dungeon a audit.</p>
+      </div>
+    </div>
+
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap:1rem;" class="reveal visible">
+
+      <div style="background:var(--bg3); border:1px solid var(--border); padding:1.5rem; clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));">
+        <div style="font-family:'Share Tech Mono',monospace; font-size:0.65rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--accent); margin-bottom:0.8rem;">// Základní info</div>
+        <div style="display:flex; flex-direction:column; gap:0.6rem;">
+          <div style="display:flex; justify-content:space-between; font-size:0.9rem;">
+            <span style="color:var(--muted);">Název cechu</span>
+            <span style="color:var(--text); font-weight:500;">Legends</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; font-size:0.9rem;">
+            <span style="color:var(--muted);">Vedoucí</span>
+            <span style="color:var(--accent);">LaxusDreyar</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; font-size:0.9rem;">
+            <span style="color:var(--muted);">Server</span>
+            <span style="color:var(--text);">EmtGen2</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; font-size:0.9rem;">
+            <span style="color:var(--muted);">Členů</span>
+            <span style="color:var(--text);">30 / 30</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="background:var(--bg3); border:1px solid var(--border); padding:1.5rem; clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));">
+        <div style="font-family:'Share Tech Mono',monospace; font-size:0.65rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--accent); margin-bottom:0.8rem;">// Úroveň &amp; zkušenosti</div>
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:3.5rem; color:var(--gold); line-height:1; text-shadow: 0 0 20px rgba(245,200,66,0.4);">40</div>
+        <div style="font-family:'Share Tech Mono',monospace; font-size:0.65rem; color:var(--muted); letter-spacing:0.1em; margin-bottom:1rem;">LEVEL CECHU / MAX 40</div>
+        <div style="background:rgba(0,229,255,0.07); border:1px solid var(--border); border-radius:2px; height:8px; overflow:hidden;">
+          <div style="height:100%; width:95%; background:linear-gradient(90deg, var(--accent), var(--gold));"></div>
+        </div>
+        <div style="font-size:0.75rem; color:var(--muted); margin-top:0.5rem;">0/0 XP</div>
+      </div>
+
+      <div style="background:var(--bg3); border:1px solid var(--border); padding:1.5rem; height: 200px; display: flex; flex-direction: column; clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));">
+    
+    <div style="font-family:'Share Tech Mono',monospace; font-size:0.65rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--accent); margin-bottom:0.8rem; flex-shrink: 0;">
+        // Cechovní bonusy
+    </div>
+
+    <div class="custom-scroll" style="overflow-y: auto; flex-grow: 1; padding-right: 10px; display:flex; flex-direction:column; gap:0.5rem; font-size:0.82rem;">
+        <div style="display:flex; justify-content:space-between;"><span style="color:var(--muted);">Silný proti kamenům</span><span style="color:var(--gold);">+15%</span></div>
+        <div style="display:flex; justify-content:space-between;"><span style="color:var(--muted);">Silný proti bossům</span><span style="color:var(--gold);">+15%</span></div>
+        <div style="display:flex; justify-content:space-between;"><span style="color:var(--muted);">Šance na těžbu</span><span style="color:var(--gold);">+25%</span></div>
+        <div style="display:flex; justify-content:space-between;"><span style="color:var(--muted);">Šance na zlepšení alchymie</span><span style="color:var(--gold);">+5%</span></div>
+        <div style="display:flex; justify-content:space-between;"><span style="color:var(--muted);">Silný proti příšerám</span><span style="color:var(--gold);">+15%</span></div>
+        <div style="display:flex; justify-content:space-between;"><span style="color:var(--muted);">Poškození schpností</span><span style="color:var(--gold);">+15%</span></div>
+        <div style="display:flex; justify-content:space-between;"><span style="color:var(--muted);">PvM hodnota útoku</span><span style="color:var(--gold);">+100</span></div>
+        <div style="display:flex; justify-content:space-between;"><span style="color:var(--muted);">Prúměrná škoda</span><span style="color:var(--gold);">+10%</span></div>
+        <div style="display:flex; justify-content:space-between;"><span style="color:var(--muted);">Šance na úspěšné kování</span><span style="color:var(--gold);">+5%</span></div>
+        <div style="display:flex; justify-content:space-between;"><span style="color:var(--muted);">Prúraznost proti Hadům/Egypťanům</span><span style="color:var(--gold);">+5%</span></div>
+        <div style="display:flex; justify-content:space-between;"><span style="color:var(--muted);">Šance na brutální zásah</span><span style="color:var(--gold);">+5%</span></div>
+        <div style="display:flex; justify-content:space-between;"><span style="color:var(--muted);">Magický útok/útok zbraní(PVM)</span><span style="color:var(--gold);">+5%</span></div>
+    </div>
+</div>
+
+      <div style="background:var(--bg3); border:1px solid var(--border); padding:1.5rem; clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));">
+        <div style="font-family:'Share Tech Mono',monospace; font-size:0.65rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--accent); margin-bottom:0.8rem;">// Cechovní upky</div>
+        <div style="display:flex; flex-direction:column; gap:0.5rem; font-size:0.82rem;">
+          <div style="display:flex; justify-content:space-between;"><span style="color:var(--muted);">💲 Yang</span><span style="color:var(--text);">9,203,482,000,031</span></div>
+          <div style="display:flex; justify-content:space-between;"><span style="color:var(--muted);">💎 Arcikam</span><span style="color:var(--text);">203,035</span></div>
+          <div style="display:flex; justify-content:space-between;"><span style="color:var(--muted);">👁 Oči</span><span style="color:var(--text);">208,378</span></div>
+          <div style="display:flex; justify-content:space-between;"><span style="color:var(--muted);">📚 Knížky</span><span style="color:var(--text);">370,959</span></div>
+          <div style="display:flex; justify-content:space-between;"><span style="color:var(--muted);">⚔️ Pvp</span><span style="color:var(--text);">37, 372</span></div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- SEZNAM ČLENŮ -->
+    <div style="margin-top:2.5rem;" class="reveal visible">
+      <div style="font-family:'Share Tech Mono',monospace; font-size:0.7rem; letter-spacing:0.2em; color:var(--accent); text-transform:uppercase; margin-bottom:1rem;">// Seznam členů (30/30)</div>
+      <div style="border:1px solid var(--border); overflow:hidden; clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 0 100%);">
+        <!-- header -->
+        <div style="display:grid; grid-template-columns:1fr 1fr 1fr; background:rgba(0,229,255,0.07); padding:0.6rem 1rem; font-family:'Share Tech Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent);">
+          <span>Hráč</span><span>Pozice</span><span>Char / Level</span>
+        </div> 
+        <!-- members -->
+        <div id="seznam" style="max-height:400px; overflow-y:auto;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; padding: 0.55rem 1rem; font-size: 0.83rem; border-top: 1px solid rgba(0, 229, 255, 0.06); background: transparent;"><span style="color:#e2e8f0; font-weight:500;">LaxusDreyar</span><span style="color:#f5c842; font-family:'Share Tech Mono',monospace; font-size:0.72rem;">Vůdce</span><span style="color:#64748b;">Sura <span style="color:#94a3b8;">lv.130</span></span></div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; padding: 0.55rem 1rem; font-size: 0.83rem; border-top: 1px solid rgba(0, 229, 255, 0.06); background: rgba(0, 229, 255, 0.02);"><span style="color:#e2e8f0; font-weight:500;">Emotionless</span><span style="color:#00e5ff; font-family:'Share Tech Mono',monospace; font-size:0.72rem;">Vedení</span><span style="color:#64748b;">Sura <span style="color:#94a3b8;">lv.130</span></span></div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; padding: 0.55rem 1rem; font-size: 0.83rem; border-top: 1px solid rgba(0, 229, 255, 0.06); background: transparent;"><span style="color:#e2e8f0; font-weight:500;">Wariorka</span><span style="color:#00e5ff; font-family:'Share Tech Mono',monospace; font-size:0.72rem;">Vedení</span><span style="color:#64748b;">Sura <span style="color:#94a3b8;">lv.130</span></span></div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; padding: 0.55rem 1rem; font-size: 0.83rem; border-top: 1px solid rgba(0, 229, 255, 0.06); background: rgba(0, 229, 255, 0.02);"><span style="color:#e2e8f0; font-weight:500;">Patrox</span><span style="color:#00e5ff; font-family:'Share Tech Mono',monospace; font-size:0.72rem;">Vedení</span><span style="color:#64748b;">Válečník <span style="color:#94a3b8;">lv.130</span></span></div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; padding: 0.55rem 1rem; font-size: 0.83rem; border-top: 1px solid rgba(0, 229, 255, 0.06); background: transparent;"><span style="color:#e2e8f0; font-weight:500;">SmileD</span><span style="color:#00e5ff; font-family:'Share Tech Mono',monospace; font-size:0.72rem;">Vedení</span><span style="color:#64748b;">Válečník <span style="color:#94a3b8;">lv.120</span></span></div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; padding: 0.55rem 1rem; font-size: 0.83rem; border-top: 1px solid rgba(0, 229, 255, 0.06); background: rgba(0, 229, 255, 0.02);"><span style="color:#e2e8f0; font-weight:500;">PanModrý</span><span style="color:#00e5ff; font-family:'Share Tech Mono',monospace; font-size:0.72rem;">Vedení</span><span style="color:#64748b;">Šaman <span style="color:#94a3b8;">lv.130</span></span></div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; padding: 0.55rem 1rem; font-size: 0.83rem; border-top: 1px solid rgba(0, 229, 255, 0.06); background: transparent;"><span style="color:#e2e8f0; font-weight:500;">Excelence</span><span style="color:#64748b; font-family:'Share Tech Mono',monospace; font-size:0.72rem;">Člen</span><span style="color:#64748b;">Sura <span style="color:#94a3b8;">lv.125</span></span></div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; padding: 0.55rem 1rem; font-size: 0.83rem; border-top: 1px solid rgba(0, 229, 255, 0.06); background: rgba(0, 229, 255, 0.02);"><span style="color:#e2e8f0; font-weight:500;">Detroit</span><span style="color:#64748b; font-family:'Share Tech Mono',monospace; font-size:0.72rem;">Člen</span><span style="color:#64748b;">Sura <span style="color:#94a3b8;">lv.120</span></span></div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; padding: 0.55rem 1rem; font-size: 0.83rem; border-top: 1px solid rgba(0, 229, 255, 0.06); background: transparent;"><span style="color:#e2e8f0; font-weight:500;">DZIDZINKA</span><span style="color:#64748b; font-family:'Share Tech Mono',monospace; font-size:0.72rem;">Člen</span><span style="color:#64748b;">Šaman <span style="color:#94a3b8;">lv.130</span></span></div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; padding: 0.55rem 1rem; font-size: 0.83rem; border-top: 1px solid rgba(0, 229, 255, 0.06); background: rgba(0, 229, 255, 0.02);"><span style="color:#e2e8f0; font-weight:500;">RoLLi420</span><span style="color:#64748b; font-family:'Share Tech Mono',monospace; font-size:0.72rem;">Člen</span><span style="color:#64748b;">Ninja <span style="color:#94a3b8;">lv.120</span></span></div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; padding: 0.55rem 1rem; font-size: 0.83rem; border-top: 1px solid rgba(0, 229, 255, 0.06); background: transparent;"><span style="color:#e2e8f0; font-weight:500;">Drakes</span><span style="color:#64748b; font-family:'Share Tech Mono',monospace; font-size:0.72rem;">Člen</span><span style="color:#64748b;">Válečník<span style="color:#94a3b8;">lv.125</span></span></div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; padding: 0.55rem 1rem; font-size: 0.83rem; border-top: 1px solid rgba(0, 229, 255, 0.06); background: rgba(0, 229, 255, 0.02);"><span style="color:#e2e8f0; font-weight:500;">Sirdeneska</span><span style="color:#64748b; font-family:'Share Tech Mono',monospace; font-size:0.72rem;">Člen</span><span style="color:#64748b;">Ninja <span style="color:#94a3b8;">lv.120</span></span></div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; padding: 0.55rem 1rem; font-size: 0.83rem; border-top: 1px solid rgba(0, 229, 255, 0.06); background: transparent;"><span style="color:#e2e8f0; font-weight:500;">WariorkaBM</span><span style="color:#64748b; font-family:'Share Tech Mono',monospace; font-size:0.72rem;">Člen</span><span style="color:#64748b;">Sura <span style="color:#94a3b8;">lv.104</span></span></div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; padding: 0.55rem 1rem; font-size: 0.83rem; border-top: 1px solid rgba(0, 229, 255, 0.06); background: rgba(0, 229, 255, 0.02);"><span style="color:#e2e8f0; font-weight:500;">Abaddon</span><span style="color:#64748b; font-family:'Share Tech Mono',monospace; font-size:0.72rem;">Člen</span><span style="color:#64748b;">Sura <span style="color:#94a3b8;">lv.120</span></span></div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; padding: 0.55rem 1rem; font-size: 0.83rem; border-top: 1px solid rgba(0, 229, 255, 0.06); background: transparent;"><span style="color:#e2e8f0; font-weight:500;">TaILeRrko</span><span style="color:#64748b; font-family:'Share Tech Mono',monospace; font-size:0.72rem;">Člen</span><span style="color:#64748b;">Válečník <span style="color:#94a3b8;">lv.120</span></span></div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; padding: 0.55rem 1rem; font-size: 0.83rem; border-top: 1px solid rgba(0, 229, 255, 0.06); background: rgba(0, 229, 255, 0.02);"><span style="color:#e2e8f0; font-weight:500;">Alternative</span><span style="color:#64748b; font-family:'Share Tech Mono',monospace; font-size:0.72rem;">Člen</span><span style="color:#64748b;">Sura <span style="color:#94a3b8;">lv.125</span></span></div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; padding: 0.55rem 1rem; font-size: 0.83rem; border-top: 1px solid rgba(0, 229, 255, 0.06); background: transparent;"><span style="color:#e2e8f0; font-weight:500;">PatroxoN</span><span style="color:#64748b; font-family:'Share Tech Mono',monospace; font-size:0.72rem;">Člen</span><span style="color:#64748b;">Šaman <span style="color:#94a3b8;">lv.120</span></span></div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; padding: 0.55rem 1rem; font-size: 0.83rem; border-top: 1px solid rgba(0, 229, 255, 0.06); background: rgba(0, 229, 255, 0.02);"><span style="color:#e2e8f0; font-weight:500;">anndysking</span><span style="color:#64748b; font-family:'Share Tech Mono',monospace; font-size:0.72rem;">Člen</span><span style="color:#64748b;">anndysking <span style="color:#94a3b8;">lv.125</span></span></div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; padding: 0.55rem 1rem; font-size: 0.83rem; border-top: 1px solid rgba(0, 229, 255, 0.06); background: transparent;"><span style="color:#e2e8f0; font-weight:500;">Niclas</span><span style="color:#64748b; font-family:'Share Tech Mono',monospace; font-size:0.72rem;">Člen</span><span style="color:#64748b;">Válečník <span style="color:#94a3b8;">lv.120</span></span></div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; padding: 0.55rem 1rem; font-size: 0.83rem; border-top: 1px solid rgba(0, 229, 255, 0.06); background: rgba(0, 229, 255, 0.02);"><span style="color:#e2e8f0; font-weight:500;">petrzlen0</span><span style="color:#64748b; font-family:'Share Tech Mono',monospace; font-size:0.72rem;">Člen</span><span style="color:#64748b;">Válečník <span style="color:#94a3b8;">lv.116</span></span></div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; padding: 0.55rem 1rem; font-size: 0.83rem; border-top: 1px solid rgba(0, 229, 255, 0.06); background: transparent;"><span style="color:#e2e8f0; font-weight:500;">SneakyPepik</span><span style="color:#64748b; font-family:'Share Tech Mono',monospace; font-size:0.72rem;">Člen</span><span style="color:#64748b;">Ninja <span style="color:#94a3b8;">lv.120</span></span></div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; padding: 0.55rem 1rem; font-size: 0.83rem; border-top: 1px solid rgba(0, 229, 255, 0.06); background: rgba(0, 229, 255, 0.02);"><span style="color:#e2e8f0; font-weight:500;">Bagr</span><span style="color:#64748b; font-family:'Share Tech Mono',monospace; font-size:0.72rem;">Člen</span><span style="color:#64748b;">Válečník <span style="color:#94a3b8;">lv.115</span></span></div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; padding: 0.55rem 1rem; font-size: 0.83rem; border-top: 1px solid rgba(0, 229, 255, 0.06); background: transparent;"><span style="color:#e2e8f0; font-weight:500;">Senedriska</span><span style="color:#64748b; font-family:'Share Tech Mono',monospace; font-size:0.72rem;">Člen</span><span style="color:#64748b;">Šaman <span style="color:#94a3b8;">lv.125</span></span></div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; padding: 0.55rem 1rem; font-size: 0.83rem; border-top: 1px solid rgba(0, 229, 255, 0.06); background: rgba(0, 229, 255, 0.02);"><span style="color:#e2e8f0; font-weight:500;">ZroutHornik</span><span style="color:#64748b; font-family:'Share Tech Mono',monospace; font-size:0.72rem;">Člen</span><span style="color:#64748b;">Sura <span style="color:#94a3b8;">lv.120</span></span></div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; padding: 0.55rem 1rem; font-size: 0.83rem; border-top: 1px solid rgba(0, 229, 255, 0.06); background: transparent;"><span style="color:#e2e8f0; font-weight:500;">DarkIchigo</span><span style="color:#64748b; font-family:'Share Tech Mono',monospace; font-size:0.72rem;">Člen</span><span style="color:#64748b;">Sura <span style="color:#94a3b8;">lv.120</span></span></div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; padding: 0.55rem 1rem; font-size: 0.83rem; border-top: 1px solid rgba(0, 229, 255, 0.06); background: rgba(0, 229, 255, 0.02);"><span style="color:#e2e8f0; font-weight:500;">Thamiel</span><span style="color:#64748b; font-family:'Share Tech Mono',monospace; font-size:0.72rem;">Člen</span><span style="color:#64748b;">Válečník <span style="color:#94a3b8;">lv.125</span></span></div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; padding: 0.55rem 1rem; font-size: 0.83rem; border-top: 1px solid rgba(0, 229, 255, 0.06); background: transparent;"><span style="color:#e2e8f0; font-weight:500;">DrD0nut</span><span style="color:#64748b; font-family:'Share Tech Mono',monospace; font-size:0.72rem;">Člen</span><span style="color:#64748b;">Ninja <span style="color:#94a3b8;">lv.120</span></span></div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; padding: 0.55rem 1rem; font-size: 0.83rem; border-top: 1px solid rgba(0, 229, 255, 0.06); background: rgba(0, 229, 255, 0.02);"><span style="color:#e2e8f0; font-weight:500;">DeeKapitaan</span><span style="color:#64748b; font-family:'Share Tech Mono',monospace; font-size:0.72rem;">Člen</span><span style="color:#64748b;">Sura <span style="color:#94a3b8;">lv.104</span></span></div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; padding: 0.55rem 1rem; font-size: 0.83rem; border-top: 1px solid rgba(0, 229, 255, 0.06); background: transparent;"><span style="color:#e2e8f0; font-weight:500;">kyselator</span><span style="color:#64748b; font-family:'Share Tech Mono',monospace; font-size:0.72rem;">Člen</span><span style="color:#64748b;">Ninja <span style="color:#94a3b8;">lv.115</span></span></div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; padding: 0.55rem 1rem; font-size: 0.83rem; border-top: 1px solid rgba(0, 229, 255, 0.06); background: rgba(0, 229, 255, 0.02);"><span style="color:#e2e8f0; font-weight:500;">SuraWPcko</span><span style="color:#64748b; font-family:'Share Tech Mono',monospace; font-size:0.72rem;">Člen</span><span style="color:#64748b;">Sura <span style="color:#94a3b8;">lv.93</span></span></div></div>
+      </div>
+    </div>
+
+    <!-- PRAVIDLA CECHU -->
+    <div style="margin-top:2.5rem;" class="reveal visible">
+      <div style="font-family:'Share Tech Mono',monospace; font-size:0.7rem; letter-spacing:0.2em; color:var(--accent2); text-transform:uppercase; margin-bottom:1rem;">⚠️ // Pravidla cechu</div>
+
+      <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap:1rem;">
+
+        <!-- Základní info -->
+        <div style="background:var(--bg3); border:1px solid var(--border); padding:1.5rem; clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 0 100%);">
+          <div style="font-family:'Share Tech Mono',monospace; font-size:0.65rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--accent); margin-bottom:1rem;">// Základní povinnosti</div>
+          <div style="display:flex; flex-direction:column; gap:0.7rem; font-size:0.85rem; line-height:1.6;">
+            <div style="display:flex; gap:0.6rem;"><span style="color:var(--gold);">💰</span><span style="color:var(--muted);">Týdenní poplatek za postavu: <strong style="color:var(--text);">30 KKK</strong></span></div>
+            <div style="display:flex; gap:0.6rem;"><span style="color:var(--accent);">💎</span><span style="color:var(--muted);">750 Arcikamů týdně</span></div>
+            <div style="display:flex; gap:0.6rem;"><span style="color:var(--accent);">👁</span><span style="color:var(--muted);">150 Oka přírody týdně pokud nemáš PvP</span></div>
+            <div style="display:flex; gap:0.6rem;"><span style="color:var(--accent2);">⚔️</span><span style="color:var(--muted);">Pokud máš PvP — alespoň <strong style="color:var(--text);">400+ kořisti = 0</strong> týdně</span></div>
+          </div>
+        </div>
+
+        <!-- Pravidla -->
+        <div style="background:var(--bg3); border:1px solid var(--border); padding:1.5rem; clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 0 100%);">
+          <div style="font-family:'Share Tech Mono',monospace; font-size:0.65rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--accent); margin-bottom:1rem;">// Pravidla</div>
+          <div style="display:flex; flex-direction:column; gap:0.6rem; font-size:0.85rem; line-height:1.6; color:var(--muted);">
+            <div style="display:flex; gap:0.6rem;"><span style="color:var(--gold); min-width:18px;">1.</span><span>Zvol svůj char ve výběru rolí</span></div>
+            <div style="display:flex; gap:0.6rem;"><span style="color:var(--gold); min-width:18px;">2.</span><span>Neaktivitu hlásit předem do kanálu <strong style="color:var(--accent);">#omluvenky</strong></span></div>
+            <div style="display:flex; gap:0.6rem;"><span style="color:var(--gold); min-width:18px;">3.</span><span>Přečíst si <strong style="color:var(--accent);">#cechovni-pravidla</strong></span></div>
+          </div>
+        </div>
+
+        <!-- Pokuty -->
+        <div style="background:var(--bg3); border:1px solid rgba(255,60,110,0.3); padding:1.5rem; clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 0 100%);">
+          <div style="font-family:'Share Tech Mono',monospace; font-size:0.65rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--accent2); margin-bottom:1rem;">🚨 // Pokuty</div>
+          <div style="font-size:0.85rem; color:var(--muted); line-height:1.8;">
+            Pokud hráč nesplní týdenní limit:<br>
+            <strong style="color:var(--accent2);">💎 + 🔷 + ⏱ = 30 KKK pokuta</strong><br><br>
+            <span style="color:var(--accent2); font-weight:500;">Za několikanásobné neplacení vyloučení z cechu!</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- DUNGEON TABULKA -->
+    <div style="margin-top:2rem;" class="reveal visible">
+      <div style="font-family:'Share Tech Mono',monospace; font-size:0.7rem; letter-spacing:0.2em; color:var(--accent); text-transform:uppercase; margin-bottom:1rem;">✅ // Sniž si audit — choď cechovní dungeony</div>
+      <p style="font-size:0.85rem; color:var(--muted); margin-bottom:1rem; line-height:1.7;">Každá aktivní účast v cechovním dungeonu sníží počet požadovaných arcikamů a očí přírody o <strong style="color:var(--text);">20%</strong>.</p>
+
+      <!-- Časy dungeonů -->
+      <div style="display:flex; flex-wrap:wrap; gap:0.5rem; margin-bottom:1.5rem;">
+        <div style="font-family:'Share Tech Mono',monospace; font-size:0.7rem; color:var(--muted); width:100%; letter-spacing:0.1em; text-transform:uppercase; margin-bottom:0.3rem;">Časy dungeonů:</div>
+        <span style="background:rgba(0,229,255,0.07); border:1px solid var(--border); padding:0.35rem 0.8rem; font-family:'Share Tech Mono',monospace; font-size:0.75rem; color:var(--text);">Po 21:00</span>
+        <span style="background:rgba(0,229,255,0.07); border:1px solid var(--border); padding:0.35rem 0.8rem; font-family:'Share Tech Mono',monospace; font-size:0.75rem; color:var(--text);">Út 21:00</span>
+        <span style="background:rgba(0,229,255,0.07); border:1px solid var(--border); padding:0.35rem 0.8rem; font-family:'Share Tech Mono',monospace; font-size:0.75rem; color:var(--text);">St 21:00</span>
+        <span style="background:rgba(0,229,255,0.07); border:1px solid var(--border); padding:0.35rem 0.8rem; font-family:'Share Tech Mono',monospace; font-size:0.75rem; color:var(--text);">Čt 21:00</span>
+        <span style="background:rgba(0,229,255,0.07); border:1px solid var(--border); padding:0.35rem 0.8rem; font-family:'Share Tech Mono',monospace; font-size:0.75rem; color:var(--text);">Pá 21:00</span>
+        <span style="background:rgba(0,229,255,0.07); border:1px solid var(--border); padding:0.35rem 0.8rem; font-family:'Share Tech Mono',monospace; font-size:0.75rem; color:var(--text);">So 21:00</span>
+        <span style="background:rgba(0,229,255,0.07); border:1px solid var(--border); padding:0.35rem 0.8rem; font-family:'Share Tech Mono',monospace; font-size:0.75rem; color:var(--text);">Ne 14:30</span>
+      </div>
+
+      <!-- Tabulka snížení -->
+      <div style="border:1px solid var(--border); overflow:hidden; clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 0 100%); max-width:500px;">
+        <div style="display:grid; grid-template-columns:1.5fr 1fr 1fr; background:rgba(0,229,255,0.07); padding:0.6rem 1rem; font-family:'Share Tech Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent);">
+          <span>Dungeonů týdně</span><span>Arcikamů</span><span>Očí přírody</span>
+        </div>
+        <div style="display:grid; grid-template-columns:1.5fr 1fr 1fr; padding:0.55rem 1rem; font-size:0.83rem; border-top:1px solid rgba(0,229,255,0.06);"><span style="color:var(--muted);">0 dungeonů</span><span style="color:var(--text);">750x</span><span style="color:var(--text);">150x</span></div>
+        <div style="display:grid; grid-template-columns:1.5fr 1fr 1fr; padding:0.55rem 1rem; font-size:0.83rem; border-top:1px solid rgba(0,229,255,0.06); background:rgba(0,229,255,0.02);"><span style="color:var(--muted);">1 dungeon</span><span style="color:var(--text);">600x</span><span style="color:var(--text);">125x</span></div>
+        <div style="display:grid; grid-template-columns:1.5fr 1fr 1fr; padding:0.55rem 1rem; font-size:0.83rem; border-top:1px solid rgba(0,229,255,0.06);"><span style="color:var(--muted);">2 dungeony</span><span style="color:var(--text);">450x</span><span style="color:var(--text);">100x</span></div>
+        <div style="display:grid; grid-template-columns:1.5fr 1fr 1fr; padding:0.55rem 1rem; font-size:0.83rem; border-top:1px solid rgba(0,229,255,0.06); background:rgba(0,229,255,0.02);"><span style="color:var(--muted);">3 dungeony</span><span style="color:var(--text);">300x</span><span style="color:var(--text);">75x</span></div>
+        <div style="display:grid; grid-template-columns:1.5fr 1fr 1fr; padding:0.55rem 1rem; font-size:0.83rem; border-top:1px solid rgba(0,229,255,0.06);"><span style="color:var(--muted);">4 dungeony</span><span style="color:var(--text);">150x</span><span style="color:var(--text);">50x</span></div>
+        <div style="display:grid; grid-template-columns:1.5fr 1fr 1fr; padding:0.55rem 1rem; font-size:0.83rem; border-top:1px solid rgba(0,229,255,0.06); background:rgba(0,229,255,0.02);"><span style="color:var(--muted);">5 a více</span><span style="color:var(--accent); font-weight:600;">✅ SPLNĚNO</span><span style="color:var(--accent); font-weight:600;">✅ SPLNĚNO</span></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+</body>
+</html>

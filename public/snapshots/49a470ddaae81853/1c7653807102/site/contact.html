@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <base href="./">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kontakt - Jablotrade</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <header>
+        <h1>Jablotrade</h1>
+        <nav>
+            <ul>
+                <li><a href="./index.html">Domů</a></li>
+                <li><a href="./products.html">Produkty</a></li>
+                <li><a href="./contact.html" class="active">Kontakt</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main style="justify-content: center; align-items: center; display: flex; flex: 1;">
+        <section class="fade-in" style="width: 100%;">
+            <h2>Kontaktujte nás</h2>
+            <p>Máte dotaz nebo zájem o větší odběr? Napište nám a my se vám co nejdříve ozveme.</p>
+            
+            <form action="#" method="POST" onsubmit="event.preventDefault(); alert('Zpráva byla úspěšně odeslána! (Demo)');">
+                <div>
+                    <label for="name">Vaše jméno</label>
+                    <input type="text" id="name" name="name" placeholder="Jan Novák" required>
+                </div>
+                <div>
+                    <label for="email">E-mailová adresa</label>
+                    <input type="email" id="email" name="email" placeholder="jan@example.com" required>
+                </div>
+                <div>
+                    <label for="message">Vaše zpráva</label>
+                    <textarea id="message" name="message" placeholder="Dobrý den, měl bych zájem o..." required></textarea>
+                </div>
+                <button type="submit" style="width: 100%; margin-top: 1rem;">Odeslat zprávu</button>
+            </form>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2026 Jablotrade. Všechna práva vyhrazena.</p>
+    </footer>
+    <script src="./script.js"></script>
+</body>
+</html>

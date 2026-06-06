@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <base href="./">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kurkuma — Zlatý prášek Orientu | Vůně dálek</title>
+  <meta name="description" content="Prémiová kurkuma z Dubaje — zlatý prášek s jemně zemitou chutí. Přirozené barvivo i léčivé koření. Vůně dálek.">
+  <link rel="icon" type="image/svg+xml" href="./img/favicon.svg">
+  <link rel="stylesheet" href="./css/normalize.css">
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+
+  <header>
+    <nav class="site-nav" aria-label="Hlavní navigace">
+      <div class="wrapper">
+        <div class="site-nav__inner">
+          <a href="./index.html" class="site-nav__logo">
+              <img src="./img/vune_dalek_logo.png" alt="Vůně dálek — domovská stránka" width="160" height="40" class="site-nav__logo-img">
+            </a>
+                    <menu class="site-nav__menu">
+            <li>
+              <a href="./index.html" class="site-nav__link">Domů</a>
+            </li>
+            <li>
+              <a href="./katalog.html" class="site-nav__link">Katalog</a>
+            </li>
+            <li>
+              <a href="./aboutus.html" class="site-nav__link">O nás</a>
+            </li>
+          </menu>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+
+    <div class="wrapper">
+      <nav class="breadcrumb" aria-label="Drobečková navigace">
+        <ol class="breadcrumb__list">
+          <li class="breadcrumb__item"><a href="./index.html" class="breadcrumb__link">Domů</a></li>
+          <li class="breadcrumb__item"><a href="./katalog.html" class="breadcrumb__link">Katalog</a></li>
+          <li class="breadcrumb__item breadcrumb__item--active" aria-current="page">Kurkuma</li>
+        </ol>
+      </nav>
+    </div>
+
+    <section class="product-detail" aria-labelledby="produkt-nadpis">
+      <div class="wrapper">
+        <div class="product-detail__inner">
+
+          <div class="product-detail__image-wrap">
+            <img
+              src="./img/kurkuma.jpg"
+              alt="Sytě žlutý prášek kurkumy v misce — zlatý prášek Orientu"
+              width="600"
+              height="600"
+              class="product-detail__image"
+            >
+          </div>
+
+          <div class="product-detail__info">
+            <p class="product-detail__category">Orientální koření</p>
+            <h1 class="product-detail__title" id="produkt-nadpis">Kurkuma</h1>
+            <p class="product-detail__price">129 Kč</p>
+
+            <p class="product-detail__desc">
+              Zlatý prášek Orientu s jemně zemitou a mírně hořkou chutí. Přirozené
+              barvivo i léčivé koření v jednom — kurkuma je základem curry, zlatého
+              mléka a nespočtu orientálních receptů.
+            </p>
+
+            <div class="product-detail__origin">
+              <p class="product-detail__origin-label">Původ</p>
+              <p class="product-detail__origin-text">
+                Naše kurkuma pochází z pěstíren v jihovýchodní Asii, odkud je dovážena
+                přímo přes dubajské obchodní centrum. Kořen je sušen přirozeně na slunci
+                a jemně mlet bez přidání plnidel.
+              </p>
+            </div>
+
+            <div class="product-detail__actions">
+              <button class="btn btn--primary js-add-to-cart" type="button" aria-label="Přidat kurkumu do košíku">
+                Přidat do košíku
+              </button>
+              <a href="./katalog.html" class="product-detail__back">← Zpět do katalogu</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer" aria-label="Zápatí stránky">
+    <div class="wrapper">
+      <div class="site-footer__inner">
+        <div class="site-footer__brand">
+          <p class="site-footer__brand-name">Vůně dálek</p>
+          <p class="site-footer__brand-desc">Exotické koření z Dubaje přímo k vám domů. Objevte autentické chutě Orientu.</p>
+        </div>
+        <div class="site-footer__contact">
+          <h2 class="site-footer__contact-heading">Kontakt</h2>
+          <ul class="site-footer__contact-list">
+            <li class="site-footer__contact-item">
+              <span class="site-footer__contact-icon" aria-hidden="true">✉</span>
+              <a href="mailto:info@vunedalek.cz">info@vunedalek.cz</a>
+            </li>
+            <li class="site-footer__contact-item">
+              <span class="site-footer__contact-icon" aria-hidden="true">✆</span>
+              <a href="tel:+420123456789">+420 123 456 789</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <p class="site-footer__copyright">&copy; 2026 Vůně dálek. Všechna práva vyhrazena.</p>
+    </div>
+  </footer>
+
+  <script src="./js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <base href="./">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kontakt - Jablotrade</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <header>
+        <h1>Jablotrade</h1>
+        <div class="header-controls">
+            <nav>
+                <ul>
+                    <li><a href="./index.html" data-i18n="nav-home">Domů</a></li>
+                    <li><a href="./products.html" data-i18n="nav-products">Produkty</a></li>
+                    <li><a href="./contact.html" class="active" data-i18n="nav-contact">Kontakt</a></li>
+                </ul>
+            </nav>
+            <div class="lang-switch">
+                <button class="lang-btn active" onclick="setLanguage('cs')">CZ</button>
+                <button class="lang-btn" onclick="setLanguage('en')">EN</button>
+            </div>
+        </div>
+    </header>
+    <main style="justify-content: center; align-items: center; display: flex; flex: 1;">
+        <section class="fade-in" style="width: 100%;">
+            <h2 data-i18n="contact-title">Kontaktujte nás</h2>
+            <p data-i18n="contact-desc">Máte dotaz nebo zájem o větší odběr? Napište nám a my se vám co nejdříve ozveme.</p>
+            
+            <form action="#" method="POST" onsubmit="event.preventDefault(); alert(currentLang === 'cs' ? 'Zpráva byla úspěšně odeslána!' : 'Message sent successfully!');">
+                <div>
+                    <label for="name" data-i18n="label-name">Vaše jméno</label>
+                    <input type="text" id="name" name="name" placeholder="Jan Novák" required>
+                </div>
+                <div>
+                    <label for="email" data-i18n="label-email">E-mailová adresa</label>
+                    <input type="email" id="email" name="email" placeholder="jan@example.com" required>
+                </div>
+                <div>
+                    <label for="message" data-i18n="label-message">Vaše zpráva</label>
+                    <textarea id="message" name="message" placeholder="Dobrý den, měl bych zájem o..." required></textarea>
+                </div>
+                <button type="submit" style="width: 100%; margin-top: 1rem;" data-i18n="btn-send">Odeslat zprávu</button>
+            </form>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2026 Jablotrade. <span data-i18n="footer-rights">Všechna práva vyhrazena.</span></p>
+    </footer>
+    <script src="./script.js"></script>
+</body>
+</html>

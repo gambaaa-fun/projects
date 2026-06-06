@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <base href="./">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>lightGallery — Dynamic Data Demo</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.2/css/lightgallery-bundle.min.css"/>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Georgia', serif;
+      background: #0f0e0d;
+      color: #e8e0d5;
+      min-height: 100vh;
+      padding: 3rem 2rem;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+    header h1 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 400;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+    header p {
+      margin-top: 0.6rem;
+      font-size: 0.9rem;
+      color: #7a6f63;
+      letter-spacing: 0.08em;
+    }
+
+    /* ── Category filter tabs ── */
+    .tabs {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+    .tab-btn {
+      background: transparent;
+      border: 1px solid #3a3530;
+      color: #7a6f63;
+      padding: 0.45rem 1.2rem;
+      font-family: inherit;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      border-radius: 2px;
+    }
+    .tab-btn:hover { border-color: #7a6f63; color: #e8e0d5; }
+    .tab-btn.active { background: #e8e0d5; color: #0f0e0d; border-color: #e8e0d5; }
+
+    /* ── Grid ── */
+    #gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 6px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .grid-item {
+      display: block;
+      overflow: hidden;
+      position: relative;
+      aspect-ratio: 4/3;
+      background: #1c1a18;
+      cursor: pointer;
+    }
+    .grid-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease, filter 0.4s ease;
+      filter: brightness(0.82) saturate(0.85);
+    }
+    .grid-item:hover img {
+      transform: scale(1.06);
+      filter: brightness(1) saturate(1.1);
+    }
+
+    /* Category badge */
+    .grid-item .badge {
+      position: absolute;
+      top: 0.5rem; left: 0.5rem;
+      background: rgba(0,0,0,0.55);
+      color: #e8e0d5;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.5rem;
+      border-radius: 2px;
+      backdrop-filter: blur(4px);
+    }
+
+    /* Hover caption */
+    .grid-item::after {
+      content: attr(data-caption);
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      background: linear-gradient(transparent, rgba(0,0,0,0.72));
+      color: #e8e0d5;
+      font-size: 0.8rem;
+      letter-spacing: 0.05em;
+      padding: 1.5rem 0.75rem 0.6rem;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .grid-item:hover::after { opacity: 1; }
+
+    /* First item wider */
+    .grid-item:first-child {
+      grid-column: span 2;
+      aspect-ratio: 16/9;
+    }
+
+    /* Empty state */
+    .empty {
+      grid-column: 1 / -1;
+      text-align: center;
+      color: #4a4540;
+      padding: 3rem;
+      font-size: 0.9rem;
+      letter-spacing: 0.08em;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 3rem;
+      font-size: 0.78rem;
+      color: #4a4540;
+      letter-spacing: 0.1em;
+    }
+    footer a { color: #7a6f63; text-decoration: none; }
+    footer a:hover { color: #e8e0d5; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Light&thinsp;Gallery</h1>
+  <p>Dynamic data — filter by category, lightbox shows only matching images</p>
+</header>
+
+<div class="tabs" id="tabs"></div>
+<div id="gallery"></div>
+
+<footer>
+  <p>Powered by <a href="https://www.lightgalleryjs.com/" target="_blank">lightGallery 2.x</a> · Dynamic data approach</p>
+</footer>
+
+<!-- lightGallery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.2/lightgallery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.2/plugins/zoom/lg-zoom.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.2/plugins/thumbnail/lg-thumbnail.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.2/plugins/fullscreen/lg-fullscreen.min.js"></script>
+
+<script>
+// ─────────────────────────────────────────────────────────────────────────────
+// 1. YOUR DATA SOURCE
+//    Each object is one image. Add/remove/reorder freely.
+//    Fields used by lightGallery:
+//      src       → full-size image URL
+//      thumb     → thumbnail URL (shown in bottom strip)
+//      subHtml   → HTML caption inside the lightbox
+//    Extra fields (our own):
+//      category  → used to filter which images the lightbox shows
+//      title     → shown on the grid card hover
+// ─────────────────────────────────────────────────────────────────────────────
+const ALL_IMAGES = [
+  {
+    src:      'https://picsum.photos/id/10/1600/900',
+    thumb:    'https://picsum.photos/id/10/200/120',
+    subHtml:  '<h4>Mountain Trail</h4><p>Early morning light on the ridge</p>',
+    category: 'nature',
+    title:    'Mountain Trail',
+  },
+  {
+    src:      'https://picsum.photos/id/15/1067/1600',
+    thumb:    'https://picsum.photos/id/15/200/120',
+    subHtml:  '<h4>Forest Path</h4><p>Sunlight filtering through tall pines</p>',
+    category: 'nature',
+    title:    'Forest Path',
+  },
+  {
+    src:      'https://picsum.photos/id/64/1600/1067',
+    thumb:    'https://picsum.photos/id/64/200/120',
+    subHtml:  '<h4>Coastal Cliffs</h4><p>Where the land meets the sea</p>',
+    category: 'nature',
+    title:    'Coastal Cliffs',
+  },
+  {
+    src:      'https://picsum.photos/id/29/1600/1067',
+    thumb:    'https://picsum.photos/id/29/200/120',
+    subHtml:  '<h4>City at Dusk</h4><p>Urban geometry at golden hour</p>',
+    category: 'urban',
+    title:    'City at Dusk',
+  },
+  {
+    src:      'https://picsum.photos/id/42/1600/1067',
+    thumb:    'https://picsum.photos/id/42/200/120',
+    subHtml:  '<h4>Desert Road</h4><p>Endless horizon, infinite possibilities</p>',
+    category: 'urban',
+    title:    'Desert Road',
+  },
+  {
+    src:      'https://picsum.photos/id/80/1600/1067',
+    thumb:    'https://picsum.photos/id/80/200/120',
+    subHtml:  '<h4>Autumn Lake</h4><p>Mirror reflections in still water</p>',
+    category: 'water',
+    title:    'Autumn Lake',
+  },
+  {
+    src:      'https://picsum.photos/id/116/1600/1067',
+    thumb:    'https://picsum.photos/id/116/200/120',
+    subHtml:  '<h4>Snow Fields</h4><p>Silence and soft white light</p>',
+    category: 'nature',
+    title:    'Snow Fields',
+  },
+  {
+    src:      'https://picsum.photos/id/96/1600/1067',
+    thumb:    'https://picsum.photos/id/96/200/120',
+    subHtml:  '<h4>Ocean Horizon</h4><p>Endless blue stretching to infinity</p>',
+    category: 'water',
+    title:    'Ocean Horizon',
+  },
+  {
+    src:      'https://picsum.photos/id/111/1600/1067',
+    thumb:    'https://picsum.photos/id/111/200/120',
+    subHtml:  '<h4>City Lights</h4><p>The pulse of a city after dark</p>',
+    category: 'urban',
+    title:    'City Lights',
+  },
+];
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 2. STATE
+// ─────────────────────────────────────────────────────────────────────────────
+let activeCategory = 'all';
+let lgInstance     = null;   // holds the current lightGallery instance
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 3. BUILD FILTER TABS
+// ─────────────────────────────────────────────────────────────────────────────
+const categories = ['all', ...new Set(ALL_IMAGES.map(img => img.category))];
+const tabsEl     = document.getElementById('tabs');
+
+categories.forEach(cat => {
+  const btn = document.createElement('button');
+  btn.className  = 'tab-btn' + (cat === 'all' ? ' active' : '');
+  btn.textContent = cat === 'all' ? 'All' : cat.charAt(0).toUpperCase() + cat.slice(1);
+  btn.addEventListener('click', () => {
+    activeCategory = cat;
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderGrid();
+  });
+  tabsEl.appendChild(btn);
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 4. RENDER GRID  (thumbnails only — no lightGallery yet)
+// ─────────────────────────────────────────────────────────────────────────────
+const galleryEl = document.getElementById('gallery');
+
+function renderGrid() {
+  galleryEl.innerHTML = '';
+
+  const filtered = activeCategory === 'all'
+    ? ALL_IMAGES
+    : ALL_IMAGES.filter(img => img.category === activeCategory);
+
+  if (!filtered.length) {
+    galleryEl.innerHTML = '<p class="empty">No images in this category.</p>';
+    return;
+  }
+
+  filtered.forEach((img, index) => {
+    const card = document.createElement('div');
+    card.className      = 'grid-item';
+    card.dataset.caption = img.title;
+
+    card.innerHTML = `
+      <span class="badge">${img.category}</span>
+      <img src="${img.thumb}" alt="${img.title}" loading="lazy"/>
+    `;
+
+    // ── KEY PART: clicking opens lightGallery with ONLY the filtered set,
+    //              starting at the index of the clicked image ──────────────
+    card.addEventListener('click', () => openLightbox(filtered, index));
+
+    galleryEl.appendChild(card);
+  });
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 5. OPEN LIGHTBOX WITH DYNAMIC DATA
+//    dynamicEl → the array of images to show (filtered subset)
+//    index     → which image to start on
+// ─────────────────────────────────────────────────────────────────────────────
+function openLightbox(images, startIndex) {
+  // Destroy any previous instance to avoid duplicates
+  if (lgInstance) {
+    lgInstance.destroy();
+    lgInstance = null;
+  }
+
+  // lightGallery needs a real DOM element as its mount point
+  const mountEl = document.createElement('div');
+  document.body.appendChild(mountEl);
+
+  lgInstance = lightGallery(mountEl, {
+    plugins:   [lgZoom, lgThumbnail, lgFullscreen],
+
+    // ── Dynamic data ──────────────────────────────────────────────────────
+    dynamic:   true,          // tell lightGallery to use JS data, not DOM children
+    dynamicEl: images,        // the array of image objects to show
+    index:     startIndex,    // open at the clicked image
+
+    // Core options
+    speed:     400,
+    download:  true,
+    counter:   true,
+
+    // Zoom
+    zoom: true,
+    scale: 1,
+
+    // Thumbnail strip
+    thumbnail:    true,
+    animateThumb: true,
+    thumbWidth:   100,
+    thumbHeight:  '65px',
+    toggleThumb:  true,
+
+    // Mobile
+    swipeToClose: true,
+    closable:     true,
+  });
+
+  // Open immediately (required when using dynamic mode)
+  lgInstance.openGallery(startIndex);
+
+  // Clean up the temp mount element after lightGallery closes
+  mountEl.addEventListener('lgAfterClose', () => {
+    lgInstance.destroy();
+    lgInstance = null;
+    mountEl.remove();
+  });
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 6. INITIAL RENDER
+// ─────────────────────────────────────────────────────────────────────────────
+renderGrid();
+</script>
+
+</body>
+</html>

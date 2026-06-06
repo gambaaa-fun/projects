@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <base href="./">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jablotrade - LED světla a displeje</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <header>
+        <h1>Jablotrade</h1>
+        <div class="header-controls">
+            <nav>
+                <ul>
+                    <li><a href="./index.html" class="active"><span class="cs">Domů</span><span class="en">Home</span></a></li>
+                    <li><a href="./products.html"><span class="cs">Produkty</span><span class="en">Products</span></a></li>
+                    <li><a href="./contact.html"><span class="cs">Kontakt</span><span class="en">Contact</span></a></li>
+                </ul>
+            </nav>
+            <div class="lang-switch">
+                <button id="lang-cs-btn" class="lang-btn" onclick="setLang('cs')">CZ</button>
+                <button id="lang-en-btn" class="lang-btn" onclick="setLang('en')">EN</button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="hero" class="fade-in">
+            <h2><span class="cs">Vítejte v Jablotrade</span><span class="en">Welcome to Jablotrade</span></h2>
+            <p>
+                <span class="cs">Specializujeme se na prémiová LED světla pro venkovní osvětlení a moderní displeje. Objevte naši nabídku kvalitních produktů, které prozáří váš prostor.</span>
+                <span class="en">We specialize in premium LED lights for outdoor lighting and modern displays. Discover our range of high-quality products that will illuminate your space.</span>
+            </p>
+            <img src="./images/hero.png" alt="Jablotrade LED lights">
+            <div style="margin-top: 2rem;">
+                <a href="./products.html">
+                    <button><span class="cs">Zobrazit produkty</span><span class="en">View Products</span></button>
+                </a>
+            </div>
+        </section>
+
+        <section id="about" class="feature-section fade-in">
+            <div class="feature-content">
+                <h2><span class="cs">Z našeho vlastního výrobního závodu</span><span class="en">From Our Own Production Plant</span></h2>
+                <p>
+                    <span class="cs">V našich moderních, vysoce technologických závodech vyrábíme LED osvětlení s maximální přesností a kvalitou. Naše produkty jsou navrženy pro dlouhou životnost a špičkový výkon.</span>
+                    <span class="en">In our modern, high-tech facilities we manufacture LED lighting with maximum precision and quality. Our products are designed for long life and top performance.</span>
+                </p>
+            </div>
+            <div class="feature-image">
+                <img src="./images/factory.png" alt="Výrobní závod">
+            </div>
+        </section>
+
+        <section id="benefits" class="feature-section fade-in">
+            <div class="feature-content">
+                <h2><span class="cs">Vysoká účinnost a spolehlivost</span><span class="en">High Efficiency and Reliability</span></h2>
+                <p>
+                    <span class="cs">Naše LED světla vynikají mimořádnou energetickou účinností, vysokou svítivostí a extrémně dlouhou životností. Díky inovativním technologiím šetříte energii bez kompromisů.</span>
+                    <span class="en">Our LED lights excel in extraordinary energy efficiency, high brightness and extremely long life. Thanks to innovative technologies, you save energy without compromise.</span>
+                </p>
+            </div>
+            <div class="feature-image">
+                <img src="./images/benefits.png" alt="Účinnost a spolehlivost">
+            </div>
+        </section>
+
+        <section id="cta" class="fade-in" style="text-align: center; margin-bottom: 2rem;">
+            <h2><span class="cs">Následujte světlo</span><span class="en">Follow the Light</span></h2>
+            <p>
+                <span class="cs">Objednejte si naše LED světla online, nebo nás kontaktujte. S potěšením vám poradíme s nejlepším řešením pro váš projekt.</span>
+                <span class="en">Order our LED lights online or contact us. We will be happy to advise you on the best solution for your project.</span>
+            </p>
+            <a href="./contact.html">
+                <button style="margin-top: 1rem;"><span class="cs">Kontaktujte nás</span><span class="en">Contact Us</span></button>
+            </a>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Jablotrade. <span class="cs">Všechna práva vyhrazena.</span><span class="en">All rights reserved.</span></p>
+    </footer>
+    <script src="./script.js"></script>
+</body>
+</html>

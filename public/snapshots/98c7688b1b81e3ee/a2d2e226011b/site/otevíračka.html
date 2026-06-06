@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+    <base href="./">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Otevírací doba - Bowling club Chrastava</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Bebas+Neue&family=Lato:wght@300;400;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="./bowling.html" class="nav-logo" style="text-decoration: none;">🎳 Bowling Club Chrastava</a>
+    
+    <!-- Tlačítko pro hamburger menu na mobilu -->
+    <button class="nav-toggle" id="navToggle" aria-label="Otevřít menu">
+      <span class="nav-toggle-text">Informace</span>
+      <div class="nav-toggle-icon">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </button>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="./bowling-sekce.html">Bowling</a></li>
+      <li><a href="./vedlejšíaktivity.html">Kulečník a Šipky</a></li>
+      <li><a href="./jidelníček.html">Jídelní lístek</a></li>
+      <li><a href="./otevíračka.html" class="active">Otevírací doba</a></li>
+      <li><a href="./rezervace.html">Rezervace</a></li>
+      <li class="nav-phone-mobile"><a href="tel:123456789">📞 123 456 789</a></li>
+    </ul>
+    <div class="nav-phone">📞 123 456 789</div>
+  </nav>
+
+  <!-- HODINY -->
+  <section id="hodiny" style="padding-top: 120px; min-height: calc(100vh - 250px); display: flex; align-items: center;">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label">Kdy nás najdete</div>
+        <div class="section-title">Otevírací doba</div>
+        <div class="section-divider"></div>
+      </div>
+      <div class="hours-table-wrap">
+        <table class="hours-table">
+          <tr class="closed-row">
+            <td class="day-name">Pondělí</td>
+            <td class="day-hours">ZAVŘENO</td>
+          </tr>
+          <tr>
+            <td class="day-name">Úterý</td>
+            <td class="day-hours">15:00 – 21:00</td>
+          </tr>
+          <tr>
+            <td class="day-name">Středa</td>
+            <td class="day-hours">15:00 – 21:00</td>
+          </tr>
+          <tr>
+            <td class="day-name">Čtvrtek</td>
+            <td class="day-hours">15:00 – 21:00</td>
+          </tr>
+          <tr class="highlight-row">
+            <td class="day-name">Pátek ✦</td>
+            <td class="day-hours">17:00 – 24:00</td>
+          </tr>
+          <tr class="highlight-row">
+            <td class="day-name">Sobota ✦</td>
+            <td class="day-hours">17:00 – 24:00</td>
+          </tr>
+          <tr>
+            <td class="day-name">Neděle</td>
+            <td class="day-hours">17:00 – 23:00</td>
+          </tr>
+        </table>
+        <div class="hours-note">
+          Pro jistotu volejte: <strong>123 456 789</strong><br>
+          <span style="font-size:0.8rem; margin-top:0.3rem; display:block;">✦ Pátek, sobota a neděle jsou naše hlavní večerní dny</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">🎳 Bowling Club Chrastava</div>
+    <div class="footer-tagline">Bowling · Kulečník · Šipky · Čepované pivo</div>
+    <div class="footer-icons">🎳 🎱 🎯 🍺</div>
+    <div>
+      <a href="tel:605132083"
+        style="color:var(--gold); font-family:'Bebas Neue',sans-serif; font-size:1.5rem; letter-spacing:3px; text-decoration:none; text-shadow: 0 0 10px rgba(245,197,24,0.4);">📞
+        123 456 789</a>
+    </div>
+    <div class="footer-bottom">
+      © 2025 Bowling Club Chrastava &nbsp;·&nbsp; Chrastava
+    </div>
+  </footer>
+
+  <script>
+    // === MOBILE MENU TOGGLE ===
+    const navToggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+
+    if (navToggle && navLinks) {
+      navToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        navToggle.classList.toggle('active');
+        navLinks.classList.toggle('active');
+      });
+
+      // Zavřít menu po kliknutí na odkaz
+      navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          navToggle.classList.remove('active');
+          navLinks.classList.remove('active');
+        });
+      });
+
+      // Zavřít menu při kliknutí mimo
+      document.addEventListener('click', (e) => {
+        if (!navLinks.contains(e.target) && !navToggle.contains(e.target)) {
+          navToggle.classList.remove('active');
+          navLinks.classList.remove('active');
+        }
+      });
+    }
+  </script>
+
+</body>
+
+</html>
