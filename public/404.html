@@ -1,0 +1,1054 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gambaaa Wayback</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #101216;
+      --panel: #181c22;
+      --panel-2: #202630;
+      --text: #f5f7fb;
+      --muted: #a7b0bd;
+      --line: #323946;
+      --accent: #6fd0a8;
+      --accent-2: #6ca8e8;
+      --warn: #efc66b;
+      --bad: #f08b8b;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100%;
+      overflow: hidden;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    [hidden] {
+      display: none !important;
+    }
+
+    .app {
+      display: grid;
+      grid-template-rows: auto minmax(0, 1fr);
+      height: 100dvh;
+      min-height: 0;
+      overflow: hidden;
+    }
+
+    .topbar {
+      display: grid;
+      gap: 14px;
+      border-bottom: 1px solid var(--line);
+      background: #141820;
+      padding: 16px;
+    }
+
+    .brand-row,
+    .controls,
+    .snapshot-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      border: 0;
+      background: transparent;
+      color: var(--text);
+      cursor: pointer;
+      font-size: clamp(1.3rem, 4vw, 2.4rem);
+      font-weight: 900;
+      line-height: 1;
+      padding: 0;
+      text-align: left;
+    }
+
+    .brand:hover,
+    .brand:focus-visible {
+      color: var(--accent);
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 30px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #11151b;
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-weight: 800;
+      padding: 5px 10px;
+    }
+
+    .pill.good {
+      border-color: color-mix(in srgb, var(--accent) 55%, transparent);
+      color: #cffff0;
+    }
+
+    .pill.warn {
+      border-color: color-mix(in srgb, var(--warn) 50%, transparent);
+      color: #ffe7ad;
+    }
+
+    .field {
+      display: grid;
+      gap: 5px;
+      min-width: min(100%, 180px);
+    }
+
+    .field.search {
+      flex: 1 1 340px;
+    }
+
+    label {
+      color: var(--muted);
+      font-size: 0.72rem;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    input,
+    select,
+    .button {
+      min-height: 40px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #0f1217;
+      color: var(--text);
+      font-size: 0.92rem;
+      font-weight: 750;
+      padding: 0 12px;
+    }
+
+    input {
+      width: 100%;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .button[aria-pressed="true"],
+    .snapshot-button[aria-current="true"] {
+      border-color: color-mix(in srgb, var(--accent) 60%, transparent);
+      background: color-mix(in srgb, var(--accent) 18%, #0f1217);
+      color: #d9fff0;
+    }
+
+    .snapshot-row {
+      overflow-x: auto;
+      flex-wrap: nowrap;
+      padding-bottom: 2px;
+    }
+
+    .snapshot-button {
+      flex: 0 0 auto;
+      min-height: 38px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #11151b;
+      color: var(--text);
+      cursor: pointer;
+      font-size: 0.86rem;
+      font-weight: 800;
+      padding: 0 12px;
+      white-space: nowrap;
+    }
+
+    .workspace {
+      display: grid;
+      grid-template-columns: minmax(280px, 380px) minmax(0, 1fr);
+      height: 100%;
+      min-height: 0;
+      overflow: hidden;
+    }
+
+    .sidebar {
+      display: grid;
+      grid-template-rows: auto minmax(0, 1fr);
+      min-height: 0;
+      border-right: 1px solid var(--line);
+      background: #11151b;
+    }
+
+    .sidebar-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      border-bottom: 1px solid var(--line);
+      padding: 12px 14px;
+    }
+
+    .site-list {
+      overflow: auto;
+      padding: 10px;
+    }
+
+    .group-title {
+      color: var(--muted);
+      font-size: 0.76rem;
+      font-weight: 900;
+      padding: 14px 8px 8px;
+      text-transform: uppercase;
+    }
+
+    .site-button {
+      display: grid;
+      gap: 7px;
+      width: 100%;
+      border: 1px solid transparent;
+      border-radius: 8px;
+      background: transparent;
+      color: var(--text);
+      cursor: pointer;
+      margin: 0 0 6px;
+      padding: 10px;
+      text-align: left;
+    }
+
+    .site-button:hover,
+    .site-button[aria-current="true"] {
+      border-color: var(--line);
+      background: var(--panel);
+    }
+
+    .site-name {
+      overflow-wrap: anywhere;
+      font-size: 0.95rem;
+      font-weight: 850;
+    }
+
+    .site-meta {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+      color: var(--muted);
+      font-size: 0.78rem;
+    }
+
+    .viewer {
+      display: grid;
+      grid-template-rows: auto minmax(0, 1fr);
+      min-height: 0;
+      max-height: 100%;
+      overflow: hidden;
+      background: #0c0f13;
+    }
+
+    .viewer-head {
+      display: grid;
+      gap: 10px;
+      border-bottom: 1px solid var(--line);
+      background: var(--panel);
+      padding: 12px 14px;
+    }
+
+    .viewer-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    h1,
+    h2,
+    p {
+      margin: 0;
+    }
+
+    h1 {
+      overflow-wrap: anywhere;
+      font-size: clamp(1.1rem, 2vw, 1.6rem);
+      letter-spacing: 0;
+    }
+
+    .resource-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .playback {
+      display: grid;
+      gap: 8px;
+    }
+
+    .timeline {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .time-nav {
+      display: inline-grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #11151b;
+      color: var(--text);
+      cursor: pointer;
+      font-size: 1.05rem;
+      font-weight: 900;
+    }
+
+    .time-nav:disabled {
+      cursor: default;
+      opacity: 0.35;
+    }
+
+    .time-rail {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: minmax(92px, 1fr);
+      align-items: end;
+      min-height: 42px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow-x: auto;
+      background: #11151b;
+      padding: 6px;
+    }
+
+    .time-dot {
+      display: grid;
+      align-content: end;
+      justify-items: center;
+      min-width: 0;
+      height: 30px;
+      border: 0;
+      border-radius: 6px;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      font-size: 0.68rem;
+      font-weight: 850;
+      padding: 0 4px;
+    }
+
+    .time-dot::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: currentColor;
+      margin-bottom: 4px;
+    }
+
+    .time-dot[aria-current="true"] {
+      background: color-mix(in srgb, var(--accent) 16%, transparent);
+      color: var(--accent);
+    }
+
+    .address-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #11151b;
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 800;
+      padding: 7px 9px;
+    }
+
+    .address-bar span {
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .resource-link {
+      display: inline-flex;
+      align-items: center;
+      min-height: 32px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-weight: 850;
+      padding: 5px 9px;
+    }
+
+    .resource-link:hover {
+      color: var(--accent);
+      border-color: #596374;
+    }
+
+    .frame-wrap {
+      min-height: 0;
+      max-height: 100%;
+      overflow: hidden;
+      padding: 12px;
+    }
+
+    iframe {
+      display: block;
+      width: 100%;
+      height: 100%;
+      max-width: 100%;
+      max-height: 100%;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: white;
+    }
+
+    .empty {
+      display: grid;
+      align-items: start;
+      justify-items: center;
+      height: 100%;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #11151b;
+      color: var(--muted);
+      padding: 24px;
+      text-align: center;
+    }
+
+    @media (max-width: 880px) {
+      .workspace {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        max-height: 44vh;
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div class="brand-row">
+        <button class="brand" type="button" data-home aria-label="Return to the first Wayback view">Gambaaa
+          Wayback</button>
+        <span class="pill">2 sites</span>
+        <span class="pill">0 snapshots</span>
+        <span class="pill good">0 local pages</span>
+        <span class="pill">Updated 6/6/2026, 3:07:18 AM</span>
+      </div>
+      <div class="controls">
+        <div class="field search">
+          <label for="url-search">Search or URL</label>
+          <input id="url-search" type="search" placeholder="Repo, URL, snapshot, page title">
+        </div>
+        <div class="field">
+          <label for="sort-sites">Sort</label>
+          <select id="sort-sites">
+            <option value="updated-desc">Last updated</option>
+            <option value="original">Original order</option>
+            <option value="name-asc">Name A-Z</option>
+            <option value="name-desc">Name Z-A</option>
+            <option value="snapshots-desc">Most snapshots</option>
+          </select>
+        </div>
+        <button class="button" type="button" data-group-toggle aria-pressed="true">Grouped</button>
+      </div>
+      <div class="snapshot-row" data-snapshots></div>
+    </header>
+    <section class="workspace">
+      <aside class="sidebar">
+        <div class="sidebar-head">
+          <span class="pill" data-result-count></span>
+          <span class="pill" data-selected-count></span>
+        </div>
+        <div class="site-list" data-site-list></div>
+      </aside>
+      <section class="viewer">
+        <div class="viewer-head">
+          <div class="viewer-title">
+            <h1 data-viewer-title></h1>
+            <span class="pill" data-viewer-status></span>
+          </div>
+          <div class="playback">
+            <div class="timeline">
+              <button class="time-nav" type="button" data-prev-snapshot aria-label="Previous snapshot">&lt;</button>
+              <div class="time-rail" data-timeline></div>
+              <button class="time-nav" type="button" data-next-snapshot aria-label="Next snapshot">&gt;</button>
+            </div>
+            <div class="address-bar"><strong>URL</strong><span data-page-url></span></div>
+          </div>
+          <div class="resource-row" data-resources></div>
+        </div>
+        <div class="frame-wrap" data-frame-wrap></div>
+      </section>
+    </section>
+  </main>
+  <script id="wayback-data"
+    type="application/json">{"generatedAt":"2026-06-06T01:07:18.710Z","targetDomain":"gambaaa.fun","groups":["P2A (2025)","P2B (2025)"],"sites":[{"id":"a19b8008e08396d2","group":"P2A (2025)","groupIndex":0,"siteIndex":0,"originalUrl":"https://pslib-cz.github.io/2025-p2a-web-volny-projekt-jan-wiener/","finalUrl":"https://pslib-cz.github.io/2025-p2a-web-volny-projekt-jan-wiener/","repoName":"2025-p2a-web-volny-projekt-jan-wiener","repoUrl":"https://github.com/pslib-cz/2025-p2a-web-volny-projekt-jan-wiener","readme":{"url":"https://github.com/pslib-cz/2025-p2a-web-volny-projekt-jan-wiener","links":[{"url":"https://www.radnaabazar.com/en","label":"radnaabazar.com"},{"url":"https://www.figma.com/design/54ivVWlvorjxmNvJnyz950/Untitled?node-id=7-7&t=ZCtVJdn0RZKPSuwC-1","label":"Figma"},{"url":"https://www.figma.com/design/54ivVWlvorjxmNvJnyz950/Untitled?node-id=0-1&t=ZCtVJdn0RZKPSuwC-1","label":"Figma"},{"url":"https://github.com/pslib-cz/2025-p2a-web-volny-projekt-jan-wiener/tree/main/images","label":"github.com"}]},"latestCommit":{"date":"2026-06-05T20:15:05Z","timestamp":1780690505000,"sha":"c01100133eb6e6ce870d6578a9011f97e770eb6d","url":"https://github.com/pslib-cz/2025-p2a-web-volny-projekt-jan-wiener/commit/c01100133eb6e6ce870d6578a9011f97e770eb6d","message":"-_-"},"isGambaaa":false,"metadata":{"robots":false,"sitemap":false,"sitemapUrls":[],"seo":false,"accessibility":false,"loadMs":null},"status":"Load failed","error":"newPage: Target page, context or browser has been closed","snapshots":[]},{"id":"9ca5e91de942fd23","group":"P2B (2025)","groupIndex":1,"siteIndex":0,"originalUrl":"https://pslib-cz.github.io/2025-p2b-web-project-tomassys","finalUrl":"https://pslib-cz.github.io/2025-p2b-web-project-tomassys","repoName":"2025-p2b-web-project-tomassys","repoUrl":"https://github.com/pslib-cz/2025-p2b-web-project-tomassys","readme":{"url":"https://github.com/pslib-cz/2025-p2b-web-project-tomassys","links":[{"url":"https://canva.link/ljy5rzc5c7nsjcb","label":"Canva"},{"url":"https://www.figma.com/site/MfZBLR3x1FYCjOUtw9yNiP/Timeline-of-Light-and-Dark?node-id=0-1&t=Zrp6yCc4GMqNrH1p-1","label":"Figma"}]},"latestCommit":{"date":"2026-06-04T13:51:59Z","timestamp":1780581119000,"sha":"69e3bb0104dd7fee86627fec48bd15dc7625caa0","url":"https://github.com/pslib-cz/2025-p2b-web-project-tomassys/commit/69e3bb0104dd7fee86627fec48bd15dc7625caa0","message":"pridan lore text pro 9/8 node"},"isGambaaa":false,"metadata":{"robots":false,"sitemap":false,"sitemapUrls":[],"seo":false,"accessibility":false,"loadMs":null},"status":"Load failed","error":"newPage: Target page, context or browser has been closed","snapshots":[]}]}</script>
+  <script>
+    const data = JSON.parse(document.querySelector("#wayback-data").textContent);
+    const controls = {
+      home: document.querySelector("[data-home]"),
+      search: document.querySelector("#url-search"),
+      sort: document.querySelector("#sort-sites"),
+      grouped: document.querySelector("[data-group-toggle]"),
+      snapshots: document.querySelector("[data-snapshots]"),
+      list: document.querySelector("[data-site-list]"),
+      resultCount: document.querySelector("[data-result-count]"),
+      selectedCount: document.querySelector("[data-selected-count]"),
+      title: document.querySelector("[data-viewer-title]"),
+      status: document.querySelector("[data-viewer-status]"),
+      prevSnapshot: document.querySelector("[data-prev-snapshot]"),
+      nextSnapshot: document.querySelector("[data-next-snapshot]"),
+      timeline: document.querySelector("[data-timeline]"),
+      pageUrl: document.querySelector("[data-page-url]"),
+      resources: document.querySelector("[data-resources]"),
+      frameWrap: document.querySelector("[data-frame-wrap]"),
+    };
+    const collator = new Intl.Collator(undefined, { numeric: true, sensitivity: "base" });
+    let state = readState();
+    let applyingRoute = false;
+    let viewerRequestId = 0;
+
+    if (!location.pathname.startsWith("/wayback")) {
+      updateRoute();
+    } else if (location.hash) {
+      updateRoute();
+    }
+
+    controls.search.value = state.q || state.url || "";
+    controls.sort.value = state.sort || "updated-desc";
+    controls.grouped.setAttribute("aria-pressed", String(state.grouped !== "0"));
+    controls.grouped.textContent = state.grouped === "0" ? "Ungrouped" : "Grouped";
+
+    controls.home.addEventListener("click", () => {
+      state = {
+        q: "",
+        url: "",
+        site: "",
+        snapshot: "",
+        page: "0",
+        sort: "updated-desc",
+        grouped: "1",
+      };
+      controls.search.value = "";
+      controls.sort.value = "updated-desc";
+      controls.grouped.setAttribute("aria-pressed", "true");
+      controls.grouped.textContent = "Grouped";
+      updateRoute();
+      render();
+    });
+    controls.search.addEventListener("input", () => {
+      state.q = controls.search.value;
+      state.url = looksLikeUrl(state.q) ? state.q : "";
+      updateRoute();
+      render();
+    });
+    controls.sort.addEventListener("change", () => {
+      state.sort = controls.sort.value;
+      updateRoute();
+      render();
+    });
+    controls.grouped.addEventListener("click", () => {
+      state.grouped = controls.grouped.getAttribute("aria-pressed") === "true" ? "0" : "1";
+      controls.grouped.setAttribute("aria-pressed", String(state.grouped !== "0"));
+      controls.grouped.textContent = state.grouped === "0" ? "Ungrouped" : "Grouped";
+      updateRoute();
+      render();
+    });
+    controls.prevSnapshot.addEventListener("click", () => shiftSnapshot(-1));
+    controls.nextSnapshot.addEventListener("click", () => shiftSnapshot(1));
+    window.addEventListener("popstate", () => {
+      if (applyingRoute) return;
+      state = readState();
+      controls.search.value = state.q || state.url || "";
+      controls.sort.value = state.sort || "updated-desc";
+      controls.grouped.setAttribute("aria-pressed", String(state.grouped !== "0"));
+      controls.grouped.textContent = state.grouped === "0" ? "Ungrouped" : "Grouped";
+      render();
+    });
+
+    render();
+
+    function render() {
+      const sites = visibleSites();
+      const selected = selectedSite(sites);
+      const snapshots = selected?.snapshots || [];
+      const snapshot = selectedSnapshot(snapshots);
+      const pages = snapshot?.pages || [];
+      const page = selectedPage(pages);
+
+      controls.resultCount.textContent = String(sites.length) + " / " + String(data.sites.length) + " sites";
+      controls.selectedCount.textContent = selected ? String(snapshots.length) + " captures" : "0 captures";
+      renderSiteList(sites, selected);
+      renderSnapshots(snapshots, snapshot);
+      renderTimeline(snapshots, snapshot, page);
+      renderViewer(selected, snapshot, pages, page);
+
+      if (selected && state.site !== selected.id) {
+        state.site = selected.id;
+        state.snapshot = snapshot?.key || "";
+        state.page = page ? String(pages.indexOf(page)) : "0";
+        updateRoute();
+      }
+    }
+
+    function visibleSites() {
+      const query = normalize(state.q || state.url || "");
+      const grouped = controls.grouped.getAttribute("aria-pressed") === "true";
+      const sites = data.sites
+        .map((site) => ({ site, score: searchScore(site, query) }))
+        .filter((entry) => !query || entry.score > 0)
+        .sort((a, b) => b.score - a.score || compareSites(a.site, b.site, grouped))
+        .map((entry) => entry.site);
+      return sites;
+    }
+
+    function selectedSite(sites) {
+      return (
+        sites.find((site) => site.id === state.site) ||
+        sites.find((site) => normalize(site.originalUrl).includes(normalize(state.url || ""))) ||
+        sites[0] ||
+        null
+      );
+    }
+
+    function selectedSnapshot(snapshots) {
+      return snapshots.find((snapshot) => snapshot.key === state.snapshot) || snapshots[0] || null;
+    }
+
+    function selectedPage(pages) {
+      const index = Number.parseInt(state.page || "0", 10);
+      return pages[Number.isFinite(index) ? index : 0] || pages[0] || null;
+    }
+
+    function renderSiteList(sites, selected) {
+      controls.list.innerHTML = "";
+      const grouped = controls.grouped.getAttribute("aria-pressed") === "true";
+      let previousGroup = "";
+      for (const site of sites) {
+        if (grouped && site.group !== previousGroup) {
+          previousGroup = site.group;
+          const heading = document.createElement("div");
+          heading.className = "group-title";
+          heading.textContent = site.group;
+          controls.list.append(heading);
+        }
+
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "site-button";
+        button.setAttribute("aria-current", String(site.id === selected?.id));
+        button.innerHTML =
+          '<span class="site-name"></span><span class="site-meta"></span>';
+        button.querySelector(".site-name").textContent = site.repoName;
+        button.querySelector(".site-meta").textContent =
+          String(site.snapshots.length) + " snapshots · " + hostLabel(site.finalUrl || site.originalUrl);
+        button.addEventListener("click", () => {
+          state.site = site.id;
+          state.snapshot = site.snapshots[0]?.key || "";
+          state.page = "0";
+          updateRoute();
+          render();
+        });
+        controls.list.append(button);
+      }
+    }
+
+    function renderSnapshots(snapshots, selected) {
+      controls.snapshots.innerHTML = "";
+      if (snapshots.length === 0) {
+        const empty = document.createElement("span");
+        empty.className = "pill warn";
+        empty.textContent = "No local snapshots";
+        controls.snapshots.append(empty);
+        return;
+      }
+
+      for (const snapshot of snapshots) {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "snapshot-button";
+        button.setAttribute("aria-current", String(snapshot.key === selected?.key));
+        button.textContent = snapshot.label || snapshot.key;
+        button.addEventListener("click", () => {
+          state.snapshot = snapshot.key;
+          state.page = "0";
+          updateRoute();
+          render();
+        });
+        controls.snapshots.append(button);
+      }
+    }
+
+    function renderTimeline(snapshots, selected, page) {
+      controls.timeline.innerHTML = "";
+      controls.pageUrl.textContent = page?.url || "No page selected";
+      const selectedIndex = snapshots.findIndex((snapshot) => snapshot.key === selected?.key);
+      controls.prevSnapshot.disabled = selectedIndex <= 0;
+      controls.nextSnapshot.disabled = selectedIndex < 0 || selectedIndex >= snapshots.length - 1;
+
+      if (snapshots.length === 0) {
+        const empty = document.createElement("span");
+        empty.className = "pill warn";
+        empty.textContent = "No captures";
+        controls.timeline.append(empty);
+        return;
+      }
+
+      for (const snapshot of snapshots) {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "time-dot";
+        button.setAttribute("aria-current", String(snapshot.key === selected?.key));
+        button.title = snapshot.label || snapshot.key;
+        button.textContent = timelineLabel(snapshot);
+        button.addEventListener("click", () => {
+          state.snapshot = snapshot.key;
+          state.page = "0";
+          updateRoute();
+          render();
+        });
+        controls.timeline.append(button);
+      }
+    }
+
+    function shiftSnapshot(delta) {
+      const site = data.sites.find((item) => item.id === state.site) || data.sites[0];
+      const snapshots = site?.snapshots || [];
+      const index = snapshots.findIndex((snapshot) => snapshot.key === state.snapshot);
+      const next = snapshots[index + delta];
+      if (!next) return;
+      state.snapshot = next.key;
+      state.page = "0";
+      updateRoute();
+      render();
+    }
+
+    function timelineLabel(snapshot) {
+      const date = new Date(Number(snapshot.timestamp || 0));
+      if (!Number.isFinite(date.getTime())) return snapshot.key.slice(0, 6);
+      return date.toLocaleDateString(undefined, { month: "short", day: "numeric" });
+    }
+
+    function renderViewer(site, snapshot, pages, page) {
+      controls.resources.innerHTML = "";
+      controls.frameWrap.innerHTML = "";
+      controls.title.textContent = site?.repoName || "No site selected";
+      controls.status.textContent = snapshot ? snapshot.label : "No snapshot";
+
+      if (!site || !snapshot) {
+        controls.frameWrap.innerHTML = '<div class="empty">No local snapshot is available for this selection.</div>';
+        return;
+      }
+
+      for (const link of resourceLinks(site, snapshot, page)) {
+        const anchor = document.createElement("a");
+        anchor.className = "resource-link";
+        anchor.href = link.href;
+        anchor.target = "_blank";
+        anchor.rel = "noopener noreferrer";
+        anchor.textContent = link.label;
+        controls.resources.append(anchor);
+      }
+
+      if (page?.localPage) {
+        renderLocalPage(site, snapshot, pages, page);
+      } else if (page?.screenshot) {
+        const img = document.createElement("img");
+        img.src = publicUrl(page.screenshot);
+        img.alt = "Snapshot screenshot of " + (page.title || page.url);
+        img.style.width = "100%";
+        img.style.borderRadius = "8px";
+        controls.frameWrap.append(img);
+      } else {
+        renderFallbackListing(site, snapshot, page?.localPage || "");
+      }
+    }
+
+    async function renderLocalPage(site, snapshot, pages, page) {
+      const requestId = ++viewerRequestId;
+      const localPage = page.localPage;
+      const target = publicUrl(localPage);
+
+      if (!(await fileIsAvailable(target)) && requestId === viewerRequestId) {
+        renderFallbackListing(site, snapshot, localPage);
+        return;
+      }
+
+      if (requestId !== viewerRequestId) return;
+      const frame = document.createElement("iframe");
+      frame.src = target;
+      frame.title = "Snapshot of " + (page.title || page.url);
+      frame.addEventListener("load", () => wireFrameNavigation(frame, pages, page));
+      controls.frameWrap.replaceChildren(frame);
+    }
+
+    function wireFrameNavigation(frame, pages, currentPage) {
+      let documentRef = null;
+      try {
+        documentRef = frame.contentDocument;
+      } catch {
+        return;
+      }
+
+      if (!documentRef) return;
+      const localByUrl = new Map(
+        (pages || [])
+          .filter((item) => item.url && item.localPage)
+          .map((item) => [canonicalPageUrl(item.url), item]),
+      );
+
+      for (const anchor of documentRef.querySelectorAll("a[href]")) {
+        const rawHref = anchor.getAttribute("href") || "";
+        if (!rawHref || rawHref.startsWith("#")) continue;
+
+        let target = "";
+        try {
+          target = new URL(rawHref, currentPage?.url || frame.contentWindow.location.href).href;
+        } catch {
+          continue;
+        }
+
+        const localPage = localByUrl.get(canonicalPageUrl(target));
+        if (!localPage) continue;
+        anchor.href = publicUrl(localPage.localPage);
+        anchor.target = "_self";
+        anchor.addEventListener("click", () => {
+          const index = pages.indexOf(localPage);
+          if (index >= 0) {
+            state.page = String(index);
+            updateRoute();
+            controls.pageUrl.textContent = localPage.url;
+          }
+        });
+      }
+    }
+
+    function canonicalPageUrl(rawUrl) {
+      try {
+        const url = new URL(rawUrl);
+        url.hash = "";
+        url.searchParams.sort();
+        return url.href.replace(new RegExp("/(?:index\\.html?)?$", "i"), "/");
+      } catch {
+        return String(rawUrl || "").split("#")[0];
+      }
+    }
+
+    async function renderFallbackListing(site, snapshot, missingPath) {
+      const requestId = ++viewerRequestId;
+      const listing = await firstAvailableListing(site, snapshot, missingPath);
+      if (requestId !== viewerRequestId) return;
+
+      if (listing) {
+        const frame = document.createElement("iframe");
+        frame.src = publicUrl(listing);
+        frame.title = "Files in snapshot " + (snapshot.label || snapshot.key);
+        controls.frameWrap.replaceChildren(frame);
+      } else {
+        controls.frameWrap.innerHTML = '<div class="empty">No local snapshot files are available for this selection.</div>';
+      }
+    }
+
+    async function firstAvailableListing(site, snapshot, missingPath) {
+      const candidates = [];
+      if (missingPath) {
+        const parts = missingPath.split("/").filter(Boolean);
+        parts.pop();
+        while (parts.length > 3) {
+          candidates.push(parts.join("/") + "/_listing.html");
+          parts.pop();
+        }
+      }
+
+      candidates.push(
+        "snapshots/" + site.id + "/" + snapshot.key + "/site/_listing.html",
+        "snapshots/" + site.id + "/" + snapshot.key + "/_listing.html",
+      );
+
+      for (const candidate of [...new Set(candidates)]) {
+        if (await fileIsAvailable(publicUrl(candidate))) {
+          return candidate;
+        }
+      }
+
+      return "";
+    }
+
+    async function fileIsAvailable(url) {
+      try {
+        const response = await fetch(url, { method: "HEAD", cache: "no-store" });
+        if (response.ok) return true;
+        if (response.status !== 405) return false;
+      } catch {
+        // Some static hosts reject HEAD; try a tiny GET below.
+      }
+
+      try {
+        const response = await fetch(url, { method: "GET", cache: "no-store" });
+        return response.ok;
+      } catch {
+        return false;
+      }
+    }
+
+    function resourceLinks(site, snapshot, page) {
+      const links = [
+        { label: "Original", href: site.originalUrl },
+        { label: "Captured URL", href: page?.url },
+        { label: "GitHub", href: site.repoUrl },
+      ];
+      if (snapshot.commit?.url) links.push({ label: "Commit", href: snapshot.commit.url });
+      if (site.readme?.url) links.push({ label: "README", href: site.readme.url });
+      for (const link of site.readme?.links || []) links.push({ label: link.label, href: link.url });
+      return links.filter((link) => link.href);
+    }
+
+    function compareSites(a, b, grouped = false) {
+      if (grouped && a.groupIndex !== b.groupIndex) {
+        return a.groupIndex - b.groupIndex;
+      }
+
+      const mode = state.sort || "updated-desc";
+      if (mode === "original") return a.groupIndex - b.groupIndex || a.siteIndex - b.siteIndex;
+      if (mode === "name-asc") return collator.compare(a.repoName, b.repoName);
+      if (mode === "name-desc") return collator.compare(b.repoName, a.repoName);
+      if (mode === "snapshots-desc") return b.snapshots.length - a.snapshots.length || collator.compare(a.repoName, b.repoName);
+      return latestTimestamp(b) - latestTimestamp(a) || collator.compare(a.repoName, b.repoName);
+    }
+
+    function latestTimestamp(site) {
+      return Number(site.snapshots[0]?.timestamp || site.latestCommit?.timestamp || 0);
+    }
+
+    function searchScore(site, query) {
+      if (!query) return 1;
+      const haystack = normalize([
+        site.repoName,
+        site.originalUrl,
+        site.finalUrl,
+        site.group,
+        site.isGambaaa ? "gambaaa" : "original",
+        site.latestCommit?.message,
+        site.latestCommit?.sha,
+        ...site.snapshots.flatMap((snapshot) => [
+          snapshot.key,
+          snapshot.label,
+          snapshot.commit?.message,
+          ...(snapshot.pages || []).flatMap((page) => [page.title, page.url]),
+        ]),
+      ].filter(Boolean).join(" "));
+      return query.split(/\s+/g).filter(Boolean).reduce((score, term) => score + (haystack.includes(term) ? 1 : 0), 0);
+    }
+
+    function readState() {
+      const hashParams = new URLSearchParams(location.hash.slice(1));
+      if (hashParams.size > 0) {
+        return {
+          q: hashParams.get("q") || "",
+          url: hashParams.get("url") || "",
+          site: hashParams.get("site") || "",
+          snapshot: hashParams.get("snapshot") || "",
+          page: hashParams.get("page") || "0",
+          sort: hashParams.get("sort") || "updated-desc",
+          grouped: hashParams.get("grouped") || "1",
+        };
+      }
+
+      const parts = location.pathname.startsWith("/wayback")
+        ? location.pathname
+          .replace(/^\/wayback\/?/, "")
+          .split("/")
+          .filter(Boolean)
+          .map((part) => decodeURIComponent(part))
+        : [];
+      const route = {};
+      for (let index = 0; index < parts.length; index += 2) {
+        route[parts[index]] = parts[index + 1] || "";
+      }
+      const labeledRoute = ["site", "snapshot", "page", "q", "url", "sort", "grouped"].includes(parts[0]);
+
+      return {
+        q: route.q || "",
+        url: route.url || "",
+        site: route.site || (!labeledRoute ? parts[0] || "" : ""),
+        snapshot: route.snapshot || (!labeledRoute ? parts[1] || "" : ""),
+        page: route.page || (!labeledRoute ? parts[2] || "0" : "0"),
+        sort: route.sort || "updated-desc",
+        grouped: route.grouped || "1",
+      };
+    }
+
+    function updateRoute() {
+      const parts = ["wayback"];
+      if (state.site) parts.push("site", state.site);
+      if (state.snapshot) parts.push("snapshot", state.snapshot);
+      if (state.page && state.page !== "0") parts.push("page", state.page);
+      if (state.q) parts.push("q", state.q);
+      if (state.url) parts.push("url", state.url);
+      if (state.sort && state.sort !== "updated-desc") parts.push("sort", state.sort);
+      if (state.grouped && state.grouped !== "1") parts.push("grouped", state.grouped);
+      const route = "/" + parts.map((part) => encodeURIComponent(part)).join("/");
+      applyingRoute = true;
+      history.replaceState(null, "", route);
+      applyingRoute = false;
+    }
+
+    function publicUrl(value) {
+      const path = String(value || "");
+      return /^https?:\/\//i.test(path) || path.startsWith("/") ? path : "/" + path;
+    }
+
+    function normalize(value) {
+      return String(value || "").trim().toLowerCase();
+    }
+
+    function looksLikeUrl(value) {
+      return /^https?:\/\//i.test(String(value || "").trim());
+    }
+
+    function hostLabel(rawUrl) {
+      try {
+        return new URL(rawUrl).hostname.replace(/^www\./, "");
+      } catch {
+        return "unknown host";
+      }
+    }
+  </script>
+</body>
+
+</html>

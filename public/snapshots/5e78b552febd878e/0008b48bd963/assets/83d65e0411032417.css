@@ -1,0 +1,48 @@
+@layer utilities {
+  .home .skillcards > .is-alone-row,
+  .grid-script > .is-alone-row {
+    grid-column: 1 / -1;
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .project-card.live {
+    --this-status: var(--green);
+  }
+  .project-card.inprogress {
+    --this-status: var(--pink);
+  }
+
+  .role-card.blue {
+    --this-background: var(--blue-card-background);
+    --this-stroke: var(--blue-card-stroke);
+    --this-text: var(--blue);
+  }
+  .role-card.yellow {
+    --this-background: var(--yellow-card-background);
+    --this-stroke: var(--yellow-card-stroke);
+    --this-text: var(--yellow);
+  }
+  .role-card.pink {
+    --this-background: var(--pink-card-background);
+    --this-stroke: var(--pink-card-stroke);
+    --this-text: var(--pink);
+  }
+  .role-card.purple {
+    --this-background: var(--purple-card-background);
+    --this-stroke: var(--purple-card-stroke);
+    --this-text: var(--purple);
+  }
+  .role-card.orange {
+    --this-background: var(--orange-card-background);
+    --this-stroke: var(--orange-card-stroke);
+    --this-text: var(--orange);
+  }
+}

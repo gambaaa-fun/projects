@@ -1,0 +1,226 @@
+@layer typography {
+  .hero {
+    color: var(--text);
+  }
+
+  .hero .meta {
+    color: var(--text-highlight);
+    font-size: 1rem;
+    letter-spacing: 0.08em;
+  }
+
+  .hero .intro {
+    color: var(--text-heading);
+    font-size: 3rem;
+    font-weight: 300;
+    line-height: 1;
+  }
+
+  .hero .lead {
+    color: var(--text);
+    font-size: 1rem;
+    opacity: 0.95;
+  }
+
+  @media screen and (min-width: 900px) {
+    .techstack .intro,
+    .projects .intro,
+    .contact .intro {
+      max-width: 9ch;
+      font-size: clamp(3rem, 4.2vw, 4.5rem);
+      line-height: 1;
+      overflow-wrap: normal;
+    }
+
+    .techstack .lead,
+    .projects .lead,
+    .contact .lead {
+      max-width: 24rem;
+      font-size: 1.05rem;
+      line-height: 1.75;
+    }
+  }
+
+  .not-found {
+    color: var(--white);
+    text-align: center;
+  }
+
+  .not-found .meta {
+    margin-bottom: 1rem;
+  }
+
+  .not-found .intro {
+    max-width: 12ch;
+    margin: unset;
+    margin-inline: auto;
+    margin-bottom: 1.25rem;
+    text-wrap: balance;
+  }
+
+  .not-found .lead {
+    max-width: 42rem;
+    margin-inline: auto;
+    margin-bottom: 2rem;
+    text-wrap: pretty;
+  }
+
+  .project-card__number {
+    color: color-mix(in srgb, var(--white) 28%, transparent);
+    font-family: "Pixelify Sans", sans-serif;
+    font-size: 1.35rem;
+  }
+
+  .projects-page .project-card__title {
+    font-size: clamp(1.65rem, 5vw, 2.4rem);
+    line-height: 1.05;
+  }
+
+  .projects-page .project-card__description,
+  .project-card__highlights,
+  .project-process p {
+    color: var(--text);
+  }
+
+  .projects-page .project-card__description,
+  .project-process p {
+    line-height: 1.65;
+  }
+
+  .project-card__highlights li {
+    line-height: 1.45;
+  }
+
+  .project-process .meta {
+    color: var(--text-highlight);
+    letter-spacing: 0.08em;
+  }
+
+  .project-process h2 {
+    color: var(--white);
+    font-size: clamp(2rem, 6vw, 3.5rem);
+    line-height: 1;
+  }
+
+  .project-process article > i {
+    color: var(--text-highlight);
+    font-size: 1.35rem;
+  }
+
+  .project-process h3 {
+    color: var(--white);
+  }
+
+  @media screen and (min-width: 980px) {
+    .projects-page .intro {
+      max-width: 9ch;
+      font-size: clamp(3.2rem, 5vw, 5rem);
+      line-height: 1;
+    }
+
+    .projects-page .lead {
+      max-width: 24rem;
+      font-size: 1.05rem;
+      line-height: 1.75;
+    }
+  }
+
+  html {
+    font-family: "DM Sans", sans-serif;
+  }
+  h1 {
+    font-size: 3rem;
+  }
+  h2 {
+    font-size: 2rem;
+    font-weight: 600;
+  }
+  h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+  h4 {
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+  h5 {
+    font-size: 1rem;
+    font-weight: 600;
+  }
+  p {
+    font-size: 1rem;
+  }
+  a {
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    color: var(--text-hyperlink);
+    text-decoration-line: underline;
+    text-decoration-style: dashed;
+    text-underline-offset: 0.18em;
+    transition:
+      color 0.3s ease-in-out,
+      text-shadow 0.3s ease-in-out;
+  }
+  a:hover {
+    color: var(--text-hyperlink-hover);
+    text-shadow:
+      0 0 0.4rem var(--text-hyperlink-hover),
+      0 0 1.5rem
+        color-mix(in srgb, var(--text-hyperlink-hover) 60%, transparent);
+  }
+  strong {
+    color: var(--text-highlight);
+  }
+
+  nav,
+  nav a {
+    font-size: 2rem;
+  }
+
+  nav a {
+    font-family: "Pixelify Sans", sans-serif;
+    line-height: 1;
+    text-decoration: none;
+  }
+
+  nav .head a {
+    color: var(--text-highlight);
+  }
+
+  nav .links {
+    text-align: left;
+  }
+
+  nav .links a,
+  .scroll {
+    color: var(--white);
+    text-decoration: none;
+  }
+
+  .scroll {
+    font-size: 1.5rem;
+  }
+
+  footer {
+    color: var(--white);
+    font-family: "Pixelify Sans", sans-serif;
+    font-size: 1rem;
+    text-align: center;
+  }
+
+  @media screen and (min-width: 900px) {
+    .skills-techstack .intro {
+      max-width: 9ch;
+      font-size: clamp(3rem, 4.2vw, 4.5rem);
+      line-height: 1;
+      overflow-wrap: normal;
+    }
+
+    .skills-techstack .lead {
+      max-width: 24rem;
+      font-size: 1.05rem;
+      line-height: 1.75;
+    }
+  }
+}

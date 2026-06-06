@@ -1,0 +1,331 @@
+<!DOCTYPE html><html lang="en"><head>
+    <base href="../">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&amp;family=Comfortaa:wght@300..700&amp;family=Open+Sans:ital,wght@0,300..800;1,300..800&amp;family=Roboto:ital,wght@0,100..900;1,100..900&amp;display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Cal+Sans&amp;family=Comfortaa:wght@300..700&amp;family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;family=Open+Sans:ital,wght@0,300..800;1,300..800&amp;family=Roboto:ital,wght@0,100..900;1,100..900&amp;display=swap" rel="stylesheet">
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Welcome to my personal website! I'm Jan Wiener, a passionate programmer and technology enthusiast. Here, you can learn more about me, explore my projects, and get in touch.">
+    <meta property="og:title" content="Jan Wiener | Projects">
+    <meta property="og:description" content="Welcome to my personal website! I'm Jan Wiener, a passionate programmer and technology enthusiast. Here, you can learn more about me, explore my projects, and get in touch.">
+    <meta property="og:image" content="/2025-p2a-web-volny-projekt-jan-wiener/assets/logo-SaSoo9su.png">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Jan Wiener">
+    <title>Jan Wiener | Projects</title>
+    <link rel="icon" href="../assets/27df6ab4f697c457.avif" type="image/avif" sizes="32x32">
+    <link rel="icon" href="/2025-p2a-web-volny-projekt-jan-wiener/assets/logo16-Bmc8cgix.avif" type="image/avif" sizes="16x16">
+    <link rel="icon" href="../assets/8efbde20ee170b75.png" type="image/png">
+    <link rel="apple-touch-icon" href="/2025-p2a-web-volny-projekt-jan-wiener/assets/logo144-ZBm6-S-e.avif">
+    <link rel="manifest" href="/2025-p2a-web-volny-projekt-jan-wiener/assets/site-BJwyTfAX.webmanifest">
+  <script type="module" crossorigin="" src="../assets/e4807ecf186cf34b.js"></script>
+  <link rel="modulepreload" crossorigin="" href="../assets/6e56e4f8578b3d96.js">
+  <link rel="stylesheet" crossorigin="" href="../assets/818f7e45cc0e3f02.css">
+  <link rel="stylesheet" crossorigin="" href="../assets/36aace444b4cc403.css">
+</head>
+
+<body>
+
+    <nav class="site-nav">
+        <div class="site-nav__brand">
+            <p class="text text--heading">Jan Wiener</p>
+        </div>
+
+        <div class="site-nav__actions">
+            <ul class="site-nav__links">
+                <li><a href="index.html" class="site-nav__link text text--heading">Home</a></li>
+                <li><a href="projects.html" class="site-nav__link text text--heading" aria-current="page">Projects</a>
+                </li>
+                <li><a href="contact.html" class="site-nav__link text text--heading">Contact me</a></li>
+            </ul>
+
+            <button type="button" class="site-nav__toggle" onclick="toggleMobileMenu()" aria-label="Open menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+    <ul id="mobileMenu" class="site-nav__drawer">
+
+        <button type="button" class="site-nav__close text text--heading" onclick="toggleMobileMenu()" aria-label="Close menu">×</button>
+
+        <li><a href="index.html" class="site-nav__link text text--heading">Home</a></li>
+        <li><a href="projects.html" class="site-nav__link text text--heading">Projects</a></li>
+        <li><a href="contact.html" class="site-nav__link text text--heading">Contact me</a></li>
+
+    </ul>
+
+
+    <main id="content" class="page projects-page">
+
+        <header class="page-header">
+            <h1 class="text text--display enlarge page-header__title-accent ">My Projects</h1>
+        </header>
+
+
+        <section class="content-section">
+            <h2 class="text text--heading enlarge">About my projects</h2>
+            <p>Having created several projects throughout my journey in programming, I have gained valuable experience
+                in various technologies and methodologies. Although I have developed many smaller programs for personal
+                use, I have also spent time working on larger, more complex projects that have allowed me to apply my
+                skills in more complex, real-world scenarios. For learning purposes, I usually don't use AI agents for
+                building my personal projects.</p>
+        </section>
+
+        <section class="featured-projects" aria-label="Featured projects">
+            <article class="featured-project" id="prj1">
+                <header class="featured-project__header">
+                    <a href="images/projects/orsu1.avif" data-lg-size="1600-900" data-sub-html="&lt;h4&gt;O-rs-u&lt;/h4&gt;&lt;p&gt;A Rust implementation of the popular rhythm game&lt;/p&gt;" data-caption="O-rs-u" class="featured-project__image">
+
+                        <img src="../assets/38cfde2068fc1690.avif" alt="O-rs-u screenshot" loading="lazy">
+                    </a>
+
+                    <h2 class="text text--display featured-project__title enlarge">o-rs-u</h2>
+                </header>
+
+                <div class="featured-project__body">
+                    <p class="enlarge">O-rs-u is, as of now, my biggest project. It is essentially the popular rhythm
+                        game "osu!"
+                        rewritten in Rust, with the help of the popular all-code game engine, Bevy. <br>
+                        My original objective was to make an alternative to osu! with better performance,
+                        which I partly achieved - it is more stable under load, having better 1% fps,
+                        but struggling to keep up in raw fps, which is a limitation of the overkill game engine. <br>
+                        Considering this, I might decide to rewrite my rust version in wgpu to maximize the performance,
+                        and to learn something new. <br>
+                        Although some things like a level GUI or certain gameplay gimmicks are missing,
+                        the game is still in development, with plans for either custom in-game level browser, or an
+                        external level browser (iced gui). <br>
+                    </p>
+                </div>
+                <div class="featured-project__actions">
+                    <!-- <a href="./projects.html" class="button button--primary">
+                        <p class="text text--heading">Projects</p>
+                    </a> -->
+                    <a href="https://github.com/jan-wiener/o-rs-u" class="button button--secondary" target="_blank" rel="noopener noreferrer">
+                        <p class="text text--heading">Github</p>
+                    </a>
+                </div>
+            </article>
+
+            <article class="featured-project" id="prj2">
+                <header class="featured-project__header">
+                    <a href="images/projects/mlab1.avif" data-lg-size="1600-900" data-sub-html="&lt;h4&gt;Matlab image analysis&lt;/h4&gt;&lt;p&gt;An analysis of images using MATLAB&lt;/p&gt;" data-caption="Matlab image analysis" class="featured-project__image">
+
+                        <img src="../assets/dbcbb04452429037.avif" alt="Matlab image analysis screenshot" loading="lazy">
+                    </a>
+
+                    <h2 class="text text--display featured-project__title enlarge">Image Analysis</h2>
+                </header>
+
+                <div class="featured-project__body">
+                    <p class="enlarge">
+                        This project was a part of my scientific internship at a research institute, the Technical University of Liberec, 
+                        where I had to analyze a set of images using
+                        MATLAB. The goal was to apply various image processing techniques to extract data about threads 
+                        present in the images. <br>
+                        This project allowed me to gain hands-on experience with MATLAB's powerful image processing
+                        toolbox and to understand the practical applications of image analysis in a real-world context. <br>
+                    </p>
+                </div>
+                <div class="featured-project__actions">
+                    
+                    <!-- <a href="https://github.com/jan-wiener/mlab" class="button button--secondary" target="_blank"
+                        rel="noopener noreferrer">
+                        <p class="text text--heading">Github</p>
+                    </a> -->
+                </div>
+            </article>
+        </section>
+
+
+        <h2 class="text text--heading projects__subtitle">Small Projects</h2>
+
+
+
+
+        <div class="swiper swiper-initialized swiper-horizontal swiper-backface-hidden">
+
+            <div class="swiper-wrapper" id="swiper-wrapper-d81a8886e77a719b" aria-live="polite" style="transition-duration: 0ms; transition-delay: 0ms; transform: translate3d(-1190px, 0px, 0px);"><article class="swiper-slide swiper-slide-prev" role="group" aria-label="5 / 5" data-swiper-slide-index="4" style="width: 1190px;">
+                    <div class="project-card project-card--accent ">
+                        <h3 class="project-card__header text text--heading">Keyboard macros for games</h3>
+                        <div class="project-card__body">
+                            <p>A macro app for games, utilizing the kernel driver "intercept", which allows one to do
+                                advanced macros even for games, which don't typically allow it.</p>
+                        </div>
+                        <div class="project-card__info-list">
+                            <div class="project-card__info">
+                                <p class="project-card__info-text--dark ">
+                                    Language
+                                </p>
+                                <p>Rust, C</p>
+                            </div>
+                            <div class="project-card__info">
+                                <p class="project-card__info-text--accent ">
+                                    Category
+                                </p>
+                                <p>Utility</p>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+                <article class="swiper-slide swiper-slide-active" role="group" aria-label="1 / 5" data-swiper-slide-index="0" style="width: 1190px;">
+                    <div class="project-card project-card--accent ">
+                        <h3 class="project-card__header text text--heading">KDE Discord RPC</h3>
+                        <div class="project-card__body">
+                            <p>A small utility to integrate KDE media playback with Discord RPC</p>
+                        </div>
+                        <div class="project-card__info-list">
+                            <div class="project-card__info">
+                                <p class="project-card__info-text--dark ">
+                                    Language
+                                </p>
+                                <p>Rust</p>
+                            </div>
+                            <div class="project-card__info">
+                                <p class="project-card__info-text--accent ">
+                                    Category
+                                </p>
+                                <p>Utility</p>
+                            </div>
+
+                        </div>
+                        <a href="https://github.com/jan-wiener/discord-rpc-linux-rs" class="button button--secondary" target="_blank" rel="noopener noreferrer">
+                            <p class="text text--heading">Github</p>
+                        </a>
+                    </div>
+                </article>
+
+                <article class="swiper-slide swiper-slide-next" role="group" aria-label="2 / 5" data-swiper-slide-index="1" style="width: 1190px;">
+                    <div class="project-card project-card--accent ">
+                        <h3 class="project-card__header text text--heading">A chess engine</h3>
+                        <div class="project-card__body">
+                            <p>A very simple chess engine in Python, being of my first larger coding projects</p>
+                        </div>
+                        <div class="project-card__info-list">
+                            <div class="project-card__info">
+                                <p class="project-card__info-text--dark ">
+                                    Language
+                                </p>
+                                <p>Python</p>
+                            </div>
+                            <div class="project-card__info">
+                                <p class="project-card__info-text--accent ">
+                                    Category
+                                </p>
+                                <p>Exercise</p>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+                <article class="swiper-slide" role="group" aria-label="3 / 5" data-swiper-slide-index="2" style="width: 1190px;">
+                    <div class="project-card project-card--accent ">
+                        <h3 class="project-card__header text text--heading">A kyber-encrypted messaging app</h3>
+                        <div class="project-card__body">
+                            <p>A small python program for encrypted messaging in python.</p>
+                        </div>
+                        <div class="project-card__info-list">
+                            <div class="project-card__info">
+                                <p class="project-card__info-text--dark ">
+                                    Language
+                                </p>
+                                <p>Python</p>
+                            </div>
+                            <div class="project-card__info">
+                                <p class="project-card__info-text--accent ">
+                                    Category
+                                </p>
+                                <p>App, Messenger</p>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+                <article class="swiper-slide" role="group" aria-label="4 / 5" data-swiper-slide-index="3" style="width: 1190px;">
+                    <div class="project-card project-card--accent ">
+                        <h3 class="project-card__header text text--heading">Cards against humanity</h3>
+                        <div class="project-card__body">
+                            <p>A Qt6 python app &amp; server for the popular card game "Cards against humanity".</p>
+                        </div>
+                        <div class="project-card__info-list">
+                            <div class="project-card__info">
+                                <p class="project-card__info-text--dark ">
+                                    Language
+                                </p>
+                                <p>Python</p>
+                            </div>
+                            <div class="project-card__info">
+                                <p class="project-card__info-text--accent ">
+                                    Category
+                                </p>
+                                <p>Server &amp; Client, Game, Gui</p>
+                            </div>
+                        </div>
+                        <a href="https://github.com/jan-wiener/karty-proti-lidskosti" class="button button--secondary" target="_blank" rel="noopener noreferrer">
+                            <p class="text text--heading">Github</p>
+                        </a>
+                    </div>
+                </article>
+                
+
+            </div>
+
+
+            <div class="swiper-button-prev" tabindex="0" role="button" aria-label="Previous slide"><svg class="swiper-navigation-icon" width="11" height="20" viewBox="0 0 11 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.38296 20.0762C0.111788 19.805 0.111788 19.3654 0.38296 19.0942L9.19758 10.2796L0.38296 1.46497C0.111788 1.19379 0.111788 0.754138 0.38296 0.482966C0.654131 0.211794 1.09379 0.211794 1.36496 0.482966L10.4341 9.55214C10.8359 9.9539 10.8359 10.6053 10.4341 11.007L1.36496 20.0762C1.09379 20.3474 0.654131 20.3474 0.38296 20.0762Z" fill="currentColor"></path></svg></div>
+            <div class="swiper-button-next" tabindex="0" role="button" aria-label="Next slide"><svg class="swiper-navigation-icon" width="11" height="20" viewBox="0 0 11 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.38296 20.0762C0.111788 19.805 0.111788 19.3654 0.38296 19.0942L9.19758 10.2796L0.38296 1.46497C0.111788 1.19379 0.111788 0.754138 0.38296 0.482966C0.654131 0.211794 1.09379 0.211794 1.36496 0.482966L10.4341 9.55214C10.8359 9.9539 10.8359 10.6053 10.4341 11.007L1.36496 20.0762C1.09379 20.3474 0.654131 20.3474 0.38296 20.0762Z" fill="currentColor"></path></svg></div>
+
+        <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>
+
+
+
+
+
+
+
+        <footer>
+            <div class="footer__grid">
+                <div class="site-footer__column">
+                    <p class="text text--label">Navigation</p>
+                    <a href="index.html">
+                        <p>Home</p>
+                    </a>
+                    <a href="projects.html">
+                        <p>Projects</p>
+                    </a>
+                    <a href="contact.html">
+                        <p>Contact me</p>
+                    </a>
+                </div>
+                <div class="site-footer__column">
+                    <p class="text text--label">Other Links</p>
+                    <a href="https://github.com" target="_blank" rel="noopener noreferrer">
+                        <p>GitHub</p>
+                    </a>
+                </div>
+
+                <div class="site-footer__column">
+                    <p class="text text--label">Contact</p>
+                    <p>jan.wiener@outlook.cz</p>
+
+                </div>
+
+            </div>
+            <p>© 2026 Jan Wiener. All rights reserved.</p>
+
+        </footer>
+
+
+    </main>
+
+
+
+
+
+
+
+
+</body></html>

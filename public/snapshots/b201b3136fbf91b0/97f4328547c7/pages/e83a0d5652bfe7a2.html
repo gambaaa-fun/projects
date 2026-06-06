@@ -1,0 +1,378 @@
+<!DOCTYPE html><html lang="cs"><head>
+    <base href="../">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hlavní Stránka | TJ Sokol Víska</title>
+    <link rel="icon" type="image/png" href="./images/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Inter:wght@400;600&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/7c4db8fc4a42f748.css">
+    <link rel="stylesheet" href="../assets/e4c70bc0ea536209.css">
+    <link rel="stylesheet" href="../assets/f8d3a0a3eb103a85.css">
+<style>
+        .nav-otevrena {
+            display: block !important;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background-color: var(--clr-navy);
+            padding: 20px;
+            border-top: 1px solid rgba(0,255,255,0.1);
+            z-index: 100;
+        }
+        .nav-otevrena ul, .nav-otevrena menu {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin: 0;
+            padding: 0;
+        }
+        .nav-otevrena a {
+            color: white;
+            font-family: 'Anton', sans-serif;
+            font-size: 18px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            text-decoration: none;
+        }
+    </style></head>
+
+<body>
+    <header class="hlavni-hlavicka" style="position: relative;">
+        <div class="container header-grid-nav">
+            <button class="menu-toggle" aria-label="Otevřít menu">
+                <span class="menu-bar"></span>
+                <span class="menu-bar"></span>
+                <span class="menu-bar"></span>
+            </button>
+            <a href="#" class="logo-odkaz">
+                <img src="../assets/e1582c79b52c1db4.svg" alt="Logo TJ Sokol Víska" width="80" height="80" class="logo-foto">
+            </a>
+            <nav class="hlavni-navigace">
+                <ul>
+                    <li><a href="index.html">HLAVNÍ STRÁNKA</a></li>
+                    <li><a href="vysledky.html">VÝSLEDKY</a></li>
+                    <li><a href="soupiska.html">SOUPISKA</a></li>
+                    <li><a href="kontakt.html">KONTAKT</a></li>
+                </ul>
+            </nav>
+            <div class="header-socialy">
+                <a href="https://facebook.com" target="_blank" aria-label="Facebook">
+                    <img src="../assets/3102bb3d979965d3.svg" alt="Ikonka sociální sítě Facebook" width="24" height="24" class="fb-foto">
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero-sekce">
+            <div class="hero-bila-cast">
+                <div class="hero-bg-grafika">
+                    <picture>
+                        <source media="(min-width: 1024px)" srcset="../assets/a9d0520914c80e97.png">
+                        <img src="images/klubovy-znak-bg.png" alt="Vodoznak" class="bg-orel-foto">
+                    </picture>
+                </div>
+
+                <div class="hero-foto-container">
+                    <picture>
+                        <source media="(min-width: 1024px)" srcset="../assets/19f7dfe9fa36ef41.png">
+                        <img src="../assets/3f3f5e4fdac4811a.png" alt="Hráč" class="hero-hrac-foto">
+                    </picture>
+                </div>
+            </div>
+
+            <div class="hero-spodek-navy">
+                <div class="container hero-obsah-layout">
+                    <h1>Sokol Víska</h1>
+                    <div class="hero-karty-box">
+                        <div class="hero-karta">
+                            <div class="karta-nadpis-box">
+                                <h3>Kdo jsme?</h3>
+                            </div>
+                            <p>Jsme amatérský fotbalový klub který se vždy snaží vydat ze sebe co nejvíc.</p>
+                        </div>
+                        <div class="hero-karta">
+                            <div class="karta-nadpis-box">
+                                <h3>Co hrajeme?</h3>
+                            </div>
+                            <p>Hrajeme nejnižší českou ligu na Frýdlantsku.</p>
+                            <a href="https://www.fotbal.cz/souteze/turnaje/hlavni/d24c8e01-4520-484d-b7bc-c04889e5fc03" class="tlacitko-odkaz">Více informací zde</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="hodnoty-sekce">
+            <div class="container">
+                <div class="sekce-hlavicka">
+                    <h2>Proč kopat u nás?</h2>
+                </div>
+
+                <div class="hodnoty-list">
+                    <div class="hodnota-item">
+                        <div class="hodnota-foto-wrapper wrapper-left">
+                            <div class="hodnota-foto-obal">
+                                <img src="../assets/e755dae89eb4162a.jpg" alt="Skupinová fotografie hráčů klubu SOKOL Víska" width="320" height="180" class="stinovana-foto">
+                            </div>
+                        </div>
+                        <div class="hodnota-text-row text-pad-left">
+                            <h3>Jsme rodina</h3>
+                            <p>Vždy se dokážeme navzájem podpořit</p>
+                        </div>
+                    </div>
+
+                    <div class="hodnota-item">
+                        <div class="hodnota-foto-wrapper wrapper-right">
+                            <div class="hodnota-foto-obal">
+                                <img src="../assets/5f1f46a0ae8f3eaf.jpg" alt="Momentka ze zápasu ukazující maximální nasazení" width="320" height="180" class="stinovana-foto">
+                            </div>
+                        </div>
+                        <div class="hodnota-text-row text-pad-right">
+                            <h3>Zápal pro hru</h3>
+                            <p>Vždy hrajeme na 100%</p>
+                        </div>
+                    </div>
+
+                    <div class="hodnota-item">
+                        <div class="hodnota-foto-wrapper wrapper-left">
+                            <div class="hodnota-foto-obal">
+                                <img src="../assets/e755dae89eb4162a.jpg" alt="Týmová fotografie ilustrující jednotu a odhodlání" width="320" height="180" class="stinovana-foto">
+                            </div>
+                        </div>
+                        <div class="hodnota-text-row text-pad-left">
+                            <h3>Vysoké ambice</h3>
+                            <p>Konzistentně bojujeme o dobrá umístění v tabulce</p>
+                        </div>
+                    </div>
+
+                    <div class="hodnota-item">
+                        <div class="hodnota-foto-wrapper wrapper-right">
+                            <div class="hodnota-foto-obal">
+                                <img src="../assets/5f1f46a0ae8f3eaf.jpg" alt="Hráči během fotbalového tréninku v akci" width="320" height="180" class="stinovana-foto">
+                            </div>
+                        </div>
+                        <div class="hodnota-text-row text-pad-right">
+                            <h3>Vyvážené tréninky</h3>
+                            <p>Trenér se vždy postará aby trénink byl produktivní i zábavný</p>
+                        </div>
+                    </div>
+
+                    <div class="hodnoty-logo-box">
+                        <img src="../assets/e1582c79b52c1db4.svg" alt="Symbol a logo fotbalového klubu" width="100" height="100" class="patka-sekce-logo">
+                    </div>
+
+                    <div class="hodnoty-cta-box">
+                        <div class="cta-karta">
+                            <div class="cta-nadpis-box">
+                                <div class="cta-titulky">
+                                    <h3>Máš zájem se přidat?</h3>
+                                    <p>Kontaktuj nás</p>
+                                </div>
+                            </div>
+                            <a href="kontakt.html" class="cta-button">Kontakt</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="hrace-vedeni-sekce">
+            <div class="container hrace-vedeni-layout">
+                <div class="vedeni-cast">
+                    <div class="sekce-hlavicka">
+                        <h2>Poznej naše vedení</h2>
+                    </div>
+                    <div class="vedeni-karty">
+                        <div class="vedeni-karta">
+                            <div class="vedeni-karta-text">
+                                <h3>Petr Baláš</h3>
+                                <span class="vedeni-role">Trenér</span>
+                                <div class="vedeni-info-blok">
+                                    <strong>Datum Narození:</strong>
+                                    <span>XX.XX.XXXX</span>
+                                </div>
+                                <div class="vedeni-info-blok">
+                                    <strong>Kontakt:</strong>
+                                    <span>XXX XXX XXX</span>
+                                </div>
+                            </div>
+                            <div class="vedeni-karta-foto">
+                                <img src="../assets/ff13e2079515d5d5.png" alt="Portrét trenéra Petra Baláše" width="130" height="130">
+                            </div>
+                        </div>
+                        <div class="vedeni-karta">
+                            <div class="vedeni-karta-text">
+                                <h3>Aleš Jehlička</h3>
+                                <span class="vedeni-role">Předseda</span>
+                                <div class="vedeni-info-blok">
+                                    <strong>Datum Narození:</strong>
+                                    <span>XX.XX.XXXX</span>
+                                </div>
+                                <div class="vedeni-info-blok">
+                                    <strong>Kontakt:</strong>
+                                    <span>XXX XXX XXX</span>
+                                </div>
+                            </div>
+                            <div class="vedeni-karta-foto">
+                                <img src="../assets/ff13e2079515d5d5.png" alt="Portrét předsedy Aleše Jehličky" width="130" height="130">
+                            </div>
+                        </div>
+                        <div class="vedeni-karta">
+                            <div class="vedeni-karta-text">
+                                <h3>Ladislav Severýn</h3>
+                                <span class="vedeni-role">Vlastník</span>
+                                <div class="vedeni-info-blok">
+                                    <strong>Datum Narození:</strong>
+                                    <span>XX.XX.XXXX</span>
+                                </div>
+                                <div class="vedeni-info-blok">
+                                    <strong>Kontakt:</strong>
+                                    <span>XXX XXX XXX</span>
+                                </div>
+                            </div>
+                            <div class="vedeni-karta-foto">
+                                <img src="../assets/ff13e2079515d5d5.png" alt="Portrét vlastníka klubu Ladislava Severýna" width="130" height="130">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hrace-cast">
+                    <div class="sekce-hlavicka">
+                        <h2>Poznej naše hráče</h2>
+                    </div>
+                    <div class="hrac-slider-wrapper">
+                        <button class="slider-btn slider-prev" id="btn-prev" aria-label="Předchozí hráč">‹</button>
+                        <div class="hrac-karta-velka" id="karta-hrace">
+                            <div class="hrac-karta-bg" style="transition: opacity 0.15s, transform 0.15s;">
+                                <div class="fifa-top-meta">
+                                    <div class="fifa-stat-col">
+                                        <div class="hrac-cislo" id="hrac-cislo">2</div>
+                                        <div class="hrac-pozice" id="hrac-pozice">CAM</div>
+                                    </div>
+                                    <img src="../assets/e1582c79b52c1db4.svg" alt="Miniaturní logo klubu" width="36" height="36" class="hrac-karta-logo">
+                                </div>
+                                <div class="fifa-foto-box">
+                                    <img src="../assets/3f3f5e4fdac4811a.png" alt="Profilová fotografie hráče Davida Havrdy" width="200" height="190" class="hrac-karta-foto" id="hrac-foto">
+                                </div>
+                                <div class="hrac-karta-jmeno" id="hrac-jmeno">David Havrda</div>
+                                <div class="hrac-karta-info">
+                                    <span id="hrac-vek">17 LET</span>
+                                    <span class="info-divider">|</span>
+                                    <span id="hrac-role">ZÁLOŽNÍK</span>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="slider-btn slider-next" id="btn-next" aria-label="Další hráč">›</button>
+                    </div>
+                    <a href="soupiska.html" class="tlacitko-odkaz tlacitko-dark btn-center">Zobrazit soupisku</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="zapasy-sekce">
+            <div class="container">
+                <div class="sekce-hlavicka sekce-hlavicka-bila">
+                    <h2>Nadcházející zápasy</h2>
+                </div>
+                <div class="zapasy-scroll">
+                    <div class="zapas-karta">
+                        <div class="zapas-datum-box">
+                            <span class="zapas-den">Středa</span>
+                            <span class="zapas-d">29.4.</span>
+                            <span class="zapas-cas">17:00</span>
+                        </div>
+                        <div class="zapas-tymy-box">
+                            <div class="zapas-tym-radek">
+                                <span class="tym-nazev">TJ Sokol Víska</span>
+                            </div>
+                            <div class="zapas-vs-badge">VS</div>
+                            <div class="zapas-tym-radek">
+                                <span class="tym-nazev">Frýdlant C</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="zapas-karta">
+                        <div class="zapas-datum-box">
+                            <span class="zapas-den">Sobota</span>
+                            <span class="zapas-d">02.5.</span>
+                            <span class="zapas-cas">14:30</span>
+                        </div>
+                        <div class="zapas-tymy-box">
+                            <div class="zapas-tym-radek">
+                                <span class="tym-nazev">TJ Sokol Víska</span>
+                            </div>
+                            <div class="zapas-vs-badge">VS</div>
+                            <div class="zapas-tym-radek">
+                                <span class="tym-nazev">Raspenava B</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="zapas-karta">
+                        <div class="zapas-datum-box">
+                            <span class="zapas-den">Středa</span>
+                            <span class="zapas-d">06.5.</span>
+                            <span class="zapas-cas">17:00</span>
+                        </div>
+                        <div class="zapas-tymy-box">
+                            <div class="zapas-tym-radek">
+                                <span class="tym-nazev">Hejnice B</span>
+                            </div>
+                            <div class="zapas-vs-badge">VS</div>
+                            <div class="zapas-tym-radek">
+                                <span class="tym-nazev">TJ Sokol Víska</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="vysledky-odkaz-box">
+                    <div class="vysledky-odkaz-text">
+                        <h3>Výsledky</h3>
+                        <p>výsledky našich zápasů spolu s tabulkou najdeš zde</p>
+                    </div>
+                    <a href="vysledky.html" class="tlacitko-odkaz btn-center">Přejít na výsledky</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="hlavni-patka">
+        <div class="patka-graphics">
+            <img src="../assets/bb9ad4fd08d513ae.png" alt="Grafika fotbalové branky" width="100" height="60" class="patka-branka">
+            <img src="../assets/152f77038003785f.png" alt="Grafika slavícího hráče" width="100" height="70" class="patka-hrac">
+        </div>
+        <div class="container patka-grid">
+            <div class="patka-sloupec">
+                <h3>Obsah</h3>
+                <nav class="patka-odkazy">
+                    <menu>
+                        <li><a href="index.html">Hlavní Stránka</a></li>
+                        <li><a href="vysledky.html">Výsledky</a></li>
+                        <li><a href="kontakt.html">Kontakt</a></li>
+                    </menu>
+                </nav>
+            </div>
+            <div class="patka-sloupec">
+                <h3>Kontakt</h3>
+                <p>Info.sokolviska@gmail.com</p>
+                <p>XXX XXX XXX</p>
+                <p>Višňová Xxx/Xx</p>
+            </div>
+            <div class="patka-logo-box">
+                <img src="../assets/e1582c79b52c1db4.svg" alt="Velké logo TJ Sokol Víska v patičce" width="140" height="140" class="patka-logo">
+            </div>
+        </div>
+    </footer>
+
+    <script src="../assets/d4d81029d48b0aa4.js"></script>
+
+
+</body></html>

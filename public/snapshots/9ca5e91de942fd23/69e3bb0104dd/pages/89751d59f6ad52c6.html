@@ -1,0 +1,188 @@
+<!DOCTYPE html><html lang="en"><head>
+    <base href="../">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Beyond Light</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&amp;family=Rajdhani:wght@300;400;500;600;700&amp;family=Exo+2:wght@200;300;400;600&amp;display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+ 
+  :root {
+    --gold: #c9a84c;
+    --gold-bright: #f0cc70;
+    --dark-bg: #040810;
+    --text-muted: rgba(200, 185, 145, 0.55);
+    --white: #f0ece0;
+    --border: rgba(201, 168, 76, 0.25);
+  }
+ 
+  html { scroll-behavior: smooth; }
+ 
+  body {
+    background-color: var(--dark-bg);
+    color: var(--white);
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 400;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+ 
+  /* MAIN GRID */
+  .quad-grid {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+  }
+ 
+  .quad {
+    position: relative;
+    min-height: 50vh;
+    overflow: hidden;
+  }
+ 
+  /* Only draw the center axes — right edge on left quads, bottom edge on top quads */
+  .quad-tl { border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .quad-tr { border-bottom: 1px solid var(--border); }
+  .quad-bl { border-right: 1px solid var(--border); }
+ 
+  /* LORE QUADS */
+  .quad-lore {
+    padding: 56px 64px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    background: linear-gradient(135deg, rgba(4,8,16,0.95) 0%, rgba(7,14,28,0.9) 100%);
+  }
+ 
+  .quad-lore::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 10% 10%, rgba(201,168,76,0.04) 0%, transparent 60%);
+    pointer-events: none;
+  }
+ 
+  .lore-label {
+    font-family: 'Exo 2', sans-serif;
+    font-size: 13px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+    opacity: 0.7;
+  }
+ 
+  .lore-text {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 1.85;
+    color: rgba(220, 205, 165, 0.75);
+    letter-spacing: 0.3px;
+  }
+ 
+  /* IMAGE QUADS */
+  .quad-img {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(4, 8, 16, 0.98);
+    overflow: hidden;
+  }
+ 
+  .quad-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    opacity: 0.9;
+    transition: opacity 0.4s ease, transform 0.6s ease;
+  }
+ 
+  .quad-img:hover img {
+    opacity: 1;
+    transform: scale(1.02);
+  }
+ 
+  /* FOOTER */
+  footer {
+    border-top: 1px solid rgba(201,168,76,0.1);
+    padding: 40px;
+    text-align: center;
+    font-family: 'Exo 2', sans-serif;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+ 
+  /* Desktop grid positioning */
+  .quad-tl { grid-column: 1; grid-row: 1; }
+  .quad-tr { grid-column: 2; grid-row: 1; }
+  .quad-bl { grid-column: 1; grid-row: 2; }
+  .quad-br { grid-column: 2; grid-row: 2; }
+ 
+  /* MOBILE — single column, alternating LORE / IMG / LORE / IMG */
+  @media (max-width: 700px) {
+    .quad-grid {
+      grid-template-columns: 1fr;
+      grid-template-rows: repeat(4, auto);
+    }
+ 
+    .quad {
+      min-height: 44vh;
+      grid-column: 1 !important;
+    }
+ 
+    .quad-tl { grid-row: 1; border-right: none; border-bottom: 1px solid var(--border); }
+    .quad-tr { grid-row: 2; border-bottom: 1px solid var(--border); }
+    .quad-br { grid-row: 3; border-bottom: 1px solid var(--border); }
+    .quad-bl { grid-row: 4; border-right: none; border-bottom: none; }
+ 
+    .quad-lore {
+      padding: 40px 32px;
+    }
+  }
+</style>
+</head>
+<body>
+ 
+<main class="quad-grid">
+ 
+  <!-- TOP-LEFT: LORE -->
+  <div class="quad quad-lore quad-tl">
+    <div class="lore-label">Druhá pyramida, staří známí a podivné schopnosti</div>
+    <p class="lore-text">
+      Krátce no našem odchodu z povrchu Měsíce jsme obdrželi nouzovou zprávu, odněkud z Europy, jednoh z měsíců Jupitera. Zpráva vypadala velice urgentně, a tak náš Strážce neváhal a vydali jsme se na Europu. Po přistání na ledovém povrchu měsíce, poblíž místa, odkud byla zpráva poslána, se nám skrz hustou ledovou mlhu zjeví stará, zamrzlá radiová stanice. Uvnitř jsme našli známý obličej. Variks je Eliksni, konkrétně druh, kterému Vanguard dal kolektivní název Vandal. Variks je ředitelem Věznice Starších; té samé věznice, z které kdysi uprchl Uldren Sov a Baroni Scorn. Při zeptání Variks přiznal, že Uldren s ním smluvil nabídku - Variks způsobí vzpouru, a Uldren mu poskytne možnost úniku, aniž by byl označen za viníka. Vandalové mají obvykle čtyři ruce - dvě na každé straně. Variks má pouze tři, místo čtvrté je pouze pahýl z ledových krystalů. Po dotázání Variks prozradí, co se mu stalo. Po útěku z věznice cestoval se skupinou Eliksni známí jako House Salvation, vedenou Eramis, která pahýl způsobila potom, co Variks vyjádřil svůj nesouhlas s jejímy úmysly. Jaké byly její úmysly? Podle Varikse - využití sil Temnoty pro jejich dobro. O Temnotě toho Strážci nevědějí moc, až na fakt, že je to čistý protějšek Světla. Po odchodu ze stanice se vydáváme na průzkum Europy, když v dálce náš Strážce zahlédne něco povědomého. V dálce se rozpíná pyramida, vzhledově stejná, jako pyramida pod povrchem našeho Měsíce. Vydáváme se blíže k pyramidě, na rozlehlou zasněženou pláň, kde se nachází skromný tábor. V táboře se nachází známé postavy: Eris, nyní na Europě a Drifter, nečestný muž co se nepovažuje za Strážce navzdory faktu, že ho oživil Ghost jménem Blue. A nakonec, tajemná ženská Exo postava, jejíž jméno nám není prozatím známo. Eris nám vysvětlí, že tu jsou pro stejný důvod, jaký nás Variks na měsíc přivolal - sílu Temnoty. V ten moment se z velmi vzdálené pyramidy vymrští plně černý zikkurat, a bezchybně se ustálí kus od tábora. Ghost nám naznačí, že bysme zikkurat měli prošetřit, a to taky uděláme. Po výstupu schodů zikkuratu se náš Strážce setká tváří v tvář se čtyřmi znepokojivými třískami Temnoty. Ty nás v pouhém okamžiku pohltí do temného prostoru, zdálnivě uvnitř pyramidy. Uvnitř se poprvé dozvídame o schopnosti Temnoty, manipulace ledových krystalů Stasis.
+    </p>
+  </div>
+ 
+  <!-- TOP-RIGHT: IMG -->
+  <div class="quad quad-img quad-tr">
+    <img src="../assets/cf004021182f1d00.png" alt="Wallpaper">
+  </div>
+ 
+  <!-- BOTTOM-LEFT: IMG -->
+  <div class="quad quad-img quad-bl">
+    <img src="../assets/bd8638b35307ad16.png" alt="couldnt find the full house pic so heres just eramis">
+  </div>
+ 
+  <!-- BOTTOM-RIGHT: LORE -->
+  <div class="quad quad-lore quad-br">
+    <div class="lore-label">Clovis Bray, Stasis a House Salvation</div>
+    <p class="lore-text">
+      Díky kontaktům, které nám Variks předal, jsme byli schopni odhalit a vysopovat nejvyšší v řádu House Salvation, kdo podléhají přímo Eramis, a díky ochotě pyramidy jsme se naučili adeptně zacházet s novou sílou Temnoty. První na seznamu byla Phylaks. Podařilo se nám ji vylákat a porazit, a díky ní jsme se dozvěděli, že Eramis dokáže používat Stasis, stejně jako náš Strážce. Další byl Praksis, technokrat House Salvation. Praksis byl na vystopování mnohem těžší než Phylaks, avšak jeho schopnost obrany nebyla oproti Phylaks lepší. Poslední, přímo pod Eramis stála Kridis. Po úspěšném zátahu jedné ze základem okupovaných House Salvation jsme se dozvěděli o její přesné lokaci, ale také více o Exo cizince, než by si doteď přála. Zjistili jsme, že její celé jméno je Elisabeth Bray, a že spolu s Anou jsou vnučky geniálního vynálezce, Clovise Braye. Clovis ale není nikde k nalezení, a i přesto, že se dlouho spekulovalo, že se nachází pod povrchem Europy, tyto spekulace nikdy nebyly potvrzeny. S těmito novými informacemi se vydáváme za Kridis, kterou následně porazíme. Po porážce poslední překážky mezi námi a Eramis se vydáme zpět do tábora, a konfrontujeme Elisabeth s informacemi, které jsme zjistili o její minulosti. Ta nám přizná, že na Europě je z jediného důvodu: Najít Clovise a dozvědět se od něho co nejvíce o své minulosti. Mezi informacemi, co jsme v základně získali, se nacházel popis místa, kde by se původní Clovis Bray mohl nacházet: Bray Exoscience. Toto místo nám není cizí, protože v této podzemní laboratoři padl Praksis. S Elsie jsme se tedy vydali do zařízení, tentokrát s jinými odbočkami, které nás vedly na druhou stranu velkého komplexu. Na jejím konci? Velká robotická hlava, představující se jako Clovis Bray I. Tím byla mise Elisabeth Bray splněna, a náš Strážce se přesunul zpět k hlavnímu cíli; Zastavit Eramis. Stopy, které po sobě Kridis zanechala nás zavedly až na odlehlý útes krášlený budovami Eliksni architektury. Eramis toto místo pojmenovala Riis-Reborn, na poctu jejich domovského světa Riis. Uprostřed města se tyčila věž - centrála operací House Salvation. Náš Strážce neztrácí čas a rychle se vydává k úpatí věže. O nedlouho později se dostaneme na samotný vrchol, kde nás Eramis vyzve na duel. Než ale Strážce stihne reagovat, Eramis zamrazí nás i našeho Ghosta v ledu Stasis. Díky dokonalé znalosti Stasis se ale našemu Strážci podaří ze Stasis krystalu dostat, sesadit Eramis z velící pozice House Salvation, a nadobro zmrazit v krystalu Stasis ji samotnou. Krátce po rozpadu House Salvation se náš Strážce loučí s týmem na Europě a spolu se svým Ghostem se vrací zpět na Zemi, do posledního města lidstva.
+    </p>
+  </div>
+ 
+</main>
+ 
+<footer>
+  © Bungie — Destiny 2 — Timeline of Light and Dark
+</footer>
+ 
+
+</body></html>

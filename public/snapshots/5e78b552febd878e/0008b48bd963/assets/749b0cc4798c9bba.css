@@ -1,0 +1,139 @@
+@layer base {
+  :root {
+    /* main colors */
+    --black: #000000;
+    --white: #ffffff;
+    --gray: #979797;
+    --blue: #90b8f9;
+    --yellow: #f9b31d;
+    --orange: #ff9029;
+    --pink: #fc8ddc;
+    --purple: #b39af9;
+    --green: #00ff5e;
+
+    /* background */
+    --background: #0c0c0f;
+    --separator: #1d1d20;
+
+    /* overlay colors */
+    --dark-overlay: #00000099;
+    --light-overlay: #ffffff99;
+
+    /* User Card */
+    --user-card-primary: #000000;
+    /* --user-card-primary: #00ffd0; */
+    /* --user-card-primary: #00aaff; */
+    --user-card-accent: #ff00f7;
+    --user-card-username-stroke: #ff00fb;
+    --overlay: var(--dark-overlay);
+    --user-card-card: linear-gradient(
+      180deg,
+      var(--user-card-primary) 30%,
+      var(--user-card-accent) 96%
+    );
+    --user-card-inner-card:
+      linear-gradient(var(--overlay), var(--overlay)),
+      linear-gradient(
+        180deg,
+        var(--user-card-primary) 0%,
+        var(--user-card-accent) 100%
+      );
+    --user-card-profile-picture-stroke:
+      linear-gradient(
+        180deg,
+        var(--overlay) 0%,
+        var(--overlay) 55%,
+        color-mix(in srgb, var(--overlay) 0%, transparent) 50%,
+        color-mix(in srgb, var(--overlay) 0%, transparent) 100%
+      ),
+      linear-gradient(
+        180deg,
+        var(--user-card-primary) 0%,
+        var(--user-card-primary) 55%,
+        color-mix(in srgb, var(--overlay) 0%, transparent) 50%,
+        color-mix(in srgb, var(--overlay) 0%, transparent) 100%
+      );
+
+    /* Text Colors */
+    --text: #b3b3b3;
+    --text-highlight: #f46fd6;
+    --text-hyperlink: #99b1ff;
+    --text-hyperlink-hover: rgb(203, 184, 255);
+    --text-heading: var(--white);
+
+    /* Default Card */
+    --card-background: #141417;
+    --card-stroke: #242427;
+
+    /* Purple Card */
+    --purple-card-background: #14121d;
+    --purple-card-stroke: #2e2549;
+
+    /* Blue Card */
+    --blue-card-background: #1b202b;
+    --blue-card-stroke: #2e4873;
+
+    /* Yellow Card */
+    --yellow-card-background: #28231a;
+    --yellow-card-stroke: #71561b;
+
+    /* Orange Card */
+    --orange-card-background: #2b1d14;
+    --orange-card-stroke: #73462e;
+
+    /* Pink Card */
+    --pink-card-background: #291e29;
+    --pink-card-stroke: #733b65;
+  }
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+  html,
+  body,
+  #root {
+    padding: 0;
+    margin: 0;
+    background: var(--background);
+    scroll-behavior: smooth;
+  }
+  ul,
+  ol {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+  @view-transition {
+    navigation: auto;
+  }
+
+  ::view-transition-old(root) {
+    animation: page-fade-out 0.22s ease both;
+  }
+
+  ::view-transition-new(root) {
+    animation: page-fade-in 0.28s ease both;
+  }
+
+  @keyframes page-fade-out {
+    to {
+      opacity: 0;
+      transform: translateY(-0.5rem);
+    }
+  }
+
+  @keyframes page-fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(0.75rem);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    ::view-transition-old(root),
+    ::view-transition-new(root) {
+      animation-duration: 1ms;
+    }
+  }
+}
