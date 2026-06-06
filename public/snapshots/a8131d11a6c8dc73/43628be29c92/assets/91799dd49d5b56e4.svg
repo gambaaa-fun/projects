@@ -1,9 +1,0 @@
-<svg width="937" height="707" viewBox="0 0 937 707" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<path d="M851 535C898.496 535 937 573.504 937 621C937 668.496 898.496 707 851 707H820C772.504 707 734 668.496 734 621C734 573.504 772.504 535 820 535H851ZM250 -197C475.884 -197 659 -13.8844 659 212C659 437.884 475.884 621 250 621H-228C-453.884 621 -637 437.884 -637 212C-637 -13.8845 -453.884 -197 -228 -197H250Z" fill="url(#pattern0_269_107)" fill-opacity="0.34"/>
-<defs>
-<pattern id="pattern0_269_107" patternUnits="userSpaceOnUse" patternTransform="matrix(17.76 0 0 17.76 -637 -197)" preserveAspectRatio="none" viewBox="0 0 222 222" width="1" height="1">
-<g id="pattern0_269_107_inner">
-<circle cx="25" cy="25" r="25" fill="#D9D9D9"/>
-</g>
-</pattern></defs>
-</svg>
