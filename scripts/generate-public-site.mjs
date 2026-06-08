@@ -2529,11 +2529,13 @@ function renderAddPageTutorial() {
             <div class="add-page-content">
               <p>Pick any free subdomain you like, for example <strong>mid.${targetDomain}</strong>. You only set it up once; after that the scheduled generator refreshes the preview board automatically.</p>
               <ol class="add-page-steps">
-                <li>Choose your custom address, such as <strong>mid.${targetDomain}</strong>, <strong>portfolio.${targetDomain}</strong>, or anything else that is still free.</li>
-                <li>In your project repository, create a file named <strong>CNAME</strong> and put only your chosen address inside it.</li>
-                <li>Turn on GitHub Pages for your repository and check that your normal GitHub Pages URL works.</li>
-                <li>Send the chosen ${targetDomain} address and your GitHub Pages URL to an admin so the DNS record can be added.</li>
-                <li>Add your GitHub Pages URL to <strong>sites.txt</strong> if it is not already listed. The scheduled generator will refresh the board; you do not need to rebuild this page manually.</li>
+                <li>Navigate to your project repository on GitHub.</li>
+                <li>Open <strong>Settings</strong>.</li>
+                <li>In the sidebar, click <strong>Pages</strong>.</li>
+                <li>Scroll down to <strong>Custom domain</strong>.</li>
+                <li>Type the ${targetDomain} address you want, for example <strong>mid.${targetDomain}</strong>, then save it.</li>
+                <li>GitHub will create or update the <strong>CNAME</strong> file for you. Keep that file in your repository.</li>
+                <li>Send your chosen custom domain to an admin so the DNS record can be added if it is not connected yet.</li>
               </ol>
               <div class="add-page-actions">
                 <button class="tutorial-button" type="button" data-tutorial-video-open data-video-src="${escapeHtml(addPageTutorialVideoUrl)}">Watch video tutorial</button>
