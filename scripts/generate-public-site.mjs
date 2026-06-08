@@ -2535,7 +2535,7 @@ function renderAddPageTutorial() {
                 <li>Scroll down to <strong>Custom domain</strong>.</li>
                 <li>Type the ${targetDomain} address you want, for example <strong>mid.${targetDomain}</strong>, then save it.</li>
                 <li>GitHub will create or update the <strong>CNAME</strong> file for you. Keep that file in your repository.</li>
-                <li>Send your chosen custom domain to an admin so the DNS record can be added if it is not connected yet.</li>
+                <li>You can use your new address immediately because every <strong>*.${targetDomain}</strong> subdomain already points to GitHub Pages.</li>
               </ol>
               <div class="add-page-actions">
                 <button class="tutorial-button" type="button" data-tutorial-video-open data-video-src="${escapeHtml(addPageTutorialVideoUrl)}">Watch video tutorial</button>
