@@ -11,6 +11,8 @@ const publicDir = path.join(root, "public");
 const screenshotsDir = path.join(publicDir, "screenshots");
 const targetDomain = "gambaaa.fun";
 const fallbackGithubOwner = "gambaaa-fun";
+const addPageTutorialVideoUrl =
+  "https://cdn.discordapp.com/attachments/1457371724935860479/1513502922514890852/Screen_Recording_2026-06-08_at_1.18.15_PM.mov?ex=6a27f6f0&is=6a26a570&hm=6bd8dafb2e107135459989168f835d2e88447b7dde1ab6f0bd8edf1a600aae11&";
 const crawlLimit = positiveInteger(process.env.CRAWL_LIMIT) || 10;
 const groupParallelism = positiveInteger(process.env.GROUP_PARALLELISM) || 2;
 const siteParallelism = positiveInteger(process.env.SITE_PARALLELISM) || 4;
@@ -1726,6 +1728,85 @@ function renderHtml(groups) {
         gap: 16px;
       }
 
+      .add-page {
+        display: grid;
+        gap: 1rem;
+        padding: 1rem;
+        border: 1px solid var(--line);
+        background: var(--panel);
+        border-radius: 8px;
+        margin: 1rem 0 2rem;
+      }
+
+      .add-page summary {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        font-weight: 800;
+        color: var(--text);
+      }
+
+      .add-page summary::-webkit-details-marker {
+        display: none;
+      }
+
+      .add-page summary::after {
+        content: "+";
+        display: grid;
+        place-items: center;
+        width: 2rem;
+        height: 2rem;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        color: var(--muted);
+      }
+
+      .add-page[open] summary::after {
+        content: "-";
+      }
+
+      .add-page-content {
+        display: grid;
+        gap: 1rem;
+        color: var(--muted);
+      }
+
+      .add-page-steps {
+        margin: 0;
+        padding-left: 1.25rem;
+      }
+
+      .add-page-steps li + li {
+        margin-top: 0.5rem;
+      }
+
+      .add-page-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+      }
+
+      .tutorial-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 2.5rem;
+        padding: 0 1rem;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--accent);
+        color: #061017;
+        font-weight: 800;
+        text-decoration: none;
+      }
+
+      .tutorial-button.secondary {
+        background: transparent;
+        color: var(--text);
+      }
+
       .site-card {
         display: grid;
         overflow: hidden;
@@ -2034,6 +2115,7 @@ function renderHtml(groups) {
           </div>
           <button class="toggle-button" type="button" data-ungroup-toggle aria-pressed="false">Ungroup</button>
         </div>
+        ${renderAddPageTutorial()}
       </section>
       <section class="group" data-flat-section aria-labelledby="group-all" hidden>
         <div class="group-head">
@@ -2377,6 +2459,24 @@ function renderHtml(groups) {
   </body>
 </html>
 `;
+}
+
+function renderAddPageTutorial() {
+  return `<details class="add-page" id="add-page">
+            <summary>Add your page to ${targetDomain}</summary>
+            <div class="add-page-content">
+              <p>Choose any free subdomain, for example <strong>mid.${targetDomain}</strong>, then point your GitHub Pages project at it once.</p>
+              <ol class="add-page-steps">
+                <li>Add a <strong>CNAME</strong> file to your site with your chosen domain, like <strong>mid.${targetDomain}</strong>.</li>
+                <li>Tell an admin the subdomain and your GitHub Pages URL so the DNS record can be added.</li>
+                <li>Add your GitHub Pages URL to <strong>sites.txt</strong>; the board will refresh from the scheduled generator.</li>
+              </ol>
+              <div class="add-page-actions">
+                <a class="tutorial-button" href="${escapeHtml(addPageTutorialVideoUrl)}" target="_blank" rel="noopener noreferrer">Watch video tutorial</a>
+                <a class="tutorial-button secondary" href="https://github.com/${fallbackGithubOwner}/gambaaprojects/edit/main/sites.txt" target="_blank" rel="noopener noreferrer">Add to sites.txt</a>
+              </div>
+            </div>
+          </details>`;
 }
 
 function renderSiteCard(site, index) {
