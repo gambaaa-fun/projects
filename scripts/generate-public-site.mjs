@@ -45,6 +45,9 @@ async function main() {
   await mkdir(screenshotsDir, { recursive: true });
 
   const groups = parseGroups(await readFile(sitesPath, "utf8"));
+  const previousSites = await readPreviousSiteUpdates(
+    path.join(publicDir, "index.html"),
+  );
   const browserTools = await loadBrowserTools();
   const browser = await launchBrowser(browserTools);
   let renderedGroups = [];
@@ -54,7 +57,7 @@ async function main() {
       `[groups] processing ${groups.length} groups with ${Math.min(groupParallelism, groups.length)} group workers and ${siteParallelism} site workers per group`,
     );
     renderedGroups = await parallelMap(groups, groupParallelism, (group) =>
-      renderGroup(browser, group),
+      renderGroup(browser, group, previousSites),
     );
   } finally {
     if (browser) {
@@ -80,12 +83,12 @@ async function main() {
   });
 }
 
-async function renderGroup(browser, group) {
+async function renderGroup(browser, group, previousSites) {
   const renderedSites = await parallelMap(
     group.sites,
     siteParallelism,
     (originalUrl, siteIndex) =>
-      renderSite(browser, group, siteIndex, originalUrl),
+      renderSite(browser, group, siteIndex, originalUrl, previousSites),
   );
 
   return {
@@ -94,7 +97,7 @@ async function renderGroup(browser, group) {
   };
 }
 
-async function renderSite(browser, group, siteIndex, originalUrl) {
+async function renderSite(browser, group, siteIndex, originalUrl, previousSites) {
   console.log(
     `[site] ${group.name} ${siteIndex + 1}/${group.sites.length}: ${originalUrl}`,
   );
@@ -123,9 +126,10 @@ async function renderSite(browser, group, siteIndex, originalUrl) {
       error: result.error,
     };
 
+    site.update = siteUpdateFromPrevious(site, previousSites);
     return site;
   } finally {
-    if (site) {
+    if (site?.update?.changed) {
       await sendDiscordSiteUpdate(group, siteIndex, site);
     }
   }
@@ -150,6 +154,106 @@ async function parallelMap(items, concurrency, mapper) {
   return results;
 }
 
+async function readPreviousSiteUpdates(filePath) {
+  try {
+    const html = await readFile(filePath, "utf8");
+    const sites = new Map();
+    const cardPattern = /<article\b[^>]*class="[^"]*\bsite-card\b[^"]*"[^>]*>/gi;
+
+    for (const match of html.matchAll(cardPattern)) {
+      const cardTag = match[0];
+      const repoName = htmlAttribute(cardTag, "data-name");
+      if (!repoName) {
+        continue;
+      }
+
+      const timestamp = Number(htmlAttribute(cardTag, "data-updated") || "0");
+      const afterCard = html.slice(match.index, match.index + 4000);
+      const commitUrl =
+        afterCard.match(/href="([^"]*\/commit\/[a-f0-9]{7,40}[^"]*)"/i)?.[1] ||
+        null;
+      const sha = commitUrl?.match(/\/commit\/([a-f0-9]{7,40})/i)?.[1] || null;
+
+      sites.set(repoName.toLowerCase(), {
+        repoName,
+        timestamp: Number.isFinite(timestamp) ? timestamp : 0,
+        sha,
+        commitUrl,
+      });
+    }
+
+    console.log(`[updates] loaded ${sites.size} previous site states`);
+    return sites;
+  } catch {
+    console.log("[updates] no previous public site found; update pings disabled");
+    return new Map();
+  }
+}
+
+function htmlAttribute(tag, name) {
+  const value = tag.match(new RegExp(`\\s${name}="([^"]*)"`, "i"))?.[1] || "";
+  return decodeHtmlAttribute(value);
+}
+
+function decodeHtmlAttribute(value) {
+  return value
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">");
+}
+
+function siteUpdateFromPrevious(site, previousSites) {
+  if (previousSites.size === 0) {
+    return { changed: false, reason: "no-previous-state" };
+  }
+
+  const previous = previousSites.get(site.repoName.toLowerCase()) || null;
+  const latest = site.latestCommit || emptyCommitInfo();
+  const latestTimestamp = latest.timestamp || 0;
+
+  if (!previous) {
+    return {
+      changed: true,
+      reason: "new-site",
+      previous,
+      latest,
+    };
+  }
+
+  if (!previous.timestamp && !previous.sha) {
+    return {
+      changed: false,
+      reason: "unknown-previous-commit",
+      previous,
+      latest,
+    };
+  }
+
+  const newerTimestamp =
+    latestTimestamp > 0 && latestTimestamp > (previous.timestamp || 0);
+  const changedSha =
+    Boolean(latest.sha && previous.sha) &&
+    latest.sha.toLowerCase() !== previous.sha.toLowerCase();
+
+  if (!newerTimestamp && !changedSha) {
+    return {
+      changed: false,
+      reason: "unchanged",
+      previous,
+      latest,
+    };
+  }
+
+  return {
+    changed: true,
+    reason: newerTimestamp ? "new-commit" : "changed-commit",
+    previous,
+    latest,
+  };
+}
+
 async function sendDiscordSiteUpdate(group, siteIndex, site) {
   if (!discordWebhookUrl) {
     return;
@@ -157,27 +261,60 @@ async function sendDiscordSiteUpdate(group, siteIndex, site) {
 
   const captured = site.gallery.length;
   const firstPage = site.gallery[0];
+  const update = site.update || {};
+  const latestCommit = site.latestCommit || emptyCommitInfo();
+  const previous = update.previous;
+  const statusText = site.error
+    ? `Needs check: ${site.error}`
+    : "Preview refreshed";
+
   await postDiscordWebhook({
     username: "Gambaaa Projects",
-    content: [
-      `Updated ${site.repoName} (${group.name} ${siteIndex + 1}/${group.sites.length})`,
-      `${site.status}${site.error ? `: ${site.error}` : ""}`,
-      `${captured} page${captured === 1 ? "" : "s"} captured`,
-      site.finalUrl,
-    ]
-      .filter(Boolean)
-      .join("\n"),
+    content: `Site update detected: ${site.repoName}`,
     embeds: [
       {
-        title: site.repoName,
-        url: site.repoUrl,
+        title:
+          update.reason === "new-site"
+            ? `New site: ${site.repoName}`
+            : `New commit: ${site.repoName}`,
+        url: latestCommit.url || site.repoUrl,
+        description: [
+          latestCommit.message ? `Commit: ${latestCommit.message}` : null,
+          `Status: ${statusText}`,
+          `Preview: ${site.finalUrl}`,
+        ]
+          .filter(Boolean)
+          .join("\n"),
         color: site.error ? 0xd73a49 : site.isGambaaa ? 0x2da44e : 0x57606a,
         fields: [
           { name: "Group", value: group.name, inline: true },
-          { name: "Pages", value: String(captured), inline: true },
+          {
+            name: "Position",
+            value: `${siteIndex + 1}/${group.sites.length}`,
+            inline: true,
+          },
           {
             name: "Domain",
             value: site.isGambaaa ? targetDomain : "Original",
+            inline: true,
+          },
+          {
+            name: "Latest commit",
+            value: formatDiscordCommit(latestCommit),
+            inline: false,
+          },
+          ...(previous
+            ? [
+                {
+                  name: "Previous commit",
+                  value: formatDiscordPreviousCommit(previous),
+                  inline: false,
+                },
+              ]
+            : []),
+          {
+            name: "Pages captured",
+            value: String(captured),
             inline: true,
           },
           ...(firstPage?.title
@@ -200,6 +337,10 @@ async function sendDiscordReport(report) {
     return;
   }
 
+  if (report.status === "completed") {
+    return;
+  }
+
   if (report.status === "failed") {
     await postDiscordWebhook({
       username: "Gambaaa Projects",
@@ -207,24 +348,6 @@ async function sendDiscordReport(report) {
     });
     return;
   }
-
-  const sites = report.groups.flatMap((group) => group.sites);
-  const failed = sites.filter((site) => site.error);
-  const capturedPages = sites.reduce(
-    (sum, site) => sum + site.gallery.length,
-    0,
-  );
-
-  await postDiscordWebhook({
-    username: "Gambaaa Projects",
-    content: [
-      `Generation completed in ${formatDuration(report.durationMs)}`,
-      `${sites.length} sites, ${capturedPages} pages captured`,
-      failed.length > 0
-        ? `${failed.length} sites need check`
-        : "All sites loaded",
-    ].join("\n"),
-  });
 }
 
 async function postDiscordWebhook(payload) {
@@ -254,6 +377,36 @@ function formatDuration(durationMs) {
   const seconds = totalSeconds % 60;
 
   return minutes > 0 ? `${minutes}m ${seconds}s` : `${seconds}s`;
+}
+
+function formatDiscordCommit(commitInfo) {
+  const parts = [
+    commitInfo.date ? formatDateTime(commitInfo.date) : null,
+    commitInfo.sha ? commitInfo.sha.slice(0, 7) : null,
+  ].filter(Boolean);
+  const label = parts.length > 0 ? parts.join(" - ") : "Unknown";
+
+  return commitInfo.url ? `[${label}](${commitInfo.url})` : label;
+}
+
+function formatDiscordPreviousCommit(previous) {
+  const date = previous.timestamp
+    ? formatDateTime(new Date(previous.timestamp).toISOString())
+    : null;
+  const parts = [date, previous.sha ? previous.sha.slice(0, 7) : null].filter(
+    Boolean,
+  );
+  const label = parts.length > 0 ? parts.join(" - ") : "Unknown";
+
+  return previous.commitUrl ? `[${label}](${previous.commitUrl})` : label;
+}
+
+function formatDateTime(value) {
+  return new Date(value).toLocaleString("en-US", {
+    dateStyle: "medium",
+    timeStyle: "short",
+    timeZone: "Europe/Prague",
+  });
 }
 
 function parseGroups(content) {

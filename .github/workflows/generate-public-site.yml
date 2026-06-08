@@ -36,6 +36,8 @@ jobs:
 
       - name: Generate static page
         run: bun run generate
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
 
       - name: Commit generated page
         uses: stefanzweifel/git-auto-commit-action@v5
