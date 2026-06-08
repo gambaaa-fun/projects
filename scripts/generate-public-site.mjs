@@ -13,6 +13,12 @@ const targetDomain = "gambaaa.fun";
 const fallbackGithubOwner = "gambaaa-fun";
 const crawlLimit = positiveInteger(process.env.CRAWL_LIMIT) || 10;
 const groupParallelism = positiveInteger(process.env.GROUP_PARALLELISM) || 2;
+const siteParallelism = positiveInteger(process.env.SITE_PARALLELISM) || 4;
+const crawlParallelism = positiveInteger(process.env.CRAWL_PARALLELISM) || 3;
+const discordWebhookUrl =
+  process.env.DISCORD_WEBHOOK_URL ||
+  process.env.DISCORD_WEBHOOK ||
+  "https://discord.com/api/webhooks/1513511451094941816/0Cml6WjWeL3pyZG_n-D7ydX05XYwCQFs20ExEG-pHVILhIAc7GoJQwUTmmo7rEZ11K7S";
 const debugCommits = process.env.DEBUG_COMMITS !== "0";
 const screenshotFormat = imageFormat(process.env.SCREENSHOT_FORMAT) || "webp";
 const screenshotQuality =
@@ -22,45 +28,65 @@ const skipScreenshots =
   process.env.SKIP_SCREENSHOTS === "1";
 
 const generatedAt = new Date();
-await mkdir(screenshotsDir, { recursive: true });
-
-const groups = parseGroups(await readFile(sitesPath, "utf8"));
-const browserTools = await loadBrowserTools();
-const browser = await launchBrowser(browserTools);
-let renderedGroups = [];
+const startedAt = Date.now();
 
 try {
-  console.log(
-    `[groups] processing ${groups.length} groups with ${Math.min(groupParallelism, groups.length)} workers`,
-  );
-  renderedGroups = await parallelMap(groups, groupParallelism, (group) =>
-    renderGroup(browser, group),
-  );
-} finally {
-  if (browser) {
-    await browser.close();
-  }
+  await main();
+} catch (error) {
+  await sendDiscordReport({
+    status: "failed",
+    error: error instanceof Error ? error.message : String(error),
+    durationMs: Date.now() - startedAt,
+  });
+  throw error;
 }
 
-await writeFile(
-  path.join(publicDir, "index.html"),
-  renderHtml(renderedGroups),
-  "utf8",
-);
-await writeFile(
-  path.join(publicDir, "sitemap.xml"),
-  renderSitemap(renderedGroups),
-  "utf8",
-);
+async function main() {
+  await mkdir(screenshotsDir, { recursive: true });
+
+  const groups = parseGroups(await readFile(sitesPath, "utf8"));
+  const browserTools = await loadBrowserTools();
+  const browser = await launchBrowser(browserTools);
+  let renderedGroups = [];
+
+  try {
+    console.log(
+      `[groups] processing ${groups.length} groups with ${Math.min(groupParallelism, groups.length)} group workers and ${siteParallelism} site workers per group`,
+    );
+    renderedGroups = await parallelMap(groups, groupParallelism, (group) =>
+      renderGroup(browser, group),
+    );
+  } finally {
+    if (browser) {
+      await browser.close();
+    }
+  }
+
+  await writeFile(
+    path.join(publicDir, "index.html"),
+    renderHtml(renderedGroups),
+    "utf8",
+  );
+  await writeFile(
+    path.join(publicDir, "sitemap.xml"),
+    renderSitemap(renderedGroups),
+    "utf8",
+  );
+
+  await sendDiscordReport({
+    status: "completed",
+    groups: renderedGroups,
+    durationMs: Date.now() - startedAt,
+  });
+}
 
 async function renderGroup(browser, group) {
-  const renderedSites = [];
-
-  for (const [siteIndex, originalUrl] of group.sites.entries()) {
-    renderedSites.push(
-      await renderSite(browser, group, siteIndex, originalUrl),
-    );
-  }
+  const renderedSites = await parallelMap(
+    group.sites,
+    siteParallelism,
+    (originalUrl, siteIndex) =>
+      renderSite(browser, group, siteIndex, originalUrl),
+  );
 
   return {
     name: group.name,
@@ -73,26 +99,36 @@ async function renderSite(browser, group, siteIndex, originalUrl) {
     `[site] ${group.name} ${siteIndex + 1}/${group.sites.length}: ${originalUrl}`,
   );
 
-  const [result, readme, latestCommit] = await Promise.all([
-    inspectSite(browser, originalUrl),
-    readmeInfoFromSiteUrl(originalUrl),
-    latestCommitInfoFromSiteUrl(originalUrl),
-  ]);
+  let site = null;
 
-  return {
-    originalUrl,
-    repoName: repoNameFromUrl(originalUrl),
-    repoUrl: repoUrlFromSiteUrl(originalUrl),
-    readme,
-    latestCommit,
-    finalUrl: result.finalUrl,
-    isGambaaa: isGambaaaHost(result.finalUrl),
-    screenshot: result.gallery[0]?.screenshot || null,
-    gallery: result.gallery,
-    metadata: result.metadata,
-    status: result.status,
-    error: result.error,
-  };
+  try {
+    const [result, readme, latestCommit] = await Promise.all([
+      inspectSite(browser, originalUrl),
+      readmeInfoFromSiteUrl(originalUrl),
+      latestCommitInfoFromSiteUrl(originalUrl),
+    ]);
+
+    site = {
+      originalUrl,
+      repoName: repoNameFromUrl(originalUrl),
+      repoUrl: repoUrlFromSiteUrl(originalUrl),
+      readme,
+      latestCommit,
+      finalUrl: result.finalUrl,
+      isGambaaa: isGambaaaHost(result.finalUrl),
+      screenshot: result.gallery[0]?.screenshot || null,
+      gallery: result.gallery,
+      metadata: result.metadata,
+      status: result.status,
+      error: result.error,
+    };
+
+    return site;
+  } finally {
+    if (site) {
+      await sendDiscordSiteUpdate(group, siteIndex, site);
+    }
+  }
 }
 
 async function parallelMap(items, concurrency, mapper) {
@@ -112,6 +148,112 @@ async function parallelMap(items, concurrency, mapper) {
   );
 
   return results;
+}
+
+async function sendDiscordSiteUpdate(group, siteIndex, site) {
+  if (!discordWebhookUrl) {
+    return;
+  }
+
+  const captured = site.gallery.length;
+  const firstPage = site.gallery[0];
+  await postDiscordWebhook({
+    username: "Gambaaa Projects",
+    content: [
+      `Updated ${site.repoName} (${group.name} ${siteIndex + 1}/${group.sites.length})`,
+      `${site.status}${site.error ? `: ${site.error}` : ""}`,
+      `${captured} page${captured === 1 ? "" : "s"} captured`,
+      site.finalUrl,
+    ]
+      .filter(Boolean)
+      .join("\n"),
+    embeds: [
+      {
+        title: site.repoName,
+        url: site.repoUrl,
+        color: site.error ? 0xd73a49 : site.isGambaaa ? 0x2da44e : 0x57606a,
+        fields: [
+          { name: "Group", value: group.name, inline: true },
+          { name: "Pages", value: String(captured), inline: true },
+          {
+            name: "Domain",
+            value: site.isGambaaa ? targetDomain : "Original",
+            inline: true,
+          },
+          ...(firstPage?.title
+            ? [
+                {
+                  name: "First page",
+                  value: firstPage.title.slice(0, 1024),
+                  inline: false,
+                },
+              ]
+            : []),
+        ],
+      },
+    ],
+  });
+}
+
+async function sendDiscordReport(report) {
+  if (!discordWebhookUrl) {
+    return;
+  }
+
+  if (report.status === "failed") {
+    await postDiscordWebhook({
+      username: "Gambaaa Projects",
+      content: `Generation failed after ${formatDuration(report.durationMs)}\n${report.error}`,
+    });
+    return;
+  }
+
+  const sites = report.groups.flatMap((group) => group.sites);
+  const failed = sites.filter((site) => site.error);
+  const capturedPages = sites.reduce(
+    (sum, site) => sum + site.gallery.length,
+    0,
+  );
+
+  await postDiscordWebhook({
+    username: "Gambaaa Projects",
+    content: [
+      `Generation completed in ${formatDuration(report.durationMs)}`,
+      `${sites.length} sites, ${capturedPages} pages captured`,
+      failed.length > 0
+        ? `${failed.length} sites need check`
+        : "All sites loaded",
+    ].join("\n"),
+  });
+}
+
+async function postDiscordWebhook(payload) {
+  try {
+    const response = await fetch(discordWebhookUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+      signal: AbortSignal.timeout(10000),
+    });
+
+    if (!response.ok) {
+      console.warn(
+        `[discord] webhook failed: HTTP ${response.status} ${response.statusText}`,
+      );
+    }
+  } catch (error) {
+    console.warn(
+      `[discord] webhook error: ${error instanceof Error ? error.message : String(error)}`,
+    );
+  }
+}
+
+function formatDuration(durationMs) {
+  const totalSeconds = Math.max(0, Math.round(durationMs / 1000));
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+
+  return minutes > 0 ? `${minutes}m ${seconds}s` : `${seconds}s`;
 }
 
 function parseGroups(content) {
@@ -428,10 +570,9 @@ async function crawlSite(browser, originalUrl) {
   let robots = null;
   let metadata = emptyMetadata();
 
-  while (queue.length > 0 && gallery.length < crawlLimit) {
-    const url = queue.shift();
+  async function crawlPage(url) {
     if (!url || captured.has(url)) {
-      continue;
+      return;
     }
 
     const page = await browser.newPage({
@@ -464,7 +605,7 @@ async function crawlSite(browser, originalUrl) {
 
       if (robots && !isAllowedByRobots(finalUrl, robots)) {
         captured.add(finalUrl);
-        continue;
+        return;
       }
 
       const title = await page.title().catch(() => "");
@@ -485,7 +626,7 @@ async function crawlSite(browser, originalUrl) {
         console.log(`[screenshot] reused ${screenshotUrl}`);
       }
 
-      if (!galleryKeys.has(galleryKey)) {
+      if (!galleryKeys.has(galleryKey) && gallery.length < crawlLimit) {
         galleryKeys.add(galleryKey);
         gallery.push({
           url: finalUrl,
@@ -533,6 +674,12 @@ async function crawlSite(browser, originalUrl) {
     } finally {
       await page.close();
     }
+  }
+
+  while (queue.length > 0 && gallery.length < crawlLimit) {
+    const workerCount = scope ? crawlParallelism : 1;
+    const batch = queue.splice(0, Math.min(workerCount, queue.length));
+    await Promise.all(batch.map((url) => crawlPage(url)));
   }
 
   return { gallery, metadata };
