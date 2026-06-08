@@ -1800,11 +1800,21 @@ function renderHtml(groups) {
         color: #061017;
         font-weight: 800;
         text-decoration: none;
+        cursor: pointer;
       }
 
       .tutorial-button.secondary {
         background: transparent;
         color: var(--text);
+      }
+
+      .tutorial-video {
+        display: block;
+        width: 100%;
+        max-height: min(70vh, 720px);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #05070a;
       }
 
       .site-card {
@@ -2165,6 +2175,15 @@ function renderHtml(groups) {
         </div>
       </div>
     </div>
+    <div class="gallery-modal" id="tutorial-video-modal" hidden>
+      <div class="gallery-dialog" role="dialog" aria-modal="true" aria-labelledby="tutorial-video-title">
+        <div class="gallery-head">
+          <p class="gallery-title" id="tutorial-video-title">How to add your page to ${targetDomain}</p>
+          <button class="icon-button" type="button" data-tutorial-video-close aria-label="Close video tutorial">Close</button>
+        </div>
+        <video class="tutorial-video" controls playsinline preload="metadata" data-tutorial-video></video>
+      </div>
+    </div>
     <script>
       const searchInput = document.querySelector("#search-sites");
       const sortSelect = document.querySelector("#sort-sites");
@@ -2178,6 +2197,10 @@ function renderHtml(groups) {
       const prevButton = document.querySelector("[data-gallery-prev]");
       const nextButton = document.querySelector("[data-gallery-next]");
       const closeButton = document.querySelector("[data-gallery-close]");
+      const tutorialVideoModal = document.querySelector("#tutorial-video-modal");
+      const tutorialVideo = document.querySelector("[data-tutorial-video]");
+      const tutorialVideoOpen = document.querySelector("[data-tutorial-video-open]");
+      const tutorialVideoClose = document.querySelector("[data-tutorial-video-close]");
       const preferenceKey = "gambaaa-project-controls";
       const preferenceMaxAge = 24 * 60 * 60 * 1000;
       let activeGallery = [];
@@ -2417,13 +2440,29 @@ function renderHtml(groups) {
         }
       });
 
+      tutorialVideoOpen?.addEventListener("click", () => {
+        openTutorialVideo(tutorialVideoOpen.dataset.videoSrc || "");
+      });
+
+      tutorialVideoClose?.addEventListener("click", closeTutorialVideo);
+
+      tutorialVideoModal?.addEventListener("click", (event) => {
+        if (event.target === tutorialVideoModal) {
+          closeTutorialVideo();
+        }
+      });
+
       document.addEventListener("keydown", (event) => {
-        if (modal?.hidden) {
-          return;
+        if (event.key === "Escape" && !modal?.hidden) {
+          closeGallery();
         }
 
-        if (event.key === "Escape") {
-          closeGallery();
+        if (event.key === "Escape" && !tutorialVideoModal?.hidden) {
+          closeTutorialVideo();
+        }
+
+        if (modal?.hidden) {
+          return;
         }
 
         if (event.key === "ArrowLeft") {
@@ -2455,6 +2494,29 @@ function renderHtml(groups) {
         document.body.style.overflow = "";
         modalImage.removeAttribute("src");
       }
+
+      function openTutorialVideo(videoSrc) {
+        if (!videoSrc || !tutorialVideo || !tutorialVideoModal) {
+          return;
+        }
+
+        tutorialVideo.src = videoSrc;
+        tutorialVideoModal.hidden = false;
+        document.body.style.overflow = "hidden";
+        tutorialVideo.play().catch(() => {});
+      }
+
+      function closeTutorialVideo() {
+        if (!tutorialVideo || !tutorialVideoModal) {
+          return;
+        }
+
+        tutorialVideo.pause();
+        tutorialVideo.removeAttribute("src");
+        tutorialVideo.load();
+        tutorialVideoModal.hidden = true;
+        document.body.style.overflow = "";
+      }
     </script>
   </body>
 </html>
@@ -2465,15 +2527,16 @@ function renderAddPageTutorial() {
   return `<details class="add-page" id="add-page">
             <summary>Add your page to ${targetDomain}</summary>
             <div class="add-page-content">
-              <p>Choose any free subdomain, for example <strong>mid.${targetDomain}</strong>, then point your GitHub Pages project at it once.</p>
+              <p>Pick any free subdomain you like, for example <strong>mid.${targetDomain}</strong>. You only set it up once; after that the scheduled generator refreshes the preview board automatically.</p>
               <ol class="add-page-steps">
-                <li>Add a <strong>CNAME</strong> file to your site with your chosen domain, like <strong>mid.${targetDomain}</strong>.</li>
-                <li>Tell an admin the subdomain and your GitHub Pages URL so the DNS record can be added.</li>
-                <li>Add your GitHub Pages URL to <strong>sites.txt</strong>; the board will refresh from the scheduled generator.</li>
+                <li>Choose your custom address, such as <strong>mid.${targetDomain}</strong>, <strong>portfolio.${targetDomain}</strong>, or anything else that is still free.</li>
+                <li>In your project repository, create a file named <strong>CNAME</strong> and put only your chosen address inside it.</li>
+                <li>Turn on GitHub Pages for your repository and check that your normal GitHub Pages URL works.</li>
+                <li>Send the chosen ${targetDomain} address and your GitHub Pages URL to an admin so the DNS record can be added.</li>
+                <li>Add your GitHub Pages URL to <strong>sites.txt</strong> if it is not already listed. The scheduled generator will refresh the board; you do not need to rebuild this page manually.</li>
               </ol>
               <div class="add-page-actions">
-                <a class="tutorial-button" href="${escapeHtml(addPageTutorialVideoUrl)}" target="_blank" rel="noopener noreferrer">Watch video tutorial</a>
-                <a class="tutorial-button secondary" href="https://github.com/${fallbackGithubOwner}/gambaaprojects/edit/main/sites.txt" target="_blank" rel="noopener noreferrer">Add to sites.txt</a>
+                <button class="tutorial-button" type="button" data-tutorial-video-open data-video-src="${escapeHtml(addPageTutorialVideoUrl)}">Watch video tutorial</button>
               </div>
             </div>
           </details>`;
