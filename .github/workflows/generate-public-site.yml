@@ -1,8 +1,7 @@
 name: Generate public site
 
 on:
-  schedule:
-    - cron: "0 */1 * * *"
+
   workflow_dispatch:
   push:
     branches: ["main"]
